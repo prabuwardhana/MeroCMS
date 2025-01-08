@@ -1,10 +1,12 @@
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { createTodoHandler } from "./server/create-todo-handler";
-import { vikeHandler } from "./server/vike-handler";
-import { createHandler } from "@universal-middleware/express";
 import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+
+import todoRoutes from "./server/routes/todo.route";
+import vikeRoutes from "./server/routes/vike.route";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,14 +35,24 @@ async function startServer() {
     app.use(viteDevMiddleware);
   }
 
-  app.post("/api/todo/create", createHandler(createTodoHandler)());
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(
+    cors({
+      origin: "http://localhost",
+      credentials: true,
+    }),
+  );
+  app.use(cookieParser());
+
+  app.use("/api/todo", todoRoutes);
 
   /**
    * Vike route
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", createHandler(vikeHandler)());
+  app.all("*", vikeRoutes);
 
   app.listen(port, () => {
     console.log(`Server listening on http://localhost:${port}`);
