@@ -1,12 +1,20 @@
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import { APP_BASE_URL, NODE_ENV } from "./constants/env";
+import { OK } from "./server/constants/http";
+import connectToDatabase from "./server/config/db";
 import todoRoutes from "./server/routes/todo.route";
 import vikeRoutes from "./server/routes/vike.route";
+import authRoutes from "./server/routes/auth.route";
+import userRoutes from "./server/routes/user.route";
+
+const isProduction = NODE_ENV === "production";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,7 +27,7 @@ export default (await startServer()) as unknown;
 async function startServer() {
   const app = express();
 
-  if (process.env.NODE_ENV === "production") {
+  if (isProduction) {
     app.use(express.static(`${root}/dist/client`));
   } else {
     // Instantiate Vite's development server and integrate its middleware to our server.
@@ -39,12 +47,22 @@ async function startServer() {
   app.use(express.urlencoded({ extended: true }));
   app.use(
     cors({
-      origin: "http://localhost",
+      origin: APP_BASE_URL,
       credentials: true,
     }),
   );
   app.use(cookieParser());
 
+  // health check
+  app.get("/api", (_req, res) => {
+    return res.status(OK).json({
+      status: "healthy",
+    });
+  });
+
+  // routes
+  app.use("/api/auth", authRoutes);
+  app.use("/api/user", userRoutes);
   app.use("/api/todo", todoRoutes);
 
   /**
@@ -55,7 +73,8 @@ async function startServer() {
   app.all("*", vikeRoutes);
 
   app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
+    console.log(`Server running at ${APP_BASE_URL}:${port} in ${NODE_ENV} environment`);
+    connectToDatabase();
   });
 
   return app;
