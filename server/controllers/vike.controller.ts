@@ -2,9 +2,15 @@ import { RequestHandler } from "express";
 import { renderPage } from "vike/server";
 
 export const vikeHandler: RequestHandler = async (req, res) => {
+  const user = {
+    sessionId: req.sessionId,
+    role: req.userRole,
+  };
+
   const pageContextInit = {
     urlOriginal: req.originalUrl,
     headersOriginal: req.headers,
+    user: req.sessionId ? user : null,
   };
 
   const pageContext = await renderPage(pageContextInit);

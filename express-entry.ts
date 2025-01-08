@@ -13,6 +13,7 @@ import todoRoutes from "./server/routes/todo.route";
 import vikeRoutes from "./server/routes/vike.route";
 import authRoutes from "./server/routes/auth.route";
 import userRoutes from "./server/routes/user.route";
+import userSession from "./server/middlewares/session";
 
 const isProduction = NODE_ENV === "production";
 
@@ -70,7 +71,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", vikeRoutes);
+  app.all("*", userSession, vikeRoutes);
 
   app.listen(port, () => {
     console.log(`Server running at ${APP_BASE_URL}:${port} in ${NODE_ENV} environment`);

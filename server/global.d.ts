@@ -9,4 +9,18 @@ declare global {
       sessionId: mongoose.Types.ObjectId;
     }
   }
+
+  namespace Vike {
+    interface PageContext {
+      // Type of pageContext.user
+      user?: {
+        sessionId: mongoose.Types.ObjectId;
+        role: Role[];
+      };
+      // Refine type of pageContext.Page (it's `unknown` by default)
+      Page: () => React.JSX.Element;
+    }
+  }
 }
+
+export {};
