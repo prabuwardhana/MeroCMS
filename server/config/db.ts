@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MONGO_URI } from "../../constants/env";
+import { MONGO_URI } from "../constants/env";
 
 const connectToDatabase = async () => {
   try {

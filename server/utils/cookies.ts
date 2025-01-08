@@ -1,5 +1,5 @@
 import { CookieOptions, Response } from "express";
-import { NODE_ENV } from "../../constants/env.js";
+import { NODE_ENV } from "../constants/env.js";
 import { fifteenMinutesFromNow, thirtyDaysFromNow } from "./date.js";
 
 export const REFRESH_PATH = "/api/auth/refresh";

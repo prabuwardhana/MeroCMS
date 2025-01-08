@@ -1,4 +1,4 @@
-import { APP_BASE_URL, JWT_SECRET, PORT } from "../../constants/env";
+import { APP_BASE_URL, JWT_SECRET, PORT } from "../constants/env";
 import { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, UNAUTHORIZED } from "../constants/http";
 import Role from "../constants/role";
 import VerificationCodeType from "../constants/verificationCodeType";

@@ -6,7 +6,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import { APP_BASE_URL, NODE_ENV } from "./constants/env";
+import { APP_BASE_URL, NODE_ENV } from "./server/constants/env";
 import { OK } from "./server/constants/http";
 import connectToDatabase from "./server/config/db";
 import todoRoutes from "./server/routes/todo.route";
