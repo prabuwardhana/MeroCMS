@@ -5,6 +5,7 @@ import "./tailwind.css";
 import React from "react";
 import logoUrl from "@/assets/logo.svg";
 import { Link } from "@/components/Link.js";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function LayoutDefault({ children }: { children: React.ReactNode }) {
   return (
@@ -18,6 +19,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
         {""}
       </Sidebar>
       <Content>{children}</Content>
+      <ReactQueryDevtools initialIsOpen={false} />
     </div>
   );
 }
