@@ -53,6 +53,7 @@ async function startServer() {
     }),
   );
   app.use(cookieParser());
+  app.use(userSession);
 
   // health check
   app.get("/api", (_req, res) => {
@@ -71,7 +72,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", userSession, vikeRoutes);
+  app.all("*", vikeRoutes);
 
   app.listen(port, () => {
     console.log(`Server running at ${APP_BASE_URL}:${port} in ${NODE_ENV} environment`);

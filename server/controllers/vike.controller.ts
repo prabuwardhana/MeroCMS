@@ -3,6 +3,7 @@ import { renderPage } from "vike/server";
 
 export const vikeHandler: RequestHandler = async (req, res) => {
   const user = {
+    userId: req.userId,
     sessionId: req.sessionId,
     role: req.userRole,
   };
