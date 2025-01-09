@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { z } from "zod";
-import { OK } from "../constants/http";
+import { NOT_FOUND, OK } from "../constants/http";
 import catchErrors from "../utils/catchErrors";
 import UserModel from "../models/user.model";
 import authorize from "../middlewares/authorize";
 import Role from "../constants/role";
 import authenticate from "../middlewares/authenticate";
+import appAssert from "../utils/appAssert";
 
 const userRoutes = Router();
 
@@ -16,6 +17,16 @@ export const createUserSchema = z.object({
 });
 
 // prefix: /user
+userRoutes.get(
+  "/",
+  authenticate,
+  catchErrors(async (req, res) => {
+    const user = await UserModel.findById(req.userId).select("-password");
+    appAssert(user, NOT_FOUND, "User not found");
+    res.status(OK).json(user);
+  }),
+);
+
 userRoutes.get(
   "/all",
   catchErrors(async (req, res) => {
