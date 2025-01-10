@@ -15,4 +15,15 @@ export default {
   description: "Demo showcasing Vike",
 
   extends: [vikeReact, vikeReactQuery],
+
+  // https://vike.dev/passToClient
+  passToClient: ["user"],
+
+  queryClientConfig: {
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  },
 } satisfies Config;
