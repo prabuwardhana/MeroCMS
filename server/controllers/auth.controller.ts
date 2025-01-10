@@ -1,6 +1,13 @@
 import { CREATED, OK, UNAUTHORIZED } from "../constants/http";
 import SessionModel from "../models/session.model";
-import { createAccount, loginUser, refreshUserAccessToken, verifyEmail } from "../services/auth.service";
+import {
+  createAccount,
+  loginUser,
+  refreshUserAccessToken,
+  resetPassword,
+  sendPasswordResetEmail,
+  verifyEmail,
+} from "../services/auth.service";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import {
@@ -10,7 +17,13 @@ import {
   setAuthCookies,
 } from "../utils/cookies.js";
 import { verifyToken } from "../utils/jwt.js";
-import { loginSchema, registerSchema, verificationCodeSchema } from "./auth.schema.js";
+import {
+  emailSchema,
+  loginSchema,
+  registerSchema,
+  resetPasswordSchema,
+  verificationCodeSchema,
+} from "./auth.schema.js";
 
 export const registerHandler = catchErrors(async (req, res) => {
   const request = registerSchema.parse({
@@ -71,4 +84,22 @@ export const verifyEmailHandler = catchErrors(async (req, res) => {
   await verifyEmail(verificationCode);
 
   return res.status(OK).json({ message: "Email was successfully verified" });
+});
+
+export const sendPasswordResetHandler = catchErrors(async (req, res) => {
+  const email = emailSchema.parse(req.body.email);
+
+  console.log(email);
+
+  await sendPasswordResetEmail(email);
+
+  return res.status(OK).json({ message: "Password reset email sent" });
+});
+
+export const resetPasswordHandler = catchErrors(async (req, res) => {
+  const request = resetPasswordSchema.parse(req.body);
+
+  await resetPassword(request);
+
+  return clearAuthCookies(res).status(OK).json({ message: "Password was reset successfully" });
 });
