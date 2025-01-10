@@ -14,6 +14,7 @@ import vikeRoutes from "./server/routes/vike.route";
 import authRoutes from "./server/routes/auth.route";
 import userRoutes from "./server/routes/user.route";
 import userSession from "./server/middlewares/session";
+import errorHandler from "./server/middlewares/error";
 
 const isProduction = NODE_ENV === "production";
 
@@ -73,6 +74,8 @@ async function startServer() {
    * @link {@see https://vike.dev}
    **/
   app.all("*", vikeRoutes);
+
+  app.use(errorHandler);
 
   app.listen(port, () => {
     console.log(`Server running at ${APP_BASE_URL}:${port} in ${NODE_ENV} environment`);
