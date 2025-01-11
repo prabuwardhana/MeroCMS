@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { withFallback } from "vike-react-query";
 import { Config } from "vike-react/Config";
 import { Head } from "vike-react/Head";
-import { User } from "../types";
+import { User } from "./types";
 import API from "@/config/apiClient";
 
 const Users = withFallback(

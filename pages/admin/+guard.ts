@@ -5,7 +5,6 @@ import Role from "@/server/constants/role";
 
 export const guard = (pageContext: PageContext) => {
   const { user } = pageContext;
-
   if (!user) {
     // Render the login page while preserving the URL.
     throw render("/auth/login");
