@@ -10,6 +10,7 @@ import { Sidebar } from "@/components/Sidebar";
 import Header from "@/components/Header";
 
 import { cn } from "@/lib/utils";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function LayoutAdmin({ children }: { children: React.ReactNode }) {
   const isDesktopDevice = useMediaQuery("(min-width: 768px)");
@@ -70,6 +71,7 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />
         <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6">{children}</div>
       </motion.div>
+      <ReactQueryDevtools initialIsOpen={false} />
     </div>
   );
 }
