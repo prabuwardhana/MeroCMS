@@ -9,7 +9,7 @@ const userRoutes = Router();
 
 // prefix: /user
 userRoutes.get("/", authenticate, getSingleUserHandler);
-userRoutes.get("/all", authenticate, getAllUsersHandler);
+userRoutes.get("/all", authenticate, authorize([Role.Admin]), getAllUsersHandler);
 userRoutes.post("/create", authenticate, authorize([Role.Admin]), createUserHandler);
 
 export default userRoutes;
