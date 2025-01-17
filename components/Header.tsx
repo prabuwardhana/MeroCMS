@@ -23,7 +23,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
         </button>
         <button className="size-10 overflow-hidden rounded-full">
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src="/assets/logo.svg" />
             <AvatarFallback className="text-black">BT</AvatarFallback>
           </Avatar>
         </button>
