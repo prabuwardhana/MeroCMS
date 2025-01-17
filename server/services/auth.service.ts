@@ -1,4 +1,4 @@
-import { APP_BASE_URL, JWT_SECRET, PORT } from "../constants/env";
+import { APP_BASE_URL, PORT } from "../constants/env";
 import { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, TOO_MANY_REQUESTS, UNAUTHORIZED } from "../constants/http";
 import Role from "../constants/role";
 import VerificationCodeType from "../constants/verificationCodeType";
@@ -60,6 +60,7 @@ export const createAccount = async (data: CreateAccountParams) => {
   // create session
   const session = await SessionModel.create({
     userId,
+    userRole: user.role,
     userAgent: data.userAgent,
   });
 
@@ -110,6 +111,7 @@ export const loginUser = async ({ email, password, userAgent }: LoginParams) => 
   // create session
   const session = await SessionModel.create({
     userId,
+    userRole,
     userAgent,
   });
 
@@ -125,9 +127,8 @@ export const loginUser = async ({ email, password, userAgent }: LoginParams) => 
       userRole,
     },
     {
+      ...accessTokenSignOptions,
       audience: userRole.includes(Role.Admin) ? [Role.Admin] : [Role.Customer],
-      expiresIn: "15m",
-      secret: JWT_SECRET,
     },
   );
 
@@ -167,7 +168,10 @@ export const refreshUserAccessToken = async (refreshToken: string) => {
   const accessToken = signToken({
     userId: session.userId,
     sessionId: session._id,
+    userRole: session.userRole,
   });
+
+  console.log("access token refreshed");
 
   return {
     accessToken,
