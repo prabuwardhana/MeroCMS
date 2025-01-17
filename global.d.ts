@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Role from "./constants/role";
+import Role from "./server/constants/role";
 
 declare global {
   namespace Express {
@@ -7,6 +7,7 @@ declare global {
       userId: mongoose.Types.ObjectId;
       userRole: Role[];
       sessionId: mongoose.Types.ObjectId;
+      tokenExp: boolean;
     }
   }
 
@@ -14,9 +15,12 @@ declare global {
     interface PageContext {
       // Type of pageContext.user
       user?: {
+        id: mongoose.Types.ObjectId;
         sessionId: mongoose.Types.ObjectId;
         role: Role[];
       };
+      redirectUrl: string;
+      tokenExp: boolean;
       // Refine type of pageContext.Page (it's `unknown` by default)
       Page: () => React.JSX.Element;
     }
