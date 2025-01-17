@@ -6,8 +6,6 @@ import vikeReactQuery from "vike-react-query/config";
 // https://vike.dev/config
 
 export default {
-  // https://vike.dev/Layout
-
   // https://vike.dev/head-tags
   title: "My Vike App",
   description: "Demo showcasing Vike",
@@ -17,6 +15,7 @@ export default {
   // https://vike.dev/passToClient
   passToClient: ["user"],
 
+  // https://github.com/vikejs/vike-react/tree/main/packages/vike-react-query#settings
   queryClientConfig: {
     defaultOptions: {
       queries: {

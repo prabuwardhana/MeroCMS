@@ -13,7 +13,7 @@ import todoRoutes from "./server/routes/todo.route";
 import vikeRoutes from "./server/routes/vike.route";
 import authRoutes from "./server/routes/auth.route";
 import userRoutes from "./server/routes/user.route";
-import userSession from "./server/middlewares/session";
+import vikeSession from "./server/middlewares/session";
 import errorHandler from "./server/middlewares/error";
 
 const isProduction = NODE_ENV === "production";
@@ -54,7 +54,6 @@ async function startServer() {
     }),
   );
   app.use(cookieParser());
-  app.use(userSession);
 
   // health check
   app.get("/api", (_req, res) => {
@@ -73,7 +72,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", vikeRoutes);
+  app.all("*", vikeSession, vikeRoutes);
 
   app.use(errorHandler);
 
