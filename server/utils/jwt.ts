@@ -19,7 +19,7 @@ type SignOptionsAndSecret = SignOptions & {
 };
 
 export const accessTokenSignOptions: SignOptionsAndSecret = {
-  expiresIn: "10m",
+  expiresIn: "15m",
   secret: JWT_SECRET,
 };
 
