@@ -1,8 +1,8 @@
-import { NOT_FOUND, OK } from "../constants/http";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "../constants/http";
 import UserModel from "../models/user.model";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
-import { createUserSchema } from "./user.schema";
+import { createProfileSchema, createUserSchema } from "./user.schema";
 
 export const getSingleUserHandler = catchErrors(async (req, res) => {
   const user = await UserModel.findById(req.userId).select("-password");
@@ -28,4 +28,22 @@ export const createUserHandler = catchErrors(async (req, res) => {
   });
 
   res.status(OK).json({ user, message: "user created by Admin" });
+});
+
+export const updateUserProfileHandler = catchErrors(async (req, res) => {
+  const { username } = createProfileSchema.parse({
+    ...req.body,
+  });
+
+  // create new user profile
+  const updatedUser = await UserModel.findByIdAndUpdate(
+    req.userId,
+    {
+      profile: { _id: "0".repeat(24), username },
+    },
+    { new: true },
+  );
+  appAssert(updatedUser, INTERNAL_SERVER_ERROR, "Failed to add profile");
+
+  res.status(OK).json({ updatedUser, message: "Profile created" });
 });
