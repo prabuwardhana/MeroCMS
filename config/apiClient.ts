@@ -16,7 +16,7 @@ TokenRefreshClient.interceptors.response.use((response) => response.data);
 const API = axios.create(options);
 
 API.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   async (error) => {
     const { config, response } = error;
     const { status, data } = response || {};
