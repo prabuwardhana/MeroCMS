@@ -8,7 +8,7 @@ export const useGetSinglePostQuery = (id: string) => {
     queryFn: async () => {
       // useSuspenseQuery and enabled v5
       // https://github.com/TanStack/query/discussions/6206
-      return id ? await API.get<PostType>(`/api/post/edit/${id}`) : null;
+      return id ? await API.get<PostType>(`/api/post/${id}`) : null;
     },
     staleTime: 60 * 1000,
   });

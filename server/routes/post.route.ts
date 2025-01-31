@@ -8,6 +8,6 @@ import Role from "../constants/role";
 const postRoutes = Router();
 
 postRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertPostHandler);
-postRoutes.get("/edit/:postId", authenticate, authorize([Role.Admin]), getPostHandler);
+postRoutes.get("/:postId", authenticate, authorize([Role.Admin]), getPostHandler);
 
 export default postRoutes;
