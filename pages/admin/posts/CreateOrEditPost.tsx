@@ -30,27 +30,33 @@ const CreateOrEditPost = withFallback(
     const { user, routeParams } = usePageContext();
     const pageTitle = routeParams.id ? "Edit Post" : "Add New Post";
 
-    const initialCoverImageData = {
-      public_id: "",
-      secure_url: "",
-      display_name: "",
-      format: "",
-      width: 0,
-      height: 0,
-      bytes: 0,
-      tags: [],
-      created_at: "",
-    };
+    const initialCoverImageData = useMemo(
+      () => ({
+        public_id: "",
+        secure_url: "",
+        display_name: "",
+        format: "",
+        width: 0,
+        height: 0,
+        bytes: 0,
+        tags: [],
+        created_at: "",
+      }),
+      [],
+    );
 
-    const initialPostData = {
-      title: "",
-      slug: "",
-      editorContent: undefined,
-      coverImage: initialCoverImageData,
-      published: false,
-      authorId: user?.id,
-      updatedAt: null,
-    };
+    const initialPostData = useMemo(
+      () => ({
+        title: "",
+        slug: "",
+        editorContent: undefined,
+        coverImage: initialCoverImageData,
+        published: false,
+        authorId: user?.id,
+        updatedAt: null,
+      }),
+      [],
+    );
 
     // local states
     const [tab, setTab] = useState("gallery");
