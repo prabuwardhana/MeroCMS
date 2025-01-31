@@ -15,6 +15,13 @@ export type CloudinaryResourceType = {
   width: number;
 };
 
+export type CloudinaryResponseType = {
+  result: {
+    resources: Array<CloudinaryResourceType>;
+    next_cursor: string;
+  };
+};
+
 export type PostType = z.infer<typeof formSchema> & {
   published: boolean;
   coverImage: CloudinaryResourceType;

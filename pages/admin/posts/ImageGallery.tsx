@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { Loader2, RotateCcw, Trash2 } from "lucide-react";
 
-import { CloudinaryResourceType } from "@/lib/types";
+import { CloudinaryResourceType, CloudinaryResponseType } from "@/lib/types";
 import API from "@/config/apiClient";
 import { motion, AnimatePresence } from "framer-motion";
 import { opacityVariants } from "@/constants/framerMotion";
@@ -38,9 +38,7 @@ const ImageGallery = withFallback(
     } = useSuspenseInfiniteQuery({
       queryKey: ["resources"],
       queryFn: async ({ pageParam }) => {
-        return await API.get<{ result: { resources: Array<CloudinaryResourceType>; next_cursor: string } }>(
-          `/api/media/resources/${pageParam}`,
-        );
+        return await API.get<CloudinaryResponseType>(`/api/media/resources/${pageParam}`);
       },
       initialPageParam: null,
       getNextPageParam: () => {
