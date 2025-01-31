@@ -20,8 +20,8 @@ export const SIDENAV_ITEMS = [
     icon: LetterText,
     submenu: true,
     subMenuItems: [
-      { title: "All Post", path: "posts" },
-      { title: "Add New Post", path: "posts/create" },
+      { title: "All Post", path: "/admin/posts" },
+      { title: "Add New Post", path: "/admin/posts/create" },
     ],
   },
   {
