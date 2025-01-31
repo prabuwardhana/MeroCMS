@@ -16,6 +16,7 @@ import userRoutes from "./server/routes/user.route";
 import vikeSession from "./server/middlewares/session";
 import errorHandler from "./server/middlewares/error";
 import postRoutes from "./server/routes/post.route";
+import mediaRoutes from "./server/routes/media.route";
 
 const isProduction = NODE_ENV === "production";
 
@@ -68,6 +69,7 @@ async function startServer() {
   app.use("/api/user", userRoutes);
   app.use("/api/todo", todoRoutes);
   app.use("/api/post", postRoutes);
+  app.use("/api/media", mediaRoutes);
 
   /**
    * Vike route
