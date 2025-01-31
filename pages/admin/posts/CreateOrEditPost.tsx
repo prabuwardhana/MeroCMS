@@ -60,7 +60,7 @@ const CreateOrEditPost = withFallback(
     const [tab, setTab] = useState("gallery");
     const [modalOpen, setModalOpen] = useState(false);
     const [lastSavedAt, setLastSavedAt] = useState<Date | undefined | null>(null);
-    const [selectedImages, setSelectedImages] = useState<Array<CloudinaryResourceType>>([]);
+    const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
 
     const dialogRef = useRef<HTMLDialogElement>(null);
@@ -143,7 +143,7 @@ const CreateOrEditPost = withFallback(
     };
 
     const onImageSelected = (isChecked: boolean, image: CloudinaryResourceType) => {
-      setSelectedImages((prev) => {
+      setSelectedCoverImages((prev) => {
         if (!isChecked) {
           const ret = Array.from(new Set([...(prev || []), image]));
           return ret.filter((id) => id === image);
@@ -154,22 +154,22 @@ const CreateOrEditPost = withFallback(
     };
 
     const onClearSelectedImage = () => {
-      setSelectedImages([]);
+      setSelectedCoverImages([]);
     };
 
     const onSetCoverImage = () => {
       const newPostData: PostType = {
         ...postData,
         coverImage: {
-          public_id: selectedImages[0].public_id,
-          secure_url: selectedImages[0].secure_url,
-          display_name: selectedImages[0].display_name,
-          format: selectedImages[0].format,
-          width: selectedImages[0].width,
-          height: selectedImages[0].height,
-          bytes: selectedImages[0].bytes,
-          tags: selectedImages[0].tags,
-          created_at: selectedImages[0].created_at,
+          public_id: selectedCoverImages[0].public_id,
+          secure_url: selectedCoverImages[0].secure_url,
+          display_name: selectedCoverImages[0].display_name,
+          format: selectedCoverImages[0].format,
+          width: selectedCoverImages[0].width,
+          height: selectedCoverImages[0].height,
+          bytes: selectedCoverImages[0].bytes,
+          tags: selectedCoverImages[0].tags,
+          created_at: selectedCoverImages[0].created_at,
         },
       };
 
@@ -296,7 +296,7 @@ const CreateOrEditPost = withFallback(
 
                             dispatchAutoSave(newPostData);
                             setPostData(newPostData);
-                            setSelectedImages([]);
+                            setSelectedCoverImages([]);
                           }}
                         >
                           <Trash2 />
@@ -325,7 +325,7 @@ const CreateOrEditPost = withFallback(
         <ImageManagerDialog
           ref={dialogRef}
           tab={tab}
-          selected={selectedImages}
+          selected={selectedCoverImages}
           modalOpen={modalOpen}
           onTabChange={onTabChange}
           onImageSelected={onImageSelected}
