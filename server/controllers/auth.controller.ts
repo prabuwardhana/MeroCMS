@@ -89,8 +89,6 @@ export const verifyEmailHandler = catchErrors(async (req, res) => {
 export const sendPasswordResetHandler = catchErrors(async (req, res) => {
   const email = emailSchema.parse(req.body.email);
 
-  console.log(email);
-
   await sendPasswordResetEmail(email);
 
   return res.status(OK).json({ message: "Password reset email sent" });

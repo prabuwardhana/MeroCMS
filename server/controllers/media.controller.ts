@@ -20,7 +20,6 @@ export const getResourcesHandler = catchErrors(async (req, res) => {
 });
 
 export const deleteResourceHandler = catchErrors(async (req, res) => {
-  console.log(req.body);
   const { publicId } = req.body;
   const result = await cloudinary.uploader.destroy(publicId);
 

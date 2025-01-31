@@ -10,7 +10,6 @@ import API from "@/config/apiClient";
 // environment: client
 const data = async (pageContext: PageContextClient) => {
   const { user } = pageContext;
-  console.log("user", user);
 
   // if user is null (no access token) or undefined (access token expired)
   if (!user) {

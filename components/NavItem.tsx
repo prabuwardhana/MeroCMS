@@ -57,7 +57,6 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
     if (isCollapsed) {
       setSubMenuOpen(false);
     }
-    // console.log(item.path);
     // Open the active menu when the sidebar is opened
     if (urlPathname.includes(item.path)) {
       setSubMenuOpen(true);

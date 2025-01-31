@@ -21,8 +21,6 @@ const FileUpload = ({ onTabChange }: FileUploadProps) => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles?.length) {
-      console.log(acceptedFiles);
-
       mutation.mutate(
         acceptedFiles.map((item) => ({
           file: item,
