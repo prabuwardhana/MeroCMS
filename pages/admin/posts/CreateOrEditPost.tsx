@@ -1,29 +1,27 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { usePageContext } from "vike-react/usePageContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
-import { navigate } from "vike/client/router";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Accordion from "@/components/ui/accordion";
 import Editor from "@/components/blocknote/editor";
 import SaveStatus from "@/components/SaveStatus";
 import PageTitle from "@/components/PageTitle";
 
-import { PostMutationResponseType, CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
-import { useAutoSave } from "@/hooks/useAutoSave";
+import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
 import { formSchema } from "@/lib/schemas";
+import { useAutoSave } from "@/hooks/useAutoSave";
 import { slugify } from "@/lib/utils";
-import API from "@/config/apiClient";
 
 import { RotateCcw, Trash2 } from "lucide-react";
 import ImageManagerDialog from "./ImageManagerDialog";
-import Accordion from "@/components/ui/accordion";
+import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
+import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
 
 const CreateOrEditPost = withFallback(
   () => {
@@ -67,31 +65,8 @@ const CreateOrEditPost = withFallback(
 
     const dialogRef = useRef<HTMLDialogElement>(null);
 
-    const queryClient = useQueryClient();
-
-    const { data: postQuery } = useSuspenseQuery({
-      queryKey: ["post", routeParams.id],
-      queryFn: async () => {
-        // useSuspenseQuery and enabled v5
-        // https://github.com/TanStack/query/discussions/6206
-        return routeParams.id ? await API.get<PostType>(`/api/post/edit/${routeParams.id}`) : null;
-      },
-      staleTime: 60 * 1000,
-    });
-
-    const mutation = useMutation({
-      mutationFn: async (data: PostType) => {
-        return API.post<PostMutationResponseType>("/api/post/upsert", { ...data, _id: routeParams.id });
-      },
-      onSuccess: async (response) => {
-        await queryClient.invalidateQueries({ queryKey: ["post", routeParams.id] });
-        // In create mode, navigate to edit post page after successful mutation
-        if (!routeParams.id) {
-          const data = response.data;
-          navigate(`/admin/posts/${data.post._id}/edit`);
-        }
-      },
-    });
+    const { postQuery } = useGetSinglePostQuery(routeParams.id);
+    const mutation = useCreateUpdatePostMutation(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<PostType>({

@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { withFallback } from "vike-react-query";
+import { motion, AnimatePresence } from "framer-motion";
 
 import Container from "@/components/Container";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/button";
 
 import { Loader2, RotateCcw, Trash2 } from "lucide-react";
 
-import { CloudinaryResourceType, CloudinaryResponseType } from "@/lib/types";
-import API from "@/config/apiClient";
-import { motion, AnimatePresence } from "framer-motion";
-import { opacityVariants } from "@/constants/framerMotion";
 import { convertByteToKiloMegabyte } from "@/lib/utils";
+import { CloudinaryResourceType } from "@/lib/types";
+import { opacityVariants } from "@/constants/framerMotion";
+
+import { useGetImagesQuery } from "@/hooks/api/useGetImagesQuery";
+import { useDeleteImageMutation } from "@/hooks/api/useDeleteImageMutation";
 
 interface MediaGalleryProps {
   onImageSelected: (isChecked: boolean, image: CloudinaryResourceType) => void;
@@ -30,33 +31,8 @@ const ImageGallery = withFallback(
     const [deletion, setDeletion] = useState<Deletion>();
     const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-    const queryClient = useQueryClient();
-
-    const {
-      data: { pages },
-      fetchNextPage,
-    } = useSuspenseInfiniteQuery({
-      queryKey: ["resources"],
-      queryFn: async ({ pageParam }) => {
-        return await API.get<CloudinaryResponseType>(`/api/media/resources/${pageParam}`);
-      },
-      initialPageParam: null,
-      getNextPageParam: () => {
-        return nextCursor;
-      },
-      staleTime: 60 * 60 * 1000,
-    });
-
-    const mutation = useMutation({
-      mutationFn: async ({ publicId }: { publicId: string }) => {
-        return API.post("/api/media/resources/delete", { publicId });
-      },
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ["resources"] });
-        onClearSelectedImage();
-        setDeletion({ state: "idle" });
-      },
-    });
+    const { pages, fetchNextPage } = useGetImagesQuery(nextCursor);
+    const mutation = useDeleteImageMutation(onClearSelectedImage, setDeletion);
 
     useEffect(() => {
       if (pages[0] !== null) {
