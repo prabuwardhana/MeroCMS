@@ -7,11 +7,10 @@ import { CloudinaryResourceType } from "@/lib/types";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import ImageGallery from "@/components/ImageGallery";
 import FileUpload from "@/components/FileUpload";
 
-import ImageGallery from "./ImageGallery";
-
-interface CoverImageManagerProps {
+interface CoverImageDialogProps {
   tab: string;
   selected: Array<CloudinaryResourceType>;
   modalOpen: boolean;
@@ -21,7 +20,8 @@ interface CoverImageManagerProps {
   onSetCoverImage: () => void;
   onCloseDialog: () => void;
 }
-const ImageManagerDialog = forwardRef<HTMLDialogElement | null, CoverImageManagerProps>(
+
+export const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogProps>(
   (
     { tab, selected, modalOpen, onTabChange, onSetCoverImage, onImageSelected, onClearSelectedImage, onCloseDialog },
     ref,
@@ -79,6 +79,4 @@ const ImageManagerDialog = forwardRef<HTMLDialogElement | null, CoverImageManage
   },
 );
 
-ImageManagerDialog.displayName = "ImageManagerDialog";
-
-export default ImageManagerDialog;
+CoverImageDialog.displayName = "ImageManagerDialog";

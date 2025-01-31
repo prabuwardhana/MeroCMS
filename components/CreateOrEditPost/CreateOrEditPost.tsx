@@ -12,6 +12,7 @@ import Accordion from "@/components/ui/accordion";
 import Editor from "@/components/blocknote/editor";
 import SaveStatus from "@/components/SaveStatus";
 import PageTitle from "@/components/PageTitle";
+import { CoverImageDialog } from "./CoverImageDialog";
 
 import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
 import { formSchema } from "@/lib/schemas";
@@ -19,7 +20,6 @@ import { useAutoSave } from "@/hooks/useAutoSave";
 import { slugify } from "@/lib/utils";
 
 import { RotateCcw, Trash2 } from "lucide-react";
-import ImageManagerDialog from "./ImageManagerDialog";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
 
@@ -322,7 +322,7 @@ const CreateOrEditPost = withFallback(
             </div>
           </form>
         </Form>
-        <ImageManagerDialog
+        <CoverImageDialog
           ref={dialogRef}
           tab={tab}
           selected={selectedCoverImages}
