@@ -8,6 +8,11 @@ const options = {
   withCredentials: true,
 };
 
+// To avoid any interceptors defined on the default Axios instance or the API client,
+// create a new separate instance for un-intercepted requests.
+// https://stackoverflow.com/questions/70763748/axios-post-blocked-by-cors-using-cloudinary-api
+export const CloudinaryClient = axios.create();
+
 // create a separate client for refreshing the access token
 // to avoid infinite loops with the error interceptor
 const TokenRefreshClient = axios.create(options);
