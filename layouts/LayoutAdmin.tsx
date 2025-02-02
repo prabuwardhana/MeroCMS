@@ -70,7 +70,7 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
       <Sidebar ref={sidebarRef} collapsed={collapsed} isDesktopDevice={isDesktopDevice} />
       <motion.div variants={containerVariants} animate={containerControls} initial="close">
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-        <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden p-6 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+        <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden px-6 pt-6 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
           {children}
         </div>
       </motion.div>
