@@ -1,4 +1,5 @@
 import { Response, ErrorRequestHandler } from "express";
+import { MongoServerError } from "mongodb";
 import { z } from "zod";
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR } from "../constants/http";
 import { REFRESH_PATH, clearAuthCookies } from "../utils/cookies";
@@ -23,11 +24,22 @@ const handleAppError = (res: Response, error: AppError) => {
   });
 };
 
+const handleMongoError = (res: Response, error: MongoServerError) => {
+  // Duplicate key
+  if (error.code === 11000) {
+    return res.status(422).send({ succes: false, message: `${error.keyValue.name} already exist!` });
+  }
+};
+
 const errorHandler: ErrorRequestHandler = (error, req, res, _next) => {
   console.log(`PATH ${req.path}`, error);
 
   if (req.path === REFRESH_PATH) {
     clearAuthCookies(res);
+  }
+
+  if (error instanceof MongoServerError) {
+    return handleMongoError(res, error);
   }
 
   if (error instanceof z.ZodError) {
