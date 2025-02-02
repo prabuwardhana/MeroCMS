@@ -26,6 +26,12 @@ API.interceptors.response.use(
     const { config, response } = error;
     const { status, data } = response || {};
 
+    // Only logged in users have the refresh token.
+    // navigate them to login page!
+    if (status === UNAUTHORIZED && data?.errorCode === "MissingRefreshToken") {
+      throw render("/auth/login");
+    }
+
     if (status === UNAUTHORIZED && data?.errorCode === "InvalidAccessToken") {
       // try to refresh the access token behind the scenes
       try {
