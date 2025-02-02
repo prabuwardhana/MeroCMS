@@ -47,6 +47,10 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
   const [subMenuOpen, setSubMenuOpen] = useState(false);
   const chevronControls = useAnimationControls();
 
+  const urlPathSplit = urlPathname.split("/");
+  const itemPathSplit = item.path.split("/");
+  const isSubPathActive = itemPathSplit.filter((item) => urlPathSplit.includes(item)).length > 2;
+
   // open and close the submenu
   const toggleSubMenu = () => {
     setSubMenuOpen(!subMenuOpen);
@@ -86,7 +90,12 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
               {!isCollapsed ? (
                 // When the sidebar is opened, turn the nav item into a normal div
                 <div className="flex flex-row items-center space-x-4 rounded-lg p-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary">
-                  {item.icon && <item.icon size={20} className="flex-shrink-0" />}
+                  {item.icon && (
+                    <item.icon
+                      size={20}
+                      className={cn("flex-shrink-0", isSubPathActive ? "font-bold text-primary" : "")}
+                    />
+                  )}
                   <motion.div
                     key={`${isCollapsed}`}
                     variants={opacityVariants}
@@ -94,7 +103,9 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
                     animate="animate"
                     exit="exit"
                   >
-                    <span className="whitespace-nowrap">{item.title}</span>
+                    <span className={cn("whitespace-nowrap", isSubPathActive ? "font-bold text-primary" : "")}>
+                      {item.title}
+                    </span>
                   </motion.div>
                 </div>
               ) : (
