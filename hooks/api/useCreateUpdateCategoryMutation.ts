@@ -12,10 +12,12 @@ export const useCreateUpdateCategoryMutation = (id?: string) => {
       return API.post<CategoryMutationResponseType>("/api/category/upsert", { ...data, _id: id });
     },
     onSuccess: async (response) => {
-      await queryClient.invalidateQueries({ queryKey: ["category", id] });
       if (id) {
+        await queryClient.invalidateQueries({ queryKey: ["category", id] });
         toast(`Category: "${response.data.category.name}" has been updated succesfully.`);
+        navigate("/admin/categories");
       } else {
+        await queryClient.invalidateQueries({ queryKey: ["categories"] });
         toast(`Category: "${response.data.category.name}" has been created succesfully.`);
         navigate(`/admin/categories/${response.data.category._id}/edit`);
       }
