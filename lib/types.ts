@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Types } from "mongoose";
-import { formSchema } from "./schemas";
+import { postFormSchema } from "./schemas";
 import { schema } from "@/components/blocknote/custom-schemas";
 
 export type CloudinaryResourceType = {
@@ -22,9 +22,17 @@ export type CloudinaryResponseType = {
   };
 };
 
-export type PostType = z.infer<typeof formSchema> & {
+export type CategoryType = {
+  name: string;
+  slug: string;
+  description: string;
+};
+export type CategoryMutationResponseType = { category: CategoryType & { _id: Types.ObjectId }; message: string };
+
+export type PostType = z.infer<typeof postFormSchema> & {
   published: boolean;
   coverImage: CloudinaryResourceType;
+  categories: string[];
   authorId: Types.ObjectId | undefined;
   updatedAt: Date | null;
 };

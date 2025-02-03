@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Accordion from "@/components/ui/accordion";
@@ -15,12 +16,13 @@ import PageTitle from "@/components/PageTitle";
 import { CoverImageDialog } from "./CoverImageDialog";
 
 import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
-import { formSchema } from "@/lib/schemas";
+import { postFormSchema } from "@/lib/schemas";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { slugify } from "@/lib/utils";
 
 import { RotateCcw, Trash2 } from "lucide-react";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
+import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
 
 const CreateOrEditPost = withFallback(
@@ -49,6 +51,7 @@ const CreateOrEditPost = withFallback(
         slug: "",
         editorContent: undefined,
         coverImage: initialCoverImageData,
+        categories: [""],
         published: false,
         authorId: user?.id,
         updatedAt: null,
@@ -61,18 +64,20 @@ const CreateOrEditPost = withFallback(
     const [modalOpen, setModalOpen] = useState(false);
     const [lastSavedAt, setLastSavedAt] = useState<Date | undefined | null>(null);
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
+    const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
 
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     const { postQuery } = useGetSinglePostQuery(routeParams.id);
+    const { categoryQuery } = useGetCategoriesQuery();
     const mutation = useCreateUpdatePostMutation(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<PostType>({
       // Integrate zod as the schema validation library
       resolver: async (data, context, options) => {
-        return zodResolver(formSchema)(data, context, options);
+        return zodResolver(postFormSchema)(data, context, options);
       },
       // form states
       defaultValues: {
@@ -99,7 +104,8 @@ const CreateOrEditPost = withFallback(
       if (routeParams.id && postQuery) {
         const post: PostType = postQuery.data;
         // replace postData with the new one from the DB
-        setPostData(post);
+        setPostData({ ...postData, ...post });
+        setSelectedCategories(post.categories);
         setLastSavedAt(post.updatedAt);
       }
     }, [routeParams.id]);
@@ -128,6 +134,8 @@ const CreateOrEditPost = withFallback(
 
     const { dispatchAutoSave, triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data: PostType) => {
+        if (!data.title || !data.slug) return;
+
         const currentTime = new Date();
         setLastSavedAt(currentTime);
         mutation.mutate(data);
@@ -316,7 +324,40 @@ const CreateOrEditPost = withFallback(
                       </Button>
                     )}
                   </Accordion>
-                  <Accordion title="Categories">content</Accordion>
+                  <Accordion title="Categories" open={true}>
+                    {categoryQuery.data.map((category) => {
+                      const isChecked = selectedCategories.includes(category.name);
+                      return (
+                        <div key={category.name} className="flex items-center space-x-2 [&:not(:last-child)]:mb-3">
+                          <Checkbox
+                            id={category.name}
+                            checked={isChecked}
+                            onCheckedChange={(checked: boolean) => {
+                              const newSelectedCategories = checked
+                                ? Array.from(new Set([...(postData.categories || []), category.name]))
+                                : postData.categories.filter((name) => name !== category.name);
+
+                              setSelectedCategories(newSelectedCategories);
+
+                              const newPostData: PostType = {
+                                ...postData,
+                                categories: newSelectedCategories,
+                              };
+
+                              dispatchAutoSave(newPostData);
+                              setPostData(newPostData);
+                            }}
+                          />
+                          <label
+                            htmlFor={category.name}
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            {category.name}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </Accordion>
                 </div>
               </aside>
             </div>

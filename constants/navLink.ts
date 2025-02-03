@@ -1,4 +1,4 @@
-import { Home, Settings, Users, LucideIcon, LetterText, Shapes, NotebookText, HelpCircle } from "lucide-react";
+import { Home, Settings, Users, LucideIcon, LetterText, NotebookText, HelpCircle } from "lucide-react";
 
 export type SideNavItem = {
   title: string;
@@ -22,16 +22,7 @@ export const SIDENAV_ITEMS = [
     subMenuItems: [
       { title: "All Post", path: "/admin/posts" },
       { title: "Add New Post", path: "/admin/posts/create" },
-    ],
-  },
-  {
-    title: "Categories",
-    path: "/admin/categories",
-    icon: Shapes,
-    submenu: true,
-    subMenuItems: [
-      { title: "All Categories", path: "categories" },
-      { title: "Add New Category", path: "categories/create" },
+      { title: "Categories", path: "/admin/posts/categories/create" },
     ],
   },
   {
