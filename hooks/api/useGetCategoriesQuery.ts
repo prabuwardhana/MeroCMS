@@ -3,7 +3,7 @@ import { CategoryType } from "@/lib/types";
 import API from "@/config/apiClient";
 
 export const useGetCategoriesQuery = () => {
-  const { data: categoryQuery } = useSuspenseQuery({
+  const { data: categoriesQuery } = useSuspenseQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       return await API.get<CategoryType[]>(`/api/category/`);
@@ -11,5 +11,5 @@ export const useGetCategoriesQuery = () => {
     staleTime: Infinity,
   });
 
-  return { categoryQuery };
+  return { categoriesQuery };
 };
