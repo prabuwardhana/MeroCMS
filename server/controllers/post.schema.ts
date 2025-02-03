@@ -14,4 +14,5 @@ export const createPostSchema = z.object({
   published: z.boolean(),
   authorId: z.custom<Types.ObjectId>(),
   coverImage: z.custom<CloudinaryResourceType>(),
+  categories: z.array(z.string()),
 });

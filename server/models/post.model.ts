@@ -9,6 +9,7 @@ export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId>
   published: boolean;
   authorId: mongoose.Types.ObjectId;
   coverImage: CloudinaryResourceType;
+  categories: mongoose.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,6 +22,11 @@ const postSchema = new mongoose.Schema<PostDocument>(
     published: { type: Boolean, required: true, default: false },
     authorId: { ref: "User", type: mongoose.Schema.Types.ObjectId },
     coverImage: { type: Schema.Types.Mixed },
+    categories: {
+      ref: "Category",
+      type: [mongoose.Schema.Types.ObjectId],
+      index: true,
+    },
   },
   {
     timestamps: true,
