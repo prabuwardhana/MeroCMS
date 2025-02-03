@@ -25,12 +25,12 @@ export const DataTableRowActions = <TData,>({ row, onEdit, onDelete }: DataTable
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => onEdit(row.original)}>
+        <DropdownMenuItem onClick={() => onEdit(row.original)} className="cursor-pointer">
           <Pencil />
           Edit
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onDelete(row.original)} className="text-destructive">
+        <DropdownMenuItem onClick={() => onDelete(row.original)} className="text-destructive cursor-pointer">
           <Trash2 />
           Delete
         </DropdownMenuItem>
