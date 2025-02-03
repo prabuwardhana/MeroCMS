@@ -11,11 +11,13 @@ export const useCreateUpdatePostMutation = (id?: string) => {
       return API.post<PostMutationResponseType>("/api/post/upsert", { ...data, _id: id });
     },
     onSuccess: async (response) => {
-      await queryClient.invalidateQueries({ queryKey: ["post", id] });
+      await queryClient.invalidateQueries({ queryKey: ["posts"] });
       // In create mode, navigate to edit post page after successful mutation
       if (!id) {
         const data = response.data;
         navigate(`/admin/posts/${data.post._id}/edit`);
+      } else {
+        await queryClient.invalidateQueries({ queryKey: ["post", id] });
       }
     },
   });
