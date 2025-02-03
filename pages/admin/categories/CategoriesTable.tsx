@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { usePageContext } from "vike-react/usePageContext";
 import { navigate } from "vike/client/router";
 
 import { useDeleteCategoryMutation } from "@/hooks/api/useDeleteCategoryMutation";
@@ -11,9 +10,8 @@ import { DataTable } from "@/components/DataTable";
 import { getBankAccountsColumns } from "./categoriesColumnDef";
 
 const CategoriesTable = () => {
-  const { routeParams } = usePageContext();
   const { categoriesQuery } = useGetCategoriesQuery();
-  const deleteMutation = useDeleteCategoryMutation(routeParams.id);
+  const deleteMutation = useDeleteCategoryMutation();
 
   const onEdit = (category: CategoryType) => {
     navigate(`/admin/categories/${category._id}/edit`);
