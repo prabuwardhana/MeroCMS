@@ -7,7 +7,7 @@ import { CategoryType } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/DataTable";
-import { getBankAccountsColumns } from "./categoriesColumnDef";
+import { getCategoriesColumns } from "./categoriesColumnDef";
 
 const CategoriesTable = () => {
   const { categoriesQuery } = useGetCategoriesQuery();
@@ -21,7 +21,7 @@ const CategoriesTable = () => {
     deleteMutation.mutate(category._id);
   };
 
-  const columns = useMemo(() => getBankAccountsColumns({ onEdit, onDelete }), []);
+  const columns = useMemo(() => getCategoriesColumns({ onEdit, onDelete }), []);
 
   return (
     <Card>

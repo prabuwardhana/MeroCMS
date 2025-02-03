@@ -8,7 +8,7 @@ interface CategoriesColumnsProps {
   onDelete: (category: CategoryType) => void;
 }
 
-export const getBankAccountsColumns = ({ onEdit, onDelete }: CategoriesColumnsProps): ColumnDef<CategoryType>[] => [
+export const getCategoriesColumns = ({ onEdit, onDelete }: CategoriesColumnsProps): ColumnDef<CategoryType>[] => [
   {
     accessorKey: "name",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Category Name" />,
