@@ -17,8 +17,8 @@ import { slugify } from "@/lib/utils";
 import { RotateCcw } from "lucide-react";
 import { useGetSingleCategoryQuery } from "@/hooks/api/useGetSingleCategoryQuery";
 import { useCreateUpdateCategoryMutation } from "@/hooks/api/useCreateUpdateCategoryMutation";
-import { Textarea } from "../ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Textarea } from "../../../components/ui/textarea";
+import { Card } from "../../../components/ui/card";
 
 const CreateOrEditCategory = withFallback(
   () => {
@@ -27,6 +27,7 @@ const CreateOrEditCategory = withFallback(
 
     const initialCategoryData = useMemo(
       () => ({
+        _id: null,
         name: "",
         slug: "",
         description: "",
@@ -88,13 +89,13 @@ const CreateOrEditCategory = withFallback(
 
     return (
       <>
-        <Form {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
-            <div className="mb-6">
-              <PageTitle>{pageTitle}</PageTitle>
-            </div>
-            <div className="flex flex-col gap-y-6 md:flex-row md:gap-x-6">
-              <main className="basis-1/3">
+        <div className="mb-6">
+          <PageTitle>{pageTitle}</PageTitle>
+        </div>
+        <div className="flex flex-col gap-y-6 md:flex-row md:gap-x-6">
+          <main className="basis-1/3">
+            <Form {...formMethods}>
+              <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
                 <Card className="p-4">
                   <FormField
                     control={formMethods.control}
@@ -170,18 +171,10 @@ const CreateOrEditCategory = withFallback(
                     </Button>
                   </div>
                 </Card>
-              </main>
-              <aside className="basis-2/3">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Categories</CardTitle>
-                  </CardHeader>
-                  <CardContent>Categories Table</CardContent>
-                </Card>
-              </aside>
-            </div>
-          </form>
-        </Form>
+              </form>
+            </Form>
+          </main>
+        </div>
       </>
     );
   },
