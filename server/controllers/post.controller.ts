@@ -1,4 +1,4 @@
-import { CategoryType } from "@/lib/types";
+import { CategoryType, User } from "@/lib/types";
 import { NOT_FOUND, OK } from "../constants/http";
 import CategoryModel from "../models/category.model";
 import PostModel from "../models/post.model";
@@ -21,8 +21,6 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
   });
 
   const categories = await CategoryModel.find({ name: { $in: cat } }).select("_id");
-  appAssert(categories.length, NOT_FOUND, "Category not found");
-
   const categoryIds = categories.map((category) => category._id);
 
   // create new or update existing post
@@ -37,7 +35,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
         published,
         author,
         coverImage,
-        categories: categoryIds,
+        categories: categories.length ? categoryIds : [],
       },
       {
         new: true,
@@ -52,7 +50,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
       published,
       author,
       coverImage,
-      categories: categoryIds,
+      categories: categories.length ? categoryIds : [],
     });
   }
 
@@ -70,9 +68,26 @@ export const getSinglePostByIdHandler = catchErrors(async (req, res) => {
     slug: post.slug,
     editorContent: post.editorContent,
     published: post.published,
-    authorId: post.authorId,
+    author: post.author,
     coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
     updatedAt: post.updatedAt,
+  });
+});
+
+export const getPostsHandler = catchErrors(async (req, res) => {
+  const posts = await PostModel.find({})
+    .populate<{ author: User }>({ path: "author", select: "profile" })
+    .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
+    .exec();
+  res.status(OK).json(posts);
+});
+
+export const deletePostById = catchErrors(async (req, res) => {
+  const { id } = req.body;
+  await PostModel.findByIdAndDelete({ _id: id });
+
+  res.status(OK).json({
+    message: "Post is successfully deleted",
   });
 });

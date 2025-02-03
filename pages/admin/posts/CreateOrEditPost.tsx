@@ -47,11 +47,12 @@ const CreateOrEditPost = withFallback(
 
     const initialPostData = useMemo(
       () => ({
+        _id: null,
         title: "",
         slug: "",
         editorContent: undefined,
         coverImage: initialCoverImageData,
-        categories: [""],
+        categories: [],
         published: false,
         author: user?.id,
         updatedAt: null,
