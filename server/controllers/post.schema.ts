@@ -12,7 +12,7 @@ export const createPostSchema = z.object({
   }),
   editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
   published: z.boolean(),
-  authorId: z.custom<Types.ObjectId>(),
+  author: z.custom<Types.ObjectId>(),
   coverImage: z.custom<CloudinaryResourceType>(),
   categories: z.array(z.string()),
 });

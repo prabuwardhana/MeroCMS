@@ -13,7 +13,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
     slug,
     editorContent,
     published,
-    authorId,
+    author,
     coverImage,
     categories: cat,
   } = createPostSchema.parse({
@@ -35,7 +35,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
         slug,
         editorContent,
         published,
-        authorId,
+        author,
         coverImage,
         categories: categoryIds,
       },
@@ -50,7 +50,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
       slug,
       editorContent,
       published,
-      authorId,
+      author,
       coverImage,
       categories: categoryIds,
     });

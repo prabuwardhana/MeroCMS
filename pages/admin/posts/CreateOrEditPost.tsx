@@ -53,7 +53,7 @@ const CreateOrEditPost = withFallback(
         coverImage: initialCoverImageData,
         categories: [""],
         published: false,
-        authorId: user?.id,
+        author: user?.id,
         updatedAt: null,
       }),
       [],

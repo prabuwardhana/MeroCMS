@@ -7,7 +7,7 @@ export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId>
   slug: string;
   editorContent?: CustomPartialBlock[] | undefined | "loading";
   published: boolean;
-  authorId: mongoose.Types.ObjectId;
+  author: mongoose.Types.ObjectId;
   coverImage: CloudinaryResourceType;
   categories: mongoose.Types.ObjectId[];
   createdAt: Date;
@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema<PostDocument>(
     slug: { type: String, required: true, unique: true },
     editorContent: { type: Schema.Types.Mixed, required: false, default: undefined },
     published: { type: Boolean, required: true, default: false },
-    authorId: { ref: "User", type: mongoose.Schema.Types.ObjectId },
+    author: { ref: "User", type: mongoose.Schema.Types.ObjectId },
     coverImage: { type: Schema.Types.Mixed },
     categories: {
       ref: "Category",

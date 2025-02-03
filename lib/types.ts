@@ -42,7 +42,7 @@ export type PostType = z.infer<typeof postFormSchema> & {
   published: boolean;
   coverImage: CloudinaryResourceType;
   categories: string[];
-  authorId: Types.ObjectId | undefined;
+  author: Types.ObjectId | undefined;
   updatedAt: Date | null;
 };
 export type PostMutationResponseType = { post: PostType & { _id: Types.ObjectId }; message: string };
