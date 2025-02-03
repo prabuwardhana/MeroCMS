@@ -23,6 +23,7 @@ export type CloudinaryResponseType = {
 };
 
 export type CategoryType = {
+  _id: Types.ObjectId | null;
   name: string;
   slug: string;
   description: string;
