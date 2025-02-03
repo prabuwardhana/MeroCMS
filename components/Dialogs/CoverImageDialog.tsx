@@ -21,7 +21,7 @@ interface CoverImageDialogProps {
   onCloseDialog: () => void;
 }
 
-export const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogProps>(
+const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogProps>(
   (
     { tab, selected, modalOpen, onTabChange, onSetCoverImage, onImageSelected, onClearSelectedImage, onCloseDialog },
     ref,
@@ -80,3 +80,5 @@ export const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageD
 );
 
 CoverImageDialog.displayName = "ImageManagerDialog";
+
+export default CoverImageDialog;

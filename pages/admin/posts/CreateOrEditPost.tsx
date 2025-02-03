@@ -13,7 +13,7 @@ import Accordion from "@/components/ui/accordion";
 import Editor from "@/components/blocknote/editor";
 import SaveStatus from "@/components/SaveStatus";
 import PageTitle from "@/components/PageTitle";
-import { CoverImageDialog } from "./CoverImageDialog";
+import CoverImageDialog from "@/components/Dialogs/CoverImageDialog";
 
 import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
