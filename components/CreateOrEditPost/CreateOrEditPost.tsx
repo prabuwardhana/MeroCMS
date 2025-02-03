@@ -70,7 +70,7 @@ const CreateOrEditPost = withFallback(
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     const { postQuery } = useGetSinglePostQuery(routeParams.id);
-    const { categoryQuery } = useGetCategoriesQuery();
+    const { categoriesQuery } = useGetCategoriesQuery();
     const mutation = useCreateUpdatePostMutation(routeParams.id);
 
     // 1. Define our form.
@@ -325,7 +325,7 @@ const CreateOrEditPost = withFallback(
                     )}
                   </Accordion>
                   <Accordion title="Categories" open={true}>
-                    {categoryQuery.data.map((category) => {
+                    {categoriesQuery.data.map((category) => {
                       const isChecked = selectedCategories.includes(category.name);
                       return (
                         <div key={category.name} className="flex items-center space-x-2 [&:not(:last-child)]:mb-3">
