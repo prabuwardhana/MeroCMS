@@ -38,6 +38,7 @@ export type CategoryType = {
 export type CategoryMutationResponseType = { category: CategoryType & { _id: Types.ObjectId }; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
+  _id: Types.ObjectId | null;
   published: boolean;
   coverImage: CloudinaryResourceType;
   categories: string[];
