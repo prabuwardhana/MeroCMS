@@ -22,6 +22,13 @@ export type CloudinaryResponseType = {
   };
 };
 
+export type User = {
+  profile: {
+    username: string;
+  };
+  email: string;
+};
+
 export type CategoryType = {
   _id: Types.ObjectId | null;
   name: string;

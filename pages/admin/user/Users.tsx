@@ -3,29 +3,27 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { withFallback } from "vike-react-query";
 import { Config } from "vike-react/Config";
 import { Head } from "vike-react/Head";
-import { User } from "./types";
+import { User } from "@/lib/types";
 import API from "@/config/apiClient";
 
 const Users = withFallback(
   () => {
-    const { data } = useSuspenseQuery({
+    const { data: users } = useSuspenseQuery({
       queryKey: ["users"],
       queryFn: async () => {
-        return await API.get("/api/user/all");
+        return await API.get<User[]>("/api/user/all");
       },
       staleTime: 60 * 1000,
     });
 
-    const users = data as unknown;
-
     return (
       <>
-        <Config title={`${(users as User[]).length} users`} />
+        <Config title={`${users.data.length} users`} />
         <Head>
-          <meta name="description" content={`List of ${(users as User[]).length} users.`} />
+          <meta name="description" content={`List of ${users.data.length} users.`} />
         </Head>
         <div>
-          {(users as User[]).map(({ email }: User) => (
+          {users.data.map(({ email }: User) => (
             <ul key={email}>
               <li className="capitalize">Email: {email}</li>
             </ul>
