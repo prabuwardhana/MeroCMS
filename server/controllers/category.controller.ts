@@ -54,3 +54,12 @@ export const getSingleCategoryByIdHandler = catchErrors(async (req, res) => {
     description: category.description,
   });
 });
+
+export const deleteCategoryById = catchErrors(async (req, res) => {
+  const { id } = req.body;
+  await CategoryModel.findByIdAndDelete({ _id: id });
+
+  res.status(OK).json({
+    message: "Category is successfully deleted",
+  });
+});
