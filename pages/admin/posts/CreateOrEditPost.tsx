@@ -52,7 +52,7 @@ const CreateOrEditPost = withFallback(
         slug: "",
         editorContent: undefined,
         coverImage: initialCoverImageData,
-        categories: [],
+        categories: ["Uncategorized"],
         published: false,
         author: user?.id,
         updatedAt: null,
