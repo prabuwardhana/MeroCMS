@@ -21,7 +21,7 @@ export function DataTableToolbar<TData>({ table, type, filterOn }: DataTableTool
     {
       posts: "title",
       categories: "name",
-      users: "",
+      users: "name",
       pages: "",
       portfolios: "",
       products: "",

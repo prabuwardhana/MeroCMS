@@ -24,10 +24,12 @@ export type CloudinaryResponseType = {
 };
 
 export type User = {
+  _id: Types.ObjectId | null;
   profile: {
     username: string;
   };
   email: string;
+  verified: boolean;
 };
 
 export type CategoryType = {
