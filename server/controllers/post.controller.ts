@@ -77,6 +77,7 @@ export const getSinglePostByIdHandler = catchErrors(async (req, res) => {
 
 export const getPostsHandler = catchErrors(async (req, res) => {
   const posts = await PostModel.find({})
+    .sort({ createdAt: "desc" })
     .select(["title", "slug", "published", "coverImage", "author", "categories"])
     .populate<{ author: User }>({ path: "author", select: "profile" })
     .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
