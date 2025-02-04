@@ -29,7 +29,7 @@ const CategoriesTable = () => {
         <CardTitle>Categories</CardTitle>
       </CardHeader>
       <CardContent>
-        <DataTable data={categoriesQuery.data} columns={columns} />
+        <DataTable data={categoriesQuery.data} columns={columns} type="categories" />
       </CardContent>
     </Card>
   );

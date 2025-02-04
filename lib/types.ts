@@ -1,3 +1,4 @@
+import React from "react";
 import { z } from "zod";
 import { Types } from "mongoose";
 import { postFormSchema } from "./schemas";
@@ -54,3 +55,17 @@ export type PostMutationResponseType = { post: PostType & { _id: Types.ObjectId 
 // https://www.blocknotejs.org/docs/custom-schemas#usage-with-typescript
 export type CustomBlockNoteEditor = typeof schema.BlockNoteEditor;
 export type CustomPartialBlock = typeof schema.PartialBlock;
+
+export type TableType = "posts" | "categories" | "pages" | "products" | "portfolios" | "users";
+
+export type FilterOptions = {
+  label: string;
+  value: string;
+  icon?: React.ComponentType<{ className?: string }>;
+};
+
+export type FilterOnType = {
+  column: string;
+  title: string;
+  options: FilterOptions[];
+};
