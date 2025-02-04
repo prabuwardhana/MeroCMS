@@ -4,6 +4,7 @@ import Role from "../constants/role";
 
 export interface ProfileDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   _id: mongoose.Types.ObjectId;
+  name: string;
   username: string;
 }
 
@@ -20,7 +21,8 @@ export interface UserDocument extends mongoose.Document<mongoose.Types.ObjectId>
 }
 
 const profileSchema = new mongoose.Schema<ProfileDocument>({
-  username: { type: String, required: true, unique: true },
+  name: { type: String },
+  username: { type: String, unique: true },
 });
 
 const userSchema = new mongoose.Schema<UserDocument>(
