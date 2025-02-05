@@ -13,7 +13,7 @@ import todoRoutes from "./server/routes/todo.route";
 import vikeRoutes from "./server/routes/vike.route";
 import authRoutes from "./server/routes/auth.route";
 import userRoutes from "./server/routes/user.route";
-import vikeSession from "./server/middlewares/session";
+import checkSession from "./server/middlewares/session";
 import errorHandler from "./server/middlewares/error";
 import postRoutes from "./server/routes/post.route";
 import mediaRoutes from "./server/routes/media.route";
@@ -78,7 +78,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", vikeSession, vikeRoutes);
+  app.all("*", checkSession, vikeRoutes);
 
   app.use(errorHandler);
 

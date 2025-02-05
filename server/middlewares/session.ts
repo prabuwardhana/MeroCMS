@@ -5,7 +5,7 @@ import { UNAUTHORIZED } from "../constants/http";
 // this middleware is invoked when Vike makes an HTTP request.
 // Consequently, errors won't be handled by the Axios instance interceptor.
 // We need a way to tell Vike that either the access token is not presence or has been expired.
-const vikeSession: RequestHandler = (req, _res, next) => {
+const checkSession: RequestHandler = (req, _res, next) => {
   // grab the access token from the cookies that are sent back as part of all requests to the server.
   const accessToken = req.cookies.accessToken as string | undefined;
 
@@ -34,4 +34,4 @@ const vikeSession: RequestHandler = (req, _res, next) => {
   next();
 };
 
-export default vikeSession;
+export default checkSession;
