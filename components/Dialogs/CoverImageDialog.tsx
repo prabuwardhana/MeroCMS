@@ -10,20 +10,33 @@ import { Button } from "@/components/ui/button";
 import ImageGallery from "@/components/ImageGallery";
 import FileUpload from "@/components/FileUpload";
 
-interface CoverImageDialogProps {
+interface ImageManagerDialogProps {
+  title: string;
+  buttonText: string;
   tab: string;
   selected: Array<CloudinaryResourceType>;
   modalOpen: boolean;
   onTabChange: (value: string) => void;
   onImageSelected: (isChecked: boolean, image: CloudinaryResourceType) => void;
   onClearSelectedImage: () => void;
-  onSetCoverImage: () => void;
+  onSetImage: () => void;
   onCloseDialog: () => void;
 }
 
-const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogProps>(
+const ImageManagerDialog = forwardRef<HTMLDialogElement | null, ImageManagerDialogProps>(
   (
-    { tab, selected, modalOpen, onTabChange, onSetCoverImage, onImageSelected, onClearSelectedImage, onCloseDialog },
+    {
+      title,
+      buttonText,
+      tab,
+      selected,
+      modalOpen,
+      onTabChange,
+      onSetImage,
+      onImageSelected,
+      onClearSelectedImage,
+      onCloseDialog,
+    },
     ref,
   ) => {
     return (
@@ -40,7 +53,7 @@ const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogPr
             className="block z-50 overflow-hidden w-2/3 text-md inset-0 rounded-md backdrop:backdrop-blur-sm [&:not([open])]:pointer-events-none"
           >
             <header className="flex justify-between p-4">
-              <h1 className="text-2xl font-bold">Cover Image</h1>
+              <h1 className="text-2xl font-bold">{title}</h1>
               <Button
                 type="button"
                 variant="destructive"
@@ -67,9 +80,9 @@ const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogPr
               </TabsContent>
             </Tabs>
             <footer className="flex justify-end p-4 mt-2 bg-muted">
-              <Button type="button" disabled={selected.length < 1} onClick={onSetCoverImage}>
-                <span className="sr-only">set cover image</span>
-                Set Cover Image
+              <Button type="button" disabled={selected.length < 1} onClick={onSetImage}>
+                <span className="sr-only">{buttonText}</span>
+                {buttonText}
               </Button>
             </footer>
           </motion.dialog>
@@ -79,6 +92,6 @@ const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogPr
   },
 );
 
-CoverImageDialog.displayName = "ImageManagerDialog";
+ImageManagerDialog.displayName = "ImageManagerDialog";
 
-export default CoverImageDialog;
+export default ImageManagerDialog;

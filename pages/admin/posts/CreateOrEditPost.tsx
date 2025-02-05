@@ -13,7 +13,7 @@ import Accordion from "@/components/ui/accordion";
 import Editor from "@/components/blocknote/editor";
 import SaveStatus from "@/components/SaveStatus";
 import PageTitle from "@/components/PageTitle";
-import CoverImageDialog from "@/components/Dialogs/CoverImageDialog";
+import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";
 
 import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
@@ -364,7 +364,9 @@ const CreateOrEditPost = withFallback(
             </div>
           </form>
         </Form>
-        <CoverImageDialog
+        <ImageManagerDialog
+          title="Cover Image"
+          buttonText="Set Cover Image"
           ref={dialogRef}
           tab={tab}
           selected={selectedCoverImages}
@@ -372,7 +374,7 @@ const CreateOrEditPost = withFallback(
           onTabChange={onTabChange}
           onImageSelected={onImageSelected}
           onClearSelectedImage={onClearSelectedImage}
-          onSetCoverImage={onSetCoverImage}
+          onSetImage={onSetCoverImage}
           onCloseDialog={onCloseDialog}
         />
       </>
