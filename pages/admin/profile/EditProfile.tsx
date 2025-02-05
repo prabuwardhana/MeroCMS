@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ImageManagerDialog from "@/components/Dialogs";
-import PageTitle from "@/components/PageTitle";
 
 import { CloudinaryResourceType, User, UserProfile } from "@/lib/types";
 import { profileFormSchema } from "@/lib/schemas";
