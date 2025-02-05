@@ -19,7 +19,7 @@ interface FileUploadProps {
 const FileUpload = ({ onTabChange, className }: FileUploadProps) => {
   const files = useAppStore((state) => state.files);
 
-  const mutation = useUploadImageMutation(onTabChange);
+  const mutation = onTabChange ? useUploadImageMutation(onTabChange) : useUploadImageMutation();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles?.length) {

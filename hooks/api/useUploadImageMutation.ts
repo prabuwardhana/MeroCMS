@@ -3,7 +3,7 @@ import { CloudinaryClient } from "@/config/apiClient";
 import { useAppStore } from "@/store/store";
 import { ExtendedFile } from "@/store/types";
 
-export const useUploadImageMutation = (onTabChange: (value: string) => void) => {
+export const useUploadImageMutation = (onTabChange?: (value: string) => void) => {
   const updateUploadProgress = useAppStore((state) => state.updateUploadProgress);
   const updateUploadStatus = useAppStore((state) => state.updateUploadStatus);
   const appendFiles = useAppStore((state) => state.appendFiles);
@@ -53,7 +53,7 @@ export const useUploadImageMutation = (onTabChange: (value: string) => void) => 
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["resources"] });
-      onTabChange("gallery");
+      if (onTabChange) onTabChange("gallery");
     },
     onMutate: (variables) => {
       appendFiles(variables.map((item) => Object.assign(item.file, { preview: URL.createObjectURL(item.file) })));
