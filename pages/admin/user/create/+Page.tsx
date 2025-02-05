@@ -1,10 +1,7 @@
 export default Page;
 import React from "react";
+import CreateOrEditUser from "../CreateOrEditUser";
 
 function Page() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">Create User</h1>
-    </>
-  );
+  return <CreateOrEditUser />;
 }

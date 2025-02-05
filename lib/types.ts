@@ -26,11 +26,14 @@ export type CloudinaryResponseType = {
 export type User = {
   _id: Types.ObjectId | null;
   profile: {
+    name: string;
     username: string;
   };
   email: string;
+  password: string;
   verified: boolean;
 };
+export type UserMutationResponseType = { user: User & { _id: Types.ObjectId }; message: string };
 
 export type CategoryType = {
   _id: Types.ObjectId | null;

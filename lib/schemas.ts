@@ -22,3 +22,14 @@ export const categoryFormSchema = z.object({
   }),
   description: z.string(),
 });
+
+// Create or edit user form schema
+export const userFormSchema = z.object({
+  profile: z.object({
+    name: z.string(),
+    username: z.string(),
+  }),
+  email: z.string(),
+  password: z.string(),
+  verified: z.boolean(),
+});
