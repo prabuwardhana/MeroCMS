@@ -1,4 +1,4 @@
-import { Home, Settings, Users, LucideIcon, LetterText, NotebookText, HelpCircle, Shapes } from "lucide-react";
+import { Home, Settings, Users, LucideIcon, LetterText, NotebookText, HelpCircle, Shapes, UserPen } from "lucide-react";
 
 export type SideNavItem = {
   title: string;
@@ -52,8 +52,12 @@ export const SIDENAV_ITEMS = [
     subMenuItems: [
       { title: "All Users", path: "/admin/users" },
       { title: "Add New User", path: "/admin/users/create" },
-      { title: "Profile", path: "users/profile" },
     ],
+  },
+  {
+    title: "Profile",
+    path: "/admin/profile",
+    icon: UserPen,
   },
   {
     title: "Settings",

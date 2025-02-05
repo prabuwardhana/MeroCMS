@@ -33,3 +33,11 @@ export const userFormSchema = z.object({
   password: z.string(),
   verified: z.boolean(),
 });
+
+// Edit profile form schema
+export const profileFormSchema = z.object({
+  name: z.string(),
+  username: z.string(),
+  biography: z.string(),
+  avatarUrl: z.string(),
+});
