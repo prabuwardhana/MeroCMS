@@ -37,7 +37,7 @@ const UsersTable = () => {
   );
 
   const onEdit = (user: User) => {
-    navigate(`/admin/posts/${user._id}/edit`);
+    navigate(`/admin/users/${user._id}/edit`);
   };
 
   const onDelete = (user: User) => {
