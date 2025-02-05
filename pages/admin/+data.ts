@@ -11,11 +11,12 @@ import API from "@/config/apiClient";
 const data = async (pageContext: PageContextClient) => {
   const { user } = pageContext;
 
-  // if user is null (no access token) or undefined (access token expired)
-  if (!user) {
+  // The user is either has no or expired acces token
+  if (user === null) {
     // The token is expired, need to retrieve the new one.
     // This is possible because we configure data() hook to run on the client side.
     // The cookie will be sent to the server along with the request.
+    // The user will be redirected to login page, when the refresh token is missing.
     await API.get("/api/auth/refresh");
   }
 

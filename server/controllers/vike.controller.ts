@@ -4,7 +4,7 @@ import { UNAUTHORIZED } from "../constants/http";
 
 export const vikeHandler: RequestHandler = async (req, res) => {
   const user =
-    req.statusCode === UNAUTHORIZED
+    req.statusCode === UNAUTHORIZED || req.tokenExp
       ? // when no access token found in the request,
         // or when the access token is expired.
         null
@@ -17,10 +17,7 @@ export const vikeHandler: RequestHandler = async (req, res) => {
   const pageContextInit = {
     urlOriginal: req.originalUrl,
     headersOriginal: req.headers,
-    // when the access token is expired,
-    // set the user to undefined instead of null.
-    // This is how we tell Vike what is what.
-    user: req.tokenExp ? undefined : user,
+    user,
     tokenExp: req.tokenExp,
   };
 
