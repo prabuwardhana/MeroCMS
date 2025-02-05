@@ -79,6 +79,20 @@ export const updateUserProfileHandler = catchErrors(async (req, res) => {
   res.status(OK).json({ updatedUser, message: "Profile created" });
 });
 
+export const getUserByIdHandler = catchErrors(async (req, res) => {
+  const user = await UserModel.findOne({ _id: req.params.userId });
+  appAssert(user, NOT_FOUND, "User not found");
+
+  res.status(OK).json({
+    profile: {
+      name: user.profile.name,
+      username: user.profile.username,
+    },
+    email: user.email,
+    verified: user.verified,
+  });
+});
+
 export const deleteUserByIdHandler = catchErrors(async (req, res) => {
   const { id } = req.body;
   await UserModel.findByIdAndDelete({ _id: id });
