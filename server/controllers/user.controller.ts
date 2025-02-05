@@ -62,7 +62,7 @@ export const upsertUserHandler = catchErrors(async (req, res) => {
 });
 
 export const updateUserProfileHandler = catchErrors(async (req, res) => {
-  const { username } = createProfileSchema.parse({
+  const { name, username, biography, avatarUrl } = createProfileSchema.parse({
     ...req.body,
   });
 
@@ -70,10 +70,15 @@ export const updateUserProfileHandler = catchErrors(async (req, res) => {
   const updatedUser = await UserModel.findByIdAndUpdate(
     req.userId,
     {
-      profile: { _id: "0".repeat(24), username },
+      profile: {
+        name,
+        username,
+        biography,
+        avatarUrl,
+      },
     },
     { new: true },
-  );
+  ).select({ password: 0 });
   appAssert(updatedUser, INTERNAL_SERVER_ERROR, "Failed to add profile");
 
   res.status(OK).json({ updatedUser, message: "Profile created" });

@@ -6,6 +6,8 @@ export interface ProfileDocument extends mongoose.Document<mongoose.Types.Object
   _id: mongoose.Types.ObjectId;
   name: string;
   username: string;
+  biography: string;
+  avatarUrl: string;
 }
 
 export interface UserDocument extends mongoose.Document<mongoose.Types.ObjectId> {
@@ -23,6 +25,8 @@ export interface UserDocument extends mongoose.Document<mongoose.Types.ObjectId>
 const profileSchema = new mongoose.Schema<ProfileDocument>({
   name: { type: String },
   username: { type: String, unique: true },
+  biography: { type: String },
+  avatarUrl: { type: String },
 });
 
 const userSchema = new mongoose.Schema<UserDocument>(

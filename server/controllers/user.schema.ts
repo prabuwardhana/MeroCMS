@@ -4,6 +4,8 @@ import { z } from "zod";
 export const createProfileSchema = z.object({
   name: z.string().min(5).max(255),
   username: z.string().min(5).max(255),
+  biography: z.string().optional(),
+  avatarUrl: z.string().optional(),
 });
 
 export const createUserSchema = z.object({

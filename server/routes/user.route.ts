@@ -18,8 +18,8 @@ const userRoutes = Router();
 userRoutes.get("/", authenticate, authorize([Role.Admin]), getAllUsersHandler);
 userRoutes.post("/", authenticate, authorize([Role.Admin]), upsertUserHandler);
 userRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteUserByIdHandler);
-userRoutes.get("/:userId", authenticate, authorize([Role.Admin]), getUserByIdHandler);
 userRoutes.get("/whoami", authenticate, getCurrentLoggedInUserHandler);
 userRoutes.post("/profile", authenticate, authorize([Role.Admin]), updateUserProfileHandler);
+userRoutes.get("/:userId", authenticate, authorize([Role.Admin]), getUserByIdHandler);
 
 export default userRoutes;
