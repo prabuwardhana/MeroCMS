@@ -56,7 +56,7 @@ const CoverImageDialog = forwardRef<HTMLDialogElement | null, CoverImageDialogPr
                 <TabsTrigger value="gallery">Image Gallery</TabsTrigger>
               </TabsList>
               <TabsContent value="upload">
-                <FileUpload onTabChange={onTabChange} />
+                <FileUpload onTabChange={onTabChange} className="h-[460px]" />
               </TabsContent>
               <TabsContent value="gallery">
                 <ImageGallery

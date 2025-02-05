@@ -9,12 +9,14 @@ import { useAppStore } from "@/store/store";
 import UploadProgressCard from "@/components/UploadProgressCard";
 import Container from "@/components/Container";
 import { useUploadImageMutation } from "@/hooks/api/useUploadImageMutation";
+import { cn } from "@/lib/utils";
 
 interface FileUploadProps {
-  onTabChange: (value: string) => void;
+  className?: string;
+  onTabChange?: (value: string) => void;
 }
 
-const FileUpload = ({ onTabChange }: FileUploadProps) => {
+const FileUpload = ({ onTabChange, className }: FileUploadProps) => {
   const files = useAppStore((state) => state.files);
 
   const mutation = useUploadImageMutation(onTabChange);
@@ -42,7 +44,7 @@ const FileUpload = ({ onTabChange }: FileUploadProps) => {
   });
 
   return (
-    <Container className="h-[460px] overflow-y-auto">
+    <Container className={cn("overflow-y-auto", className)}>
       <div {...getRootProps()} className="h-full">
         {files.length ? (
           <UploadProgressCard files={files} />
