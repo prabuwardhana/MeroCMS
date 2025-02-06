@@ -1,13 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CloudinaryClient } from "@/config/apiClient";
-import { useAppStore } from "@/store/store";
 import { ExtendedFile } from "@/store/types";
+import { useFileUploadStore } from "@/store/fileUploadStore";
 
 export const useUploadImageMutation = (onTabChange?: (value: string) => void) => {
-  const updateUploadProgress = useAppStore((state) => state.updateUploadProgress);
-  const updateUploadStatus = useAppStore((state) => state.updateUploadStatus);
-  const appendFiles = useAppStore((state) => state.appendFiles);
-  const removeFile = useAppStore((state) => state.removeFile);
+  const { updateUploadProgress, updateUploadStatus, appendFiles, removeFile } = useFileUploadStore((state) => state);
 
   const queryClient = useQueryClient();
 

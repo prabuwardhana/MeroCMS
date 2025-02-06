@@ -1,5 +1,5 @@
 import { ExtendedFile } from "@/store/types";
-import { StateCreator } from "zustand";
+import { create } from "zustand";
 
 type FileState = {
   files: ExtendedFile[];
@@ -14,9 +14,9 @@ type FileActions = {
   updateSelectedFileIds: (ids: string[]) => void;
 };
 
-export type FileSlice = FileState & FileActions;
+export type FileUploadStore = FileState & FileActions;
 
-export const createFileSlice: StateCreator<FileSlice, [], [], FileSlice> = (set) => ({
+export const useFileUploadStore = create<FileUploadStore>()((set) => ({
   files: [],
   selectedFileIds: [],
   removeFile: (id) =>
@@ -56,4 +56,4 @@ export const createFileSlice: StateCreator<FileSlice, [], [], FileSlice> = (set)
     set(() => ({
       selectedFileIds: ids,
     })),
-});
+}));

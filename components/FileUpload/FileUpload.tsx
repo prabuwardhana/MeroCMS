@@ -4,12 +4,12 @@ import { CloudUpload } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
 import { opacityVariants } from "@/constants/framerMotion";
-import { useAppStore } from "@/store/store";
 
 import UploadProgressCard from "@/components/UploadProgressCard";
 import Container from "@/components/Container";
 import { useUploadImageMutation } from "@/hooks/api/useUploadImageMutation";
 import { cn } from "@/lib/utils";
+import { useFileUploadStore } from "@/store/fileUploadStore";
 
 interface FileUploadProps {
   className?: string;
@@ -17,7 +17,7 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ onTabChange, className }: FileUploadProps) => {
-  const files = useAppStore((state) => state.files);
+  const { files } = useFileUploadStore((state) => state);
 
   const mutation = onTabChange ? useUploadImageMutation(onTabChange) : useUploadImageMutation();
 
