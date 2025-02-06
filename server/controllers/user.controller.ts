@@ -5,12 +5,6 @@ import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import { createProfileSchema, createUserSchema } from "./user.schema";
 
-export const getCurrentLoggedInUserHandler = catchErrors(async (req, res) => {
-  const user = await UserModel.findById(req.userId).select({ password: 0 });
-  appAssert(user, NOT_FOUND, "User not found");
-  res.status(OK).json(user);
-});
-
 export const getAllUsersHandler = catchErrors(async (_req, res) => {
   const users = await UserModel.find({}).select({ password: 0 });
   res.status(OK).json(users);

@@ -11,7 +11,6 @@ export const useUpdateProfileMutation = () => {
       return API.post<UserProfileMutationResponseType>("/api/user/profile", { ...data });
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["currentUser"] });
       await queryClient.invalidateQueries({ queryKey: ["Users"] });
       toast("Your profile has been updated succesfully.");
     },
