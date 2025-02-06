@@ -23,13 +23,7 @@ interface HeaderProps {
 const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: async () => API.get("/api/auth/logout"),
-    onSettled: () => {
-      queryClient.clear();
-      navigate("/auth/login");
-    },
-  });
+  const mutation = useAuthLogOutMutation();
 
   return (
     <header className="transition-color relative z-10 flex h-[60px] items-center justify-between bg-background px-4 shadow-md">
