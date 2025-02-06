@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import Role from "./server/constants/role";
+import { CounterState } from "./store/counterStore";
+import { CounterStoreApi } from "./providers/types/counterStoreApi";
 
 declare global {
   namespace Express {
@@ -19,6 +21,8 @@ declare global {
         sessionId: mongoose.Types.ObjectId;
         role: Role[];
       };
+      counterStore: CounterStoreApi;
+      counterStoreInitialState: CounterState;
       redirectUrl: string;
       tokenExp: boolean;
       // Refine type of pageContext.Page (it's `unknown` by default)

@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { useCounterStore } from "@/providers/hooks/useCounterStore";
+import { Button } from "@/components/ui/button";
+import { Minus, Plus } from "lucide-react";
 
 export function Counter() {
-  const [count, setCount] = useState(0);
+  const { count, incrementCount, decrementCount } = useCounterStore((state) => state);
 
   return (
-    <button
-      type="button"
-      className={
-        "inline-block border border-black rounded bg-gray-200 px-2 py-1 text-xs font-medium uppercase leading-normal"
-      }
-      onClick={() => setCount((count) => count + 1)}
-    >
-      Counter {count}
-    </button>
+    <div className="flex">
+      <Button
+        type="button"
+        className={"inline-block rounded px-2 py-1 text-xs font-medium uppercase leading-normal"}
+        onClick={() => decrementCount()}
+      >
+        <Minus />
+      </Button>
+      <div className="flex items-center text-lg px-2 py-1">{count}</div>
+      <Button
+        type="button"
+        className={"inline-block rounded px-2 py-1 text-xs font-medium uppercase leading-normal"}
+        onClick={() => incrementCount()}
+      >
+        <Plus />
+      </Button>
+    </div>
   );
 }
