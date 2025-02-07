@@ -52,7 +52,7 @@ export const upsertUserHandler = catchErrors(async (req, res) => {
     });
   }
 
-  res.status(OK).json({ user, message: "user created by Admin" });
+  res.status(OK).json({ user: user.omitPassword(), message: "user created by Admin" });
 });
 
 export const updateUserProfileHandler = catchErrors(async (req, res) => {
@@ -72,10 +72,10 @@ export const updateUserProfileHandler = catchErrors(async (req, res) => {
       },
     },
     { new: true },
-  ).select({ password: 0 });
+  );
   appAssert(updatedUser, INTERNAL_SERVER_ERROR, "Failed to add profile");
 
-  res.status(OK).json({ updatedUser, message: "Profile created" });
+  res.status(OK).json({ user: updatedUser.omitPassword(), message: "Profile created" });
 });
 
 export const getUserByIdHandler = catchErrors(async (req, res) => {
