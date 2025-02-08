@@ -1,19 +1,19 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { navigate } from "vike/client/router";
-
-import { Bell, ChevronsLeft, LogOut } from "lucide-react";
+import { Bell, ChevronsLeft, LogOut, UserPen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import API from "@/config/apiClient";
+import { useAuthLogOutMutation } from "@/hooks/api/useAuthLogOutMutation";
+import { usePageContext } from "vike-react/usePageContext";
 
 interface HeaderProps {
   collapsed: boolean;
@@ -21,7 +21,7 @@ interface HeaderProps {
 }
 
 const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
-  const queryClient = useQueryClient();
+  const { user } = usePageContext();
 
   const mutation = useAuthLogOutMutation();
 
@@ -41,13 +41,21 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
           <DropdownMenuTrigger asChild>
             <button className="size-10 overflow-hidden rounded-full">
               <Avatar>
-                <AvatarImage src="/assets/logo.svg" />
+                <AvatarImage src={user.profile.avatarUrl} className="object-cover" />
                 <AvatarFallback className="text-black">BT</AvatarFallback>
               </Avatar>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => mutation.mutate()}>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuLabel>
+              <span>&#x1F44B; Hello, {user.profile.username}!</span>
+            </DropdownMenuLabel>
+            <Separator />
+            <DropdownMenuItem className="cursor-pointer">
+              <UserPen />
+              <a href="/admin/profile">Edit Profile</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => mutation.mutate()} className="cursor-pointer">
               <LogOut />
               <span>Log out</span>
             </DropdownMenuItem>

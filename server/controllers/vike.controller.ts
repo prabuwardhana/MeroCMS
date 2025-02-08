@@ -1,24 +1,16 @@
 import { RequestHandler } from "express";
 import { renderPage } from "vike/server";
-import { UNAUTHORIZED } from "../constants/http";
+import { User } from "@/lib/types";
+import UserModel from "../models/user.model";
 
 export const vikeHandler: RequestHandler = async (req, res) => {
-  const user =
-    req.statusCode === UNAUTHORIZED || req.tokenExp
-      ? // when no access token found in the request,
-        // or when the access token is expired.
-        null
-      : {
-          id: req.userId,
-          sessionId: req.sessionId,
-          role: req.userRole,
-        };
+  const user = (await UserModel.findById(req.userId).select({ password: 0 })) as User;
 
   const pageContextInit = {
     urlOriginal: req.originalUrl,
     headersOriginal: req.headers,
     user,
-    tokenExp: req.tokenExp,
+    isValidToken: req.isValidToken,
   };
 
   const pageContext = await renderPage(pageContextInit);

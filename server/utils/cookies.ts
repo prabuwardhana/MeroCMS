@@ -22,16 +22,22 @@ export const getRefreshTokenCookieOptions = (): CookieOptions => ({
   path: REFRESH_PATH,
 });
 
+export const getUserTokenCookieOptions = (): CookieOptions => ({
+  ...defaults,
+});
+
 type Params = {
   res: Response;
   accessToken: string;
   refreshToken: string;
+  userToken: string;
 };
 
-export const setAuthCookies = ({ res, accessToken, refreshToken }: Params) =>
+export const setAuthCookies = ({ res, accessToken, refreshToken, userToken }: Params) =>
   res
     .cookie("accessToken", accessToken, getAccessTokenCookieOptions())
-    .cookie("refreshToken", refreshToken, getRefreshTokenCookieOptions());
+    .cookie("refreshToken", refreshToken, getRefreshTokenCookieOptions())
+    .cookie("userToken", userToken, getUserTokenCookieOptions());
 
 export const clearAuthCookies = (res: Response) =>
-  res.clearCookie("accessToken").clearCookie("refreshToken", { path: REFRESH_PATH });
+  res.clearCookie("accessToken").clearCookie("refreshToken", { path: REFRESH_PATH }).clearCookie("userToken");

@@ -33,9 +33,10 @@ export const registerHandler = catchErrors(async (req, res) => {
   });
 
   const { user, accessToken, refreshToken } = await createAccount(request);
+  const userToken = user._id;
 
   // set cookies
-  return setAuthCookies({ res, accessToken, refreshToken }).status(CREATED).json(user);
+  return setAuthCookies({ res, accessToken, refreshToken, userToken }).status(CREATED).json(user);
 });
 
 export const loginHandler = catchErrors(async (req, res) => {
@@ -44,10 +45,11 @@ export const loginHandler = catchErrors(async (req, res) => {
     userAgent: req.headers["user-agent"],
   });
 
-  const { accessToken, refreshToken } = await loginUser(request);
+  const { user, accessToken, refreshToken } = await loginUser(request);
+  const userToken = user._id.toString();
 
   // set cookies
-  return setAuthCookies({ res, accessToken, refreshToken }).status(OK).json({ message: "Login successful" });
+  return setAuthCookies({ res, accessToken, refreshToken, userToken }).status(OK).json({ message: "Login successful" });
 });
 
 export const logoutHandler = catchErrors(async (req, res) => {

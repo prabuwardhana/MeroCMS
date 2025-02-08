@@ -15,7 +15,7 @@ export const CloudinaryClient = axios.create();
 
 // create a separate client for refreshing the access token
 // to avoid infinite loops with the error interceptor
-const TokenRefreshClient = axios.create(options);
+export const TokenRefreshClient = axios.create(options);
 TokenRefreshClient.interceptors.response.use((response) => response.data);
 
 const API = axios.create(options);

@@ -13,7 +13,7 @@ export default {
   extends: [vikeReact, vikeReactQuery],
 
   // https://vike.dev/passToClient
-  passToClient: ["user", "counterStoreInitialState"],
+  passToClient: ["user", "isValidToken", "counterStoreInitialState"],
 
   // https://github.com/vikejs/vike-react/tree/main/packages/vike-react-query#settings
   queryClientConfig: {

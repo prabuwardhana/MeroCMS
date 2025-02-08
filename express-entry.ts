@@ -9,12 +9,12 @@ import cookieParser from "cookie-parser";
 import { APP_BASE_URL, NODE_ENV } from "./server/constants/env";
 import { OK } from "./server/constants/http";
 import connectToDatabase from "./server/config/db";
+import verifyAuthCookies from "./server/middlewares/session";
+import errorHandler from "./server/middlewares/error";
 import todoRoutes from "./server/routes/todo.route";
 import vikeRoutes from "./server/routes/vike.route";
 import authRoutes from "./server/routes/auth.route";
 import userRoutes from "./server/routes/user.route";
-import checkSession from "./server/middlewares/session";
-import errorHandler from "./server/middlewares/error";
 import postRoutes from "./server/routes/post.route";
 import mediaRoutes from "./server/routes/media.route";
 import categoryRoutes from "./server/routes/category.route";
@@ -65,7 +65,7 @@ async function startServer() {
     });
   });
 
-  // routes
+  // API routes
   app.use("/api/auth", authRoutes);
   app.use("/api/user", userRoutes);
   app.use("/api/todo", todoRoutes);
@@ -78,7 +78,7 @@ async function startServer() {
    *
    * @link {@see https://vike.dev}
    **/
-  app.all("*", checkSession, vikeRoutes);
+  app.all("*", verifyAuthCookies, vikeRoutes);
 
   app.use(errorHandler);
 
