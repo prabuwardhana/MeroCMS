@@ -25,7 +25,7 @@ const EditProfile = withFallback(
     const { user } = usePageContext();
 
     // global states
-    const { userProfile: userProfileData, setUserProfile: setUserProfileData } = useUserProfileStore((state) => state);
+    const { userProfile, setUserProfile } = useUserProfileStore((state) => state);
 
     // local states
     const [tab, setTab] = useState("gallery");
@@ -44,10 +44,10 @@ const EditProfile = withFallback(
       },
       // form states
       defaultValues: {
-        name: userProfileData.name,
-        username: userProfileData.username,
-        biography: userProfileData.biography,
-        avatarUrl: userProfileData.avatarUrl,
+        name: userProfile.name,
+        username: userProfile.username,
+        biography: userProfile.biography,
+        avatarUrl: userProfile.avatarUrl,
       },
     });
 
@@ -66,7 +66,7 @@ const EditProfile = withFallback(
       if (user) {
         const profile: UserProfile = user.profile;
         // replace postData with the new one from the DB
-        setUserProfileData(profile);
+        setUserProfile(profile);
       }
     }, [user]);
 
@@ -81,12 +81,12 @@ const EditProfile = withFallback(
     // post data has been loaded sucessfuly from the DB
     useEffect(() => {
       reset({
-        name: userProfileData.name,
-        username: userProfileData.username,
-        biography: userProfileData.biography,
-        avatarUrl: userProfileData.avatarUrl,
+        name: userProfile.name,
+        username: userProfile.username,
+        biography: userProfile.biography,
+        avatarUrl: userProfile.avatarUrl,
       });
-    }, [reset, userProfileData]);
+    }, [reset, userProfile]);
 
     useEffect(() => {
       if (selectedAvatar.length) formMethods.setValue("avatarUrl", selectedAvatar[0].secure_url);
@@ -122,11 +122,11 @@ const EditProfile = withFallback(
 
     const onSetAvatar = () => {
       const newUserProfileData: UserProfile = {
-        ...userProfileData,
+        ...userProfile,
         avatarUrl: selectedAvatar[0].secure_url,
       };
 
-      setUserProfileData(newUserProfileData);
+      setUserProfile(newUserProfileData);
       dialogRef?.current?.close();
     };
 
@@ -211,20 +211,20 @@ const EditProfile = withFallback(
                           )}
                         />
 
-                        {userProfileData.avatarUrl ? (
+                        {userProfile.avatarUrl ? (
                           <>
-                            <img src={userProfileData.avatarUrl} className="h-48 w-full object-cover rounded-md" />
+                            <img src={userProfile.avatarUrl} className="h-48 w-full object-cover rounded-md" />
                             <Button
                               type="button"
                               variant="link"
                               className="p-0 flex justify-center items-center text-sm text-destructive"
                               onClick={() => {
                                 const newUserProfileData: UserProfile = {
-                                  ...userProfileData,
+                                  ...userProfile,
                                   avatarUrl: "",
                                 };
 
-                                setUserProfileData(newUserProfileData);
+                                setUserProfile(newUserProfileData);
                                 setSelectedAvatar([]);
                               }}
                             >
