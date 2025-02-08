@@ -28,7 +28,7 @@ const CreateOrEditUser = withFallback(
 
     const initialUserData = useMemo(
       () => ({
-        _id: null,
+        _id: undefined,
         profile: {
           name: "",
           username: "",

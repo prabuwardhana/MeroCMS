@@ -54,7 +54,7 @@ const CreateOrEditPost = withFallback(
         coverImage: initialCoverImageData,
         categories: ["Uncategorized"],
         published: false,
-        author: user?.id,
+        author: user?._id,
         updatedAt: null,
       }),
       [],
