@@ -71,6 +71,11 @@
       "rlig" 1,
       "calt" 1;
   }
+  ul,
+  ol {
+    margin: revert;
+    padding: revert;
+  }
 }
 
 @layer components {
