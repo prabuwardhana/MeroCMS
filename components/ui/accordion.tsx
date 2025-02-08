@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface AccordionProps {
   open?: boolean;
   title: string;
+  className?: string;
   children: React.ReactNode;
 }
 
-const Accordion = ({ open = false, title, children }: AccordionProps) => {
+const Accordion = ({ open = false, title, className, children }: AccordionProps) => {
   const [accordionOpen, setAccordionOpen] = useState(open);
 
   const handleOnCLick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,7 +20,7 @@ const Accordion = ({ open = false, title, children }: AccordionProps) => {
     <div>
       <button
         onClick={handleOnCLick}
-        className="flex justify-between items-center w-full px-4 py-2 bg-muted font-semibold"
+        className={cn("flex justify-between items-center w-full px-4 py-2 bg-muted font-semibold", className)}
       >
         <span>{title}</span>
         <svg
