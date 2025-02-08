@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Types } from "mongoose";
 import { postFormSchema } from "./schemas";
 import { schema } from "@/components/blocknote/custom-schemas";
+import Role from "@/server/constants/role";
 
 export type CloudinaryResourceType = {
   bytes: number;
@@ -23,18 +24,6 @@ export type CloudinaryResponseType = {
   };
 };
 
-export type User = {
-  _id: Types.ObjectId | null;
-  profile: {
-    name: string;
-    username: string;
-  };
-  email: string;
-  password: string;
-  verified: boolean;
-};
-export type UserMutationResponseType = { user: User & { _id: Types.ObjectId }; message: string };
-
 export type UserProfile = {
   name: string;
   username: string;
@@ -42,6 +31,16 @@ export type UserProfile = {
   avatarUrl?: string;
 };
 export type UserProfileMutationResponseType = { user: User; message: string };
+
+export type User = {
+  _id: Types.ObjectId | undefined;
+  profile: UserProfile;
+  email: string;
+  role?: Role[];
+  password: string;
+  verified: boolean;
+};
+export type UserMutationResponseType = { user: User & { _id: Types.ObjectId }; message: string };
 
 export type CategoryType = {
   _id: Types.ObjectId | null;
