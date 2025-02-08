@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { usePageContext } from "vike-react/usePageContext";
 import { withFallback } from "vike-react-query";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -11,16 +12,17 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ImageManagerDialog from "@/components/Dialogs";
 
-import { CloudinaryResourceType, User, UserProfile } from "@/lib/types";
+import { CloudinaryResourceType, UserProfile } from "@/lib/types";
 import { profileFormSchema } from "@/lib/schemas";
 
 import { useUpdateProfileMutation } from "@/hooks/api/useUpdateProfileMutation";
-import { useGetCurrentUserQuery } from "@/hooks/api/useGetCurrentUserQuery";
 
 import { RotateCcw, Trash2 } from "lucide-react";
 
 const EditProfile = withFallback(
   () => {
+    const { user } = usePageContext();
+
     const initialUserData = useMemo(
       () => ({
         userId: null,
@@ -40,7 +42,6 @@ const EditProfile = withFallback(
 
     const dialogRef = useRef<HTMLDialogElement>(null);
 
-    const { currentUserQuery } = useGetCurrentUserQuery();
     const mutation = useUpdateProfileMutation();
 
     // 1. Define our form.
@@ -60,7 +61,6 @@ const EditProfile = withFallback(
 
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<UserProfile> = (formData) => {
-      console.log(formData);
       // Saves the content to DB.
       mutation.mutate(formData);
     };
@@ -69,15 +69,14 @@ const EditProfile = withFallback(
       console.log(formData);
     };
 
-    // Loads the content from DB.
+    // Get the user from the page context provided by Vike.
     useEffect(() => {
-      if (currentUserQuery) {
-        const user: User = currentUserQuery.data;
+      if (user) {
         const profile: UserProfile = user.profile;
         // replace postData with the new one from the DB
         setUserProfileData(profile);
       }
-    }, [currentUserQuery]);
+    }, [user]);
 
     // The following useEffect expects formMethods as dependency
     // when formMethods.reset is called within useEffect.
