@@ -16,6 +16,7 @@ import { CloudinaryResourceType, UserProfile } from "@/lib/types";
 import { profileFormSchema } from "@/lib/schemas";
 
 import { useUpdateProfileMutation } from "@/hooks/api/useUpdateProfileMutation";
+import { useUserProfileStore } from "@/store/userProfileStore";
 
 import { RotateCcw, Trash2 } from "lucide-react";
 
@@ -23,19 +24,10 @@ const EditProfile = withFallback(
   () => {
     const { user } = usePageContext();
 
-    const initialUserData = useMemo(
-      () => ({
-        userId: null,
-        name: "",
-        username: "",
-        biography: "",
-        avatarUrl: "",
-      }),
-      [],
-    );
+    // global states
+    const { userProfile: userProfileData, setUserProfile: setUserProfileData } = useUserProfileStore((state) => state);
 
     // local states
-    const [userProfileData, setUserProfileData] = useState<UserProfile>(initialUserData);
     const [tab, setTab] = useState("gallery");
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedAvatar, setSelectedAvatar] = useState<Array<CloudinaryResourceType>>([]);

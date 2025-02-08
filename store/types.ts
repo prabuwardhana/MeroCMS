@@ -1,5 +1,3 @@
-import { FileSlice } from "./fileSlice";
-
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
 export type ExtendedFile = {
@@ -8,5 +6,3 @@ export type ExtendedFile = {
   uploadProgress: number;
   uploadStatus: UploadStatus;
 };
-
-export type Store = FileSlice;
