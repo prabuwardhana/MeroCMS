@@ -13,13 +13,12 @@ export const useCreateUpdateNavMenuMutation = (id?: string) => {
       return API.post<NavMenuResponseType>("/api/navmenu/upsert", { ...data, _id: id });
     },
     onSuccess: async (response) => {
-      console.log(response.data);
+      await queryClient.invalidateQueries({ queryKey: ["navmenus"] });
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["navmenu", id] });
         toast(`navmenu: "${response.data.navMenu.title}" has been updated succesfully.`);
         navigate("/admin/nav-menu");
       } else {
-        await queryClient.invalidateQueries({ queryKey: ["navmenus"] });
         toast(`navmenu: "${response.data.navMenu.title}" has been created succesfully.`);
         navigate(`/admin/nav-menu/${response.data.navMenu._id}/edit`);
       }
