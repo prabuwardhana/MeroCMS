@@ -81,7 +81,7 @@ const MenuEditor = () => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <div className="bg-muted border grid grid-cols-10 gap-3 font-semibold py-2 px-4">
+                <div className="bg-muted grid grid-cols-10 gap-3 font-semibold py-2 px-4">
                   <div className="flex items-center col-span-2">
                     <FormLabel className="text-sm">Title</FormLabel>
                   </div>
