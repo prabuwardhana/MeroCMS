@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { postFormSchema } from "./schemas";
 import { schema } from "@/components/blocknote/custom-schemas";
 import Role from "@/server/constants/role";
+import { Item } from "@/components/NestableList/Libs/types";
 
 export type CloudinaryResourceType = {
   bytes: number;
@@ -80,4 +81,9 @@ export type FilterOnType = {
   column: string;
   title: string;
   options: FilterOptions[];
+};
+
+export type MenuEditorContentType = {
+  title: string | undefined;
+  navMenuContent: Item[];
 };

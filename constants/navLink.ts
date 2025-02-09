@@ -1,4 +1,15 @@
-import { Home, Settings, Users, LucideIcon, LetterText, NotebookText, HelpCircle, Shapes, UserPen } from "lucide-react";
+import {
+  Home,
+  Settings,
+  Users,
+  LucideIcon,
+  LetterText,
+  NotebookText,
+  HelpCircle,
+  Shapes,
+  UserPen,
+  PanelsTopLeft,
+} from "lucide-react";
 
 export type SideNavItem = {
   title: string;
@@ -58,6 +69,16 @@ export const SIDENAV_ITEMS = [
     title: "Profile",
     path: "/admin/profile",
     icon: UserPen,
+  },
+  {
+    title: "Nav Menu Editor",
+    path: "/admin/nav-menu",
+    icon: PanelsTopLeft,
+    submenu: true,
+    subMenuItems: [
+      { title: "All Nav Menus", path: "/admin/nav-menu" },
+      { title: "Add New Nav Menu", path: "/admin/nav-menu/create" },
+    ],
   },
   {
     title: "Settings",

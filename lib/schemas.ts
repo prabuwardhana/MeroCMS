@@ -41,3 +41,10 @@ export const profileFormSchema = z.object({
   biography: z.string(),
   avatarUrl: z.string(),
 });
+
+// Create or edit navigation menu schema
+export const navMenuFormSchema = z.object({
+  title: z.string().min(1, {
+    message: "Title is required",
+  }),
+});
