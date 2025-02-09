@@ -75,7 +75,7 @@ export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
 export type CustomBlockNoteEditor = typeof schema.BlockNoteEditor;
 export type CustomPartialBlock = typeof schema.PartialBlock;
 
-export type TableType = "posts" | "categories" | "pages" | "products" | "portfolios" | "users";
+export type TableType = "posts" | "categories" | "pages" | "products" | "portfolios" | "users" | "navmenu";
 
 export type FilterOptions = {
   label: string;

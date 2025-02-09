@@ -25,6 +25,7 @@ export function DataTableToolbar<TData>({ table, type, filterOn }: DataTableTool
       pages: "",
       portfolios: "",
       products: "",
+      navmenu: "title",
     }[type] || "none";
 
   return (
