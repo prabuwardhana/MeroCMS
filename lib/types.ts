@@ -61,6 +61,13 @@ export type PostType = z.infer<typeof postFormSchema> & {
 };
 export type PostMutationResponseType = { post: PostType & { _id: Types.ObjectId }; message: string };
 
+export type NavMenuType = {
+  _id: Types.ObjectId | null;
+  title: string | undefined;
+  navMenuContent: Item[];
+};
+export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
+
 // Since we are using a custom schema for the BlockNote,
 // using the default BlockNoteEditor and PartialBlock type
 // to anotate our editor and the editor content (document) simply won't work.
@@ -81,9 +88,4 @@ export type FilterOnType = {
   column: string;
   title: string;
   options: FilterOptions[];
-};
-
-export type MenuEditorContentType = {
-  title: string | undefined;
-  navMenuContent: Item[];
 };

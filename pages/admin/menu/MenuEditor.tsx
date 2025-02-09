@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePageContext } from "vike-react/usePageContext";
 
-import { MenuEditorContentType } from "@/lib/types";
+import { NavMenuType } from "@/lib/types";
 import { navMenuFormSchema } from "@/lib/schemas";
 
 import { useNestableItemsContext } from "@/providers/hooks/useNestableItemsContext";
@@ -18,7 +18,7 @@ import { ListItemContent } from "./ListItemContent";
 
 const MenuEditor = () => {
   const { routeParams } = usePageContext();
-  const [navMenuData, setNavMenuData] = useState<MenuEditorContentType>({ title: "", navMenuContent: [] });
+  const [navMenuData, setNavMenuData] = useState<NavMenuType>({ _id: null, title: "", navMenuContent: [] });
 
   const { items, updateItems } = useNestableItemsContext();
 
@@ -41,14 +41,14 @@ const MenuEditor = () => {
   const handleSubmit: SubmitHandler<{ title: string }> = (formData) => {
     // Saves the content to DB.
     console.log({ ...formData, navMenu: items });
-    mutation.mutate({ ...formData, navMenuContent: items });
+    mutation.mutate({ ...navMenuData, ...formData, navMenuContent: items });
   };
 
   // In edit mode, loads the content from DB.
   useEffect(() => {
     console.log(navMenuQuery?.data);
     if (routeParams.id && navMenuQuery) {
-      const navMenu: MenuEditorContentType = navMenuQuery.data;
+      const navMenu: NavMenuType = navMenuQuery.data;
       // replace postData with the new one from the DB
       setNavMenuData(navMenu);
       updateItems(navMenu.navMenuContent);
@@ -110,7 +110,11 @@ const MenuEditor = () => {
           renderListItemContent={ListItemContent}
           onChange={(nestableItems) => {
             updateItems(nestableItems);
-            setNavMenuData({ title: formMethods.formState.defaultValues?.title, navMenuContent: nestableItems });
+            setNavMenuData({
+              ...navMenuData,
+              title: formMethods.formState.defaultValues?.title,
+              navMenuContent: nestableItems,
+            });
           }}
           confirmChange={({ draggedItem }) => {
             return draggedItem.preventDrag ? false : true;
