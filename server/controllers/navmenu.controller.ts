@@ -9,8 +9,6 @@ export const upsertNavMenuHandler = catchErrors(async (req, res) => {
     ...req.body,
   });
 
-  console.log(navMenuContent);
-
   // create new or update existing nav menu
   let navMenu;
   if (_id) {
