@@ -16,7 +16,6 @@ export const useCreateUpdateCategoryMutation = (id?: string) => {
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["category", id] });
         toast(`Category: "${response.data.category.name}" has been updated succesfully.`);
-        navigate("/admin/categories");
       } else {
         toast(`Category: "${response.data.category.name}" has been created succesfully.`);
         navigate(`/admin/categories/${response.data.category._id}/edit`);

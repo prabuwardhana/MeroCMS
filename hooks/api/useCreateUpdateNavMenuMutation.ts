@@ -16,15 +16,14 @@ export const useCreateUpdateNavMenuMutation = (id?: string) => {
       await queryClient.invalidateQueries({ queryKey: ["navmenus"] });
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["navmenu", id] });
-        toast(`navmenu: "${response.data.navMenu.title}" has been updated succesfully.`);
-        navigate("/admin/nav-menu");
+        toast(`Nav Menu: "${response.data.navMenu.title}" has been updated succesfully.`);
       } else {
-        toast(`navmenu: "${response.data.navMenu.title}" has been created succesfully.`);
+        toast(`Nav Menu: "${response.data.navMenu.title}" has been created succesfully.`);
         navigate(`/admin/nav-menu/${response.data.navMenu._id}/edit`);
       }
     },
     onError: (error) => {
-      toast(`navmenu: ${error.message}`);
+      toast(`Nav Menu: ${error.message}`);
     },
   });
 };

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { navigate } from "vike/client/router";
 import { PostMutationResponseType, PostType } from "@/lib/types";
 import API from "@/config/apiClient";
+import { toast } from "sonner";
 
 export const useCreateUpdatePostMutation = (id?: string) => {
   const queryClient = useQueryClient();
@@ -12,12 +13,12 @@ export const useCreateUpdatePostMutation = (id?: string) => {
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["posts"] });
-      // In create mode, navigate to edit post page after successful mutation
-      if (!id) {
-        const data = response.data;
-        navigate(`/admin/posts/${data.post._id}/edit`);
-      } else {
+      if (id) {
         await queryClient.invalidateQueries({ queryKey: ["post", id] });
+        toast(`Post: "${response.data.post.title}" has been updated succesfully.`);
+      } else {
+        toast(`Post: "${response.data.post.title}" has been created succesfully.`);
+        navigate(`/admin/posts/${response.data.post._id}/edit`);
       }
     },
   });

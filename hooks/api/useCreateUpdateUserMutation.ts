@@ -13,11 +13,9 @@ export const useCreateUpdateUserMutation = (id?: string) => {
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["users"] });
-
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["user", id] });
         toast(`User: "${response.data.user.profile.name}" has been updated succesfully.`);
-        navigate("/admin/users");
       } else {
         toast(`User: "${response.data.user.profile.name}" has been created succesfully.`);
         navigate(`/admin/users/${response.data.user._id}/edit`);
