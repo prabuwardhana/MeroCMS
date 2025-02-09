@@ -31,7 +31,6 @@ export type UserProfile = {
   biography?: string;
   avatarUrl?: string;
 };
-export type UserProfileMutationResponseType = { user: User; message: string };
 
 export type User = {
   _id: Types.ObjectId | undefined;
@@ -41,7 +40,7 @@ export type User = {
   password: string;
   verified: boolean;
 };
-export type UserMutationResponseType = { user: User & { _id: Types.ObjectId }; message: string };
+export type UserMutationResponseType = { user: User; message: string };
 
 export type CategoryType = {
   _id: Types.ObjectId | null;
@@ -49,7 +48,7 @@ export type CategoryType = {
   slug: string;
   description: string;
 };
-export type CategoryMutationResponseType = { category: CategoryType & { _id: Types.ObjectId }; message: string };
+export type CategoryMutationResponseType = { category: CategoryType; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: Types.ObjectId | null;
@@ -59,7 +58,7 @@ export type PostType = z.infer<typeof postFormSchema> & {
   author: Types.ObjectId | undefined;
   updatedAt: Date | null;
 };
-export type PostMutationResponseType = { post: PostType & { _id: Types.ObjectId }; message: string };
+export type PostMutationResponseType = { post: PostType; message: string };
 
 export type NavMenuType = {
   _id: Types.ObjectId | null;
