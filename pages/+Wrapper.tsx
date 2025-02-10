@@ -1,4 +1,4 @@
-import { CounterStoreProvider } from "@/providers/counterStoreProvider";
+import { CounterStoreProvider } from "@/components/Counter/providers/counterStoreProvider";
 import React from "react";
 import { usePageContext } from "vike-react/usePageContext";
 
