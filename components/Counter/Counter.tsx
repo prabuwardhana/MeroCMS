@@ -1,10 +1,11 @@
 import React from "react";
 
-import { useCounterStore } from "@/providers/hooks/useCounterStore";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 
-export function Counter() {
+import { useCounterStore } from "./providers/useCounterStore";
+
+function Counter() {
   const { count, incrementCount, decrementCount } = useCounterStore((state) => state);
 
   return (
@@ -27,3 +28,5 @@ export function Counter() {
     </div>
   );
 }
+
+export default Counter;

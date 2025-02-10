@@ -1,6 +1,5 @@
 import React, { type ReactNode } from "react";
-import { CounterStoreContext } from "@/providers/constants/counterStoreContext";
-import { CounterStoreApi } from "./types/counterStoreApi";
+import { CounterStoreApi, CounterStoreContext } from "./useCounterStore";
 
 interface CounterStoreProviderProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Counter } from "./Counter.js";
+import Counter from "@/components/Counter";
 
 export default function Page() {
   return (
