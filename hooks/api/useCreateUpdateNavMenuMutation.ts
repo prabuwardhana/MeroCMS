@@ -9,7 +9,6 @@ export const useCreateUpdateNavMenuMutation = (id?: string) => {
 
   return useMutation({
     mutationFn: async (data: NavMenuType) => {
-      console.log(data);
       return API.post<NavMenuResponseType>("/api/navmenu/upsert", { ...data, _id: id });
     },
     onSuccess: async (response) => {

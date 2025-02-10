@@ -40,13 +40,11 @@ const MenuEditor = () => {
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<{ title: string }> = (formData) => {
     // Saves the content to DB.
-    console.log({ ...formData, navMenu: items });
     mutation.mutate({ ...navMenuData, ...formData, navMenuContent: items });
   };
 
   // In edit mode, loads the content from DB.
   useEffect(() => {
-    console.log(navMenuQuery?.data);
     if (routeParams.id && navMenuQuery) {
       const navMenu: NavMenuType = navMenuQuery.data;
       // replace postData with the new one from the DB
@@ -65,8 +63,6 @@ const MenuEditor = () => {
   // Reset the form states when the previously stored
   // post data has been loaded sucessfuly from the DB
   useEffect(() => {
-    console.log(formMethods.formState.defaultValues?.title);
-    console.log(navMenuData);
     reset({
       title: navMenuData.title,
     });
