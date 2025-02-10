@@ -6,7 +6,7 @@ import { usePageContext } from "vike-react/usePageContext";
 import { NavMenuType } from "@/lib/types";
 import { navMenuFormSchema } from "@/lib/schemas";
 
-import { useNestableItemsContext } from "@/providers/hooks/useNestableItemsContext";
+import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 import { useGetSingleNavMenuQuery } from "@/hooks/api/useGetSingleNavMenuQuery";
 import { useCreateUpdateNavMenuMutation } from "@/hooks/api/useCreateUpdateNavMenuMutation";
 

@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { Item } from "@/components/NestableList/Libs/types";
-import { ItemsContext } from "@/providers/constants/nestableItemsStoreContext";
 
 export const useNestableItems = (initialItems: Item[]) => {
   const [items, setItems] = useState<Item[]>(initialItems);
@@ -16,5 +15,7 @@ export const useNestableItems = (initialItems: Item[]) => {
 };
 
 export type UseItemsContextType = ReturnType<typeof useNestableItems>;
+
+export const ItemsContext = createContext<UseItemsContextType | undefined>(undefined);
 
 export const useNestableItemsContext = () => useContext(ItemsContext) as UseItemsContextType;

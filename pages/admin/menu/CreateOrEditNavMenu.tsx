@@ -1,6 +1,6 @@
 import React from "react";
 import { withFallback } from "vike-react-query";
-import { NestableItemsProvider } from "@/providers/nestableItemsProvider";
+import { NestableItemsProvider } from "@/components/NestableList/providers/nestableItemsProvider";
 import { Button } from "@/components/ui/button";
 import AddItemForm from "./AddItemForm";
 import MenuEditor from "./MenuEditor";

@@ -2,7 +2,7 @@ import React, { type ChangeEvent, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { useNestableItemsContext } from "@/providers/hooks/useNestableItemsContext";
+import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 
 import { Button } from "@/components/ui/button";
 import Accordion from "@/components/ui/accordion";

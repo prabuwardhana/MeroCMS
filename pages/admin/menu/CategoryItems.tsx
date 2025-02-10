@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { useNestableItemsContext } from "@/providers/hooks/useNestableItemsContext";
+import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 
 import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 
