@@ -6,7 +6,7 @@ export const useDeleteUserMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: Types.ObjectId | null) => {
+    mutationFn: async (id: Types.ObjectId | undefined) => {
       return API.delete("/api/user/", { data: { id } });
     },
     onSuccess: async () => {
