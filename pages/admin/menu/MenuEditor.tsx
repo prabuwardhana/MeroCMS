@@ -77,23 +77,27 @@ const MenuEditor = () => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <div className="bg-muted grid grid-cols-10 gap-3 font-semibold py-2 px-4">
-                  <div className="flex items-center col-span-2">
-                    <FormLabel className="text-sm">Title</FormLabel>
+                <div className="bg-muted py-2 px-4">
+                  <div className="grid grid-cols-10 gap-3 font-semibold">
+                    <div className="flex items-center col-span-2">
+                      <FormLabel className="text-sm">Title</FormLabel>
+                    </div>
+                    <div className="flex items-center col-span-5">
+                      <FormControl>
+                        <Input
+                          className="box-border h-[40px] rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                          {...field}
+                        />
+                      </FormControl>
+                    </div>
+                    <Button type="submit" className="bg-primary text-secondary col-span-3">
+                      {routeParams.id ? "Update" : "+ Create"}
+                    </Button>
                   </div>
-                  <div className="flex items-center col-span-5">
-                    <FormControl>
-                      <Input
-                        className="box-border h-[40px] rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
-                        {...field}
-                      />
-                    </FormControl>
+                  <div className="flex justify-center">
+                    <FormMessage className="mt-2" />
                   </div>
-                  <Button type="submit" className="bg-primary text-secondary col-span-3">
-                    {routeParams.id ? "Update" : "+ Create"}
-                  </Button>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
