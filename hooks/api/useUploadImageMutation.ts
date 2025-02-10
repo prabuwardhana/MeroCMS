@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CloudinaryClient } from "@/config/apiClient";
-import { ExtendedFile } from "@/store/types";
+import { ExtendedFile } from "@/lib/types";
 import { useFileUploadStore } from "@/store/fileUploadStore";
 
 export const useUploadImageMutation = (onTabChange?: (value: string) => void) => {

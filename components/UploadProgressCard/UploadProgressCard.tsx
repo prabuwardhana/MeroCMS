@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { opacityVariants } from "@/constants/framerMotion";
 import { convertByteToKiloMegabyte } from "@/lib/utils";
-import { ExtendedFile } from "@/store/types";
+import { ExtendedFile } from "@/lib/types";
 
 import { Progress } from "@/components/ui/progress";
 

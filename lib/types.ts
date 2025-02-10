@@ -6,6 +6,15 @@ import { schema } from "@/components/blocknote/custom-schemas";
 import Role from "@/server/constants/role";
 import { Item } from "@/components/NestableList/Libs/types";
 
+type UploadStatus = "idle" | "uploading" | "success" | "error";
+
+export type ExtendedFile = {
+  file: File;
+  id: string;
+  uploadProgress: number;
+  uploadStatus: UploadStatus;
+};
+
 export type CloudinaryResourceType = {
   bytes: number;
   created_at: string;
