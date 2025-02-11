@@ -19,6 +19,7 @@ import postRoutes from "./server/routes/post.route";
 import mediaRoutes from "./server/routes/media.route";
 import categoryRoutes from "./server/routes/category.route";
 import navMenuRoutes from "./server/routes/navmenu.route";
+import componentRoutes from "./server/routes/component.route";
 
 const isProduction = NODE_ENV === "production";
 
@@ -73,6 +74,7 @@ async function startServer() {
   app.use("/api/post", postRoutes);
   app.use("/api/category", categoryRoutes);
   app.use("/api/navmenu", navMenuRoutes);
+  app.use("/api/component", componentRoutes);
   app.use("/api/media", mediaRoutes);
 
   /**
