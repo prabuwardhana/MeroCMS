@@ -48,3 +48,31 @@ export const navMenuFormSchema = z.object({
     message: "Title is required",
   }),
 });
+
+// Create or edit component form schema
+export const fieldFormSchema = z.object({
+  name: z.string().min(1, {
+    message: "Field name is required",
+  }),
+  label: z.string().min(1, {
+    message: "Field label is required",
+  }),
+  type: z.string().min(1, {
+    message: "Field type is required",
+  }),
+});
+
+export const componentFormSchema = z.object({
+  title: z.string().min(1, {
+    message: "Title is required",
+  }),
+  fields: z.array(fieldFormSchema).refine(
+    (entries) => {
+      const names = new Set(entries.map((e) => e.name));
+      return names.size === entries.length;
+    },
+    {
+      message: "Field names must be unique!",
+    },
+  ),
+});

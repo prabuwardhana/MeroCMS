@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { Types } from "mongoose";
-import { postFormSchema } from "./schemas";
+import { componentFormSchema, postFormSchema } from "./schemas";
 import { schema } from "@/components/blocknote/custom-schemas";
 import Role from "@/server/constants/role";
 import { Item } from "@/components/NestableList/Libs/types";
@@ -59,6 +59,8 @@ export type CategoryType = {
 };
 export type CategoryMutationResponseType = { category: CategoryType; message: string };
 
+export type TextInputType = "rich-text" | "long-text" | "short-text";
+
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: Types.ObjectId | null;
   published: boolean;
@@ -84,7 +86,15 @@ export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
 export type CustomBlockNoteEditor = typeof schema.BlockNoteEditor;
 export type CustomPartialBlock = typeof schema.PartialBlock;
 
-export type TableType = "posts" | "categories" | "pages" | "products" | "portfolios" | "users" | "navmenu";
+export type TableType =
+  | "posts"
+  | "categories"
+  | "pages"
+  | "products"
+  | "portfolios"
+  | "users"
+  | "navmenu"
+  | "components";
 
 export type FilterOptions = {
   label: string;
@@ -97,3 +107,15 @@ export type FilterOnType = {
   title: string;
   options: FilterOptions[];
 };
+
+export type PageComponentFieldType = {
+  fieldId: string;
+  name: string;
+  label: string;
+  type: TextInputType;
+};
+export type PageComponentType = z.infer<typeof componentFormSchema> & {
+  _id: Types.ObjectId | null;
+  fields: PageComponentFieldType[];
+};
+export type PageComponentMutationResponseType = { component: PageComponentType; message: string };
