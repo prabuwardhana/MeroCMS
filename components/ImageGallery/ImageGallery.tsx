@@ -58,7 +58,7 @@ const ImageGallery = withFallback(
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-0 p-0"
               >
                 {pages.map((page) => {
                   return page?.data.result.resources.map((image) => {
