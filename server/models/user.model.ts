@@ -3,7 +3,6 @@ import { compareValue, hashValue } from "../utils/bcrypt";
 import Role from "../constants/role";
 
 export interface ProfileDocument extends mongoose.Document<mongoose.Types.ObjectId> {
-  _id: mongoose.Types.ObjectId;
   name: string;
   username: string;
   biography: string;
