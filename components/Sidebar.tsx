@@ -32,7 +32,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(({ collapsed, isDes
       animate={containerControls}
       initial="open"
       className={cn(
-        "fixed z-[100] flex h-full flex-col overflow-x-hidden border-r border-secondary-foreground/10 bg-background",
+        "fixed z-40 flex h-full flex-col overflow-x-hidden border-r border-secondary-foreground/10 bg-background",
         collapsed ? "md:items-center" : "",
         collapsed ? "max-md:-left-full" : "max-md:left-0",
         !isDesktopDevice ? "transition-[left] duration-1000 ease-in-out" : "",
