@@ -1,5 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { createContext, useReducer, ReactElement, useCallback, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useReducer,
+  ReactElement,
+  useCallback,
+  useContext,
+  ReactNode,
+  CSSProperties,
+} from "react";
 
 import { Item, Mouse, NestableState } from "../Libs/types";
 import { nestableReducer, NESTABLE_REDUCER_ACTION_TYPE } from "./reducer";
@@ -93,7 +100,7 @@ const useNestableListContext = (initState: NestableState) => {
   );
 
   const setElemCopyStyles = useCallback(
-    (payload: any) =>
+    (payload: CSSProperties) =>
       dispatch({
         type: NESTABLE_REDUCER_ACTION_TYPE.SET_ELEM_COPY_STYLE,
         payload: payload,
