@@ -52,7 +52,7 @@ const Accordion = ({ open = false, title, className, children }: AccordionProps)
           accordionOpen ? "grid-rows-[1fr] opacity-100 p-4" : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <div className="overflow-hidden">{children}</div>
+        <div className="overflow-hidden space-y-2">{children}</div>
       </div>
     </div>
   );
