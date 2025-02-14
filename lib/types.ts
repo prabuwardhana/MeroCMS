@@ -63,12 +63,11 @@ export type TextInputType = "rich-text" | "long-text" | "short-text";
 export type PageType = z.infer<typeof pageFormSchema> & {
   _id: Types.ObjectId | null;
   published: boolean;
-  coverImage: CloudinaryResourceType;
   fields?: Record<string, string>[];
   author: Types.ObjectId | undefined;
   updatedAt: Date | null;
 };
-export type PageMutationResponseType = { post: PageType; message: string };
+export type PageMutationResponseType = { page: PageType; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: Types.ObjectId | null;

@@ -20,6 +20,7 @@ export const pageFormSchema = z.object({
   slug: z.string().min(1, {
     message: "Slug is required",
   }),
+  coverImageUrl: z.string(),
   fields: z.array(z.record(z.string(), z.string())).optional(),
 });
 
