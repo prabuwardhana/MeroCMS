@@ -212,7 +212,7 @@ const CreateOrEditPage = withFallback(
                   <PageTitle>{pageTitle}</PageTitle>
                   <div className="flex justify-between gap-x-6">
                     <Button type="submit" className="bg-primary text-secondary">
-                      Create Page
+                      {routeParams.id ? "Update Page" : "Create Page"}
                     </Button>
                   </div>
                 </div>
