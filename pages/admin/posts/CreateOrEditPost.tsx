@@ -329,7 +329,7 @@ const CreateOrEditPost = withFallback(
                     {categoriesQuery.data.map((category) => {
                       const isChecked = selectedCategories.includes(category.name);
                       return (
-                        <div key={category.name} className="flex items-center space-x-2 [&:not(:last-child)]:mb-3">
+                        <div key={category.name} className="flex items-center space-x-2">
                           <Checkbox
                             id={category.name}
                             checked={isChecked}

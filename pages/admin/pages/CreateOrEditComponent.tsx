@@ -206,7 +206,7 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
               <Button
                 type="button"
                 variant="ghost"
-                onClick={() => append({ fieldId: fields.length.toString(), type: "rich-text", name: "", label: "" })}
+                onClick={() => append({ fieldId: fields.length.toString(), type: "long-text", name: "", label: "" })}
                 className="justify-start items-center flex gap-2 rounded-md p-2"
               >
                 <CirclePlus />
