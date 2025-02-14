@@ -71,6 +71,7 @@ const CreateOrEditPage = withFallback(
       defaultValues: {
         title: pageData.title,
         slug: pageData.slug,
+        fields: pageData.fields,
         coverImageUrl: pageData.coverImageUrl,
       },
     });
