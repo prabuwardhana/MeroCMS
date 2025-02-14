@@ -32,28 +32,13 @@ const CreateOrEditPage = withFallback(
     const { user, routeParams } = usePageContext();
     const pageTitle = routeParams.id ? "Edit Page" : "Add New Page";
 
-    const initialCoverImageData = useMemo(
-      () => ({
-        public_id: "",
-        secure_url: "",
-        display_name: "",
-        format: "",
-        width: 0,
-        height: 0,
-        bytes: 0,
-        tags: [],
-        created_at: "",
-      }),
-      [],
-    );
-
     const initialPageData = useMemo(
       () => ({
         _id: null,
         title: "",
         slug: "",
         fields: [],
-        coverImage: initialCoverImageData,
+        coverImageUrl: "",
         published: false,
         author: user?._id,
         updatedAt: null,
@@ -86,6 +71,7 @@ const CreateOrEditPage = withFallback(
       defaultValues: {
         title: pageData.title,
         slug: pageData.slug,
+        coverImageUrl: pageData.coverImageUrl,
       },
     });
 
@@ -132,6 +118,7 @@ const CreateOrEditPage = withFallback(
         title: pageData.title,
         slug: pageData.slug,
         fields: pageData.fields,
+        coverImageUrl: pageData.coverImageUrl,
       });
     }, [reset, pageData]);
 
@@ -143,6 +130,10 @@ const CreateOrEditPage = withFallback(
     useEffect(() => {
       if (componentsQuery.data) setPageComponents(componentsQuery.data);
     }, [componentsQuery]);
+
+    useEffect(() => {
+      if (selectedCoverImages.length > 0) formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
+    }, [selectedCoverImages]);
 
     const onTabChange = (value: string) => {
       setTab(value);
@@ -170,20 +161,11 @@ const CreateOrEditPage = withFallback(
     const onSetCoverImage = () => {
       const newPageData: PageType = {
         ...pageData,
-        coverImage: {
-          public_id: selectedCoverImages[0].public_id,
-          secure_url: selectedCoverImages[0].secure_url,
-          display_name: selectedCoverImages[0].display_name,
-          format: selectedCoverImages[0].format,
-          width: selectedCoverImages[0].width,
-          height: selectedCoverImages[0].height,
-          bytes: selectedCoverImages[0].bytes,
-          tags: selectedCoverImages[0].tags,
-          created_at: selectedCoverImages[0].created_at,
-        },
+        coverImageUrl: selectedCoverImages[0].secure_url,
       };
 
       setPageData(newPageData);
+      formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
       dialogRef?.current?.close();
     };
 
@@ -305,14 +287,29 @@ const CreateOrEditPage = withFallback(
                     )}
                   </div>
                 </div>
-                <div></div>
+                <FormField
+                  control={formMethods.control}
+                  name="coverImageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="hidden"
+                          className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </main>
               <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col gap-y-8 overflow-y-hidden">
                 <div className="bg-background border">
                   <Accordion title="Hero Image" open={true}>
-                    {pageData.coverImage.secure_url ? (
+                    {pageData.coverImageUrl ? (
                       <>
-                        <img src={pageData.coverImage.secure_url} className="h-48 w-full object-cover rounded-md" />
+                        <img src={pageData.coverImageUrl} className="h-48 w-full object-cover rounded-md" />
                         <Button
                           type="button"
                           variant="link"
@@ -320,7 +317,7 @@ const CreateOrEditPage = withFallback(
                           onClick={() => {
                             const newPageData: PageType = {
                               ...pageData,
-                              coverImage: initialCoverImageData,
+                              coverImageUrl: "",
                             };
 
                             setPageData(newPageData);
