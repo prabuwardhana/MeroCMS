@@ -35,11 +35,14 @@ export const upsertComponentHandler = catchErrors(async (req, res) => {
     });
   }
 
-  res.status(OK).json({ component, message: "a component is succesfully created" });
+  res.status(OK).json({
+    component: { _id: component._id, title: component.title, fields: component.fields },
+    message: "a component is succesfully created",
+  });
 });
 
-export const getComponentsHandler = catchErrors(async (req, res) => {
-  const components = await ComponentModel.find({});
+export const getComponentsHandler = catchErrors(async (_req, res) => {
+  const components = await ComponentModel.find({}).select(["_id", "title", "fields"]);
   res.status(OK).json(components);
 });
 
@@ -48,6 +51,7 @@ export const getSingleComponentByIdHandler = catchErrors(async (req, res) => {
   appAssert(component, NOT_FOUND, "Component not found");
 
   res.status(OK).json({
+    _id: component._id,
     title: component.title,
     fields: component.fields,
   });
