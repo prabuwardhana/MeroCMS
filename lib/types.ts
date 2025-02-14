@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { Types } from "mongoose";
-import { componentFormSchema, postFormSchema } from "./schemas";
+import { componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 import { schema } from "@/components/blocknote/custom-schemas";
 import Role from "@/server/constants/role";
 import { Item } from "@/components/NestableList/Libs/types";
@@ -60,6 +60,15 @@ export type CategoryType = {
 export type CategoryMutationResponseType = { category: CategoryType; message: string };
 
 export type TextInputType = "rich-text" | "long-text" | "short-text";
+export type PageType = z.infer<typeof pageFormSchema> & {
+  _id: Types.ObjectId | null;
+  published: boolean;
+  coverImage: CloudinaryResourceType;
+  fields?: Record<string, string>[];
+  author: Types.ObjectId | undefined;
+  updatedAt: Date | null;
+};
+export type PageMutationResponseType = { post: PageType; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: Types.ObjectId | null;

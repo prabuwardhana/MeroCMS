@@ -12,6 +12,17 @@ export const postFormSchema = z.object({
   editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
 });
 
+// Create or edit page form schema
+export const pageFormSchema = z.object({
+  title: z.string().min(1, {
+    message: "Title is required",
+  }),
+  slug: z.string().min(1, {
+    message: "Slug is required",
+  }),
+  fields: z.array(z.record(z.string(), z.string())).optional(),
+});
+
 // Create or edit category form schema
 export const categoryFormSchema = z.object({
   name: z.string().min(1, {

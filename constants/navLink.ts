@@ -41,8 +41,8 @@ export const SIDENAV_ITEMS = [
     icon: NotebookText,
     submenu: true,
     subMenuItems: [
-      { title: "All Pages", path: "pages" },
-      { title: "Add New Page", path: "pages/create" },
+      { title: "All Pages", path: "/admin/pages" },
+      { title: "Add New Page", path: "/admin/pages/create" },
       { title: "Components", path: "/admin/pages/components" },
     ],
   },
