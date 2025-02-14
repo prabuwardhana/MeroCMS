@@ -19,13 +19,12 @@ import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
 import { RotateCcw, Trash2 } from "lucide-react";
-import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
+import { useGetSinglePageQuery } from "@/hooks/api/useGetSinglePageQuery";
 import { useGetComponentQuery } from "@/hooks/api/useGetComponentsQuery";
+import { useCreateUpdatePageMutation } from "@/hooks/api/useCreateUpdatePageMutation";
 import PageComponent from "./PageComponent";
 import PageComponentButton from "@/components/PageComponentButton";
 import { usePageComponentsStore } from "@/store/pageComponentsStore";
-
-// import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
 
 const CreateOrEditPage = withFallback(
   () => {
@@ -58,8 +57,8 @@ const CreateOrEditPage = withFallback(
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     const { componentsQuery } = useGetComponentQuery();
-    const { postQuery } = useGetSinglePostQuery(routeParams.id);
-    // const mutation = useCreateUpdatePostMutation(routeParams.id);
+    const { pageQuery } = useGetSinglePageQuery(routeParams.id);
+    const mutation = useCreateUpdatePageMutation(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<PageType>({
@@ -85,7 +84,7 @@ const CreateOrEditPage = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<PageType> = (formData) => {
       // Saves the content to DB.
-      // mutation.mutate(formData);
+      mutation.mutate({ ...pageData, ...formData });
       console.log(formData);
     };
 
@@ -96,12 +95,10 @@ const CreateOrEditPage = withFallback(
 
     // In edit mode, loads the content from DB.
     useEffect(() => {
-      if (routeParams.id && postQuery) {
-        // const post: PageType = postQuery.data;
-        // // replace postData with the new one from the DB
-        // setPageData({ ...pageData, ...post });
-        // setSelectedCategories(post.categories);
-        // setLastSavedAt(post.updatedAt);
+      if (routeParams.id && pageQuery) {
+        const page: PageType = pageQuery.data;
+        // replace postData with the new one from the DB
+        setPageData({ ...pageData, ...page });
       }
     }, [routeParams.id]);
 
