@@ -13,7 +13,7 @@ const CustomLinkItem = () => {
   const { items, updateItems } = useNestableItemsContext();
 
   return (
-    <Accordion className="border-b" title="Custom Link" open={true}>
+    <Accordion className="border-b" title="Custom Link">
       <div className="grid grid-cols-4 md:grid-cols-6 gap-3 font-semibold mb-4">
         <div className="flex items-center">
           <label htmlFor="NavName">Label</label>

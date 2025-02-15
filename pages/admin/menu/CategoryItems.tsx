@@ -35,7 +35,7 @@ const CategoryItems = () => {
   );
 
   return (
-    <Accordion title="Categories" open={true}>
+    <Accordion title="Categories">
       <Card className="mb-4">
         <CardContent className="p-4">
           {categoriesQuery.data.map((category) => {
