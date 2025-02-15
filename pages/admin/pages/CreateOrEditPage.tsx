@@ -52,6 +52,7 @@ const CreateOrEditPage = withFallback(
     const [tab, setTab] = useState("gallery");
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
+    const [coverImageUrl, setCoverImageUrl] = useState("");
     const [pageData, setPageData] = useState<PageType>(initialPageData);
 
     const dialogRef = useRef<HTMLDialogElement>(null);
@@ -157,12 +158,7 @@ const CreateOrEditPage = withFallback(
     };
 
     const onSetCoverImage = () => {
-      const newPageData: PageType = {
-        ...pageData,
-        coverImageUrl: selectedCoverImages[0].secure_url,
-      };
-
-      setPageData(newPageData);
+      setCoverImageUrl(selectedCoverImages[0].secure_url);
       formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
       dialogRef?.current?.close();
     };
@@ -305,20 +301,18 @@ const CreateOrEditPage = withFallback(
               <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col gap-y-8 overflow-y-hidden">
                 <div className="bg-background border">
                   <Accordion title="Hero Image" open={true}>
-                    {pageData.coverImageUrl ? (
+                    {pageData.coverImageUrl || coverImageUrl ? (
                       <>
-                        <img src={pageData.coverImageUrl} className="h-48 w-full object-cover rounded-md" />
+                        <img
+                          src={pageData.coverImageUrl ? pageData.coverImageUrl : coverImageUrl}
+                          className="h-48 w-full object-cover rounded-md"
+                        />
                         <Button
                           type="button"
                           variant="link"
                           className="p-0 flex justify-center items-center text-sm text-destructive"
                           onClick={() => {
-                            const newPageData: PageType = {
-                              ...pageData,
-                              coverImageUrl: "",
-                            };
-
-                            setPageData(newPageData);
+                            setCoverImageUrl("");
                             setSelectedCoverImages([]);
                           }}
                         >
