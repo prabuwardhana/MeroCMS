@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { usePageContext } from "vike-react/usePageContext";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -62,13 +62,11 @@ const CreateOrEditPost = withFallback(
 
     // local states
     const [tab, setTab] = useState("gallery");
-    const [modalOpen, setModalOpen] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [lastSavedAt, setLastSavedAt] = useState<Date | undefined | null>(null);
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
-
-    const dialogRef = useRef<HTMLDialogElement>(null);
 
     const { postQuery } = useGetSinglePostQuery(routeParams.id);
     const { categoriesQuery } = useGetCategoriesQuery();
@@ -128,11 +126,6 @@ const CreateOrEditPost = withFallback(
       });
     }, [reset, postData]);
 
-    useEffect(() => {
-      if (modalOpen) dialogRef.current?.showModal();
-      else dialogRef.current?.close();
-    }, [modalOpen]);
-
     const { dispatchAutoSave, triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data: PostType) => {
         if (!data.title || !data.slug) return;
@@ -145,10 +138,6 @@ const CreateOrEditPost = withFallback(
 
     const onTabChange = (value: string) => {
       setTab(value);
-    };
-
-    const onCloseDialog = () => {
-      setModalOpen(false);
     };
 
     const onImageSelected = (isChecked: boolean, image: CloudinaryResourceType) => {
@@ -184,7 +173,6 @@ const CreateOrEditPost = withFallback(
 
       dispatchAutoSave(newPostData);
       setPostData(newPostData);
-      dialogRef?.current?.close();
     };
 
     return (
@@ -315,9 +303,7 @@ const CreateOrEditPost = withFallback(
                     ) : (
                       <Button
                         type="button"
-                        onClick={() => {
-                          setModalOpen(true);
-                        }}
+                        onClick={() => setIsDialogOpen(true)}
                         className="h-20 w-full text-wrap rounded-sm border border-dashed border-gray-600 bg-gray-100 text-sm text-secondary-foreground transition-colors hover:bg-gray-300"
                       >
                         <span className="sr-only">Set Cover Image</span>
@@ -367,15 +353,14 @@ const CreateOrEditPost = withFallback(
         <ImageManagerDialog
           title="Cover Image"
           buttonText="Set Cover Image"
-          ref={dialogRef}
           tab={tab}
           selected={selectedCoverImages}
-          modalOpen={modalOpen}
+          isOpen={isDialogOpen}
+          setIsOpen={setIsDialogOpen}
           onTabChange={onTabChange}
           onImageSelected={onImageSelected}
           onClearSelectedImage={onClearSelectedImage}
           onSetImage={onSetCoverImage}
-          onCloseDialog={onCloseDialog}
         />
       </>
     );
