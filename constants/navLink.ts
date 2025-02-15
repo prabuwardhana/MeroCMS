@@ -67,11 +67,6 @@ export const SIDENAV_ITEMS = [
     ],
   },
   {
-    title: "Profile",
-    path: "/admin/profile",
-    icon: UserPen,
-  },
-  {
     title: "Nav Menu Editor",
     path: "/admin/nav-menu",
     icon: PanelsTopLeft,
@@ -80,6 +75,11 @@ export const SIDENAV_ITEMS = [
       { title: "All Nav Menus", path: "/admin/nav-menu" },
       { title: "Add New Nav Menu", path: "/admin/nav-menu/create" },
     ],
+  },
+  {
+    title: "Profile",
+    path: "/admin/profile",
+    icon: UserPen,
   },
   {
     title: "Settings",
