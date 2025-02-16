@@ -17,8 +17,8 @@ const PageComponent = ({
   const { control } = useFormContext<PageType>();
   const labels = field.fieldLabels.split("_");
   return (
-    <div className="border border-primary/70 w-full rounded-sm bg-primary/50">
-      <div className="flex justify-between bg-primary/70 py-2 px-4">
+    <div className="border border-primary/70 w-full rounded-sm bg-card">
+      <div className="flex justify-between bg-background rounded-sm py-2 px-4">
         <div className="flex items-center text-white">{field.fieldsTitle}</div>
         <div className="flex items-center">
           <Button type="button" variant={"destructive"} className="h-8 w-8" onClick={() => remove(componentIndex)}>

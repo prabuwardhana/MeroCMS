@@ -36,7 +36,7 @@ const CategoryItems = () => {
 
   return (
     <Accordion title="Categories">
-      <Card className="mb-4">
+      <Card className="mb-4 border">
         <CardContent className="p-4">
           {categoriesQuery.data.map((category) => {
             const isChecked = selectedCategories.find((item) => item.name === category.name) ? true : false;

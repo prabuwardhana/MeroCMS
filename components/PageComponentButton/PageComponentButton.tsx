@@ -16,13 +16,13 @@ const PageComponentButton = ({ pageComponent }: { pageComponent: PageComponentTy
     <button
       ref={draggable.setNodeRef}
       className={cn(
-        "flex items-center gap-x-2 w-full h-9 border border-muted-foreground rounded-sm bg-gray-100 cursor-grab",
+        "flex items-center gap-x-2 w-full h-9 border border-accent-foreground rounded-sm bg-accent text-accent-foreground cursor-grab",
         draggable.isDragging && "border-2 border-primary",
       )}
       {...draggable.listeners}
       {...draggable.attributes}
     >
-      <div className="flex items-center bg-gray-300 rounded-l-sm h-full px-1">
+      <div className="flex items-center bg-background rounded-l-sm h-full px-1">
         <GripVertical size={16} />
       </div>
       <div className="flex flex-row items-center py-2">{pageComponent.title}</div>
@@ -32,8 +32,8 @@ const PageComponentButton = ({ pageComponent }: { pageComponent: PageComponentTy
 
 export const PageComponentButtonDragOverlay = ({ pageComponent }: { pageComponent: PageComponentType | undefined }) => {
   return (
-    <button className="flex items-center gap-x-2 w-full h-9 border border-muted-foreground rounded-sm bg-gray-100 cursor-grab">
-      <div className="flex items-center bg-gray-300 rounded-l-sm h-full px-1">
+    <button className="flex items-center gap-x-2 w-full h-9 border border-accent-foreground rounded-sm bg-accent text-accent-foreground cursor-grab">
+      <div className="flex items-center bg-background rounded-l-sm h-full px-1">
         <GripVertical size={16} />
       </div>
       <div className="flex flex-row items-center py-2">{pageComponent?.title}</div>

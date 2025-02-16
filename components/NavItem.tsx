@@ -91,10 +91,7 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
                 // When the sidebar is opened, turn the nav item into a normal div
                 <div className="flex flex-row items-center space-x-4 rounded-lg p-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary">
                   {item.icon && (
-                    <item.icon
-                      size={20}
-                      className={cn("flex-shrink-0", isSubPathActive ? "font-bold text-primary" : "")}
-                    />
+                    <item.icon size={20} className={cn("flex-shrink-0", isSubPathActive && "font-bold text-primary")} />
                   )}
                   <motion.div
                     key={`${isCollapsed}`}
@@ -103,7 +100,7 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
                     animate="animate"
                     exit="exit"
                   >
-                    <span className={cn("whitespace-nowrap", isSubPathActive ? "font-bold text-primary" : "")}>
+                    <span className={cn("whitespace-nowrap", isSubPathActive && "font-bold text-primary")}>
                       {item.title}
                     </span>
                   </motion.div>
@@ -111,7 +108,7 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
               ) : (
                 // When the sidebar is closed, turn the nav item into a nav link
                 <motion.div key={`${isCollapsed}`}>
-                  <a href={item.path} className={cn("sidebar-item", urlPathname.includes(item.path) ? "active" : "")}>
+                  <a href={item.path} className={cn("sidebar-item", urlPathname.includes(item.path) && "active")}>
                     {item.icon && <item.icon size={20} className="flex-shrink-0" />}
                   </a>
                 </motion.div>
@@ -147,7 +144,7 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
                     <a
                       key={idx}
                       href={subItem.path}
-                      className={cn("sidebar-item", urlPathname === subItem.path ? "active" : "")}
+                      className={cn("sidebar-item", urlPathname === subItem.path && "active")}
                     >
                       {!isCollapsed && <span className="whitespace-nowrap">{subItem.title}</span>}
                     </a>
@@ -159,7 +156,7 @@ const NavItem = ({ item, isCollapsed }: NavItemProps) => {
         </>
       ) : (
         /* When the nav item has no sub-menu item */
-        <a href={item.path} className={cn("sidebar-item", urlPathname === item.path ? "active" : "")}>
+        <a href={item.path} className={cn("sidebar-item", urlPathname === item.path && "active")}>
           {item.icon && <item.icon size={20} className="flex-shrink-0" />}
           <AnimatePresence>
             {!isCollapsed && (

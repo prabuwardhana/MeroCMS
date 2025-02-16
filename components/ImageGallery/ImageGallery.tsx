@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Container from "@/components/Container";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 import { Loader2, RotateCcw, Trash2 } from "lucide-react";
 
-import { convertByteToKiloMegabyte } from "@/lib/utils";
+import { cn, convertByteToKiloMegabyte } from "@/lib/utils";
 import { CloudinaryResourceType } from "@/lib/types";
 import { opacityVariants } from "@/constants/framerMotion";
 
@@ -42,14 +43,8 @@ const ImageGallery = withFallback(
     }, [pages]);
 
     return (
-      <Container className="flex">
-        <motion.div
-          layout
-          style={{ width: selected.length ? "75%" : "100%" }}
-          className={
-            "h-[460px] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
-          }
-        >
+      <Container className="flex gap-4">
+        <motion.div layout style={{ width: selected.length ? "75%" : "100%" }} className="h-[460px] overflow-y-auto">
           {Array.isArray(pages) && (
             <AnimatePresence>
               <motion.ul
@@ -65,15 +60,23 @@ const ImageGallery = withFallback(
                     const isChecked = selected.find((item) => item.secure_url === image.secure_url) ? true : false;
 
                     return (
-                      <li key={image.public_id} className="bg-white dark:bg-zinc-700">
+                      <li key={image.public_id} className="bg-card dark:bg-zinc-700">
                         <div className="relative group">
-                          <label
-                            className={`absolute ${isChecked ? "opacity-100" : "opacity-0"} group-hover:opacity-100 transition-opacity top-3 left-3 p-1`}
+                          <Label
+                            className={cn(
+                              "absolute group-hover:opacity-100 transition-opacity top-3 left-3 p-1",
+                              isChecked && "opacity-100",
+                              !isChecked && "opacity-0",
+                            )}
                             htmlFor={image.public_id}
                           >
                             <span className="sr-only">Select Image &quot;{image.public_id}&quot;</span>
                             <Checkbox
-                              className={`w-6 h-6 rounded-full bg-white shadow ${isChecked ? "border-blue-500" : "border-zinc-200"}`}
+                              className={cn(
+                                "w-6 h-6 rounded-full bg-card-foreground shadow",
+                                isChecked && "border-primary",
+                                !isChecked && "border-card-foreground",
+                              )}
                               id={image.public_id}
                               onCheckedChange={() => {
                                 onImageSelected(isChecked, image);
@@ -81,9 +84,13 @@ const ImageGallery = withFallback(
                               checked={isChecked}
                               disabled={!isChecked && selected.length > 0}
                             />
-                          </label>
+                          </Label>
                           <div
-                            className={`block cursor-pointer rounded-xl border-4 transition-[border] ${isChecked ? "border-blue-500" : "border-white"}`}
+                            className={cn(
+                              "block cursor-pointer rounded-xl border-4 transition-[border]",
+                              isChecked && "border-primary",
+                              !isChecked && "border-card",
+                            )}
                             onClick={() => {
                               onImageSelected(isChecked, image);
                             }}
@@ -121,7 +128,7 @@ const ImageGallery = withFallback(
         <AnimatePresence>
           {!!selected.length && (
             <motion.div
-              className="bg-muted p-2 text-nowrap"
+              className="bg-muted p-3 text-nowrap rounded-md"
               key="image-panel"
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: "25%" }}

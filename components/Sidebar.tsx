@@ -48,7 +48,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(({ collapsed, isDes
           )}
         </AnimatePresence>
       </div>
-      <nav className="flex h-full w-full flex-col gap-y-4 overflow-y-auto overflow-x-hidden p-3 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+      <nav className="flex h-full w-full flex-col gap-y-4 overflow-y-auto overflow-x-hidden p-3">
         {SIDENAV_ITEMS.map((item, idx) => {
           return <NavItem key={idx} item={item} isCollapsed={collapsed} />;
         })}

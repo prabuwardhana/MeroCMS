@@ -18,7 +18,7 @@ import { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types
 import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
-import { RotateCcw, Trash2 } from "lucide-react";
+import { CirclePlus, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useGetSinglePageQuery } from "@/hooks/api/useGetSinglePageQuery";
 import { useGetComponentQuery } from "@/hooks/api/useGetComponentsQuery";
 import { useCreateUpdatePageMutation } from "@/hooks/api/useCreateUpdatePageMutation";
@@ -149,6 +149,7 @@ const CreateOrEditPage = withFallback(
     const onSetCoverImage = () => {
       setCoverImageUrl(selectedCoverImages[0].secure_url);
       formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
+      setIsDialogOpen(false);
     };
 
     const droppable = useDroppable({
@@ -192,7 +193,8 @@ const CreateOrEditPage = withFallback(
                 <div className="flex flex-col justify-center md:flex-row md:justify-between">
                   <PageTitle>{pageTitle}</PageTitle>
                   <div className="flex justify-between gap-x-6">
-                    <Button type="submit" className="bg-primary text-secondary">
+                    <Button type="submit" className="bg-primary text-primary-foreground">
+                      {routeParams.id ? <Save /> : <CirclePlus />}
                       {routeParams.id ? "Update Page" : "Create Page"}
                     </Button>
                   </div>
@@ -287,8 +289,8 @@ const CreateOrEditPage = withFallback(
                 />
               </main>
               <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col gap-y-8 overflow-y-hidden">
-                <div className="bg-background border">
-                  <Accordion title="Hero Image" open={true}>
+                <div className="bg-card">
+                  <Accordion className="border-b" title="Hero Image" open={true}>
                     {pageData.coverImageUrl || coverImageUrl ? (
                       <>
                         <img
@@ -312,14 +314,14 @@ const CreateOrEditPage = withFallback(
                       <Button
                         type="button"
                         onClick={() => setIsDialogOpen(true)}
-                        className="h-20 w-full text-wrap rounded-sm border border-dashed border-gray-600 bg-gray-100 text-sm text-secondary-foreground transition-colors hover:bg-gray-300"
+                        className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
                       >
                         <span className="sr-only">Set Hero Image</span>
                         Set Hero Image
                       </Button>
                     )}
                   </Accordion>
-                  <Accordion title="Page Components" open={true} className="space-y-2">
+                  <Accordion title="Page Components" open={true} className="border-b space-y-2">
                     {pageComponents.map((pageComponent) => (
                       <PageComponentButton key={pageComponent._id?.toString()} pageComponent={pageComponent} />
                     ))}

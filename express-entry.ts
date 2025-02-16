@@ -21,6 +21,7 @@ import categoryRoutes from "./server/routes/category.route";
 import navMenuRoutes from "./server/routes/navmenu.route";
 import componentRoutes from "./server/routes/component.route";
 import pageRoutes from "./server/routes/page.route";
+import siteRoutes from "./server/routes/site.route";
 
 const isProduction = NODE_ENV === "production";
 
@@ -78,6 +79,7 @@ async function startServer() {
   app.use("/api/navmenu", navMenuRoutes);
   app.use("/api/component", componentRoutes);
   app.use("/api/media", mediaRoutes);
+  app.use("/api/site", siteRoutes);
 
   /**
    * Vike route

@@ -20,7 +20,7 @@ const Accordion = ({ open = false, title, className, children }: AccordionProps)
     <div>
       <button
         onClick={handleOnCLick}
-        className={cn("flex justify-between items-center w-full px-4 py-2 bg-muted font-semibold", className)}
+        className={cn("flex justify-between items-center w-full px-4 py-2 bg-background font-semibold", className)}
       >
         <span>{title}</span>
         <svg

@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import NestableList from "@/components/NestableList";
 import { ListItemContent } from "./ListItemContent";
+import { CirclePlus, Save } from "lucide-react";
 
 const MenuEditor = () => {
   const { routeParams } = usePageContext();
@@ -69,7 +70,7 @@ const MenuEditor = () => {
   }, [reset, navMenuData]);
 
   return (
-    <div className="bg-background border min-h-44">
+    <div className="bg-card min-h-44">
       <Form {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
           <FormField
@@ -77,7 +78,7 @@ const MenuEditor = () => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <div className="bg-muted py-2 px-4">
+                <div className="bg-background border-b py-2 px-4">
                   <div className="grid grid-cols-10 gap-3 font-semibold">
                     <div className="flex items-center col-span-2">
                       <FormLabel className="text-sm">Title</FormLabel>
@@ -90,8 +91,9 @@ const MenuEditor = () => {
                         />
                       </FormControl>
                     </div>
-                    <Button type="submit" className="bg-primary text-secondary col-span-3">
-                      {routeParams.id ? "Update" : "+ Create"}
+                    <Button type="submit" className="bg-primary text-primary-foreground col-span-3">
+                      {routeParams.id ? <Save /> : <CirclePlus />}
+                      {routeParams.id ? "Save" : "Create"}
                     </Button>
                   </div>
                   <div className="flex justify-center">

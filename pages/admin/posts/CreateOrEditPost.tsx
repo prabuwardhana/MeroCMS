@@ -20,7 +20,7 @@ import { postFormSchema } from "@/lib/schemas";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { slugify } from "@/lib/utils";
 
-import { RotateCcw, Trash2 } from "lucide-react";
+import { CirclePlus, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
 import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
@@ -190,8 +190,9 @@ const CreateOrEditPost = withFallback(
                       isSaving={isSaving}
                       isError={isError}
                     />
-                    <Button type="submit" className="bg-primary text-secondary">
-                      Update Post
+                    <Button type="submit" className="bg-primary text-primary-foreground">
+                      {routeParams.id ? <Save /> : <CirclePlus />}
+                      {routeParams.id ? "Update Page" : "Create Page"}
                     </Button>
                   </div>
                 </div>
@@ -276,8 +277,8 @@ const CreateOrEditPost = withFallback(
                 />
               </main>
               <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col gap-y-8 overflow-y-hidden">
-                <div className="bg-background border">
-                  <Accordion title="Cover Image" open={true}>
+                <div className="bg-card">
+                  <Accordion className="border-b" title="Cover Image" open={true}>
                     {postData.coverImage.secure_url ? (
                       <>
                         <img src={postData.coverImage.secure_url} className="h-48 w-full object-cover rounded-md" />
@@ -304,14 +305,14 @@ const CreateOrEditPost = withFallback(
                       <Button
                         type="button"
                         onClick={() => setIsDialogOpen(true)}
-                        className="h-20 w-full text-wrap rounded-sm border border-dashed border-gray-600 bg-gray-100 text-sm text-secondary-foreground transition-colors hover:bg-gray-300"
+                        className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
                       >
                         <span className="sr-only">Set Cover Image</span>
                         Set Cover Image
                       </Button>
                     )}
                   </Accordion>
-                  <Accordion title="Categories" open={true}>
+                  <Accordion className="border-b" title="Categories" open={true}>
                     {categoriesQuery.data.map((category) => {
                       const isChecked = selectedCategories.includes(category.name);
                       return (

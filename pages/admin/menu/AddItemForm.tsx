@@ -6,7 +6,7 @@ import CustomLinkItem from "./CustomLinkItem";
 
 const AddItemForm = () => {
   return (
-    <div className="bg-card border">
+    <div className="bg-card">
       <PageItems />
       <CustomLinkItem />
       <CategoryItems />

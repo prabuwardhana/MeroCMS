@@ -13,6 +13,8 @@ import { cn } from "@/lib/utils";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/sonner";
 
+import "@fontsource/poppins";
+
 export default function LayoutAdmin({ children }: { children: React.ReactNode }) {
   const isDesktopDevice = useMediaQuery("(min-width: 768px)");
   const [collapsed, setCollapsed] = useState(!isDesktopDevice);
@@ -59,7 +61,7 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
   });
 
   return (
-    <div className="min-h-screen bg-secondary">
+    <div className="min-h-screen bg-muted">
       {/* The sidebar's opaque background in mobile view */}
       <div
         className={cn(
@@ -70,9 +72,7 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
       <Sidebar ref={sidebarRef} collapsed={collapsed} isDesktopDevice={isDesktopDevice} />
       <motion.div variants={containerVariants} animate={containerControls} initial="close">
         <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-        <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden px-6 pt-6 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-          {children}
-        </div>
+        <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden px-6 pt-6">{children}</div>
       </motion.div>
       <Toaster />
       <ReactQueryDevtools initialIsOpen={false} />

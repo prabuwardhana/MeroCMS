@@ -9,6 +9,7 @@ import LogOutButton from "@/components/LogOutButton";
 import { Link } from "@/components/Link.js";
 import logoUrl from "@/assets/logo.svg";
 
+import "@fontsource/poppins";
 import "./style.css";
 
 export default function LayoutSite({ children }: { children: React.ReactNode }) {

@@ -9,19 +9,19 @@
 }
 
 .alert[data-alert-type="warning"] {
-  background-color: #fff6e6;
+  background-color: #fdba74;
 }
 
 .alert[data-alert-type="error"] {
-  background-color: #ffe6e6;
+  background-color: #f87171;
 }
 
 .alert[data-alert-type="info"] {
-  background-color: #e6ebff;
+  background-color: #60a5fa;
 }
 
 .alert[data-alert-type="success"] {
-  background-color: #e6ffe6;
+  background-color: #4ade80;
 }
 
 [data-color-scheme="dark"] .alert[data-alert-type="warning"] {

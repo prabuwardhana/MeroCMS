@@ -1,6 +1,9 @@
 import React, { ChangeEvent } from "react";
+import { cn } from "@/lib/utils";
 import { RenderItemOptions } from "@/components/NestableList/Libs/types";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
 
 // render function to render the list items' content
@@ -20,7 +23,7 @@ export const ListItemContent = ({
   return (
     <div className={`border border-gray-300 rounded-sm bg-background ${!isAccordionOpen && "border-b-0"}`}>
       <div
-        className="flex justify-between py-2 px-4 border-b border-gray-300 bg-neutral-200 cursor-grab"
+        className="flex justify-between py-2 px-4 border-b border-gray-300 bg-neutral-200 text-accent cursor-grab"
         {...draggableElAttr}
       >
         {item.name}
@@ -52,36 +55,32 @@ export const ListItemContent = ({
       </div>
 
       <div
-        className={`grid overflow-hidden transition-all duration-300 ease-in-out text-slate-600 text-sm ${
-          isAccordionOpen ? "grid-rows-[1fr] opacity-100 p-4" : "grid-rows-[0fr] opacity-0"
-        }`}
+        className={cn(
+          "grid overflow-hidden transition-all duration-300 ease-in-out text-primary text-sm",
+          isAccordionOpen && "grid-rows-[1fr] opacity-100 p-4",
+          !isAccordionOpen && "grid-rows-[0fr] opacity-0",
+        )}
       >
-        <div className="overflow-hidden">
-          <label
-            htmlFor={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}
-            className="text-sm text-slate-500"
-          >
-            Navigation Label
-          </label>
-          <input
-            id={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}
-            type="text"
-            value={item.name}
-            className="border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => eventCallbacks.onInputChange("name", e.target.value, item)}
-          />
-          <div>
-            <label
-              htmlFor={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}
-              className="text-sm text-slate-500"
-            >
-              Navigation URL
-            </label>
-            <input
+        <div className="overflow-hidden space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}>Navigation Label</Label>
+            <Input
+              id={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}
+              type="text"
+              value={item.name}
+              className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                eventCallbacks.onInputChange("name", e.target.value, item)
+              }
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}>Navigation URL</Label>
+            <Input
               id={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}
               type="text"
               value={item.url}
-              className="border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
               onChange={(e: ChangeEvent<HTMLInputElement>) => eventCallbacks.onInputChange("url", e.target.value, item)}
             />
           </div>

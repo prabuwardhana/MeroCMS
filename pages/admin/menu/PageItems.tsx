@@ -36,7 +36,7 @@ const PageItems = () => {
 
   return (
     <Accordion className="border-b" title="Pages" open={true}>
-      <Card className="mb-4">
+      <Card className="mb-4 border">
         <CardContent className="p-4">
           {pagesQuery.data.map((page) => {
             const isChecked = selectedPages.find((item) => item.title === page.title) ? true : false;
