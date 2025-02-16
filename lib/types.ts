@@ -79,6 +79,10 @@ export type PostType = z.infer<typeof postFormSchema> & {
 };
 export type PostMutationResponseType = { post: PostType; message: string };
 
+export type PostDtoType = PostType & {
+  author: UserProfile;
+};
+
 export type NavMenuType = {
   _id: Types.ObjectId | null;
   title: string | undefined;
@@ -92,6 +96,7 @@ export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
 // TypeScript will complaint about missing custom block!
 // https://www.blocknotejs.org/docs/custom-schemas#usage-with-typescript
 export type CustomBlockNoteEditor = typeof schema.BlockNoteEditor;
+export type CustomBlock = typeof schema.Block;
 export type CustomPartialBlock = typeof schema.PartialBlock;
 
 export type TableType =
