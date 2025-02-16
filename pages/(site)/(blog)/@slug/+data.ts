@@ -30,17 +30,25 @@ async function createResponse(post: PostDtoType): Promise<{
   slug: string;
   author: UserProfile;
   categories: string[];
-  coverImageUrl: string;
+  coverImage: {
+    url: string;
+    width: number;
+    height: number;
+  };
   htmlContent: string;
   updatedAt: Date | null;
 }> {
-  const { title, slug, author, categories, coverImage, editorContent, updatedAt } = post;
+  const { title, slug, author, categories, coverImage: image, editorContent, updatedAt } = post;
 
   // @ts-expect-error: https://github.com/TypeCellOS/BlockNote/issues/1307
   const editor = ServerBlockNoteEditor.create({ schema });
   const htmlContent = await editor.blocksToFullHTML(editorContent as Block[]);
 
-  const coverImageUrl = coverImage.secure_url;
+  const coverImage = {
+    url: image.secure_url,
+    width: image.width,
+    height: image.height,
+  };
 
-  return Promise.resolve({ title, slug, author, categories, coverImageUrl, htmlContent, updatedAt });
+  return Promise.resolve({ title, slug, author, categories, coverImage, htmlContent, updatedAt });
 }
