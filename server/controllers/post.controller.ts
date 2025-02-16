@@ -75,6 +75,25 @@ export const getSinglePostByIdHandler = catchErrors(async (req, res) => {
   });
 });
 
+export const getPostBySlugHandler = catchErrors(async (req, res) => {
+  const post = await PostModel.findOne({ slug: req.params.slug })
+    .populate<{ author: User }>({ path: "author", select: "profile" })
+    .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
+    .exec();
+  appAssert(post, NOT_FOUND, "Post not found");
+
+  res.status(OK).json({
+    title: post.title,
+    slug: post.slug,
+    editorContent: post.editorContent,
+    published: post.published,
+    author: post.author.profile,
+    coverImage: post.coverImage,
+    categories: post?.categories.map((item) => item.name),
+    updatedAt: post.updatedAt,
+  });
+});
+
 export const getPostsHandler = catchErrors(async (req, res) => {
   const posts = await PostModel.find({})
     .sort({ createdAt: "desc" })
