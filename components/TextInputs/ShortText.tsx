@@ -17,11 +17,11 @@ export const ShortText = <T extends FieldValues>({ name, control, label, disable
         // console.log(field);
         return (
           <FormItem className="space-y-1">
-            <FormLabel className="text-white text-xs">{label}</FormLabel>
+            <FormLabel className="text-card-foreground text-xs">{label}</FormLabel>
             <FormControl>
               <Input
                 disabled={disabled}
-                className="box-border rounded-md border border-primary/70 bg-background/20 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="box-border rounded-sm border text-card-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                 {...field}
               />
             </FormControl>

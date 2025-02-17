@@ -70,7 +70,7 @@ const MenuEditor = () => {
   }, [reset, navMenuData]);
 
   return (
-    <div className="bg-card min-h-44">
+    <div className="bg-slate-100 dark:bg-card min-h-44">
       <Form {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
           <FormField
@@ -78,7 +78,7 @@ const MenuEditor = () => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <div className="bg-background border-b py-2 px-4">
+                <div className="bg-slate-200 dark:bg-background border-b py-2 px-4">
                   <div className="grid grid-cols-10 gap-3 font-semibold">
                     <div className="flex items-center col-span-2">
                       <FormLabel className="text-sm">Title</FormLabel>

@@ -208,7 +208,7 @@ const CreateOrEditUser = withFallback(
                     )}
                   />
                   <div className="flex justify-between">
-                    <Button type="submit" className="bg-primary text-secondary">
+                    <Button type="submit" className="bg-primary text-primary-foreground">
                       {routeParams.id ? "Update User" : "Create New User"}
                     </Button>
                   </div>

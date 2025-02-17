@@ -227,7 +227,7 @@ const EditProfile = withFallback(
                       </div>
                     </div>
                     <div className="flex justify-start mt-4">
-                      <Button type="submit" className="bg-primary text-secondary">
+                      <Button type="submit" className="bg-primary text-primary-foreground">
                         Update Profile
                       </Button>
                     </div>

@@ -21,9 +21,9 @@ export const ListItemContent = ({
   const copyElId = Math.random().toString(36).slice(2);
 
   return (
-    <div className={`border border-gray-300 rounded-sm bg-background ${!isAccordionOpen && "border-b-0"}`}>
+    <div className="border rounded-sm">
       <div
-        className="flex justify-between py-2 px-4 border-b border-gray-300 bg-neutral-200 text-accent cursor-grab"
+        className="flex justify-between py-2 px-4 border-b bg-neutral-200 text-slate-900 cursor-grab"
         {...draggableElAttr}
       >
         {item.name}
@@ -56,7 +56,7 @@ export const ListItemContent = ({
 
       <div
         className={cn(
-          "grid overflow-hidden transition-all duration-300 ease-in-out text-primary text-sm",
+          "grid overflow-hidden transition-all duration-300 ease-in-out rounded-sm text-primary text-sm bg-card",
           isAccordionOpen && "grid-rows-[1fr] opacity-100 p-4",
           !isAccordionOpen && "grid-rows-[0fr] opacity-0",
         )}

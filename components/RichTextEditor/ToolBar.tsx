@@ -69,7 +69,7 @@ export default function ToolBar({ editor }: ToolBarProps) {
   ];
 
   return (
-    <div className="flex justify-start gap-1 flex-wrap border border-b-0 rounded-t-md border-primary/70 bg-background/20 p-1.5">
+    <div className="flex justify-start gap-1 flex-wrap border border-b-0 rounded-t-md bg-background p-1.5">
       {Options.map((option, i) => (
         <Toggle variant="default" key={i} size="xs" pressed={option.pressed} onPressedChange={option.onClick}>
           {option.icon}

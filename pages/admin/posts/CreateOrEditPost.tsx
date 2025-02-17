@@ -204,7 +204,7 @@ const CreateOrEditPost = withFallback(
                       <FormLabel className="text-xs font-bold uppercase text-primary">Title</FormLabel>
                       <FormControl>
                         <Input
-                          className="box-border h-12 rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 md:text-2xl"
+                          className="box-border h-12 rounded-none border-t-0 border-l-0 border-r-0 border-b border-primary bg-transparent px-0 py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 md:text-2xl"
                           placeholder="Enter Title Here"
                           onChange={(e) => {
                             // send back data to hook form (update formState)
@@ -238,7 +238,7 @@ const CreateOrEditPost = withFallback(
                       <FormLabel className="text-xs font-bold uppercase text-primary">Generated Slug</FormLabel>
                       <FormControl>
                         <Input
-                          className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                          className="box-border h-12 rounded-none border-t-0 border-l-0 border-r-0 border-b border-primary bg-transparent px-0 py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                           value={field.value}
                           onChange={(e) => {
                             // send back data to hook form (update formState)
@@ -276,77 +276,77 @@ const CreateOrEditPost = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col gap-y-8 overflow-y-hidden">
-                <div className="bg-card">
-                  <Accordion className="border-b" title="Cover Image" open={true}>
-                    {postData.coverImage.secure_url ? (
-                      <>
-                        <img src={postData.coverImage.secure_url} className="h-48 w-full object-cover rounded-md" />
-                        <Button
-                          type="button"
-                          variant="link"
-                          className="p-0 flex justify-center items-center text-sm text-destructive"
-                          onClick={() => {
+              <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col overflow-y-hidden">
+                <Accordion className="border-b" title="Cover Image" open={true}>
+                  {postData.coverImage.secure_url ? (
+                    <>
+                      <img src={postData.coverImage.secure_url} className="h-48 w-full object-cover rounded-md" />
+                      <Button
+                        type="button"
+                        variant="link"
+                        className="p-0 flex justify-center items-center text-sm text-destructive"
+                        onClick={() => {
+                          const newPostData: PostType = {
+                            ...postData,
+                            coverImage: initialCoverImageData,
+                          };
+
+                          dispatchAutoSave(newPostData);
+                          setPostData(newPostData);
+                          setSelectedCoverImages([]);
+                        }}
+                      >
+                        <Trash2 />
+                        Remove cover image
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      type="button"
+                      size={"sm"}
+                      onClick={() => setIsDialogOpen(true)}
+                      className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
+                    >
+                      <span className="sr-only">Set Cover Image</span>
+                      Set Cover Image
+                    </Button>
+                  )}
+                </Accordion>
+                <Accordion className="border-b" title="Categories" open={true}>
+                  {categoriesQuery.data.map((category) => {
+                    const isChecked = selectedCategories.includes(category.name);
+                    return (
+                      <div key={category.name} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={category.name}
+                          checked={isChecked}
+                          onCheckedChange={(checked: boolean) => {
+                            const newSelectedCategories = checked
+                              ? Array.from(new Set([...(postData.categories || []), category.name]))
+                              : postData.categories.filter((name) => name !== category.name);
+
+                            setSelectedCategories(newSelectedCategories);
+
                             const newPostData: PostType = {
                               ...postData,
-                              coverImage: initialCoverImageData,
+                              categories: newSelectedCategories,
                             };
 
                             dispatchAutoSave(newPostData);
                             setPostData(newPostData);
-                            setSelectedCoverImages([]);
                           }}
+                          className="text-card-foreground"
+                        />
+                        <label
+                          htmlFor={category.name}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          <Trash2 />
-                          Remove cover image
-                        </Button>
-                      </>
-                    ) : (
-                      <Button
-                        type="button"
-                        onClick={() => setIsDialogOpen(true)}
-                        className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
-                      >
-                        <span className="sr-only">Set Cover Image</span>
-                        Set Cover Image
-                      </Button>
-                    )}
-                  </Accordion>
-                  <Accordion className="border-b" title="Categories" open={true}>
-                    {categoriesQuery.data.map((category) => {
-                      const isChecked = selectedCategories.includes(category.name);
-                      return (
-                        <div key={category.name} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={category.name}
-                            checked={isChecked}
-                            onCheckedChange={(checked: boolean) => {
-                              const newSelectedCategories = checked
-                                ? Array.from(new Set([...(postData.categories || []), category.name]))
-                                : postData.categories.filter((name) => name !== category.name);
-
-                              setSelectedCategories(newSelectedCategories);
-
-                              const newPostData: PostType = {
-                                ...postData,
-                                categories: newSelectedCategories,
-                              };
-
-                              dispatchAutoSave(newPostData);
-                              setPostData(newPostData);
-                            }}
-                          />
-                          <label
-                            htmlFor={category.name}
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {category.name}
-                          </label>
-                        </div>
-                      );
-                    })}
-                  </Accordion>
-                </div>
+                          {category.name}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </Accordion>
               </aside>
             </div>
           </form>

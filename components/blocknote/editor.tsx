@@ -68,7 +68,7 @@ const Editor = ({ initialContent, onChange }: EditorProps) => {
   }
 
   return (
-    <div className="rounded-md border bg-background pb-8 pt-8 text-card-foreground">
+    <div className="rounded-md border pb-8 pt-8 bg-white dark:bg-[#020817] text-card-foreground">
       <BlockNoteView
         editor={editor}
         // we are using slash menu with our custom item.

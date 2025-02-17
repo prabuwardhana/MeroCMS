@@ -60,7 +60,7 @@ const ImageGallery = withFallback(
                     const isChecked = selected.find((item) => item.secure_url === image.secure_url) ? true : false;
 
                     return (
-                      <li key={image.public_id} className="bg-card dark:bg-zinc-700">
+                      <li key={image.public_id} className="bg-card">
                         <div className="relative group">
                           <Label
                             className={cn(

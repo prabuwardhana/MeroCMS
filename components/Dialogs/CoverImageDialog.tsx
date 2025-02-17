@@ -35,7 +35,7 @@ const ImageManagerDialog = ({
 }: ImageManagerDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px] md:max-w-screen-lg">
+      <DialogContent className="sm:max-w-[425px] md:max-w-screen-lg bg-card">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>

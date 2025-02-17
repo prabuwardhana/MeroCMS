@@ -13,7 +13,7 @@ const RichTextEditor = ({
 }: {
   content: string | undefined;
   onChange: (richText: string) => void;
-  className: string;
+  className?: string;
 }) => {
   const editor = useEditor({
     extensions: [
@@ -37,7 +37,7 @@ const RichTextEditor = ({
     content: content,
     editorProps: {
       attributes: {
-        class: "min-h-[156px] border rounded-b-md border-primary/70 bg-background/20 py-2 px-3",
+        class: "min-h-[156px] border rounded-b-md py-2 px-3",
       },
     },
     onUpdate: ({ editor }) => {

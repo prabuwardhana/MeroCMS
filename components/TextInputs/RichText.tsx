@@ -17,12 +17,12 @@ export const RichText = <T extends FieldValues>({ name, control, label }: RichTe
         // console.log(field);
         return (
           <FormItem className="space-y-1">
-            <FormLabel className="text-white text-xs">{label}</FormLabel>
+            <FormLabel className="text-card-foreground text-xs">{label}</FormLabel>
             <FormControl>
               <RichTextEditor
                 content={field.value}
                 onChange={(value) => field.onChange(value)}
-                className="border-primary/70 bg-background/20"
+                className="bg-background"
               />
             </FormControl>
             <FormMessage />

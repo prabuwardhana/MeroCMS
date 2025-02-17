@@ -52,7 +52,7 @@ const CreateOrEditPage = withFallback(
     const [tab, setTab] = useState("gallery");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
-    const [coverImageUrl, setCoverImageUrl] = useState("");
+    const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
     const [pageData, setPageData] = useState<PageType>(initialPageData);
 
     const { componentsQuery } = useGetComponentQuery();
@@ -98,6 +98,7 @@ const CreateOrEditPage = withFallback(
         const page: PageType = pageQuery.data;
         // replace postData with the new one from the DB
         setPageData({ ...pageData, ...page });
+        setCoverImageUrl(page.coverImageUrl);
       }
     }, [routeParams.id]);
 
@@ -207,7 +208,7 @@ const CreateOrEditPage = withFallback(
                       <FormLabel className="font-normal text-md text-primary">Title</FormLabel>
                       <FormControl>
                         <Input
-                          className="box-border h-12 rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 md:text-2xl"
+                          className="box-border h-12 rounded-none border-t-0 border-l-0 border-r-0 border-b border-primary bg-transparent px-0 py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 md:text-2xl"
                           placeholder="Enter Title Here"
                           onChange={(e) => {
                             // send back data to hook form (update formState)
@@ -235,7 +236,7 @@ const CreateOrEditPage = withFallback(
                       <FormLabel className="font-normal text-md text-primary">Generated Slug</FormLabel>
                       <FormControl>
                         <Input
-                          className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                          className="box-border h-12 rounded-none border-t-0 border-l-0 border-r-0 border-b border-primary bg-transparent px-0 py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                           {...field}
                         />
                       </FormControl>
@@ -288,45 +289,40 @@ const CreateOrEditPage = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col gap-y-8 overflow-y-hidden">
-                <div className="bg-card">
-                  <Accordion className="border-b" title="Hero Image" open={true}>
-                    {pageData.coverImageUrl || coverImageUrl ? (
-                      <>
-                        <img
-                          src={pageData.coverImageUrl ? pageData.coverImageUrl : coverImageUrl}
-                          className="h-48 w-full object-cover rounded-md"
-                        />
-                        <Button
-                          type="button"
-                          variant="link"
-                          className="p-0 flex justify-center items-center text-sm text-destructive"
-                          onClick={() => {
-                            setCoverImageUrl("");
-                            setSelectedCoverImages([]);
-                          }}
-                        >
-                          <Trash2 />
-                          Remove hero image
-                        </Button>
-                      </>
-                    ) : (
+              <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col overflow-y-hidden">
+                <Accordion className="border-b" title="Hero Image" open={true}>
+                  {coverImageUrl ? (
+                    <>
+                      <img src={coverImageUrl} className="h-48 w-full object-cover rounded-md" />
                       <Button
                         type="button"
-                        onClick={() => setIsDialogOpen(true)}
-                        className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
+                        variant="link"
+                        className="p-0 flex justify-center items-center text-sm text-destructive"
+                        onClick={() => {
+                          setCoverImageUrl("");
+                          setSelectedCoverImages([]);
+                        }}
                       >
-                        <span className="sr-only">Set Hero Image</span>
-                        Set Hero Image
+                        <Trash2 />
+                        Remove hero image
                       </Button>
-                    )}
-                  </Accordion>
-                  <Accordion title="Page Components" open={true} className="border-b space-y-2">
-                    {pageComponents.map((pageComponent) => (
-                      <PageComponentButton key={pageComponent._id?.toString()} pageComponent={pageComponent} />
-                    ))}
-                  </Accordion>
-                </div>
+                    </>
+                  ) : (
+                    <Button
+                      type="button"
+                      onClick={() => setIsDialogOpen(true)}
+                      className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
+                    >
+                      <span className="sr-only">Set Hero Image</span>
+                      Set Hero Image
+                    </Button>
+                  )}
+                </Accordion>
+                <Accordion title="Page Components" open={true} className="border-b space-y-2">
+                  {pageComponents.map((pageComponent) => (
+                    <PageComponentButton key={pageComponent._id?.toString()} pageComponent={pageComponent} />
+                  ))}
+                </Accordion>
               </aside>
             </div>
           </form>
