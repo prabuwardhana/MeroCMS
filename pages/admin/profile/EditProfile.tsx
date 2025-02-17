@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,10 +29,9 @@ const EditProfile = withFallback(
 
     // local states
     const [tab, setTab] = useState("gallery");
-    const [modalOpen, setModalOpen] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedAvatar, setSelectedAvatar] = useState<Array<CloudinaryResourceType>>([]);
-
-    const dialogRef = useRef<HTMLDialogElement>(null);
+    const [avatarUrl, setAvatarUrl] = useState<string | undefined>("");
 
     const mutation = useUpdateProfileMutation();
 
@@ -67,6 +66,7 @@ const EditProfile = withFallback(
         const profile: UserProfile = user.profile;
         // replace postData with the new one from the DB
         setUserProfile(profile);
+        setAvatarUrl(profile.avatarUrl);
       }
     }, [user]);
 
@@ -92,17 +92,8 @@ const EditProfile = withFallback(
       if (selectedAvatar.length) formMethods.setValue("avatarUrl", selectedAvatar[0].secure_url);
     }, [selectedAvatar]);
 
-    useEffect(() => {
-      if (modalOpen) dialogRef.current?.showModal();
-      else dialogRef.current?.close();
-    }, [modalOpen]);
-
     const onTabChange = (value: string) => {
       setTab(value);
-    };
-
-    const onCloseDialog = () => {
-      setModalOpen(false);
     };
 
     const onImageSelected = (isChecked: boolean, image: CloudinaryResourceType) => {
@@ -121,13 +112,9 @@ const EditProfile = withFallback(
     };
 
     const onSetAvatar = () => {
-      const newUserProfileData: UserProfile = {
-        ...userProfile,
-        avatarUrl: selectedAvatar[0].secure_url,
-      };
-
-      setUserProfile(newUserProfileData);
-      dialogRef?.current?.close();
+      setAvatarUrl(selectedAvatar[0].secure_url);
+      formMethods.setValue("avatarUrl", selectedAvatar[0].secure_url);
+      setIsDialogOpen(false);
     };
 
     return (
@@ -211,20 +198,15 @@ const EditProfile = withFallback(
                           )}
                         />
 
-                        {userProfile.avatarUrl ? (
+                        {avatarUrl ? (
                           <>
-                            <img src={userProfile.avatarUrl} className="h-48 w-full object-cover rounded-md" />
+                            <img src={avatarUrl} className="h-48 w-full object-cover rounded-md" />
                             <Button
                               type="button"
                               variant="link"
                               className="p-0 flex justify-center items-center text-sm text-destructive"
                               onClick={() => {
-                                const newUserProfileData: UserProfile = {
-                                  ...userProfile,
-                                  avatarUrl: "",
-                                };
-
-                                setUserProfile(newUserProfileData);
+                                setAvatarUrl("");
                                 setSelectedAvatar([]);
                               }}
                             >
@@ -235,9 +217,7 @@ const EditProfile = withFallback(
                         ) : (
                           <Button
                             type="button"
-                            onClick={() => {
-                              setModalOpen(true);
-                            }}
+                            onClick={() => setIsDialogOpen(true)}
                             className="h-20 w-full text-wrap rounded-sm border border-dashed border-gray-600 bg-gray-100 text-sm text-secondary-foreground transition-colors hover:bg-gray-300"
                           >
                             <span className="sr-only">Set Avatar</span>
@@ -260,15 +240,14 @@ const EditProfile = withFallback(
         <ImageManagerDialog
           title="Avatar Image"
           buttonText="Set Avatar"
-          ref={dialogRef}
           tab={tab}
           selected={selectedAvatar}
-          modalOpen={modalOpen}
+          isOpen={isDialogOpen}
+          setIsOpen={setIsDialogOpen}
           onTabChange={onTabChange}
           onImageSelected={onImageSelected}
           onClearSelectedImage={onClearSelectedImage}
           onSetImage={onSetAvatar}
-          onCloseDialog={onCloseDialog}
         />
       </>
     );
