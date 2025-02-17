@@ -23,3 +23,8 @@ a {
 body.page-is-transitioning #page-content {
   opacity: 0;
 }
+
+/* BlockNote rendered HTML */
+.bn-block-content p.bn-inline-content:empty {
+  height: 1em;
+}
