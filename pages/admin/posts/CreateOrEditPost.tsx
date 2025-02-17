@@ -173,6 +173,7 @@ const CreateOrEditPost = withFallback(
 
       dispatchAutoSave(newPostData);
       setPostData(newPostData);
+      setIsDialogOpen(false);
     };
 
     return (
