@@ -212,7 +212,9 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
                 <CirclePlus />
                 add more field
               </Button>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" size={"sm"}>
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>

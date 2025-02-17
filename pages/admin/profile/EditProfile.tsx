@@ -217,6 +217,7 @@ const EditProfile = withFallback(
                         ) : (
                           <Button
                             type="button"
+                            size={"sm"}
                             onClick={() => setIsDialogOpen(true)}
                             className="h-20 w-full text-wrap rounded-sm border border-dashed border-gray-600 bg-gray-100 text-sm text-secondary-foreground transition-colors hover:bg-gray-300"
                           >

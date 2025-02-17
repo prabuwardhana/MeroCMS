@@ -110,7 +110,7 @@ const CreateOrEditUser = withFallback(
           <main className="basis-1/3">
             <Form {...formMethods}>
               <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
-                <Card className="p-4">
+                <Card className="p-4 space-y-4">
                   <FormField
                     control={formMethods.control}
                     name="profile.name"
@@ -208,7 +208,7 @@ const CreateOrEditUser = withFallback(
                     )}
                   />
                   <div className="flex justify-between">
-                    <Button type="submit" className="bg-primary text-primary-foreground">
+                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
                       {routeParams.id ? "Update User" : "Create New User"}
                     </Button>
                   </div>

@@ -47,7 +47,10 @@ const CustomLinkItem = () => {
         </div>
       </div>
       <div className="flex flex-col items-end">
-        <Button onClick={() => updateItems([...items, { id: `${uuidv4()}`, name: `${navName}`, url: `${navUrl}` }])}>
+        <Button
+          size={"sm"}
+          onClick={() => updateItems([...items, { id: `${uuidv4()}`, name: `${navName}`, url: `${navUrl}` }])}
+        >
           Add to Menu
         </Button>
       </div>

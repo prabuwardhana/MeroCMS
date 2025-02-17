@@ -194,7 +194,7 @@ const CreateOrEditPage = withFallback(
                 <div className="flex flex-col justify-center md:flex-row md:justify-between">
                   <PageTitle>{pageTitle}</PageTitle>
                   <div className="flex justify-between gap-x-6">
-                    <Button type="submit" className="bg-primary text-primary-foreground">
+                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
                       {routeParams.id ? <Save /> : <CirclePlus />}
                       {routeParams.id ? "Update Page" : "Create Page"}
                     </Button>

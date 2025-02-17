@@ -199,7 +199,7 @@ const CreateOrEditPost = withFallback(
                       isSaving={isSaving}
                       isError={isError}
                     />
-                    <Button type="submit" className="bg-primary text-primary-foreground">
+                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
                       {routeParams.id ? <Save /> : <CirclePlus />}
                       {routeParams.id ? "Update Page" : "Create Page"}
                     </Button>
@@ -362,7 +362,9 @@ const CreateOrEditPost = withFallback(
                     name="excerpt"
                     render={({ field }) => (
                       <FormItem>
-                        <FormDescription>Short and relevant summary of what this blog post is about.</FormDescription>
+                        <FormDescription className="text-xs">
+                          Short and relevant summary of what this blog post is about.
+                        </FormDescription>
                         <FormControl>
                           <Textarea
                             className="box-border min-h-[156px] bg-background"
@@ -385,7 +387,7 @@ const CreateOrEditPost = withFallback(
                       </FormItem>
                     )}
                   />
-                  <div className="flex justify-end">
+                  <div className="flex justify-end text-xs">
                     <span className={cn("", textLength > maxLength - 10 && "text-destructive")}>{textLength}</span>/
                     {maxLength}
                   </div>

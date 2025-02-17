@@ -96,7 +96,7 @@ const CreateOrEditCategory = withFallback(
           <main className="basis-1/3">
             <Form {...formMethods}>
               <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
-                <Card className="p-4">
+                <Card className="p-4 space-y-4">
                   <FormField
                     control={formMethods.control}
                     name="name"
@@ -166,7 +166,7 @@ const CreateOrEditCategory = withFallback(
                     )}
                   />
                   <div className="flex justify-between">
-                    <Button type="submit" className="bg-primary text-secondary">
+                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
                       {routeParams.id ? "Update Category" : "Create New Category"}
                     </Button>
                   </div>

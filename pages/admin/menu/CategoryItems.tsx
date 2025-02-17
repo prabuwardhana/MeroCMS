@@ -70,6 +70,7 @@ const CategoryItems = () => {
       </Card>
       <div className="flex flex-col items-end">
         <Button
+          size={"sm"}
           onClick={() => {
             selectedCategories.forEach((selectedCategory) => {
               addItem({
