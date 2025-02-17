@@ -37,7 +37,6 @@
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/uuid": "^10.0.0",
-    "@uidotdev/usehooks": "^2.4.1",
     "@universal-middleware/core": "^0.3.3",
     "@universal-middleware/express": "^0.3.3",
     "@vitejs/plugin-react": "^4.3.4",

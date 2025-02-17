@@ -3,7 +3,7 @@ import "./tailwind.admin.css";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 import { Sidebar } from "@/components/Sidebar";
