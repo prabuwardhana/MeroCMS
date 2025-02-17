@@ -11,6 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "./ModeToggle";
 
 import { useAuthLogOutMutation } from "@/hooks/api/useAuthLogOutMutation";
 import { usePageContext } from "vike-react/usePageContext";
@@ -33,6 +34,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
         </button>
       </div>
       <div className="flex items-center gap-x-3">
+        <ModeToggle />
         <button className="btn-ghost size-10">
           <Bell size={18} />
         </button>

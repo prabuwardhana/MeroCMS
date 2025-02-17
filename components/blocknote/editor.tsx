@@ -18,6 +18,7 @@ import { CloudinaryClient } from "@/config/apiClient";
 import { insertAlert } from "./custom-blocks/alert/alert-menu";
 import { CustomAddBlockButton } from "./custom-side-menu";
 import { schema } from "./custom-schemas";
+import { useTheme } from "@/hooks/useTheme";
 
 // BlockNote Shadcn styles
 import "@blocknote/shadcn/style.css";
@@ -47,6 +48,10 @@ async function uploadFile(file: File) {
 }
 
 const Editor = ({ initialContent, onChange }: EditorProps) => {
+  // BlockNote themes are only available when using the default Mantine components.
+  // As we are using BlockNote with shadcn, we need to use our own theme context.
+  const { theme } = useTheme();
+
   // Creates a new editor instance.
   // We use useMemo + createBlockNoteEditor instead of useCreateBlockNote so we
   // can delay the creation of the editor until the initial content is loaded.
@@ -75,7 +80,7 @@ const Editor = ({ initialContent, onChange }: EditorProps) => {
         onChange={() => {
           onChange(editor);
         }}
-        theme={"dark"}
+        theme={theme as "light" | "dark"}
       >
         {/* Render our custom side menu */}
         <SideMenuController

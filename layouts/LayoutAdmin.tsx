@@ -13,6 +13,8 @@ import { cn } from "@/lib/utils";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/sonner";
 
+import { ThemeProvider } from "@/theme/themeProvider";
+
 import "@fontsource/poppins";
 
 export default function LayoutAdmin({ children }: { children: React.ReactNode }) {
@@ -61,21 +63,23 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
   });
 
   return (
-    <div className="min-h-screen bg-muted">
-      {/* The sidebar's opaque background in mobile view */}
-      <div
-        className={cn(
-          "pointer-events-none fixed inset-0 -z-10 bg-foreground opacity-0 transition-opacity duration-1000 ease-in-out",
-          !collapsed && "max-md:pointer-events-auto max-md:z-50 max-md:opacity-30",
-        )}
-      />
-      <Sidebar ref={sidebarRef} collapsed={collapsed} isDesktopDevice={isDesktopDevice} />
-      <motion.div variants={containerVariants} animate={containerControls} initial="close">
-        <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-        <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden px-6 pt-6">{children}</div>
-      </motion.div>
-      <Toaster />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </div>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="min-h-screen bg-muted">
+        {/* The sidebar's opaque background in mobile view */}
+        <div
+          className={cn(
+            "pointer-events-none fixed inset-0 -z-10 bg-foreground opacity-0 transition-opacity duration-1000 ease-in-out",
+            !collapsed && "max-md:pointer-events-auto max-md:z-50 max-md:opacity-30",
+          )}
+        />
+        <Sidebar ref={sidebarRef} collapsed={collapsed} isDesktopDevice={isDesktopDevice} />
+        <motion.div variants={containerVariants} animate={containerControls} initial="close">
+          <Header collapsed={collapsed} setCollapsed={setCollapsed} />
+          <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden px-6 pt-6 bg-accent">{children}</div>
+        </motion.div>
+        <Toaster />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </div>
+    </ThemeProvider>
   );
 }
