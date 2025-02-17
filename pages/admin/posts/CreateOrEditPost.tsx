@@ -321,7 +321,7 @@ const CreateOrEditPost = withFallback(
                     </Button>
                   )}
                 </Accordion>
-                <Accordion className="border-b" title="Categories" open={true}>
+                <Accordion className="border-b" title="Categories">
                   {categoriesQuery.data.map((category) => {
                     const isChecked = selectedCategories.includes(category.name);
                     return (
@@ -356,7 +356,7 @@ const CreateOrEditPost = withFallback(
                     );
                   })}
                 </Accordion>
-                <Accordion className="border-b" title="Meta Description" open={true}>
+                <Accordion className="border-b" title="Meta Description">
                   <FormField
                     control={formMethods.control}
                     name="excerpt"
