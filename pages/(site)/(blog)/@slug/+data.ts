@@ -19,7 +19,7 @@ export const data = async (pageContext: PageContextServer) => {
   config({
     // Set <title>
     title: post.title,
-    description: post.title,
+    description: post.excerpt,
   });
 
   return await createResponse(post);

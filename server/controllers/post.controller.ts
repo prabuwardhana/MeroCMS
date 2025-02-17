@@ -11,6 +11,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
     _id,
     title,
     slug,
+    excerpt,
     editorContent,
     published,
     author,
@@ -31,6 +32,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
       {
         title,
         slug,
+        excerpt,
         editorContent,
         published,
         author,
@@ -46,6 +48,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
     post = await PostModel.create({
       title,
       slug,
+      excerpt,
       editorContent,
       published,
       author,
@@ -66,6 +69,7 @@ export const getSinglePostByIdHandler = catchErrors(async (req, res) => {
   res.status(OK).json({
     title: post.title,
     slug: post.slug,
+    excerpt: post.excerpt,
     editorContent: post.editorContent,
     published: post.published,
     author: post.author,
@@ -85,6 +89,7 @@ export const getPostBySlugHandler = catchErrors(async (req, res) => {
   res.status(OK).json({
     title: post.title,
     slug: post.slug,
+    excerpt: post.excerpt,
     editorContent: post.editorContent,
     published: post.published,
     author: post.author.profile,

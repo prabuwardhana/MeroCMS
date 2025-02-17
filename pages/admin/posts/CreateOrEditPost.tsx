@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,12 +18,14 @@ import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";
 import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
 import { useAutoSave } from "@/hooks/useAutoSave";
-import { slugify } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 
 import { CirclePlus, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
 import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
+import { Textarea } from "@/components/ui/textarea";
+import { useCharacterCounter } from "@/hooks/useCharacterCounter";
 
 const CreateOrEditPost = withFallback(
   () => {
@@ -50,6 +52,7 @@ const CreateOrEditPost = withFallback(
         _id: null,
         title: "",
         slug: "",
+        excerpt: "",
         editorContent: undefined,
         coverImage: initialCoverImageData,
         categories: ["Uncategorized"],
@@ -82,6 +85,7 @@ const CreateOrEditPost = withFallback(
       defaultValues: {
         title: postData.title,
         slug: postData.slug,
+        excerpt: postData.excerpt,
         editorContent: useMemo(() => {
           if (postData.editorContent === "loading") {
             return undefined;
@@ -119,10 +123,12 @@ const CreateOrEditPost = withFallback(
     // Reset the form states when the previously stored
     // post data has been loaded sucessfuly from the DB
     useEffect(() => {
+      countCharacter(postData.excerpt?.length as number);
       reset({
         title: postData.title,
         slug: postData.slug,
         editorContent: postData.editorContent,
+        excerpt: postData.excerpt,
       });
     }, [reset, postData]);
 
@@ -135,6 +141,8 @@ const CreateOrEditPost = withFallback(
         mutation.mutate(data);
       },
     });
+
+    const { textLength, maxLength, countCharacter } = useCharacterCounter(160);
 
     const onTabChange = (value: string) => {
       setTab(value);
@@ -347,6 +355,40 @@ const CreateOrEditPost = withFallback(
                       </div>
                     );
                   })}
+                </Accordion>
+                <Accordion className="border-b" title="Meta Description" open={true}>
+                  <FormField
+                    control={formMethods.control}
+                    name="excerpt"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormDescription>Short and relevant summary of what this blog post is about.</FormDescription>
+                        <FormControl>
+                          <Textarea
+                            className="box-border min-h-[156px] bg-background"
+                            onChange={(e) => {
+                              // send back data to hook form (update formState)
+                              field.onChange(e.target.value);
+
+                              countCharacter(e.target.value.length as number);
+
+                              dispatchAutoSave({
+                                ...postData,
+                                excerpt: e.target.value,
+                              });
+                            }}
+                            value={field.value}
+                            maxLength={maxLength}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex justify-end">
+                    <span className={cn("", textLength > maxLength - 10 && "text-destructive")}>{textLength}</span>/
+                    {maxLength}
+                  </div>
                 </Accordion>
               </aside>
             </div>

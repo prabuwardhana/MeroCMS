@@ -10,6 +10,7 @@ export const createPostSchema = z.object({
   slug: z.string().min(1, {
     message: "Slug is required",
   }),
+  excerpt: z.string().optional(),
   editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
   published: z.boolean(),
   author: z.custom<Types.ObjectId>(),

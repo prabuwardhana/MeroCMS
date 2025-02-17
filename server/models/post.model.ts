@@ -5,6 +5,7 @@ import { CloudinaryResourceType, CustomPartialBlock } from "@/lib/types";
 export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   title: string;
   slug: string;
+  excerpt?: string;
   editorContent?: CustomPartialBlock[] | undefined | "loading";
   published: boolean;
   author: mongoose.Types.ObjectId;
@@ -19,6 +20,7 @@ const postSchema = new mongoose.Schema<PostDocument>(
     title: { type: String, required: true, unique: true },
     slug: { type: String, required: true, unique: true },
     editorContent: { type: Schema.Types.Mixed, required: false, default: undefined },
+    excerpt: { type: String },
     published: { type: Boolean, required: true, default: false },
     author: { ref: "User", type: mongoose.Schema.Types.ObjectId },
     coverImage: { type: Schema.Types.Mixed },
