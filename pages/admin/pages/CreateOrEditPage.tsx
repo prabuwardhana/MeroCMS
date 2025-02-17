@@ -189,7 +189,7 @@ const CreateOrEditPage = withFallback(
       <>
         <Form {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)}>
-            <div className="flex flex-col gap-y-6 lg:flex-row lg:gap-x-6">
+            <div className="flex flex-col gap-y-6 xl:flex-row xl:gap-x-6">
               <main className="basis-3/4 space-y-6">
                 <div className="flex flex-col justify-center md:flex-row md:justify-between">
                   <PageTitle>{pageTitle}</PageTitle>
