@@ -70,38 +70,4 @@
       "rlig" 1,
       "calt" 1;
   }
-  ul,
-  ol {
-    margin: revert;
-    padding: revert;
-  }
-
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply rounded-xl bg-background;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-xl bg-primary;
-  }
-}
-
-@layer components {
-  .sidebar-item {
-    @apply flex flex-row items-center space-x-4 rounded-lg p-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary;
-    &.active {
-      @apply bg-primary text-primary-foreground;
-    }
-  }
-
-  .title {
-    @apply text-3xl font-semibold text-secondary-foreground transition-colors;
-  }
-
-  .btn-ghost {
-    @apply flex h-10 flex-shrink-0 items-center justify-center gap-x-2 rounded-lg p-2 text-secondary-foreground/40 transition-colors hover:bg-secondary hover:text-secondary-foreground/50;
-  }
 }
