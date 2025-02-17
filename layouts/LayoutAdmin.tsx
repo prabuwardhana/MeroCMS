@@ -1,4 +1,4 @@
-import "./tailwind.css";
+import "./tailwind.admin.css";
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
