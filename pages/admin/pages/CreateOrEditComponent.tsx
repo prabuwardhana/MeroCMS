@@ -191,8 +191,9 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
                   <div className="flex flex-col justify-end">
                     <Button
                       type="button"
-                      variant="outline"
-                      className="p-2 flex justify-center items-center text-sm text-destructive"
+                      variant={"destructive"}
+                      size={"sm"}
+                      className="h-10 w-10 flex justify-center items-center text-sm"
                       onClick={() => remove(index)}
                       disabled={fields.length < 2}
                     >
