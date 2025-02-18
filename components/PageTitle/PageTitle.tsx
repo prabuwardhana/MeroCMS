@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 const PageTitle = ({ children }: { children: ReactNode }) => {
-  return <span className="text-2xl">{children}</span>;
+  return <div className="flex items-center text-2xl">{children}</div>;
 };
 
 export default PageTitle;
