@@ -85,6 +85,7 @@ export const getPostBySlugHandler = catchErrors(async (req, res) => {
     .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
     .exec();
   appAssert(post, NOT_FOUND, "Post not found");
+  appAssert(post.published, NOT_FOUND, "Post not found");
 
   res.status(OK).json({
     title: post.title,

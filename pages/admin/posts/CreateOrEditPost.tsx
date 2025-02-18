@@ -20,7 +20,7 @@ import { postFormSchema } from "@/lib/schemas";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, RotateCcw, Save, Trash2 } from "lucide-react";
+import { CirclePlus, Globe, GlobeLock, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
 import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
@@ -184,6 +184,16 @@ const CreateOrEditPost = withFallback(
       setIsDialogOpen(false);
     };
 
+    const onPublish = () => {
+      if (postData.published) {
+        setPostData({ ...postData, published: false });
+        triggerManualSave({ ...postData, published: false });
+      } else {
+        setPostData({ ...postData, published: true });
+        triggerManualSave({ ...postData, published: true });
+      }
+    };
+
     return (
       <>
         <Form {...formMethods}>
@@ -201,8 +211,19 @@ const CreateOrEditPost = withFallback(
                     />
                     <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
                       {routeParams.id ? <Save /> : <CirclePlus />}
-                      {routeParams.id ? "Update Page" : "Create Page"}
+                      {routeParams.id ? "Update Post" : "Create Post"}
                     </Button>
+                    {routeParams.id && (
+                      <Button
+                        type="button"
+                        size={"sm"}
+                        onClick={onPublish}
+                        className="bg-primary text-primary-foreground"
+                      >
+                        {postData.published ? <GlobeLock /> : <Globe />}
+                        {postData.published ? "Unpublish" : "Publish"}
+                      </Button>
+                    )}
                   </div>
                 </div>
                 <FormField

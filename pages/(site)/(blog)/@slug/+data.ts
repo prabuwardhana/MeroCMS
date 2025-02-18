@@ -2,6 +2,8 @@
 
 import type { PageContextServer } from "vike/types";
 import { useConfig } from "vike-react/useConfig";
+import { render } from "vike/abort";
+import { NOT_FOUND } from "@/server/constants/http";
 import { PostDtoType, UserProfile } from "@/lib/types";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import { Block } from "@blocknote/core";
@@ -15,6 +17,8 @@ export const data = async (pageContext: PageContextServer) => {
 
   const response = await fetch(`http://localhost:3000/api/site/blog/${pageContext.routeParams.slug}`);
   const post = (await response.json()) as PostDtoType;
+
+  if (!post.title) throw render(NOT_FOUND, "Post Not Found");
 
   config({
     // Set <title>
@@ -40,7 +44,6 @@ async function createResponse(post: PostDtoType): Promise<{
 }> {
   const { title, slug, author, categories, coverImage: image, editorContent, updatedAt } = post;
 
-  // @ts-expect-error: https://github.com/TypeCellOS/BlockNote/issues/1307
   const editor = ServerBlockNoteEditor.create({ schema });
   const htmlContent = await editor.blocksToFullHTML(editorContent as Block[]);
 
