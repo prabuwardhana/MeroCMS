@@ -20,7 +20,7 @@ import { postFormSchema } from "@/lib/schemas";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, Globe, GlobeLock, RotateCcw, Save, Trash2 } from "lucide-react";
+import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
 import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
@@ -201,7 +201,18 @@ const CreateOrEditPost = withFallback(
             <div className="flex flex-col gap-y-6 xl:flex-row xl:gap-x-6">
               <main className="basis-3/4 space-y-8">
                 <div className="mb-6 flex flex-col justify-center md:flex-row md:justify-between">
-                  <PageTitle>{pageTitle}</PageTitle>
+                  <div className="flex justify-start gap-4">
+                    <PageTitle>{pageTitle}</PageTitle>
+                    <a
+                      href={`/preview/${routeParams.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
+                    >
+                      <Eye size={16} />
+                      Preview
+                    </a>
+                  </div>
                   <div className="flex justify-between gap-x-6">
                     <SaveStatus
                       savedAt={lastSavedAt}

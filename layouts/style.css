@@ -28,3 +28,8 @@ body.page-is-transitioning #page-content {
 .bn-block-content p.bn-inline-content:empty {
   height: 1em;
 }
+
+/* BlockNote editor preview */
+.preview .bn-editor {
+  padding-inline: 0px;
+}
