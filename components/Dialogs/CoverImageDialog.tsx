@@ -2,7 +2,14 @@ import React from "react";
 
 import { CloudinaryResourceType } from "@/lib/types";
 
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import ImageGallery from "@/components/ImageGallery";
@@ -37,7 +44,10 @@ const ImageManagerDialog = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[425px] md:max-w-screen-lg bg-card">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <div>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription></DialogDescription>
+          </div>
         </DialogHeader>
         <Tabs value={tab} onValueChange={onTabChange} className="w-full">
           <TabsList className="w-full justify-start">
