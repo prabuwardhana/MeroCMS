@@ -7,7 +7,6 @@ import {
   NotebookText,
   HelpCircle,
   Shapes,
-  UserPen,
   PanelsTopLeft,
 } from "lucide-react";
 
@@ -77,14 +76,14 @@ export const SIDENAV_ITEMS = [
     ],
   },
   {
-    title: "Profile",
-    path: "/admin/profile",
-    icon: UserPen,
-  },
-  {
     title: "Settings",
     path: "/admin/settings",
     icon: Settings,
+    submenu: true,
+    subMenuItems: [
+      { title: "Edit Profile", path: "/admin/settings/edit-profile" },
+      { title: "Change Password", path: "/admin/settings/change-password" },
+    ],
   },
   {
     title: "Help",
