@@ -45,7 +45,7 @@ export type User = {
   _id: Types.ObjectId | undefined;
   profile: UserProfile;
   email: string;
-  role?: Role[];
+  role?: Role;
   password: string;
   verified: boolean;
 };

@@ -1,4 +1,4 @@
-const enum Role {
+enum Role {
   Customer = "Customer",
   Admin = "Admin",
 }

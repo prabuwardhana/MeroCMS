@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CustomPartialBlock } from "./types";
+import Role from "@/server/constants/role";
 
 // Create or edit post form schema
 export const postFormSchema = z.object({
@@ -42,6 +43,7 @@ export const userFormSchema = z.object({
     name: z.string(),
     username: z.string(),
   }),
+  role: z.nativeEnum(Role),
   email: z.string(),
   password: z.string(),
   verified: z.boolean(),

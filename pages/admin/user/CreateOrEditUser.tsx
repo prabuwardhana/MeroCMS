@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import PageTitle from "@/components/PageTitle";
 
+import Role from "@/server/constants/role";
 import { User } from "@/lib/types";
 import { userFormSchema } from "@/lib/schemas";
 
@@ -33,6 +35,7 @@ const CreateOrEditUser = withFallback(
           name: "",
           username: "",
         },
+        role: undefined,
         email: "",
         password: "",
         verified: true,
@@ -59,6 +62,7 @@ const CreateOrEditUser = withFallback(
           username: userData.profile.username,
         },
         email: userData.email,
+        role: userData.role,
         // This is a workaround to satisfy the form schema validator.
         // In update mode, the upsert api endpoint will ignore this value.
         password: routeParams.id ? "******" : "",
@@ -97,6 +101,7 @@ const CreateOrEditUser = withFallback(
           username: userData.profile.username,
         },
         email: userData.email,
+        role: userData.role,
         verified: userData.verified,
       });
     }, [reset, userData]);
@@ -142,6 +147,28 @@ const CreateOrEditUser = withFallback(
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={formMethods.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem className="mb-3">
+                        <FormLabel className="text-xs font-bold uppercase text-primary">Role</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a Role" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value={Role.Admin}>Admin</SelectItem>
+                            <SelectItem value={Role.Customer}>Customer</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}

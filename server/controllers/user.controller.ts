@@ -13,6 +13,7 @@ export const getAllUsersHandler = catchErrors(async (_req, res) => {
 export const upsertUserHandler = catchErrors(async (req, res) => {
   const {
     _id,
+    role,
     email,
     password,
     verified,
@@ -28,6 +29,7 @@ export const upsertUserHandler = catchErrors(async (req, res) => {
     user = await UserModel.findOneAndUpdate(
       { _id: documentId },
       {
+        role,
         email,
         verified,
         profile: {
@@ -42,6 +44,7 @@ export const upsertUserHandler = catchErrors(async (req, res) => {
     );
   } else {
     user = await UserModel.create({
+      role,
       email,
       password,
       verified,
@@ -87,6 +90,7 @@ export const getUserByIdHandler = catchErrors(async (req, res) => {
       name: user.profile.name,
       username: user.profile.username,
     },
+    role: user.role[0],
     email: user.email,
     verified: user.verified,
   });
