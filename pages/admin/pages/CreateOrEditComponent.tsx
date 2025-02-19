@@ -182,6 +182,7 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
                             <SelectItem value="short-text">Short Text</SelectItem>
                             <SelectItem value="long-text">Long Text</SelectItem>
                             <SelectItem value="rich-text">Rich Text</SelectItem>
+                            <SelectItem value="image-input">Image</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />

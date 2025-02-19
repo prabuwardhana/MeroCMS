@@ -29,8 +29,7 @@ const PageComponent = ({
       <div className="grid grid-cols-2 gap-4 p-4">
         {Object.keys(field).map((key, index) => {
           const type = key.split("_")[1];
-          if (["short-text", "long-text", "rich-text"].includes(type)) {
-            // console.log(key);
+          if (["short-text", "long-text", "rich-text", "image-input"].includes(type)) {
             return (
               <Field
                 key={`${key}-${componentIndex}`}
