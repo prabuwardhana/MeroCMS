@@ -1,6 +1,6 @@
 import { createCounterStore } from "@/store/counterStore";
 import { PageContext } from "vike/types";
-import { TokenRefreshClient } from "@/config/apiClient";
+import API from "@/config/apiClient";
 
 export async function onBeforeRenderClient(pageContext: PageContext) {
   const { user, isValidToken } = pageContext;
@@ -8,7 +8,7 @@ export async function onBeforeRenderClient(pageContext: PageContext) {
   // A logged in user has an expired token.
   if (user && !isValidToken) {
     // refresh the token
-    await TokenRefreshClient.get("/api/auth/refresh");
+    await API.get("/api/auth/refresh");
   }
 
   // "storeInitialState" that was set at onAfterRenderHtml must be passed to client.

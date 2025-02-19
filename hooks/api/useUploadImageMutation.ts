@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CloudinaryClient } from "@/config/apiClient";
+import API from "@/config/apiClient";
 import { ExtendedFile } from "@/lib/types";
 import { useFileUploadStore } from "@/store/fileUploadStore";
 
@@ -19,7 +19,7 @@ export const useUploadImageMutation = (onTabChange?: (value: string) => void) =>
           formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
           formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
-          return await CloudinaryClient.post(
+          return await API.post(
             `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
             formData,
             {
