@@ -15,8 +15,8 @@ const postRoutes = Router();
 
 postRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertPostHandler);
 postRoutes.get("/preview/:postId", authenticate, authorize([Role.Admin]), getPostPreviewHandler);
-postRoutes.get("/:postId", getSinglePostByIdHandler);
-postRoutes.get("/", getPostsHandler);
-postRoutes.delete("/", deletePostById);
+postRoutes.get("/:postId", authenticate, authorize([Role.Admin]), getSinglePostByIdHandler);
+postRoutes.get("/", authenticate, authorize([Role.Admin]), getPostsHandler);
+postRoutes.delete("/", authenticate, authorize([Role.Admin]), deletePostById);
 
 export default postRoutes;

@@ -13,7 +13,7 @@ import Role from "../constants/role";
 const componentRoutes = Router();
 
 componentRoutes.get("/", authenticate, authorize([Role.Admin]), getComponentsHandler);
-componentRoutes.delete("/", deleteComponentById);
+componentRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteComponentById);
 componentRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertComponentHandler);
 componentRoutes.get("/:componentId", authenticate, authorize([Role.Admin]), getSingleComponentByIdHandler);
 

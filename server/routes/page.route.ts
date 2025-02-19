@@ -13,8 +13,8 @@ import Role from "../constants/role";
 const pageRoutes = Router();
 
 pageRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertPageHandler);
-pageRoutes.get("/:postId", getSinglePageByIdHandler);
-pageRoutes.get("/", getPagesHandler);
-pageRoutes.delete("/", deletePageById);
+pageRoutes.get("/:postId", authenticate, authorize([Role.Admin]), getSinglePageByIdHandler);
+pageRoutes.get("/", authenticate, authorize([Role.Admin]), getPagesHandler);
+pageRoutes.delete("/", authenticate, authorize([Role.Admin]), deletePageById);
 
 export default pageRoutes;

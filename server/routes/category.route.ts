@@ -12,9 +12,9 @@ import Role from "../constants/role";
 
 const categoryRoutes = Router();
 
-categoryRoutes.get("/", getCategoriesHandler);
-categoryRoutes.delete("/", deleteCategoryById);
-categoryRoutes.get("/:categoryId", getSingleCategoryByIdHandler);
+categoryRoutes.get("/", authenticate, authorize([Role.Admin]), getCategoriesHandler);
+categoryRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteCategoryById);
+categoryRoutes.get("/:categoryId", authenticate, authorize([Role.Admin]), getSingleCategoryByIdHandler);
 categoryRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertCategoryHandler);
 
 export default categoryRoutes;

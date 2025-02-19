@@ -13,8 +13,8 @@ import Role from "../constants/role";
 const navMenuRoutes = Router();
 
 navMenuRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertNavMenuHandler);
-navMenuRoutes.get("/:postId", getSingleNavMenuByIdHandler);
-navMenuRoutes.get("/", getNavMenusHandler);
-navMenuRoutes.delete("/", deleteNavMenuById);
+navMenuRoutes.get("/:postId", authenticate, authorize([Role.Admin]), getSingleNavMenuByIdHandler);
+navMenuRoutes.get("/", authenticate, authorize([Role.Admin]), getNavMenusHandler);
+navMenuRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteNavMenuById);
 
 export default navMenuRoutes;
