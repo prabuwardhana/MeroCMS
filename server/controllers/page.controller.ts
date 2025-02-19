@@ -43,7 +43,7 @@ export const upsertPageHandler = catchErrors(async (req, res) => {
 });
 
 export const getSinglePageByIdHandler = catchErrors(async (req, res) => {
-  const page = await PageModel.findOne({ _id: req.params.postId });
+  const page = await PageModel.findOne({ _id: req.params.pageId });
   appAssert(page, NOT_FOUND, "Page not found");
 
   res.status(OK).json({
