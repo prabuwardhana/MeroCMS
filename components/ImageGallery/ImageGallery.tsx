@@ -36,9 +36,9 @@ const ImageGallery = withFallback(
     const mutation = useDeleteImageMutation(onClearSelectedImage, setDeletion);
 
     useEffect(() => {
-      if (pages[0] !== null) {
+      if (pages[0]) {
         setIsLoadingMore(false);
-        setNextCursor(pages[pages.length - 1]!.data.result.next_cursor);
+        setNextCursor(pages[pages.length - 1]?.data.result.next_cursor as string);
       }
     }, [pages]);
 
