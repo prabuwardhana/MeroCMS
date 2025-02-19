@@ -13,14 +13,15 @@ const authorize =
     // Throw application error if we can't find one.
     appAssert(user, UNAUTHORIZED, "Not Authorized");
 
-    req.userRole.forEach((role) => {
-      // check if the user has the specified role.
-      if (!roles.includes(role))
-        // if not, deny the access.
-        return res.status(FORBIDDEN).json({ message: "Access Denied" });
-      // if the user do, proceed.
-      else next();
-    });
+    if (req.userRole)
+      req.userRole.forEach((role) => {
+        // check if the user has the specified role.
+        if (!roles.includes(role))
+          // if not, deny the access.
+          return res.status(FORBIDDEN).json({ message: "Access Denied" });
+        // if the user do, proceed.
+        else next();
+      });
   };
 
 export default authorize;
