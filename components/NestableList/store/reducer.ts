@@ -48,7 +48,7 @@ type NestableReducerAction =
     }
   | {
       type: NESTABLE_REDUCER_ACTION_TYPE.SET_ELEM_COPY_STYLE;
-      payload: CSSProperties;
+      payload: CSSProperties | null;
     };
 
 export const nestableReducer = (state: NestableState, action: NestableReducerAction): NestableState => {

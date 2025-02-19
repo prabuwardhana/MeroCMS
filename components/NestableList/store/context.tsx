@@ -100,7 +100,7 @@ const useNestableListContext = (initState: NestableState) => {
   );
 
   const setElemCopyStyles = useCallback(
-    (payload: CSSProperties) =>
+    (payload: CSSProperties | null) =>
       dispatch({
         type: NESTABLE_REDUCER_ACTION_TYPE.SET_ELEM_COPY_STYLE,
         payload: payload,
