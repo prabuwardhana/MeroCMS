@@ -15,7 +15,7 @@ export const LongText = <T extends FieldValues>({ name, control, label, disabled
       name={name}
       render={({ field }) => {
         return (
-          <FormItem className="space-y-1">
+          <FormItem className="space-y-1 basis-1/3 flex-grow-[1]">
             <FormLabel className="text-card-foreground text-xs">{label}</FormLabel>
             <FormControl>
               <Textarea disabled={disabled} {...field} className="min-h-[196px] bg-background" />

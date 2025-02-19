@@ -15,7 +15,7 @@ export const ShortText = <T extends FieldValues>({ name, control, label, disable
       name={name}
       render={({ field }) => {
         return (
-          <FormItem className="space-y-1">
+          <FormItem className="space-y-1 basis-[100%]">
             <FormLabel className="text-card-foreground text-xs">{label}</FormLabel>
             <FormControl>
               <Input

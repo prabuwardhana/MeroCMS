@@ -15,7 +15,7 @@ export const RichText = <T extends FieldValues>({ name, control, label }: RichTe
       name={name}
       render={({ field }) => {
         return (
-          <FormItem className="space-y-1">
+          <FormItem className="space-y-1 basis-1/3 flex-grow-[1]">
             <FormLabel className="text-card-foreground text-xs">{label}</FormLabel>
             <FormControl>
               <RichTextEditor

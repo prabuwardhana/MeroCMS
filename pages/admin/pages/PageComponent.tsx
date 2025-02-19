@@ -26,7 +26,7 @@ const PageComponent = ({
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 p-4">
+      <div className="flex flex-wrap gap-4 p-4">
         {Object.keys(field).map((key, index) => {
           const type = key.split("_")[1];
           if (["short-text", "long-text", "rich-text", "image-input"].includes(type)) {
