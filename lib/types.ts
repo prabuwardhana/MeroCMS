@@ -72,6 +72,7 @@ export type PageMutationResponseType = { page: PageType; message: string };
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: Types.ObjectId | null;
   published: boolean;
+  publishedAt: Date | string | null;
   coverImage: CloudinaryResourceType;
   categories: string[];
   author: Types.ObjectId | undefined;

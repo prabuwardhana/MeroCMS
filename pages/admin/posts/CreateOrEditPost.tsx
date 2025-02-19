@@ -28,6 +28,16 @@ import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
 import { useCharacterCounter } from "@/hooks/useCharacterCounter";
 
+const dateStringOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+} as const;
+
 const CreateOrEditPost = withFallback(
   () => {
     const { user, routeParams } = usePageContext();
@@ -58,6 +68,7 @@ const CreateOrEditPost = withFallback(
         coverImage: initialCoverImageData,
         categories: ["Uncategorized"],
         published: false,
+        publishedAt: null,
         author: user?._id,
         updatedAt: null,
       }),
@@ -67,7 +78,8 @@ const CreateOrEditPost = withFallback(
     // local states
     const [tab, setTab] = useState("gallery");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [lastSavedAt, setLastSavedAt] = useState<Date | undefined | null>(null);
+    const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+    const [publishedAt, setPublishedAt] = useState("");
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
@@ -111,6 +123,11 @@ const CreateOrEditPost = withFallback(
         setPostData({ ...postData, ...post });
         setSelectedCategories(post.categories);
         setLastSavedAt(post.updatedAt);
+
+        if (post.publishedAt) {
+          const date = new Date(post.publishedAt as Date);
+          setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+        }
       }
     }, [routeParams.id]);
 
@@ -124,6 +141,10 @@ const CreateOrEditPost = withFallback(
     // Reset the form states when the previously stored
     // post data has been loaded sucessfuly from the DB
     useEffect(() => {
+      if (postData.publishedAt) {
+        const date = new Date(postData.publishedAt as Date);
+        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+      }
       countCharacter(postData.excerpt?.length as number);
       reset({
         title: postData.title,
@@ -187,11 +208,13 @@ const CreateOrEditPost = withFallback(
 
     const onPublish = () => {
       if (postData.published) {
-        setPostData({ ...postData, published: false });
-        triggerManualSave({ ...postData, published: false });
+        setPostData({ ...postData, published: false, publishedAt: null });
+        triggerManualSave({ ...postData, published: false, publishedAt: null });
+        setPublishedAt("");
       } else {
-        setPostData({ ...postData, published: true });
-        triggerManualSave({ ...postData, published: true });
+        const publishedAt = new Date();
+        setPostData({ ...postData, published: true, publishedAt: publishedAt.toISOString() });
+        triggerManualSave({ ...postData, published: true, publishedAt: publishedAt.toISOString() });
       }
     };
 
@@ -201,42 +224,47 @@ const CreateOrEditPost = withFallback(
           <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
             <div className="flex flex-col gap-y-6 xl:flex-row xl:gap-x-6">
               <main className="basis-3/4 space-y-8">
-                <div className="mb-6 flex flex-col justify-center md:flex-row md:justify-between">
-                  <div className="flex justify-start gap-4">
-                    <PageTitle>{pageTitle}</PageTitle>
-                    <a
-                      href={`/preview/${routeParams.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
-                    >
-                      <Eye size={16} />
-                      Preview
-                    </a>
-                  </div>
-                  <div className="flex justify-between gap-x-6">
-                    <SaveStatus
-                      savedAt={lastSavedAt}
-                      isPendingSave={isPendingSave}
-                      isSaving={isSaving}
-                      isError={isError}
-                    />
-                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
-                      {routeParams.id ? <Save /> : <CirclePlus />}
-                      {routeParams.id ? "Update Post" : "Create Post"}
-                    </Button>
-                    {routeParams.id && (
-                      <Button
-                        type="button"
-                        size={"sm"}
-                        onClick={onPublish}
-                        className="bg-primary text-primary-foreground"
+                <div>
+                  <div className="mb-4 flex flex-col justify-center md:flex-row md:justify-between">
+                    <div className="flex justify-start gap-4">
+                      <PageTitle>{pageTitle}</PageTitle>
+                      <a
+                        href={`/preview/${routeParams.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
                       >
-                        {postData.published ? <GlobeLock /> : <Globe />}
-                        {postData.published ? "Unpublish" : "Publish"}
+                        <Eye size={16} />
+                        Preview
+                      </a>
+                    </div>
+                    <div className="flex justify-between gap-x-6">
+                      <SaveStatus
+                        savedAt={lastSavedAt}
+                        isPendingSave={isPendingSave}
+                        isSaving={isSaving}
+                        isError={isError}
+                      />
+                      <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
+                        {routeParams.id ? <Save /> : <CirclePlus />}
+                        {routeParams.id ? "Update Post" : "Create Post"}
                       </Button>
-                    )}
+                      {routeParams.id && (
+                        <Button
+                          type="button"
+                          size={"sm"}
+                          onClick={onPublish}
+                          className="bg-primary text-primary-foreground"
+                        >
+                          {postData.published ? <GlobeLock /> : <Globe />}
+                          {postData.published ? "Unpublish" : "Publish"}
+                        </Button>
+                      )}
+                    </div>
                   </div>
+                  {publishedAt && (
+                    <div className="flex justify-end text-xs text-primary">published on {publishedAt}</div>
+                  )}
                 </div>
                 <FormField
                   control={formMethods.control}

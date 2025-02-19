@@ -14,6 +14,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
     excerpt,
     editorContent,
     published,
+    publishedAt,
     author,
     coverImage,
     categories: cat,
@@ -35,6 +36,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
         excerpt,
         editorContent,
         published,
+        publishedAt,
         author,
         coverImage,
         categories: categories.length ? categoryIds : [],
@@ -51,6 +53,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
       excerpt,
       editorContent,
       published,
+      publishedAt,
       author,
       coverImage,
       categories: categories.length ? categoryIds : [],
@@ -72,6 +75,7 @@ export const getSinglePostByIdHandler = catchErrors(async (req, res) => {
     excerpt: post.excerpt,
     editorContent: post.editorContent,
     published: post.published,
+    publishedAt: post.publishedAt,
     author: post.author,
     coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
@@ -91,7 +95,7 @@ export const getPostPreviewHandler = catchErrors(async (req, res) => {
     slug: post.slug,
     excerpt: post.excerpt,
     editorContent: post.editorContent,
-    published: post.published,
+    publishedAt: post.publishedAt,
     author: post.author.profile,
     coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
@@ -112,7 +116,7 @@ export const getPostBySlugHandler = catchErrors(async (req, res) => {
     slug: post.slug,
     excerpt: post.excerpt,
     editorContent: post.editorContent,
-    published: post.published,
+    publishedAt: post.publishedAt,
     author: post.author.profile,
     coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
@@ -123,7 +127,7 @@ export const getPostBySlugHandler = catchErrors(async (req, res) => {
 export const getPostsHandler = catchErrors(async (req, res) => {
   const posts = await PostModel.find({})
     .sort({ createdAt: "desc" })
-    .select(["title", "slug", "published", "coverImage", "author", "categories"])
+    .select(["title", "slug", "published", "publishedAt", "coverImage", "author", "categories"])
     .populate<{ author: User }>({ path: "author", select: "profile" })
     .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
     .exec();

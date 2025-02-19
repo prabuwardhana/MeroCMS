@@ -13,6 +13,7 @@ export const createPostSchema = z.object({
   excerpt: z.string().optional(),
   editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
   published: z.boolean(),
+  publishedAt: z.string().datetime({ offset: true }).pipe(z.coerce.date()).nullable(),
   author: z.custom<Types.ObjectId>(),
   coverImage: z.custom<CloudinaryResourceType>(),
   categories: z.array(z.string()),
