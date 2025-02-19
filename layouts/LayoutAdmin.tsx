@@ -75,7 +75,7 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
         <Sidebar ref={sidebarRef} collapsed={collapsed} isDesktopDevice={isDesktopDevice} />
         <motion.div variants={containerVariants} animate={containerControls} initial="close">
           <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-          <div className="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden px-6 pt-6 bg-accent">{children}</div>
+          <div className="px-6 pt-6 bg-accent">{children}</div>
         </motion.div>
         <Toaster />
         <ReactQueryDevtools initialIsOpen={false} />

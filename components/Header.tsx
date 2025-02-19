@@ -27,7 +27,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
   const mutation = useAuthLogOutMutation();
 
   return (
-    <header className="transition-color relative z-10 flex h-[60px] items-center justify-between bg-background px-4 shadow-md">
+    <header className="sticky top-0 transition-color z-10 flex h-[60px] items-center justify-between bg-background px-4 shadow-md">
       <div className="flex items-center gap-x-3">
         <button className="btn-ghost size-10" onClick={() => setCollapsed(!collapsed)}>
           <ChevronsLeft className={cn(collapsed && "rotate-180")} />
