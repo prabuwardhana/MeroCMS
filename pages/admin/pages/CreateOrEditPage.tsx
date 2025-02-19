@@ -13,12 +13,13 @@ import { Input } from "@/components/ui/input";
 import Accordion from "@/components/ui/accordion";
 import PageTitle from "@/components/PageTitle";
 import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";
+import ImageSetter from "@/components/ImageSetter";
 
 import { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types";
 import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, RotateCcw, Save, Trash2 } from "lucide-react";
+import { CirclePlus, RotateCcw, Save } from "lucide-react";
 import { useGetSinglePageQuery } from "@/hooks/api/useGetSinglePageQuery";
 import { useGetComponentQuery } from "@/hooks/api/useGetComponentsQuery";
 import { useCreateUpdatePageMutation } from "@/hooks/api/useCreateUpdatePageMutation";
@@ -291,32 +292,15 @@ const CreateOrEditPage = withFallback(
               </main>
               <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col overflow-y-hidden">
                 <Accordion className="border-b" title="Hero Image" open={true}>
-                  {coverImageUrl ? (
-                    <>
-                      <img src={coverImageUrl} className="h-48 w-full object-cover rounded-md" />
-                      <Button
-                        type="button"
-                        variant="link"
-                        className="p-0 flex justify-center items-center text-sm text-destructive"
-                        onClick={() => {
-                          setCoverImageUrl("");
-                          setSelectedCoverImages([]);
-                        }}
-                      >
-                        <Trash2 />
-                        Remove hero image
-                      </Button>
-                    </>
-                  ) : (
-                    <Button
-                      type="button"
-                      onClick={() => setIsDialogOpen(true)}
-                      className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
-                    >
-                      <span className="sr-only">Set Hero Image</span>
-                      Set Hero Image
-                    </Button>
-                  )}
+                  <ImageSetter
+                    type="Hero"
+                    imageUrl={coverImageUrl}
+                    onSetImageClick={() => setIsDialogOpen(true)}
+                    onRemoveImageClick={() => {
+                      setCoverImageUrl("");
+                      setSelectedCoverImages([]);
+                    }}
+                  />
                 </Accordion>
                 <Accordion title="Page Components" open={true} className="border-b space-y-2">
                   {pageComponents.map((pageComponent) => (

@@ -10,21 +10,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Accordion from "@/components/ui/accordion";
+import { Textarea } from "@/components/ui/textarea";
 import Editor from "@/components/blocknote/editor";
 import SaveStatus from "@/components/SaveStatus";
 import PageTitle from "@/components/PageTitle";
 import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";
+import ImageSetter from "@/components/ImageSetter";
 
 import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save, Trash2 } from "lucide-react";
+import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
 import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
 import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
 import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
-import { Textarea } from "@/components/ui/textarea";
 import { useCharacterCounter } from "@/hooks/useCharacterCounter";
 
 const CreateOrEditPost = withFallback(
@@ -319,39 +320,21 @@ const CreateOrEditPost = withFallback(
               </main>
               <aside className="sticky top-0 flex h-[calc(100vh-theme(spacing.24))] basis-1/4 flex-col overflow-y-hidden">
                 <Accordion className="border-b" title="Cover Image" open={true}>
-                  {postData.coverImage.secure_url ? (
-                    <>
-                      <img src={postData.coverImage.secure_url} className="h-48 w-full object-cover rounded-md" />
-                      <Button
-                        type="button"
-                        variant="link"
-                        className="p-0 flex justify-center items-center text-sm text-destructive"
-                        onClick={() => {
-                          const newPostData: PostType = {
-                            ...postData,
-                            coverImage: initialCoverImageData,
-                          };
+                  <ImageSetter
+                    type="Cover"
+                    imageUrl={postData.coverImage.secure_url}
+                    onSetImageClick={() => setIsDialogOpen(true)}
+                    onRemoveImageClick={() => {
+                      const newPostData: PostType = {
+                        ...postData,
+                        coverImage: initialCoverImageData,
+                      };
 
-                          dispatchAutoSave(newPostData);
-                          setPostData(newPostData);
-                          setSelectedCoverImages([]);
-                        }}
-                      >
-                        <Trash2 />
-                        Remove cover image
-                      </Button>
-                    </>
-                  ) : (
-                    <Button
-                      type="button"
-                      size={"sm"}
-                      onClick={() => setIsDialogOpen(true)}
-                      className="h-20 w-full text-wrap rounded-sm border border-dashed border-accent-foreground bg-accent hover:bg-accent/50 text-sm text-accent-foreground transition-colors"
-                    >
-                      <span className="sr-only">Set Cover Image</span>
-                      Set Cover Image
-                    </Button>
-                  )}
+                      dispatchAutoSave(newPostData);
+                      setPostData(newPostData);
+                      setSelectedCoverImages([]);
+                    }}
+                  />
                 </Accordion>
                 <Accordion className="border-b" title="Categories">
                   {categoriesQuery.data.map((category) => {
