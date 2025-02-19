@@ -254,7 +254,10 @@ const CreateOrEditPost = withFallback(
                           type="button"
                           size={"sm"}
                           onClick={onPublish}
-                          className="bg-primary text-primary-foreground"
+                          className={cn(
+                            postData.published && "bg-destructive hover:bg-destructive/90 text-destructive-foreground",
+                            !postData.published && "bg-primary hover:bg-primary/90 text-primary-foreground",
+                          )}
                         >
                           {postData.published ? <GlobeLock /> : <Globe />}
                           {postData.published ? "Unpublish" : "Publish"}
