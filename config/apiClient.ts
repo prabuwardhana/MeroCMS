@@ -5,6 +5,9 @@ const options = {
   withCredentials: true,
 };
 
+// https://stackoverflow.com/questions/70763748/axios-post-blocked-by-cors-using-cloudinary-api
+export const CloudinaryClient = axios.create();
+
 const API = axios.create(options);
 
 API.interceptors.response.use(
