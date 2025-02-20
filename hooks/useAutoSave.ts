@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { PostType } from "@/lib/types";
+import { PageType, PostType } from "@/lib/types";
 
 const AUTOSAVE_DEBOUNCE_TIME = 2000;
 
-export const useAutoSave = ({ onSave }: { onSave: (data: PostType) => void }) => {
+export const useAutoSave = ({ onSave }: { onSave: (data: PostType | PageType) => void }) => {
   const [autoSaveTimer, setAutoSaveTimer] = useState<ReturnType<typeof setTimeout> | string | number | undefined>(
     undefined,
   );
@@ -11,7 +11,7 @@ export const useAutoSave = ({ onSave }: { onSave: (data: PostType) => void }) =>
   const [isSaving, setIsSaving] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const dispatchAutoSave = (formData: PostType) => {
+  const dispatchAutoSave = (formData: PostType | PageType) => {
     clearTimeout(autoSaveTimer);
 
     setIsPendingSave(true);
@@ -21,13 +21,13 @@ export const useAutoSave = ({ onSave }: { onSave: (data: PostType) => void }) =>
     setAutoSaveTimer(timer);
   };
 
-  const triggerManualSave = (formData: PostType) => {
+  const triggerManualSave = (formData: PostType | PageType) => {
     clearTimeout(autoSaveTimer);
     setIsPendingSave(true);
     triggerSave(formData);
   };
 
-  const triggerSave = (formData: PostType) => {
+  const triggerSave = (formData: PostType | PageType) => {
     setIsError(false);
     setIsSaving(true);
 

@@ -144,12 +144,12 @@ const CreateOrEditPost = withFallback(
     }, [reset, postData]);
 
     const { dispatchAutoSave, triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
-      onSave: (data: PostType) => {
+      onSave: (data) => {
         if (!data.title || !data.slug) return;
 
         const currentTime = new Date();
         setLastSavedAt(currentTime);
-        upsertMutation.mutate(data);
+        upsertMutation.mutate(data as PostType);
       },
     });
 

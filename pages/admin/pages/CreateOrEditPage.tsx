@@ -14,6 +14,7 @@ import Accordion from "@/components/ui/accordion";
 import PageTitle from "@/components/PageTitle";
 import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";
 import ImageSetter from "@/components/ImageSetter";
+import SaveStatus from "@/components/SaveStatus";
 
 import { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types";
 import { pageFormSchema } from "@/lib/schemas";
@@ -22,6 +23,7 @@ import { cn, slugify } from "@/lib/utils";
 import { CirclePlus, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
 import { usePageComponents } from "@/hooks/api/usePageComponents";
 import { usePages } from "@/hooks/api/usePages";
+import { useAutoSave } from "@/hooks/useAutoSave";
 import PageComponent from "./PageComponent";
 import PageComponentButton from "@/components/PageComponentButton";
 import { usePageComponentsStore } from "@/store/pageComponentsStore";
@@ -53,6 +55,7 @@ const CreateOrEditPage = withFallback(
     // local states
     const [tab, setTab] = useState("gallery");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
     const [publishedAt, setPublishedAt] = useState("");
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
@@ -85,8 +88,7 @@ const CreateOrEditPage = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<PageType> = (formData) => {
       // Saves the content to DB.
-      upsertMutation.mutate({ ...pageData, ...formData });
-      console.log(formData);
+      triggerManualSave({ ...pageData, ...formData });
     };
 
     const handleSubmitError: SubmitErrorHandler<PageType> = (formData) => {
@@ -101,6 +103,7 @@ const CreateOrEditPage = withFallback(
         // replace postData with the new one from the DB
         setPageData({ ...pageData, ...page });
         setCoverImageUrl(page.coverImageUrl);
+        setLastSavedAt(page.updatedAt);
 
         if (page.publishedAt) {
           const date = new Date(page.publishedAt as Date);
@@ -138,6 +141,16 @@ const CreateOrEditPage = withFallback(
     useEffect(() => {
       if (selectedCoverImages.length > 0) formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
     }, [selectedCoverImages]);
+
+    const { triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
+      onSave: (data) => {
+        if (!data.title || !data.slug) return;
+
+        const currentTime = new Date();
+        setLastSavedAt(currentTime);
+        upsertMutation.mutate(data as PageType);
+      },
+    });
 
     const onTabChange = (value: string) => {
       setTab(value);
@@ -218,6 +231,12 @@ const CreateOrEditPage = withFallback(
                   <div className="flex flex-col justify-center md:flex-row md:justify-between">
                     <PageTitle>{pageTitle}</PageTitle>
                     <div className="flex justify-between gap-x-6">
+                      <SaveStatus
+                        savedAt={lastSavedAt}
+                        isPendingSave={isPendingSave}
+                        isSaving={isSaving}
+                        isError={isError}
+                      />
                       <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
                         {routeParams.id ? <Save /> : <CirclePlus />}
                         {routeParams.id ? "Update Page" : "Create Page"}
