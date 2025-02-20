@@ -40,7 +40,7 @@ export const upsertCategoryHandler = catchErrors(async (req, res) => {
 });
 
 export const getCategoriesHandler = catchErrors(async (req, res) => {
-  const categories = await CategoryModel.find({});
+  const categories = await CategoryModel.find({}).sort({ createdAt: "desc" }).exec();
   res.status(OK).json(categories);
 });
 

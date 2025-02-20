@@ -6,7 +6,7 @@ import catchErrors from "../utils/catchErrors";
 import { createProfileSchema, createUserSchema } from "./user.schema";
 
 export const getAllUsersHandler = catchErrors(async (_req, res) => {
-  const users = await UserModel.find({}).select({ password: 0 });
+  const users = await UserModel.find({}).select({ password: 0 }).sort({ createdAt: "desc" }).exec();
   res.status(OK).json(users);
 });
 
