@@ -10,15 +10,13 @@ import { DataTable } from "@/components/DataTable";
 
 import { getUsersColumns } from "./usersColumnDef";
 
-import { useDeleteUserMutation } from "@/hooks/api/useDeleteUserMutation";
-import { useGetUsersQuery } from "@/hooks/api/useGetUsersQuery";
+import { useUsers } from "@/hooks/api/useUsers";
 
 import { RotateCcw, ShieldAlert, ShieldCheck } from "lucide-react";
 
 const UsersTable = withFallback(
   () => {
-    const { usersQuery } = useGetUsersQuery();
-    const deleteMutation = useDeleteUserMutation();
+    const { usersQuery, deleteMutation } = useUsers();
 
     const filterOn = useMemo(
       () => [

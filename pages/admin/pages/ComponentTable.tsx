@@ -3,8 +3,7 @@ import { withFallback } from "vike-react-query";
 
 import { PageComponentType } from "@/lib/types";
 
-import { useDeleteComponentMutation } from "@/hooks/api/useDeleteComponentMutation";
-import { useGetComponentQuery } from "@/hooks/api/useGetComponentsQuery";
+import { usePageComponents } from "@/hooks/api/usePageComponents";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,8 +20,7 @@ const ComponentTable = withFallback(
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
 
-    const { componentsQuery } = useGetComponentQuery();
-    const deleteMutation = useDeleteComponentMutation();
+    const { componentsQuery, deleteMutation } = usePageComponents();
 
     const onEdit = (component: PageComponentType) => {
       setComponentId(component._id);

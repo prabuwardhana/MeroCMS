@@ -20,9 +20,8 @@ import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
 import { CirclePlus, RotateCcw, Save } from "lucide-react";
-import { useGetSinglePageQuery } from "@/hooks/api/useGetSinglePageQuery";
-import { useGetComponentQuery } from "@/hooks/api/useGetComponentsQuery";
-import { useCreateUpdatePageMutation } from "@/hooks/api/useCreateUpdatePageMutation";
+import { usePageComponents } from "@/hooks/api/usePageComponents";
+import { usePages } from "@/hooks/api/usePages";
 import PageComponent from "./PageComponent";
 import PageComponentButton from "@/components/PageComponentButton";
 import { usePageComponentsStore } from "@/store/pageComponentsStore";
@@ -56,9 +55,8 @@ const CreateOrEditPage = withFallback(
     const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
     const [pageData, setPageData] = useState<PageType>(initialPageData);
 
-    const { componentsQuery } = useGetComponentQuery();
-    const { pageQuery } = useGetSinglePageQuery(routeParams.id);
-    const mutation = useCreateUpdatePageMutation(routeParams.id);
+    const { componentsQuery } = usePageComponents();
+    const { pageQuery, upsertMutation } = usePages(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<PageType>({
@@ -84,7 +82,7 @@ const CreateOrEditPage = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<PageType> = (formData) => {
       // Saves the content to DB.
-      mutation.mutate({ ...pageData, ...formData });
+      upsertMutation.mutate({ ...pageData, ...formData });
       console.log(formData);
     };
 

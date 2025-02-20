@@ -7,7 +7,7 @@ import { opacityVariants } from "@/constants/framerMotion";
 
 import UploadProgressCard from "@/components/UploadProgressCard";
 import Container from "@/components/Container";
-import { useUploadImageMutation } from "@/hooks/api/useUploadImageMutation";
+import { useImages } from "@/hooks/api/useImages";
 import { cn } from "@/lib/utils";
 import { useFileUploadStore } from "@/store/fileUploadStore";
 
@@ -19,11 +19,11 @@ interface FileUploadProps {
 const FileUpload = ({ onTabChange, className }: FileUploadProps) => {
   const { files } = useFileUploadStore((state) => state);
 
-  const mutation = onTabChange ? useUploadImageMutation(onTabChange) : useUploadImageMutation();
+  const { uploadMutation } = onTabChange ? useImages(null, undefined, undefined, onTabChange) : useImages(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles?.length) {
-      mutation.mutate(
+      uploadMutation.mutate(
         acceptedFiles.map((item) => ({
           file: item,
           id: `${item.name}${item.size}`,

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import { useCreateUpdateComponentMutation } from "@/hooks/api/useCreateUpdateCamponentMutation";
-import { useGetSingleComponentQuery } from "@/hooks/api/useGetSingleComponentQuery";
+import { usePageComponents } from "@/hooks/api/usePageComponents";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -46,8 +45,7 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
   // local states
   const [componentData, setComponentData] = useState<PageComponentType>(initialComponentData);
 
-  const { componentQuery } = useGetSingleComponentQuery(componentId);
-  const mutation = useCreateUpdateComponentMutation(componentId);
+  const { componentQuery, upsertMutation } = usePageComponents(componentId);
 
   // 1. Define our form.
   const formMethods = useForm<PageComponentType>({
@@ -73,7 +71,7 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
     // Saves the content to DB.
     console.log(formData);
     setIsOpen(false);
-    mutation.mutate(formData);
+    upsertMutation.mutate(formData);
   };
   const handleSubmitError: SubmitErrorHandler<PageComponentType> = (formData) => {
     // if (formData.sections?.root?.message) toast(formData.sections?.root?.message);

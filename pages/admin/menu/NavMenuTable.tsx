@@ -4,8 +4,7 @@ import { withFallback } from "vike-react-query";
 
 import { NavMenuType } from "@/lib/types";
 
-import { useGetNavMenusQuery } from "@/hooks/api/useGetNavMenusQuery";
-import { useDeleteNavMenuMutation } from "@/hooks/api/useDeleteNavMenuMutation";
+import { useNavMenus } from "@/hooks/api/useNavMenus";
 import { getNavMenusColumns } from "./navMenuColumnDef";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,8 +15,7 @@ import { RotateCcw } from "lucide-react";
 
 const NavMenusTable = withFallback(
   () => {
-    const { navMenusQuery } = useGetNavMenusQuery();
-    const deleteMutation = useDeleteNavMenuMutation();
+    const { navMenusQuery, deleteMutation } = useNavMenus();
 
     const onEdit = (navMenu: NavMenuType) => {
       navigate(`/admin/nav-menu/${navMenu._id}/edit`);

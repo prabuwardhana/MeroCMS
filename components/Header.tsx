@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "./ModeToggle";
 
-import { useAuthLogOutMutation } from "@/hooks/api/useAuthLogOutMutation";
+import { useAuth } from "@/hooks/api/useAuth";
 import { usePageContext } from "vike-react/usePageContext";
 
 interface HeaderProps {
@@ -24,7 +24,7 @@ interface HeaderProps {
 const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
   const { user } = usePageContext();
 
-  const mutation = useAuthLogOutMutation();
+  const { logOutMutation } = useAuth();
 
   return (
     <header className="sticky top-0 transition-color z-10 flex h-[60px] items-center justify-between bg-background px-4 shadow-md">
@@ -57,7 +57,7 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
               <UserPen />
               <a href="/admin/profile">Edit Profile</a>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => mutation.mutate()} className="cursor-pointer">
+            <DropdownMenuItem onClick={() => logOutMutation.mutate()} className="cursor-pointer">
               <LogOut />
               <span>Log out</span>
             </DropdownMenuItem>

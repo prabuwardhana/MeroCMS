@@ -15,7 +15,7 @@ import ImageManagerDialog from "@/components/Dialogs";
 import { CloudinaryResourceType, UserProfile } from "@/lib/types";
 import { profileFormSchema } from "@/lib/schemas";
 
-import { useUpdateProfileMutation } from "@/hooks/api/useUpdateProfileMutation";
+import { useProfiles } from "@/hooks/api/useProfiles";
 import { useUserProfileStore } from "@/store/userProfileStore";
 
 import { RotateCcw, Trash2 } from "lucide-react";
@@ -33,7 +33,7 @@ const EditProfile = withFallback(
     const [selectedAvatar, setSelectedAvatar] = useState<Array<CloudinaryResourceType>>([]);
     const [avatarUrl, setAvatarUrl] = useState<string | undefined>("");
 
-    const mutation = useUpdateProfileMutation();
+    const { upsertMutation } = useProfiles();
 
     // 1. Define our form.
     const formMethods = useForm<UserProfile>({
@@ -53,7 +53,7 @@ const EditProfile = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<UserProfile> = (formData) => {
       // Saves the content to DB.
-      mutation.mutate(formData);
+      upsertMutation.mutate(formData);
     };
 
     const handleSubmitError: SubmitErrorHandler<UserProfile> = (formData) => {

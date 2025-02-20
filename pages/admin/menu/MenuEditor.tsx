@@ -7,8 +7,7 @@ import { NavMenuType } from "@/lib/types";
 import { navMenuFormSchema } from "@/lib/schemas";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
-import { useGetSingleNavMenuQuery } from "@/hooks/api/useGetSingleNavMenuQuery";
-import { useCreateUpdateNavMenuMutation } from "@/hooks/api/useCreateUpdateNavMenuMutation";
+import { useNavMenus } from "@/hooks/api/useNavMenus";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -23,8 +22,7 @@ const MenuEditor = () => {
 
   const { items, updateItems } = useNestableItemsContext();
 
-  const { navMenuQuery } = useGetSingleNavMenuQuery(routeParams.id);
-  const mutation = useCreateUpdateNavMenuMutation(routeParams.id);
+  const { navMenuQuery, upsertMutation } = useNavMenus(routeParams.id);
 
   // 1. Define our form.
   const formMethods = useForm<{ title: string }>({
@@ -41,7 +39,7 @@ const MenuEditor = () => {
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<{ title: string }> = (formData) => {
     // Saves the content to DB.
-    mutation.mutate({ ...navMenuData, ...formData, navMenuContent: items });
+    upsertMutation.mutate({ ...navMenuData, ...formData, navMenuContent: items });
   };
 
   // In edit mode, loads the content from DB.

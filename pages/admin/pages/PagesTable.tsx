@@ -8,16 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/DataTable";
 
-import { useGetPagesQuery } from "@/hooks/api/useGetPagesQuery";
-import { useDeletePageMutation } from "@/hooks/api/useDeletePageMutation";
-
+import { usePages } from "@/hooks/api/usePages";
 import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 import { getPagesColumns } from "./pagesColumnDef";
 
 const PagesTable = withFallback(
   () => {
-    const { pagesQuery } = useGetPagesQuery();
-    const deleteMutation = useDeletePageMutation();
+    const { pagesQuery, deleteMutation } = usePages();
 
     const filterOn = useMemo(
       () => [

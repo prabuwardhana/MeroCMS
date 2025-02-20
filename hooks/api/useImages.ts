@@ -1,14 +1,34 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import API from "@/config/apiClient";
-import { ExtendedFile } from "@/lib/types";
+import API, { CloudinaryClient } from "@/config/apiClient";
+import { CloudinaryResponseType, ExtendedFile } from "@/lib/types";
 import { useFileUploadStore } from "@/store/fileUploadStore";
+import { useMutation, useQueryClient, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
-export const useUploadImageMutation = (onTabChange?: (value: string) => void) => {
-  const { updateUploadProgress, updateUploadStatus, appendFiles, removeFile } = useFileUploadStore((state) => state);
-
+export const useImages = (
+  nextCursor: string | null,
+  onClearSelectedImage?: () => void,
+  setDeletion?: ({ state }: { state: string }) => void,
+  onTabChange?: (value: string) => void,
+) => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const { updateUploadProgress, updateUploadStatus, appendFiles, removeFile } = useFileUploadStore((state) => state);
+
+  const {
+    data: { pages },
+    fetchNextPage,
+  } = useSuspenseInfiniteQuery({
+    queryKey: ["resources"],
+    queryFn: async ({ pageParam }) => {
+      return await API.get<CloudinaryResponseType>(`/api/media/resources/${pageParam}`);
+    },
+    initialPageParam: null,
+    getNextPageParam: () => {
+      return nextCursor;
+    },
+    staleTime: 60 * 60 * 1000,
+  });
+
+  const uploadMutation = useMutation({
     mutationFn: async (files: ExtendedFile[]) => {
       const uploadPromises = files.map(async (file) => {
         if (file.uploadStatus === "idle") {
@@ -19,7 +39,7 @@ export const useUploadImageMutation = (onTabChange?: (value: string) => void) =>
           formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
           formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
-          return await API.post(
+          return await CloudinaryClient.post(
             `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
             formData,
             {
@@ -56,4 +76,17 @@ export const useUploadImageMutation = (onTabChange?: (value: string) => void) =>
       appendFiles(variables.map((item) => Object.assign(item.file, { preview: URL.createObjectURL(item.file) })));
     },
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: async ({ publicId }: { publicId: string }) => {
+      return API.post("/api/media/resources/delete", { publicId });
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["resources"] });
+      if (onClearSelectedImage) onClearSelectedImage();
+      if (setDeletion) setDeletion({ state: "idle" });
+    },
+  });
+
+  return { pages, fetchNextPage, uploadMutation, deleteMutation };
 };

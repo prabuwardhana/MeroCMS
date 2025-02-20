@@ -2,12 +2,12 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 
-import { useAuthLogOutMutation } from "@/hooks/api/useAuthLogOutMutation";
+import { useAuth } from "@/hooks/api/useAuth";
 
 const LogOutButton = () => {
-  const mutation = useAuthLogOutMutation();
+  const { logOutMutation } = useAuth();
 
-  return <Button onClick={() => mutation.mutate()}>Log Out</Button>;
+  return <Button onClick={() => logOutMutation.mutate()}>Log Out</Button>;
 };
 
 export default LogOutButton;

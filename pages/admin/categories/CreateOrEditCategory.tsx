@@ -15,8 +15,7 @@ import { categoryFormSchema } from "@/lib/schemas";
 import { slugify } from "@/lib/utils";
 
 import { RotateCcw } from "lucide-react";
-import { useGetSingleCategoryQuery } from "@/hooks/api/useGetSingleCategoryQuery";
-import { useCreateUpdateCategoryMutation } from "@/hooks/api/useCreateUpdateCategoryMutation";
+import { useCategories } from "@/hooks/api/useCategories";
 import { Textarea } from "../../../components/ui/textarea";
 import { Card } from "../../../components/ui/card";
 
@@ -38,8 +37,7 @@ const CreateOrEditCategory = withFallback(
     // local states
     const [categoryData, setCategoryData] = useState<CategoryType>(initialCategoryData);
 
-    const { categoryQuery } = useGetSingleCategoryQuery(routeParams.id);
-    const mutation = useCreateUpdateCategoryMutation(routeParams.id);
+    const { categoryQuery, upsertMutation } = useCategories(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<CategoryType>({
@@ -58,7 +56,7 @@ const CreateOrEditCategory = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<CategoryType> = (formData) => {
       // Saves the content to DB.
-      mutation.mutate(formData);
+      upsertMutation.mutate(formData);
     };
 
     // In edit mode, loads the content from DB.

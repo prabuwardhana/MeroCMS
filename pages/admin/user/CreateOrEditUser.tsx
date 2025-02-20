@@ -19,8 +19,7 @@ import { userFormSchema } from "@/lib/schemas";
 
 import { RotateCcw } from "lucide-react";
 
-import { useCreateUpdateUserMutation } from "@/hooks/api/useCreateUpdateUserMutation";
-import { useGetSingleUserQuery } from "@/hooks/api/useGetSingleUserQuery";
+import { useUsers } from "@/hooks/api/useUsers";
 import { PasswordInput } from "@/components/ui/password-input";
 
 const CreateOrEditUser = withFallback(
@@ -46,8 +45,7 @@ const CreateOrEditUser = withFallback(
     // local states
     const [userData, setUserData] = useState<User>(initialUserData);
 
-    const { userQuery } = useGetSingleUserQuery(routeParams.id);
-    const mutation = useCreateUpdateUserMutation(routeParams.id);
+    const { userQuery, upsertMutation } = useUsers(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<User>({
@@ -73,7 +71,7 @@ const CreateOrEditUser = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<User> = (formData) => {
       // Saves the content to DB.
-      mutation.mutate(formData);
+      upsertMutation.mutate(formData);
     };
 
     // In edit mode, loads the content from DB.

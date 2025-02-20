@@ -23,9 +23,8 @@ import { useAutoSave } from "@/hooks/useAutoSave";
 import { cn, slugify } from "@/lib/utils";
 
 import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
-import { useGetSinglePostQuery } from "@/hooks/api/useGetSinglePostQuery";
-import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
-import { useCreateUpdatePostMutation } from "@/hooks/api/useCreateUpdatePostMutation";
+import { usePosts } from "@/hooks/api/usePosts";
+import { useCategories } from "@/hooks/api/useCategories";
 import { useCharacterCounter } from "@/hooks/useCharacterCounter";
 
 const dateStringOptions = {
@@ -84,9 +83,8 @@ const CreateOrEditPost = withFallback(
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
 
-    const { postQuery } = useGetSinglePostQuery(routeParams.id);
-    const { categoriesQuery } = useGetCategoriesQuery();
-    const mutation = useCreateUpdatePostMutation(routeParams.id);
+    const { categoriesQuery } = useCategories();
+    const { upsertMutation, postQuery } = usePosts(routeParams.id);
 
     // 1. Define our form.
     const formMethods = useForm<PostType>({
@@ -160,7 +158,7 @@ const CreateOrEditPost = withFallback(
 
         const currentTime = new Date();
         setLastSavedAt(currentTime);
-        mutation.mutate(data);
+        upsertMutation.mutate(data);
       },
     });
 

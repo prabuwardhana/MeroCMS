@@ -4,8 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 
-import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
-
+import { useCategories } from "@/hooks/api/useCategories";
 import { Item } from "@/components/NestableList/Libs/types";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,7 +13,7 @@ import Accordion from "@/components/ui/accordion";
 import { CategoryType } from "@/lib/types";
 
 const CategoryItems = () => {
-  const { categoriesQuery } = useGetCategoriesQuery();
+  const { categoriesQuery } = useCategories();
 
   const [selectedCategories, setSelectedCategories] = useState<Array<CategoryType>>([]);
   const { items, addItem } = useNestableItemsContext();

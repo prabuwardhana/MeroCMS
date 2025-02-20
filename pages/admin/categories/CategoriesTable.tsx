@@ -6,9 +6,7 @@ import { CategoryType } from "@/lib/types";
 
 import { getCategoriesColumns } from "./categoriesColumnDef";
 
-import { useDeleteCategoryMutation } from "@/hooks/api/useDeleteCategoryMutation";
-import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
-
+import { useCategories } from "@/hooks/api/useCategories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/DataTable";
@@ -17,8 +15,7 @@ import { RotateCcw } from "lucide-react";
 
 const CategoriesTable = withFallback(
   () => {
-    const { categoriesQuery } = useGetCategoriesQuery();
-    const deleteMutation = useDeleteCategoryMutation();
+    const { categoriesQuery, deleteMutation } = useCategories();
 
     const onEdit = (category: CategoryType) => {
       navigate(`/admin/categories/${category._id}/edit`);

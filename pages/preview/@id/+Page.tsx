@@ -1,6 +1,6 @@
 import React from "react";
 import "@blocknote/shadcn/style.css";
-import { useGetPostPreviewQuery } from "@/hooks/api/useGetPostPreviewQuery.js";
+import { usePosts } from "@/hooks/api/usePosts.js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import PostPreview from "../PostPreview.jsx";
@@ -9,7 +9,7 @@ import { PostDtoType } from "@/lib/types.js";
 
 export default function Page() {
   const { routeParams } = usePageContext();
-  const { postPreviewQuery } = useGetPostPreviewQuery(routeParams.id);
+  const { postPreviewQuery } = usePosts(routeParams.id);
   const post = postPreviewQuery?.data as PostDtoType;
   return (
     <div className="space-y-4">

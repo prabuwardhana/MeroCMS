@@ -13,8 +13,7 @@ import { cn, convertByteToKiloMegabyte } from "@/lib/utils";
 import { CloudinaryResourceType } from "@/lib/types";
 import { opacityVariants } from "@/constants/framerMotion";
 
-import { useGetImagesQuery } from "@/hooks/api/useGetImagesQuery";
-import { useDeleteImageMutation } from "@/hooks/api/useDeleteImageMutation";
+import { useImages } from "@/hooks/api/useImages";
 
 interface MediaGalleryProps {
   onImageSelected: (isChecked: boolean, image: CloudinaryResourceType) => void;
@@ -32,8 +31,7 @@ const ImageGallery = withFallback(
     const [deletion, setDeletion] = useState<Deletion>();
     const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-    const { pages, fetchNextPage } = useGetImagesQuery(nextCursor);
-    const mutation = useDeleteImageMutation(onClearSelectedImage, setDeletion);
+    const { pages, fetchNextPage, deleteMutation } = useImages(nextCursor, onClearSelectedImage, setDeletion);
 
     useEffect(() => {
       if (pages[0]) {
@@ -166,7 +164,7 @@ const ImageGallery = withFallback(
                 className="p-0 flex justify-center items-center text-sm text-destructive"
                 onClick={() => {
                   setDeletion({ state: "deleting" });
-                  mutation.mutate({ publicId: selected[0].public_id });
+                  deleteMutation.mutate({ publicId: selected[0].public_id });
                 }}
               >
                 {deletion?.state === "deleting" ? <Loader2 className="animate-spin" /> : <Trash2 />}

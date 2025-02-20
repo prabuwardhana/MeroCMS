@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 
-import { useGetPagesQuery } from "@/hooks/api/useGetPagesQuery";
+import { usePages } from "@/hooks/api/usePages";
 
 import { Item } from "@/components/NestableList/Libs/types";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import Accordion from "@/components/ui/accordion";
 import { PageType } from "@/lib/types";
 
 const PageItems = () => {
-  const { pagesQuery } = useGetPagesQuery();
+  const { pagesQuery } = usePages();
 
   const [selectedPages, setSelectedPages] = useState<Array<PageType>>([]);
   const { items, addItem } = useNestableItemsContext();

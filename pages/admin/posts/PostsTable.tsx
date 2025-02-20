@@ -10,17 +10,15 @@ import { DataTable } from "@/components/DataTable";
 
 import { getPostsColumns } from "./postsColumnDef";
 
-import { useDeletePostMutation } from "@/hooks/api/useDeletePostMutation";
-import { useGetCategoriesQuery } from "@/hooks/api/useGetCategoriesQuery";
-import { useGetPostsQuery } from "@/hooks/api/useGetPostsQuery";
+import { usePosts } from "@/hooks/api/usePosts";
+import { useCategories } from "@/hooks/api/useCategories";
 
 import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 
 const PostsTable = withFallback(
   () => {
-    const { categoriesQuery } = useGetCategoriesQuery();
-    const { postsQuery } = useGetPostsQuery();
-    const deleteMutation = useDeletePostMutation();
+    const { categoriesQuery } = useCategories();
+    const { postsQuery, deleteMutation } = usePosts();
 
     const filterOn = useMemo(
       () => [
