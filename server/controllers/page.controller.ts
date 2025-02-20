@@ -42,6 +42,15 @@ export const upsertPageHandler = catchErrors(async (req, res) => {
   res.status(OK).json({ page, message: "page succesfully created" });
 });
 
+export const getPagesHandler = catchErrors(async (req, res) => {
+  const pages = await PageModel.find({})
+    .sort({ createdAt: "desc" })
+    .select(["title", "slug", "published", "coverImageUrl", "author"])
+    .populate<{ author: User }>({ path: "author", select: "profile" })
+    .exec();
+  res.status(OK).json(pages);
+});
+
 export const getPageByIdHandler = catchErrors(async (req, res) => {
   const page = await PageModel.findOne({ _id: req.params.pageId });
   appAssert(page, NOT_FOUND, "Page not found");
@@ -55,15 +64,6 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
     coverImageUrl: page.coverImageUrl,
     updatedAt: page.updatedAt,
   });
-});
-
-export const getPagesHandler = catchErrors(async (req, res) => {
-  const pages = await PageModel.find({})
-    .sort({ createdAt: "desc" })
-    .select(["title", "slug", "published", "coverImageUrl", "author"])
-    .populate<{ author: User }>({ path: "author", select: "profile" })
-    .exec();
-  res.status(OK).json(pages);
 });
 
 export const deletePageById = catchErrors(async (req, res) => {

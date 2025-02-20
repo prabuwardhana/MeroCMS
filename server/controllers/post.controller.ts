@@ -63,6 +63,16 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
   res.status(OK).json({ post, message: "post succesfully created" });
 });
 
+export const getPostsHandler = catchErrors(async (req, res) => {
+  const posts = await PostModel.find({})
+    .sort({ createdAt: "desc" })
+    .select(["title", "slug", "published", "publishedAt", "coverImage", "author", "categories"])
+    .populate<{ author: User }>({ path: "author", select: "profile" })
+    .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
+    .exec();
+  res.status(OK).json(posts);
+});
+
 export const getPostByIdHandler = catchErrors(async (req, res) => {
   const post = await PostModel.findOne({ _id: req.params.postId })
     .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
@@ -77,26 +87,6 @@ export const getPostByIdHandler = catchErrors(async (req, res) => {
     published: post.published,
     publishedAt: post.publishedAt,
     author: post.author,
-    coverImage: post.coverImage,
-    categories: post?.categories.map((item) => item.name),
-    updatedAt: post.updatedAt,
-  });
-});
-
-export const getPostPreviewHandler = catchErrors(async (req, res) => {
-  const post = await PostModel.findOne({ _id: req.params.postId })
-    .populate<{ author: User }>({ path: "author", select: "profile" })
-    .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
-    .exec();
-  appAssert(post, NOT_FOUND, "Post not found");
-
-  res.status(OK).json({
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    editorContent: post.editorContent,
-    publishedAt: post.publishedAt,
-    author: post.author.profile,
     coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
     updatedAt: post.updatedAt,
@@ -124,14 +114,24 @@ export const getPostBySlugHandler = catchErrors(async (req, res) => {
   });
 });
 
-export const getPostsHandler = catchErrors(async (req, res) => {
-  const posts = await PostModel.find({})
-    .sort({ createdAt: "desc" })
-    .select(["title", "slug", "published", "publishedAt", "coverImage", "author", "categories"])
+export const getPostPreviewHandler = catchErrors(async (req, res) => {
+  const post = await PostModel.findOne({ _id: req.params.postId })
     .populate<{ author: User }>({ path: "author", select: "profile" })
     .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
     .exec();
-  res.status(OK).json(posts);
+  appAssert(post, NOT_FOUND, "Post not found");
+
+  res.status(OK).json({
+    title: post.title,
+    slug: post.slug,
+    excerpt: post.excerpt,
+    editorContent: post.editorContent,
+    publishedAt: post.publishedAt,
+    author: post.author.profile,
+    coverImage: post.coverImage,
+    categories: post?.categories.map((item) => item.name),
+    updatedAt: post.updatedAt,
+  });
 });
 
 export const deletePostById = catchErrors(async (req, res) => {

@@ -5,11 +5,6 @@ import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import { createProfileSchema, createUserSchema } from "./user.schema";
 
-export const getUsersHandler = catchErrors(async (_req, res) => {
-  const users = await UserModel.find({}).select({ password: 0 }).sort({ createdAt: "desc" }).exec();
-  res.status(OK).json(users);
-});
-
 export const upsertUserHandler = catchErrors(async (req, res) => {
   const {
     _id,
@@ -79,6 +74,11 @@ export const updateUserProfileHandler = catchErrors(async (req, res) => {
   appAssert(updatedUser, INTERNAL_SERVER_ERROR, "Failed to add profile");
 
   res.status(OK).json({ user: updatedUser.omitPassword(), message: "Profile created" });
+});
+
+export const getUsersHandler = catchErrors(async (_req, res) => {
+  const users = await UserModel.find({}).select({ password: 0 }).sort({ createdAt: "desc" }).exec();
+  res.status(OK).json(users);
 });
 
 export const getUserByIdHandler = catchErrors(async (req, res) => {
