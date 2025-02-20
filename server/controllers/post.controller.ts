@@ -63,7 +63,7 @@ export const upsertPostHandler = catchErrors(async (req, res) => {
   res.status(OK).json({ post, message: "post succesfully created" });
 });
 
-export const getSinglePostByIdHandler = catchErrors(async (req, res) => {
+export const getPostByIdHandler = catchErrors(async (req, res) => {
   const post = await PostModel.findOne({ _id: req.params.postId })
     .populate<{ categories: CategoryType[] }>({ path: "categories", select: "name" })
     .exec();

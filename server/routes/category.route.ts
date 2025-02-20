@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   deleteCategoryById,
   getCategoriesHandler,
-  getSingleCategoryByIdHandler,
+  getCategoryByIdHandler,
   upsertCategoryHandler,
 } from "../controllers/category.controller";
 import authenticate from "../middlewares/authenticate";
@@ -14,7 +14,7 @@ const categoryRoutes = Router();
 
 categoryRoutes.get("/", authenticate, authorize([Role.Admin]), getCategoriesHandler);
 categoryRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteCategoryById);
-categoryRoutes.get("/:categoryId", authenticate, authorize([Role.Admin]), getSingleCategoryByIdHandler);
+categoryRoutes.get("/:categoryId", authenticate, authorize([Role.Admin]), getCategoryByIdHandler);
 categoryRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertCategoryHandler);
 
 export default categoryRoutes;

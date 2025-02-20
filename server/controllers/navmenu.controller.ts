@@ -33,7 +33,7 @@ export const upsertNavMenuHandler = catchErrors(async (req, res) => {
   res.status(OK).json({ navMenu, message: "nav-menu succesfully created" });
 });
 
-export const getSingleNavMenuByIdHandler = catchErrors(async (req, res) => {
+export const getNavMenuByIdHandler = catchErrors(async (req, res) => {
   const navMenu = await NavMenuModel.findOne({ _id: req.params.navId });
   appAssert(navMenu, NOT_FOUND, "Nav menu not found");
 

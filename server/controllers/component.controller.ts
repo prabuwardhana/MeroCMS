@@ -46,7 +46,7 @@ export const getComponentsHandler = catchErrors(async (_req, res) => {
   res.status(OK).json(components);
 });
 
-export const getSingleComponentByIdHandler = catchErrors(async (req, res) => {
+export const getComponentByIdHandler = catchErrors(async (req, res) => {
   const component = await ComponentModel.findOne({ _id: req.params.componentId });
   appAssert(component, NOT_FOUND, "Component not found");
 

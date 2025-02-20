@@ -44,7 +44,7 @@ export const getCategoriesHandler = catchErrors(async (req, res) => {
   res.status(OK).json(categories);
 });
 
-export const getSingleCategoryByIdHandler = catchErrors(async (req, res) => {
+export const getCategoryByIdHandler = catchErrors(async (req, res) => {
   const category = await CategoryModel.findOne({ _id: req.params.categoryId });
   appAssert(category, NOT_FOUND, "Category not found");
 

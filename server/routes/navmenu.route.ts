@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   deleteNavMenuById,
   getNavMenusHandler,
-  getSingleNavMenuByIdHandler,
+  getNavMenuByIdHandler,
   upsertNavMenuHandler,
 } from "../controllers/navmenu.controller";
 import authenticate from "../middlewares/authenticate";
@@ -13,7 +13,7 @@ import Role from "../constants/role";
 const navMenuRoutes = Router();
 
 navMenuRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertNavMenuHandler);
-navMenuRoutes.get("/:navId", authenticate, authorize([Role.Admin]), getSingleNavMenuByIdHandler);
+navMenuRoutes.get("/:navId", authenticate, authorize([Role.Admin]), getNavMenuByIdHandler);
 navMenuRoutes.get("/", authenticate, authorize([Role.Admin]), getNavMenusHandler);
 navMenuRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteNavMenuById);
 
