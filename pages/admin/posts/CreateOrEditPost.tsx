@@ -26,16 +26,7 @@ import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save } from "lucide-react
 import { usePosts } from "@/hooks/api/usePosts";
 import { useCategories } from "@/hooks/api/useCategories";
 import { useCharacterCounter } from "@/hooks/useCharacterCounter";
-
-const dateStringOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-} as const;
+import { dateStringOptions } from "@/constants/dateTimeOptions";
 
 const CreateOrEditPost = withFallback(
   () => {

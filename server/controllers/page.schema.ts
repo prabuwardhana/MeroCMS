@@ -11,6 +11,7 @@ export const createPageSchema = z.object({
   }),
   fields: z.array(z.record(z.string(), z.string())).optional(),
   published: z.boolean(),
+  publishedAt: z.string().datetime({ offset: true }).pipe(z.coerce.date()).nullable(),
   author: z.custom<Types.ObjectId>(),
   coverImageUrl: z.string().optional(),
 });

@@ -19,12 +19,13 @@ import { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types
 import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, RotateCcw, Save } from "lucide-react";
+import { CirclePlus, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
 import { usePageComponents } from "@/hooks/api/usePageComponents";
 import { usePages } from "@/hooks/api/usePages";
 import PageComponent from "./PageComponent";
 import PageComponentButton from "@/components/PageComponentButton";
 import { usePageComponentsStore } from "@/store/pageComponentsStore";
+import { dateStringOptions } from "@/constants/dateTimeOptions";
 
 const CreateOrEditPage = withFallback(
   () => {
@@ -39,6 +40,7 @@ const CreateOrEditPage = withFallback(
         fields: [],
         coverImageUrl: "",
         published: false,
+        publishedAt: null,
         author: user?._id,
         updatedAt: null,
       }),
@@ -51,6 +53,7 @@ const CreateOrEditPage = withFallback(
     // local states
     const [tab, setTab] = useState("gallery");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [publishedAt, setPublishedAt] = useState("");
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
     const [pageData, setPageData] = useState<PageType>(initialPageData);
@@ -98,6 +101,11 @@ const CreateOrEditPage = withFallback(
         // replace postData with the new one from the DB
         setPageData({ ...pageData, ...page });
         setCoverImageUrl(page.coverImageUrl);
+
+        if (page.publishedAt) {
+          const date = new Date(page.publishedAt as Date);
+          setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+        }
       }
     }, [routeParams.id]);
 
@@ -111,6 +119,10 @@ const CreateOrEditPage = withFallback(
     // Reset the form states when the previously stored
     // post data has been loaded sucessfuly from the DB
     useEffect(() => {
+      if (pageData.publishedAt) {
+        const date = new Date(pageData.publishedAt as Date);
+        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+      }
       reset({
         title: pageData.title,
         slug: pageData.slug,
@@ -152,6 +164,18 @@ const CreateOrEditPage = withFallback(
       setIsDialogOpen(false);
     };
 
+    const onPublish = () => {
+      if (pageData.published) {
+        setPageData({ ...pageData, published: false, publishedAt: null });
+        upsertMutation.mutate({ ...pageData, published: false, publishedAt: null });
+        setPublishedAt("");
+      } else {
+        const publishedAt = new Date();
+        setPageData({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
+        upsertMutation.mutate({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
+      }
+    };
+
     const droppable = useDroppable({
       id: "page-component-droppable-area",
       data: {
@@ -190,14 +214,33 @@ const CreateOrEditPage = withFallback(
           <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)}>
             <div className="flex flex-col gap-y-6 xl:flex-row xl:gap-x-6">
               <main className="basis-3/4 space-y-6">
-                <div className="flex flex-col justify-center md:flex-row md:justify-between">
-                  <PageTitle>{pageTitle}</PageTitle>
-                  <div className="flex justify-between gap-x-6">
-                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
-                      {routeParams.id ? <Save /> : <CirclePlus />}
-                      {routeParams.id ? "Update Page" : "Create Page"}
-                    </Button>
+                <div className="space-y-2">
+                  <div className="flex flex-col justify-center md:flex-row md:justify-between">
+                    <PageTitle>{pageTitle}</PageTitle>
+                    <div className="flex justify-between gap-x-6">
+                      <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
+                        {routeParams.id ? <Save /> : <CirclePlus />}
+                        {routeParams.id ? "Update Page" : "Create Page"}
+                      </Button>
+                      {routeParams.id && (
+                        <Button
+                          type="button"
+                          size={"sm"}
+                          onClick={onPublish}
+                          className={cn(
+                            pageData.published && "bg-destructive hover:bg-destructive/90 text-destructive-foreground",
+                            !pageData.published && "bg-primary hover:bg-primary/90 text-primary-foreground",
+                          )}
+                        >
+                          {pageData.published ? <GlobeLock /> : <Globe />}
+                          {pageData.published ? "Unpublish" : "Publish"}
+                        </Button>
+                      )}
+                    </div>
                   </div>
+                  {publishedAt && (
+                    <div className="flex justify-end text-xs text-primary">published on {publishedAt}</div>
+                  )}
                 </div>
                 <FormField
                   control={formMethods.control}

@@ -63,6 +63,7 @@ export type TextInputType = "rich-text" | "long-text" | "short-text";
 export type PageType = z.infer<typeof pageFormSchema> & {
   _id: Types.ObjectId | null;
   published: boolean;
+  publishedAt: Date | string | null;
   fields?: Record<string, string>[];
   author: Types.ObjectId | undefined;
   updatedAt: Date | null;
