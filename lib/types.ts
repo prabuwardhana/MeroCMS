@@ -1,10 +1,10 @@
 import React from "react";
 import { z } from "zod";
 import { Types } from "mongoose";
-import { componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
-import { schema } from "@/components/blocknote/custom-schemas";
 import Role from "@/server/constants/role";
-import { Item } from "@/components/NestableList/Libs/types";
+import { schema } from "@/components/admin/blocknote/custom-schemas";
+import { Item } from "@/components/admin/NestableList/Libs/types";
+import { componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 

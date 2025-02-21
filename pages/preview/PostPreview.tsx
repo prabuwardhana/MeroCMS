@@ -1,6 +1,6 @@
 import React from "react";
-import EditorPreview from "@/components/blocknote/preview";
 import { CustomPartialBlock } from "@/lib/types";
+import EditorPreview from "@/components/admin/blocknote/preview";
 
 interface PostPreviewProps {
   initialContent: CustomPartialBlock[] | undefined | "loading";

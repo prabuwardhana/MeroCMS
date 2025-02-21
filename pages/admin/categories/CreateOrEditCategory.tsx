@@ -8,16 +8,16 @@ import { withFallback } from "vike-react-query";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import PageTitle from "@/components/PageTitle";
+import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/components/ui/card";
+import PageTitle from "@/components/admin/PageTitle";
 
+import { useCategories } from "@/hooks/api/useCategories";
 import { CategoryType } from "@/lib/types";
 import { categoryFormSchema } from "@/lib/schemas";
 import { slugify } from "@/lib/utils";
 
 import { RotateCcw } from "lucide-react";
-import { useCategories } from "@/hooks/api/useCategories";
-import { Textarea } from "../../../components/ui/textarea";
-import { Card } from "../../../components/ui/card";
 
 const CreateOrEditCategory = withFallback(
   () => {

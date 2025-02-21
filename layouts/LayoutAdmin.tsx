@@ -2,18 +2,16 @@ import "./tailwind.admin.css";
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useClickOutside } from "@/hooks/useClickOutside";
-
-import { Sidebar } from "@/components/Sidebar";
-import Header from "@/components/Header";
-
-import { cn } from "@/lib/utils";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "@/components/ui/sonner";
-
 import { ThemeProvider } from "@/theme/themeProvider";
+import { cn } from "@/lib/utils";
+
+import { Toaster } from "@/components/ui/sonner";
+import { Sidebar } from "@/components/admin/Sidebar";
+import Header from "@/components/admin/Header";
 
 import "@fontsource/poppins";
 

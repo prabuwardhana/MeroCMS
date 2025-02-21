@@ -5,15 +5,16 @@ import { usePageContext } from "vike-react/usePageContext";
 
 import { NavMenuType } from "@/lib/types";
 import { navMenuFormSchema } from "@/lib/schemas";
-
-import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 import { useNavMenus } from "@/hooks/api/useNavMenus";
+
+import { useNestableItemsContext } from "@/components/admin/NestableList/providers/useNestableItemsContext";
+import NestableList from "@/components/admin/NestableList";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import NestableList from "@/components/NestableList";
 import { ListItemContent } from "./ListItemContent";
+
 import { CirclePlus, Save } from "lucide-react";
 
 const MenuEditor = () => {

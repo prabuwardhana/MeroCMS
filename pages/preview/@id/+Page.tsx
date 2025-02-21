@@ -1,11 +1,12 @@
 import React from "react";
-import "@blocknote/shadcn/style.css";
+import { usePageContext } from "vike-react/usePageContext";
 import { usePosts } from "@/hooks/api/usePosts.js";
+import { PostDtoType } from "@/lib/types.js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import PostPreview from "../PostPreview.jsx";
-import { usePageContext } from "vike-react/usePageContext";
-import { PostDtoType } from "@/lib/types.js";
+
+import "@blocknote/shadcn/style.css";
 
 export default function Page() {
   const { routeParams } = usePageContext();

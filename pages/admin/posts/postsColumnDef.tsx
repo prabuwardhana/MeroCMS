@@ -1,7 +1,7 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { CategoryType, PostType } from "@/lib/types";
-import { DataTableColumnHeader, DataTableRowActions } from "@/components/DataTable";
+import { DataTableColumnHeader, DataTableRowActions } from "@/components/admin/DataTable";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { BookPlus, PencilLine } from "lucide-react";

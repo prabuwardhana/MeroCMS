@@ -2,15 +2,16 @@ import React, { useMemo } from "react";
 import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
+import { usePages } from "@/hooks/api/usePages";
 import { PageType } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/admin/DataTable";
 
-import { usePages } from "@/hooks/api/usePages";
-import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 import { getPagesColumns } from "./pagesColumnDef";
+
+import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 
 const PagesTable = withFallback(
   () => {

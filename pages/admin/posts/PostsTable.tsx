@@ -2,16 +2,15 @@ import React, { useMemo } from "react";
 import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
+import { useCategories } from "@/hooks/api/useCategories";
+import { usePosts } from "@/hooks/api/usePosts";
 import { PostType } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/admin/DataTable";
 
 import { getPostsColumns } from "./postsColumnDef";
-
-import { usePosts } from "@/hooks/api/usePosts";
-import { useCategories } from "@/hooks/api/useCategories";
 
 import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 

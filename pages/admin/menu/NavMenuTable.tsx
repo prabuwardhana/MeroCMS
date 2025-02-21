@@ -3,13 +3,13 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
 import { NavMenuType } from "@/lib/types";
-
 import { useNavMenus } from "@/hooks/api/useNavMenus";
-import { getNavMenusColumns } from "./navMenuColumnDef";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/admin/DataTable";
+
+import { getNavMenusColumns } from "./navMenuColumnDef";
 
 import { RotateCcw } from "lucide-react";
 

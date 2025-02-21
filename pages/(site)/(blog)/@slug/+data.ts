@@ -3,11 +3,11 @@
 import type { PageContextServer } from "vike/types";
 import { useConfig } from "vike-react/useConfig";
 import { render } from "vike/abort";
-import { NOT_FOUND } from "@/server/constants/http";
-import { PostDtoType, UserProfile } from "@/lib/types";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import { Block } from "@blocknote/core";
-import { schema } from "@/components/blocknote/custom-schemas";
+import { NOT_FOUND } from "@/server/constants/http";
+import { PostDtoType, UserProfile } from "@/lib/types";
+import { schema } from "@/components/admin/blocknote/custom-schemas";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

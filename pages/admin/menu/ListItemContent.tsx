@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { cn } from "@/lib/utils";
-import { RenderItemOptions } from "@/components/NestableList/Libs/types";
+import { RenderItemOptions } from "@/components/admin/NestableList/Libs/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

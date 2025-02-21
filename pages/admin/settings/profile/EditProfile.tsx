@@ -5,18 +5,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { usePageContext } from "vike-react/usePageContext";
 import { withFallback } from "vike-react-query";
 
+import ImageManagerDialog from "@/components/admin/Dialogs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import ImageManagerDialog from "@/components/Dialogs";
 
+import { useUserProfileStore } from "@/store/userProfileStore";
+import { useProfiles } from "@/hooks/api/useProfiles";
 import { CloudinaryResourceType, UserProfile } from "@/lib/types";
 import { profileFormSchema } from "@/lib/schemas";
-
-import { useProfiles } from "@/hooks/api/useProfiles";
-import { useUserProfileStore } from "@/store/userProfileStore";
 
 import { RotateCcw, Trash2 } from "lucide-react";
 

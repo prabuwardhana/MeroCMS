@@ -4,12 +4,12 @@ import { withFallback } from "vike-react-query";
 
 import { CategoryType } from "@/lib/types";
 
-import { getCategoriesColumns } from "./categoriesColumnDef";
-
 import { useCategories } from "@/hooks/api/useCategories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/admin/DataTable";
+
+import { getCategoriesColumns } from "./categoriesColumnDef";
 
 import { RotateCcw } from "lucide-react";
 

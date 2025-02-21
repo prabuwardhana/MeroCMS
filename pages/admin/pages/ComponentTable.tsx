@@ -1,18 +1,18 @@
 import React, { useMemo, useState } from "react";
+import { Types } from "mongoose";
 import { withFallback } from "vike-react-query";
 
 import { PageComponentType } from "@/lib/types";
-
 import { usePageComponents } from "@/hooks/api/usePageComponents";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable } from "@/components/admin/DataTable";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/DataTable";
+
+import CreateOrEditComponent from "./CreateOrEditComponent";
+import { getComponentColumns } from "./componentColumnDef";
 
 import { CirclePlus, RotateCcw } from "lucide-react";
-import { getComponentColumns } from "./componentColumnDef";
-import CreateOrEditComponent from "./CreateOrEditComponent";
-import { Types } from "mongoose";
 
 const ComponentTable = withFallback(
   () => {
