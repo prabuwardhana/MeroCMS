@@ -22,7 +22,7 @@ interface HeaderProps {
   setCollapsed: Dispatch<SetStateAction<boolean>>;
 }
 
-const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
+export const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
   const { user } = usePageContext();
 
   const { logOutMutation } = useAuth();
@@ -68,5 +68,3 @@ const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
     </header>
   );
 };
-
-export default Header;

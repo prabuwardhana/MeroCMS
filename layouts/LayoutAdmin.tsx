@@ -10,8 +10,7 @@ import { ThemeProvider } from "@/theme/themeProvider";
 import { cn } from "@/lib/utils";
 
 import { Toaster } from "@/components/ui/sonner";
-import { Sidebar } from "@/components/admin/Sidebar";
-import Header from "@/components/admin/Header";
+import { Sidebar, Header } from "@/components/admin/Layout";
 
 import "@fontsource/poppins";
 

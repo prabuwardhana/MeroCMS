@@ -5,7 +5,7 @@ import { containerVariants, opacityVariants } from "@/constants/framerMotion";
 import { SIDENAV_ITEMS } from "@/constants/navLink";
 import { cn } from "@/lib/utils";
 
-import NavItem from "@/components/admin/NavItem";
+import NavItem from "./NavItem";
 
 import { Rocket } from "lucide-react";
 
