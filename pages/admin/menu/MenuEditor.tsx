@@ -85,7 +85,13 @@ const MenuEditor = () => {
                       <FormControl>
                         <Input
                           className="box-border h-[40px] rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
-                          {...field}
+                          onChange={(e) => {
+                            // send back data to hook form (update formState)
+                            field.onChange(e.target.value);
+
+                            setNavMenuData({ ...navMenuData, title: e.target.value });
+                          }}
+                          value={field.value}
                         />
                       </FormControl>
                     </div>
