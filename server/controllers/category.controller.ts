@@ -1,8 +1,8 @@
-import { NOT_FOUND, OK } from "../../constants/http";
+import { NOT_FOUND, OK } from "@/constants/http";
 import catchErrors from "../utils/catchErrors";
+import appAssert from "../utils/appAssert";
 import CategoryModel from "../models/category.model";
 import { createCategorySchema } from "./category.schema";
-import appAssert from "../utils/appAssert";
 
 export const upsertCategoryHandler = catchErrors(async (req, res) => {
   const { _id, name, slug, description } = createCategorySchema.parse({

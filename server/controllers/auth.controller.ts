@@ -1,5 +1,5 @@
+import { CREATED, OK, UNAUTHORIZED } from "@/constants/http";
 import AppErrorCode from "../constants/appErrorCode";
-import { CREATED, OK, UNAUTHORIZED } from "../../constants/http";
 import SessionModel from "../models/session.model";
 import {
   createAccount,

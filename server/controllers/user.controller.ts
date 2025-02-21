@@ -1,8 +1,8 @@
 import { Types } from "mongoose";
-import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "../../constants/http";
-import UserModel from "../models/user.model";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "@/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
+import UserModel from "../models/user.model";
 import { createProfileSchema, createUserSchema } from "./user.schema";
 
 export const upsertUserHandler = catchErrors(async (req, res) => {

@@ -1,9 +1,9 @@
 import type { User } from "@/lib/types";
-import { NOT_FOUND, OK } from "../../constants/http";
+import { NOT_FOUND, OK } from "@/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
-import { createPageSchema } from "./page.schema";
 import PageModel from "../models/page.model";
+import { createPageSchema } from "./page.schema";
 
 export const upsertPageHandler = catchErrors(async (req, res) => {
   const { _id, title, slug, fields, published, publishedAt, author, coverImageUrl } = createPageSchema.parse({

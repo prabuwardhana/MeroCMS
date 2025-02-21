@@ -1,7 +1,7 @@
 import { Response, ErrorRequestHandler } from "express";
 import { MongoServerError } from "mongodb";
 import { z } from "zod";
-import { BAD_REQUEST, INTERNAL_SERVER_ERROR } from "../../constants/http";
+import { BAD_REQUEST, INTERNAL_SERVER_ERROR } from "@/constants/http";
 import { REFRESH_PATH, clearAuthCookies } from "../utils/cookies";
 import AppError from "../utils/AppError";
 

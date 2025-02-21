@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Role from "@/constants/role";
 import {
   deleteNavMenuById,
   getNavMenusHandler,
@@ -7,8 +8,6 @@ import {
 } from "../controllers/navmenu.controller";
 import authenticate from "../middlewares/authenticate";
 import authorize from "../middlewares/authorize";
-
-import Role from "../../constants/role";
 
 const navMenuRoutes = Router();
 

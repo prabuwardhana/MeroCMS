@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-import { Item } from "@/components/NestableList/Libs/types";
+import type { Item } from "@/components/admin/NestableList/libs/types";
 
 export interface NavMenuDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   title: string;

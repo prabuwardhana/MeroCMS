@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Role from "@/constants/role";
 import {
   deleteComponentById,
   getComponentsHandler,
@@ -7,8 +8,6 @@ import {
 } from "../controllers/component.controller";
 import authenticate from "../middlewares/authenticate";
 import authorize from "../middlewares/authorize";
-
-import Role from "../../constants/role";
 
 const componentRoutes = Router();
 

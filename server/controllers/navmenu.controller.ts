@@ -1,8 +1,8 @@
-import { NOT_FOUND, OK } from "../../constants/http";
+import { NOT_FOUND, OK } from "@/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
-import { createNavMenuSchema } from "./navmenu.schema";
 import NavMenuModel from "../models/navmenu.model";
+import { createNavMenuSchema } from "./navmenu.schema";
 
 export const upsertNavMenuHandler = catchErrors(async (req, res) => {
   const { _id, title, navMenuContent } = createNavMenuSchema.parse({

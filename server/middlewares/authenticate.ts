@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { UNAUTHORIZED } from "../../constants/http";
+import { UNAUTHORIZED } from "@/constants/http";
 import AppErrorCode from "../constants/appErrorCode";
 import { verifyToken } from "../utils/jwt";
 import appAssert from "../utils/appAssert";

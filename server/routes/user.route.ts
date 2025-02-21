@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Role from "@/constants/role";
 import {
   upsertUserHandler,
   updateUserProfileHandler,
@@ -8,8 +9,6 @@ import {
 } from "../controllers/user.controller";
 import authenticate from "../middlewares/authenticate";
 import authorize from "../middlewares/authorize";
-
-import Role from "../../constants/role";
 
 const userRoutes = Router();
 

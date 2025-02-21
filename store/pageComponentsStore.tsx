@@ -1,4 +1,3 @@
-// const [pageComponents, setPageComponents] = useState<Array<PageComponentType>>([]);
 import type { PageComponentType } from "@/lib/types";
 import { create } from "zustand";
 
