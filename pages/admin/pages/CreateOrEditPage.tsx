@@ -180,12 +180,12 @@ const CreateOrEditPage = withFallback(
     const onPublish = () => {
       if (pageData.published) {
         setPageData({ ...pageData, published: false, publishedAt: null });
-        upsertMutation.mutate({ ...pageData, published: false, publishedAt: null });
+        triggerManualSave({ ...pageData, published: false, publishedAt: null });
         setPublishedAt("");
       } else {
         const publishedAt = new Date();
         setPageData({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
-        upsertMutation.mutate({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
+        triggerManualSave({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
       }
     };
 
