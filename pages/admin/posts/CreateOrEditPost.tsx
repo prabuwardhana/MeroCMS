@@ -217,15 +217,17 @@ const CreateOrEditPost = withFallback(
                   <div className="mb-4 flex flex-col justify-center md:flex-row md:justify-between">
                     <div className="flex justify-start gap-4">
                       <PageTitle>{pageTitle}</PageTitle>
-                      <a
-                        href={`/preview/${routeParams.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
-                      >
-                        <Eye size={16} />
-                        Preview
-                      </a>
+                      {routeParams.id && (
+                        <a
+                          href={`/preview/${routeParams.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
+                        >
+                          <Eye size={16} />
+                          Preview
+                        </a>
+                      )}
                     </div>
                     <div className="flex justify-between gap-x-6">
                       <SaveStatus
