@@ -1,4 +1,4 @@
-import { NOT_FOUND, OK } from "../constants/http";
+import { NOT_FOUND, OK } from "../../constants/http";
 import catchErrors from "../utils/catchErrors";
 import appAssert from "../utils/appAssert";
 import { createComponentSchema } from "./component.schema";

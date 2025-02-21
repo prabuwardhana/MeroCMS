@@ -2,7 +2,7 @@ import { Router } from "express";
 import authenticate from "../middlewares/authenticate";
 import authorize from "../middlewares/authorize";
 
-import Role from "../constants/role";
+import Role from "../../constants/role";
 import { deleteResourceHandler, getResourcesHandler } from "../controllers/media.controller";
 
 const mediaRoutes = Router();

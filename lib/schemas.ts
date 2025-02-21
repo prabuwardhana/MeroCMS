@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { type CustomPartialBlock } from "@/components/admin/Blocknote";
-import Role from "@/server/constants/role";
+import Role from "@/constants/role";
 
 // Create or edit post form schema
 export const postFormSchema = z.object({

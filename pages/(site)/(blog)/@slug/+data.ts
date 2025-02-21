@@ -5,7 +5,7 @@ import { useConfig } from "vike-react/useConfig";
 import { render } from "vike/abort";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import { Block } from "@blocknote/core";
-import { NOT_FOUND } from "@/server/constants/http";
+import { NOT_FOUND } from "@/constants/http";
 import type { PostDtoType, UserProfile } from "@/lib/types";
 import { schema } from "@/components/admin/Blocknote";
 

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 
-import Role from "@/server/constants/role";
+import Role from "@/constants/role";
 import { useUsers } from "@/hooks/api/useUsers";
 import type { User } from "@/lib/types";
 import { userFormSchema } from "@/lib/schemas";

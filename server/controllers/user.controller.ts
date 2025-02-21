@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "../constants/http";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "../../constants/http";
 import UserModel from "../models/user.model";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";

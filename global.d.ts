@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Role from "./server/constants/role";
+import Role from "./constants/role";
 import { CounterState } from "./store/counterStore";
 import { CounterStoreApi } from "./providers/types/counterStoreApi";
 import type { User } from "./lib/types";

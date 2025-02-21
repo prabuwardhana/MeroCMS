@@ -3,7 +3,7 @@ import { deletePageById, getPagesHandler, getPageByIdHandler, upsertPageHandler 
 import authenticate from "../middlewares/authenticate";
 import authorize from "../middlewares/authorize";
 
-import Role from "../constants/role";
+import Role from "../../constants/role";
 
 const pageRoutes = Router();
 

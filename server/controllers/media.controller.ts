@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-import { OK } from "../constants/http";
+import { OK } from "../../constants/http";
 import catchErrors from "../utils/catchErrors";
 
 // Configuration

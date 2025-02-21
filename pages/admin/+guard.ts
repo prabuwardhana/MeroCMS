@@ -2,8 +2,8 @@ export { guard };
 
 import type { GuardAsync } from "vike/types";
 import { render } from "vike/abort";
-import { FORBIDDEN } from "@/server/constants/http";
-import Role from "@/server/constants/role";
+import { FORBIDDEN } from "@/constants/http";
+import Role from "@/constants/role";
 
 // environment: server
 const guard: GuardAsync = async (pageContext): ReturnType<GuardAsync> => {

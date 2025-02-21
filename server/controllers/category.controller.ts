@@ -1,4 +1,4 @@
-import { NOT_FOUND, OK } from "../constants/http";
+import { NOT_FOUND, OK } from "../../constants/http";
 import catchErrors from "../utils/catchErrors";
 import CategoryModel from "../models/category.model";
 import { createCategorySchema } from "./category.schema";

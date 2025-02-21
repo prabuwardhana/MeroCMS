@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { compareValue, hashValue } from "../utils/bcrypt";
-import Role from "../constants/role";
+import Role from "../../constants/role";
 
 export interface ProfileDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   name: string;
