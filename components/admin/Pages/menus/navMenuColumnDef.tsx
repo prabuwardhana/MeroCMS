@@ -1,6 +1,6 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { NavMenuType } from "@/lib/types";
+import type { NavMenuType } from "@/lib/types";
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/admin/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 

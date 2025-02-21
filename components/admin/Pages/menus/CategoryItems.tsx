@@ -3,10 +3,10 @@ import React, { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { useCategories } from "@/hooks/api/useCategories";
-import { CategoryType } from "@/lib/types";
+import type { CategoryType } from "@/lib/types";
 
 import { useNestableItemsContext } from "@/components/admin/NestableList/providers/useNestableItemsContext";
-import { Item } from "@/components/admin/NestableList/Libs/types";
+import type { Item } from "@/components/admin/NestableList/libs/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import Accordion from "@/components/ui/accordion";

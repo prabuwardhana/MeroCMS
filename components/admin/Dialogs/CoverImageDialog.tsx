@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CloudinaryResourceType } from "@/lib/types";
+import type { CloudinaryResourceType } from "@/lib/types";
 
 import ImageGallery from "@/components/admin/ImageGallery";
 import FileUpload from "@/components/admin/FileUpload";

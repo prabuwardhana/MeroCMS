@@ -1,5 +1,5 @@
 import API from "@/config/apiClient";
-import { PageComponentMutationResponseType, PageComponentType } from "@/lib/types";
+import type { PageComponentMutationResponseType, PageComponentType } from "@/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { Types } from "mongoose";
 import { toast } from "sonner";

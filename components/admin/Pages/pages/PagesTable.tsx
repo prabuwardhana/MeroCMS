@@ -3,7 +3,7 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
 import { usePages } from "@/hooks/api/usePages";
-import { PageType } from "@/lib/types";
+import type { PageType } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

@@ -1,4 +1,4 @@
-import { User } from "@/lib/types";
+import type { User } from "@/lib/types";
 import { NOT_FOUND, OK } from "../constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";

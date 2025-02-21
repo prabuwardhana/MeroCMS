@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Types } from "mongoose";
 import { withFallback } from "vike-react-query";
 
-import { PageComponentType } from "@/lib/types";
+import type { PageComponentType } from "@/lib/types";
 import { usePageComponents } from "@/hooks/api/usePageComponents";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

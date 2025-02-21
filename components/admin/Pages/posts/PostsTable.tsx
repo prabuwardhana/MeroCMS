@@ -4,7 +4,7 @@ import { withFallback } from "vike-react-query";
 
 import { useCategories } from "@/hooks/api/useCategories";
 import { usePosts } from "@/hooks/api/usePosts";
-import { PostType } from "@/lib/types";
+import type { PostType } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

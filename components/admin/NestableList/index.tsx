@@ -1,5 +1,5 @@
 import React from "react";
-import { NestableProps } from "./Libs/types";
+import type { NestableProps } from "./libs/types";
 import { NestableProvider } from "./store/context";
 import Nestable from "./NestableList";
 

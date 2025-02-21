@@ -13,7 +13,7 @@ import {
 import { BlockNoteView } from "@blocknote/shadcn";
 
 // local import
-import { CustomBlockNoteEditor, CustomPartialBlock } from "./types";
+import type { CustomBlockNoteEditor, CustomPartialBlock } from "./types";
 import { useTheme } from "@/hooks/useTheme";
 import API from "@/config/apiClient";
 import { insertAlert } from "./custom-blocks/alert/alert-menu";

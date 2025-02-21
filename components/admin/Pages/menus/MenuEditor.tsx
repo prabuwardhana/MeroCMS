@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePageContext } from "vike-react/usePageContext";
 
-import { NavMenuType } from "@/lib/types";
+import type { NavMenuType } from "@/lib/types";
 import { navMenuFormSchema } from "@/lib/schemas";
 import { useNavMenus } from "@/hooks/api/useNavMenus";
 

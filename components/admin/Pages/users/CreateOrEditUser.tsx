@@ -16,7 +16,7 @@ import { Card } from "@/components/ui/card";
 
 import Role from "@/server/constants/role";
 import { useUsers } from "@/hooks/api/useUsers";
-import { User } from "@/lib/types";
+import type { User } from "@/lib/types";
 import { userFormSchema } from "@/lib/schemas";
 
 import { RotateCcw } from "lucide-react";

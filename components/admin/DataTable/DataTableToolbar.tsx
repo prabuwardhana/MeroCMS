@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Table } from "@tanstack/react-table";
 
-import { FilterOnType, TableType } from "@/lib/types";
+import type { FilterOnType, TableType } from "@/lib/types";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

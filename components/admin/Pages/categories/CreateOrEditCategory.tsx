@@ -13,7 +13,7 @@ import { Card } from "@/components/ui/card";
 import PageTitle from "@/components/admin/PageTitle";
 
 import { useCategories } from "@/hooks/api/useCategories";
-import { CategoryType } from "@/lib/types";
+import type { CategoryType } from "@/lib/types";
 import { categoryFormSchema } from "@/lib/schemas";
 import { slugify } from "@/lib/utils";
 

@@ -3,9 +3,9 @@ import { type CSSProperties, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { produce } from "immer";
 
-import { closest, getOffsetRect, getTotalScroll, getTransformProps, listWithChildren } from "./Libs/utils";
+import { closest, getOffsetRect, getTotalScroll, getTransformProps, listWithChildren } from "./libs/utils";
 
-import { NestableProps, NestableItemOptions, Item } from "./Libs/types";
+import type { NestableProps, NestableItemOptions, Item } from "./libs/types";
 
 import NestableListItem from "./NestableListItem";
 import { useNestableList } from "./store/context";

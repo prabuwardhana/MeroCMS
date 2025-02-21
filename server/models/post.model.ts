@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
-import { CloudinaryResourceType, CustomPartialBlock } from "@/lib/types";
+import type { CustomPartialBlock } from "@/components/admin/Blocknote";
+import type { CloudinaryResourceType } from "@/lib/types";
 
 export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   title: string;

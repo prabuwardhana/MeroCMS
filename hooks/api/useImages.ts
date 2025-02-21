@@ -1,5 +1,5 @@
 import API, { CloudinaryClient } from "@/config/apiClient";
-import { CloudinaryResponseType, ExtendedFile } from "@/lib/types";
+import type { CloudinaryResponseType, ExtendedFile } from "@/lib/types";
 import { useFileUploadStore } from "@/store/fileUploadStore";
 import { useMutation, useQueryClient, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 

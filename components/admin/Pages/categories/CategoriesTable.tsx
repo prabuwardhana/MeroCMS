@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
-import { CategoryType } from "@/lib/types";
+import type { CategoryType } from "@/lib/types";
 
 import { useCategories } from "@/hooks/api/useCategories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

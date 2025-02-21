@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { navigate } from "vike/client/router";
 import { toast } from "sonner";
-import { PostDtoType, PostMutationResponseType, PostType } from "@/lib/types";
+import type { PostDtoType, PostMutationResponseType, PostType } from "@/lib/types";
 import API from "@/config/apiClient";
 import { Types } from "mongoose";
 

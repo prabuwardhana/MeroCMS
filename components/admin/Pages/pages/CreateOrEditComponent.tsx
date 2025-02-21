@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { SubmitErrorHandler, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { componentFormSchema } from "@/lib/schemas";
-import { PageComponentType, TextInputType } from "@/lib/types";
+import type { PageComponentType, TextInputType } from "@/lib/types";
 import { CirclePlus, Trash2 } from "lucide-react";
 
 interface CreateOrEditComponentProps {

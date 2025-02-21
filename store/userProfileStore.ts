@@ -1,4 +1,4 @@
-import { UserProfile } from "@/lib/types";
+import type { UserProfile } from "@/lib/types";
 import { create } from "zustand";
 
 type UserProfileState = {

@@ -6,8 +6,8 @@ import { render } from "vike/abort";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import { Block } from "@blocknote/core";
 import { NOT_FOUND } from "@/server/constants/http";
-import { PostDtoType, UserProfile } from "@/lib/types";
-import { schema } from "@/components/admin/blocknote/custom-schemas";
+import type { PostDtoType, UserProfile } from "@/lib/types";
+import { schema } from "@/components/admin/Blocknote";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

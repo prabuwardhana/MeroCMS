@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 
 import { useUserProfileStore } from "@/store/userProfileStore";
 import { useProfiles } from "@/hooks/api/useProfiles";
-import { CloudinaryResourceType, UserProfile } from "@/lib/types";
+import type { CloudinaryResourceType, UserProfile } from "@/lib/types";
 import { profileFormSchema } from "@/lib/schemas";
 
 import { RotateCcw, Trash2 } from "lucide-react";

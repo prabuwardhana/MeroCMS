@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from "react";
-import { FilterOnType, TableType } from "@/lib/types";
+import type { FilterOnType, TableType } from "@/lib/types";
 import {
   ColumnDef,
   ColumnFiltersState,

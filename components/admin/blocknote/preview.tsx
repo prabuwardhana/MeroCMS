@@ -6,7 +6,7 @@ import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/shadcn";
 
 // local import
-import { CustomPartialBlock } from "./types";
+import type { CustomPartialBlock } from "./types";
 import { schema } from "./custom-schemas";
 
 // BlockNote Shadcn styles

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FieldValues, UseControllerProps, useFormContext } from "react-hook-form";
-import { CloudinaryResourceType } from "@/lib/types";
+import type { CloudinaryResourceType } from "@/lib/types";
 import ImageManagerDialog from "@/components/admin/Dialogs";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";

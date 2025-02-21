@@ -1,6 +1,6 @@
 import React from "react";
 import { FieldArrayWithId, UseFieldArrayRemove, useFormContext } from "react-hook-form";
-import { PageType } from "@/lib/types";
+import type { PageType } from "@/lib/types";
 import Field from "@/components/admin/Field";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";

@@ -1,4 +1,4 @@
-import { CategoryType, User } from "@/lib/types";
+import type { CategoryType, User } from "@/lib/types";
 import { NOT_FOUND, OK } from "../constants/http";
 import CategoryModel from "../models/category.model";
 import PostModel from "../models/post.model";

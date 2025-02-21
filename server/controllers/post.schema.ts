@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { Types } from "mongoose";
-import { CloudinaryResourceType, CustomPartialBlock } from "@/lib/types";
+import type { CustomPartialBlock } from "@/components/admin/Blocknote";
+import type { CloudinaryResourceType } from "@/lib/types";
 
 export const createPostSchema = z.object({
   _id: z.custom<Types.ObjectId>(),

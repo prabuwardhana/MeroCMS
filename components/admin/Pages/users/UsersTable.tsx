@@ -3,7 +3,7 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
 import { useUsers } from "@/hooks/api/useUsers";
-import { User } from "@/lib/types";
+import type { User } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

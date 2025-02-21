@@ -21,7 +21,7 @@ import PageComponent from "./PageComponent";
 
 import { usePageComponentsStore } from "@/store/pageComponentsStore";
 import { dateStringOptions } from "@/constants/dateTimeOptions";
-import { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types";
+import type { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types";
 import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 import { usePageComponents } from "@/hooks/api/usePageComponents";

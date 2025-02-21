@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CustomPartialBlock } from "./types";
+import { type CustomPartialBlock } from "@/components/admin/Blocknote";
 import Role from "@/server/constants/role";
 
 // Create or edit post form schema

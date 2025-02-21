@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Role from "./server/constants/role";
 import { CounterState } from "./store/counterStore";
 import { CounterStoreApi } from "./providers/types/counterStoreApi";
-import { User } from "./lib/types";
+import type { User } from "./lib/types";
 
 declare global {
   namespace Express {

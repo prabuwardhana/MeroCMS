@@ -22,7 +22,7 @@ import { useCharacterCounter } from "@/hooks/useCharacterCounter";
 import { useCategories } from "@/hooks/api/useCategories";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { usePosts } from "@/hooks/api/usePosts";
-import { PostType, CloudinaryResourceType } from "@/lib/types";
+import type { PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 

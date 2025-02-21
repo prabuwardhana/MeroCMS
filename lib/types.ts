@@ -2,7 +2,7 @@ import React from "react";
 import { z } from "zod";
 import { Types } from "mongoose";
 import Role from "@/server/constants/role";
-import { Item } from "@/components/admin/NestableList/Libs/types";
+import { Item } from "@/components/admin/NestableList/libs/types";
 import { componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";

@@ -1,7 +1,7 @@
 import React from "react";
 import { GripVertical } from "lucide-react";
 import { useDraggable } from "@dnd-kit/core";
-import { PageComponentType } from "@/lib/types";
+import type { PageComponentType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const PageComponentButton = ({ pageComponent }: { pageComponent: PageComponentType }) => {

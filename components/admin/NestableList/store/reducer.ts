@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { Item, Mouse, NestableState } from "../Libs/types";
+import type { Item, Mouse, NestableState } from "../libs/types";
 
 export const enum NESTABLE_REDUCER_ACTION_TYPE {
   SET_ITEMS,

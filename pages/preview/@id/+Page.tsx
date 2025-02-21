@@ -1,7 +1,7 @@
 import React from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { usePosts } from "@/hooks/api/usePosts.js";
-import { PostDtoType } from "@/lib/types.js";
+import type { PostDtoType } from "@/lib/types.js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import PostPreview from "../PostPreview.jsx";
