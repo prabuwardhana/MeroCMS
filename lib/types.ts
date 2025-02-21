@@ -2,7 +2,6 @@ import React from "react";
 import { z } from "zod";
 import { Types } from "mongoose";
 import Role from "@/server/constants/role";
-import { schema } from "@/components/admin/blocknote/custom-schemas";
 import { Item } from "@/components/admin/NestableList/Libs/types";
 import { componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
@@ -91,15 +90,6 @@ export type NavMenuType = {
   navMenuContent: Item[];
 };
 export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
-
-// Since we are using a custom schema for the BlockNote,
-// using the default BlockNoteEditor and PartialBlock type
-// to anotate our editor and the editor content (document) simply won't work.
-// TypeScript will complaint about missing custom block!
-// https://www.blocknotejs.org/docs/custom-schemas#usage-with-typescript
-export type CustomBlockNoteEditor = typeof schema.BlockNoteEditor;
-export type CustomBlock = typeof schema.Block;
-export type CustomPartialBlock = typeof schema.PartialBlock;
 
 export type TableType =
   | "posts"

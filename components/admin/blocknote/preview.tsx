@@ -6,7 +6,7 @@ import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/shadcn";
 
 // local import
-import { CustomPartialBlock } from "@/lib/types";
+import { CustomPartialBlock } from "./types";
 import { schema } from "./custom-schemas";
 
 // BlockNote Shadcn styles
@@ -16,7 +16,7 @@ interface EditorPreviewProps {
   initialContent: CustomPartialBlock[] | undefined | "loading";
 }
 
-const EditorPreview = ({ initialContent }: EditorPreviewProps) => {
+export const EditorPreview = ({ initialContent }: EditorPreviewProps) => {
   // Creates a new editor instance.
   // We use useMemo + createBlockNoteEditor instead of useCreateBlockNote so we
   // can delay the creation of the editor until the initial content is loaded.
@@ -34,5 +34,3 @@ const EditorPreview = ({ initialContent }: EditorPreviewProps) => {
 
   return <BlockNoteView editor={editor} editable={false} className="preview"></BlockNoteView>;
 };
-
-export default EditorPreview;

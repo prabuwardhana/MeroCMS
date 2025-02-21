@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
-import Editor from "@/components/admin/blocknote/editor";
+import { type CustomBlockNoteEditor, Editor } from "@/components/admin/Blocknote";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
 import PageTitle from "@/components/admin/PageTitle";
@@ -22,7 +22,7 @@ import { useCharacterCounter } from "@/hooks/useCharacterCounter";
 import { useCategories } from "@/hooks/api/useCategories";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { usePosts } from "@/hooks/api/usePosts";
-import { CustomBlockNoteEditor, PostType, CloudinaryResourceType } from "@/lib/types";
+import { PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 

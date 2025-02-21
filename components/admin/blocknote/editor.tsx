@@ -13,7 +13,7 @@ import {
 import { BlockNoteView } from "@blocknote/shadcn";
 
 // local import
-import { CustomBlockNoteEditor, CustomPartialBlock } from "@/lib/types";
+import { CustomBlockNoteEditor, CustomPartialBlock } from "./types";
 import { useTheme } from "@/hooks/useTheme";
 import API from "@/config/apiClient";
 import { insertAlert } from "./custom-blocks/alert/alert-menu";
@@ -47,7 +47,7 @@ async function uploadFile(file: File) {
   return res.data.secure_url;
 }
 
-const Editor = ({ initialContent, onChange }: EditorProps) => {
+export const Editor = ({ initialContent, onChange }: EditorProps) => {
   // BlockNote themes are only available when using the default Mantine components.
   // As we are using BlockNote with shadcn, we need to use our own theme context.
   const { theme } = useTheme();
@@ -104,5 +104,3 @@ const Editor = ({ initialContent, onChange }: EditorProps) => {
     </div>
   );
 };
-
-export default Editor;
