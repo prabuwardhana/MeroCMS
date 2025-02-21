@@ -7,13 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
 
 // render function to render the list items' content
-export const ListItemContent = ({
-  item,
-  isAccordionOpen,
-  isCopy,
-  draggableElAttr,
-  eventCallbacks,
-}: RenderItemOptions) => {
+const ListItemContent = ({ item, isAccordionOpen, isCopy, draggableElAttr, eventCallbacks }: RenderItemOptions) => {
   // generate random id for the list item while being dragged to prevent
   // duplicate element id.
   // When being dragged, the list item is copied as drag layer and should not posses
@@ -102,3 +96,5 @@ export const ListItemContent = ({
     </div>
   );
 };
+
+export default ListItemContent;

@@ -1,6 +1,6 @@
 export default Page;
 import React from "react";
-import PagesTable from "../PagesTable";
+import { PagesTable } from "@/components/admin/Pages";
 
 function Page() {
   return <PagesTable />;

@@ -2,23 +2,35 @@ import React, { useMemo } from "react";
 import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
-import { usePages } from "@/hooks/api/usePages";
-import { PageType } from "@/lib/types";
+import { useCategories } from "@/hooks/api/useCategories";
+import { usePosts } from "@/hooks/api/usePosts";
+import { PostType } from "@/lib/types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/admin/DataTable";
 
-import { getPagesColumns } from "./pagesColumnDef";
+import { getPostsColumns } from "./postsColumnDef";
 
 import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 
-const PagesTable = withFallback(
+export const PostsTable = withFallback(
   () => {
-    const { pagesQuery, deleteMutation } = usePages();
+    const { categoriesQuery } = useCategories();
+    const { postsQuery, deleteMutation } = usePosts();
 
     const filterOn = useMemo(
       () => [
+        {
+          column: "categories",
+          title: "Categories",
+          options: categoriesQuery.data.map((data) => {
+            return {
+              value: data.name,
+              label: data.name,
+            };
+          }),
+        },
         {
           column: "published",
           title: "Status",
@@ -39,23 +51,23 @@ const PagesTable = withFallback(
       [],
     );
 
-    const onEdit = (Page: PageType) => {
-      navigate(`/admin/pages/${Page._id}/edit`);
+    const onEdit = (Post: PostType) => {
+      navigate(`/admin/posts/${Post._id}/edit`);
     };
 
-    const onDelete = (Page: PageType) => {
-      deleteMutation.mutate(Page._id);
+    const onDelete = (Post: PostType) => {
+      deleteMutation.mutate(Post._id);
     };
 
-    const columns = useMemo(() => getPagesColumns({ onEdit, onDelete }), []);
+    const columns = useMemo(() => getPostsColumns({ onEdit, onDelete }), []);
 
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Pages</CardTitle>
+          <CardTitle>Posts</CardTitle>
         </CardHeader>
         <CardContent>
-          <DataTable data={pagesQuery.data} columns={columns} type="posts" filterOn={filterOn} />
+          <DataTable data={postsQuery.data} columns={columns} type="posts" filterOn={filterOn} />
         </CardContent>
       </Card>
     );
@@ -71,5 +83,3 @@ const PagesTable = withFallback(
     </div>
   ),
 );
-
-export default PagesTable;

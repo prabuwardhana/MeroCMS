@@ -21,7 +21,7 @@ import { userFormSchema } from "@/lib/schemas";
 
 import { RotateCcw } from "lucide-react";
 
-const CreateOrEditUser = withFallback(
+export const CreateOrEditUser = withFallback(
   () => {
     const { routeParams } = usePageContext();
     const pageTitle = routeParams.id ? "Edit User" : "Add New User";
@@ -255,5 +255,3 @@ const CreateOrEditUser = withFallback(
     </div>
   ),
 );
-
-export default CreateOrEditUser;

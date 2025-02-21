@@ -13,7 +13,7 @@ import { getCategoriesColumns } from "./categoriesColumnDef";
 
 import { RotateCcw } from "lucide-react";
 
-const CategoriesTable = withFallback(
+export const CategoriesTable = withFallback(
   () => {
     const { categoriesQuery, deleteMutation } = useCategories();
 
@@ -49,5 +49,3 @@ const CategoriesTable = withFallback(
     </div>
   ),
 );
-
-export default CategoriesTable;

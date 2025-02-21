@@ -19,7 +19,7 @@ import { profileFormSchema } from "@/lib/schemas";
 
 import { RotateCcw, Trash2 } from "lucide-react";
 
-const EditProfile = withFallback(
+export const EditProfile = withFallback(
   () => {
     const { user } = usePageContext();
 
@@ -263,5 +263,3 @@ const EditProfile = withFallback(
     </div>
   ),
 );
-
-export default EditProfile;

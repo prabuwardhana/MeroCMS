@@ -25,7 +25,7 @@ interface CreateOrEditComponentProps {
   setIsOpen: (isOpen: boolean) => void;
   componentId?: string;
 }
-const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditComponentProps) => {
+export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditComponentProps) => {
   const initialComponentData = useMemo(
     () => ({
       _id: null,
@@ -222,5 +222,3 @@ const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditC
     </Dialog>
   );
 };
-
-export default CreateOrEditComponent;

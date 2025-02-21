@@ -9,12 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/admin/DataTable";
 import { Button } from "@/components/ui/button";
 
-import CreateOrEditComponent from "./CreateOrEditComponent";
+import { CreateOrEditComponent } from "./CreateOrEditComponent";
 import { getComponentColumns } from "./componentColumnDef";
 
 import { CirclePlus, RotateCcw } from "lucide-react";
 
-const ComponentTable = withFallback(
+export const ComponentTable = withFallback(
   () => {
     const [componentId, setComponentId] = useState<Types.ObjectId | null>();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -65,5 +65,3 @@ const ComponentTable = withFallback(
     </div>
   ),
 );
-
-export default ComponentTable;

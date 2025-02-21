@@ -1,6 +1,6 @@
 export default Page;
 import React from "react";
-import CreateOrEditUser from "../CreateOrEditUser";
+import { CreateOrEditUser } from "@/components/admin/Pages";
 
 function Page() {
   return <CreateOrEditUser />;

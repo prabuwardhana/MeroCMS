@@ -28,7 +28,7 @@ import { cn, slugify } from "@/lib/utils";
 
 import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
 
-const CreateOrEditPost = withFallback(
+export const CreateOrEditPost = withFallback(
   () => {
     const { user, routeParams } = usePageContext();
     const pageTitle = routeParams.id ? "Edit Post" : "Add New Post";
@@ -459,5 +459,3 @@ const CreateOrEditPost = withFallback(
     </div>
   ),
 );
-
-export default CreateOrEditPost;

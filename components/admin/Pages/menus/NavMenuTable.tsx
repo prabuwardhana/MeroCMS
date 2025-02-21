@@ -13,7 +13,7 @@ import { getNavMenusColumns } from "./navMenuColumnDef";
 
 import { RotateCcw } from "lucide-react";
 
-const NavMenusTable = withFallback(
+export const NavMenusTable = withFallback(
   () => {
     const { navMenusQuery, deleteMutation } = useNavMenus();
 
@@ -49,5 +49,3 @@ const NavMenusTable = withFallback(
     </div>
   ),
 );
-
-export default NavMenusTable;

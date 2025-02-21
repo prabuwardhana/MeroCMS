@@ -1,6 +1,6 @@
 export default Page;
 import React from "react";
-import CreateOrEditCategory from "../CreateOrEditCategory";
+import { CreateOrEditCategory } from "@/components/admin/Pages";
 
 function Page() {
   return <CreateOrEditCategory />;

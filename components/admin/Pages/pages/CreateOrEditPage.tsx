@@ -30,7 +30,7 @@ import { usePages } from "@/hooks/api/usePages";
 
 import { CirclePlus, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
 
-const CreateOrEditPage = withFallback(
+export const CreateOrEditPage = withFallback(
   () => {
     const { user, routeParams } = usePageContext();
     const pageTitle = routeParams.id ? "Edit Page" : "Add New Page";
@@ -398,5 +398,3 @@ const CreateOrEditPage = withFallback(
     </div>
   ),
 );
-
-export default CreateOrEditPage;

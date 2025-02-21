@@ -13,7 +13,7 @@ import { getUsersColumns } from "./usersColumnDef";
 
 import { RotateCcw, ShieldAlert, ShieldCheck } from "lucide-react";
 
-const UsersTable = withFallback(
+export const UsersTable = withFallback(
   () => {
     const { usersQuery, deleteMutation } = useUsers();
 
@@ -71,5 +71,3 @@ const UsersTable = withFallback(
     </div>
   ),
 );
-
-export default UsersTable;

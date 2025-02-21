@@ -6,7 +6,7 @@ import AddItemForm from "./AddItemForm";
 import MenuEditor from "./MenuEditor";
 import { RotateCcw } from "lucide-react";
 
-const CreateOrEditNavMenu = withFallback(
+export const CreateOrEditNavMenu = withFallback(
   () => {
     return (
       <NestableItemsProvider>
@@ -34,5 +34,3 @@ const CreateOrEditNavMenu = withFallback(
     </div>
   ),
 );
-
-export default CreateOrEditNavMenu;

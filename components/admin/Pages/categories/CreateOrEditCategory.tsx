@@ -19,7 +19,7 @@ import { slugify } from "@/lib/utils";
 
 import { RotateCcw } from "lucide-react";
 
-const CreateOrEditCategory = withFallback(
+export const CreateOrEditCategory = withFallback(
   () => {
     const { routeParams } = usePageContext();
     const pageTitle = routeParams.id ? "Edit Category" : "Add New Category";
@@ -187,5 +187,3 @@ const CreateOrEditCategory = withFallback(
     </div>
   ),
 );
-
-export default CreateOrEditCategory;
