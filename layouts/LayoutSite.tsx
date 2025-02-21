@@ -5,8 +5,8 @@ import React from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { usePageContext } from "vike-react/usePageContext";
 
-import LogOutButton from "@/components/LogOutButton";
-import { Link } from "@/components/Link.js";
+import LogOutButton from "@/components/common/LogOutButton";
+import { Link } from "@/components/common/Link";
 import logoUrl from "@/assets/logo.svg";
 
 import "@fontsource/poppins";

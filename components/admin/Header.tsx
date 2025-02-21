@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ModeToggle } from "@/components/ModeToggle";
+import { ModeToggle } from "@/components/common/ModeToggle";
 
 import { Bell, ChevronsLeft, LogOut, UserPen } from "lucide-react";
 

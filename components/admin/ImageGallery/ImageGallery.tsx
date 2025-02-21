@@ -10,7 +10,7 @@ import { useImages } from "@/hooks/api/useImages";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import Container from "@/components/Container";
+import Container from "@/components/common/Container";
 
 import { Loader2, RotateCcw, Trash2 } from "lucide-react";
 

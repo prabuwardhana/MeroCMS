@@ -9,7 +9,7 @@ import { useImages } from "@/hooks/api/useImages";
 import { useFileUploadStore } from "@/store/fileUploadStore";
 
 import UploadProgressCard from "@/components/admin/UploadProgressCard";
-import Container from "@/components/Container";
+import Container from "@/components/common/Container";
 
 interface FileUploadProps {
   className?: string;
