@@ -63,6 +63,6 @@ userSchema.methods.omitPassword = function () {
   return user;
 };
 
-const UserModel = mongoose.models.User || mongoose.model<UserDocument>("User", userSchema);
+const UserModel = mongoose.model<UserDocument>("User", userSchema);
 
 export default UserModel;
