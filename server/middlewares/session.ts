@@ -16,6 +16,7 @@ const verifyAuthCookies: RequestHandler = (req, _res, next) => {
     }
     if (payload) {
       req.userId = payload.userId;
+      req.userRole = payload.userRole;
       req.isValidToken = true;
     }
   }

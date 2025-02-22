@@ -13,6 +13,7 @@ export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId>
   author: mongoose.Types.ObjectId;
   coverImage: CloudinaryResourceType;
   categories: mongoose.Types.ObjectId[];
+  commentCount: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,6 +33,7 @@ const postSchema = new mongoose.Schema<PostDocument>(
       type: [mongoose.Schema.Types.ObjectId],
       index: true,
     },
+    commentCount: { type: Number, default: 0 },
   },
   {
     timestamps: true,
