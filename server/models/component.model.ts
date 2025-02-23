@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 export interface ComponentFieldDocument extends mongoose.Document<mongoose.Types.ObjectId> {
-  _id: mongoose.Types.ObjectId;
   name: string;
   label: string;
   type: string;
