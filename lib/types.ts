@@ -1,6 +1,5 @@
 import React from "react";
 import { z } from "zod";
-import { Types } from "mongoose";
 import Role from "@/constants/role";
 import { Item } from "@/components/admin/NestableList/libs/types";
 import { commentFormSchema, componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
@@ -41,7 +40,7 @@ export type UserProfile = {
 };
 
 export type User = {
-  _id: Types.ObjectId | undefined;
+  _id: string | null;
   profile: UserProfile;
   email: string;
   role?: Role;
@@ -51,7 +50,7 @@ export type User = {
 export type UserMutationResponseType = { user: User; message: string };
 
 export type CategoryType = {
-  _id: Types.ObjectId | null;
+  _id: string | null;
   name: string;
   slug: string;
   description: string;
@@ -60,22 +59,22 @@ export type CategoryMutationResponseType = { category: CategoryType; message: st
 
 export type TextInputType = "rich-text" | "long-text" | "short-text";
 export type PageType = z.infer<typeof pageFormSchema> & {
-  _id: Types.ObjectId | null;
+  _id: string | null;
   published: boolean;
   publishedAt: Date | string | null;
   fields?: Record<string, string>[];
-  author: Types.ObjectId | undefined;
+  author: string | null;
   updatedAt: Date | null;
 };
 export type PageMutationResponseType = { page: PageType; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
-  _id: Types.ObjectId | null;
+  _id: string | null;
   published: boolean;
   publishedAt: Date | string | null;
   coverImage: CloudinaryResourceType;
   categories: string[];
-  author: Types.ObjectId | undefined;
+  author: string | null;
   updatedAt: Date | null;
 };
 export type PostMutationResponseType = { post: PostType; message: string };
@@ -97,7 +96,7 @@ export type CommentType = z.infer<typeof commentFormSchema> & {
 export type CommentMutationResponseType = { comment: CommentType; message: string };
 
 export type NavMenuType = {
-  _id: Types.ObjectId | null;
+  _id: string | null;
   title: string | undefined;
   navMenuContent: Item[];
 };
@@ -133,7 +132,7 @@ export type PageComponentFieldType = {
   type: TextInputType;
 };
 export type PageComponentType = z.infer<typeof componentFormSchema> & {
-  _id: Types.ObjectId | null;
+  _id: string | null;
   fields: PageComponentFieldType[];
 };
 export type PageComponentMutationResponseType = { component: PageComponentType; message: string };

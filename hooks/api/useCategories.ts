@@ -1,7 +1,6 @@
 import API from "@/config/apiClient";
 import type { CategoryMutationResponseType, CategoryType } from "@/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { Types } from "mongoose";
 import { toast } from "sonner";
 import { navigate } from "vike/client/router";
 
@@ -28,7 +27,7 @@ export const useCategories = (id?: string) => {
 
   const upsertMutation = useMutation({
     mutationFn: async (data: CategoryType) => {
-      return API.post<CategoryMutationResponseType>("/api/category/upsert", { ...data, _id: id });
+      return API.post<CategoryMutationResponseType>("/api/category/upsert", { ...data });
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["categories"] });
@@ -46,7 +45,7 @@ export const useCategories = (id?: string) => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: Types.ObjectId | null) => {
+    mutationFn: async (id: string | null) => {
       return API.delete("/api/category/", { data: { id } });
     },
     onSuccess: async () => {

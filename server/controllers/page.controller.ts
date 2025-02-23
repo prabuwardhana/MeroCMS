@@ -57,16 +57,7 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
   const page = await PageModel.findOne({ _id: req.params.pageId });
   appAssert(page, NOT_FOUND, "Page not found");
 
-  res.status(OK).json({
-    title: page.title,
-    slug: page.slug,
-    fields: page.fields,
-    published: page.published,
-    publishedAt: page.publishedAt,
-    author: page.author,
-    coverImageUrl: page.coverImageUrl,
-    updatedAt: page.updatedAt,
-  });
+  res.status(OK).json(page);
 });
 
 export const deletePageById = catchErrors(async (req, res) => {

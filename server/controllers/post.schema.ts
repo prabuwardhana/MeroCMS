@@ -1,10 +1,9 @@
 import { z } from "zod";
-import { Types } from "mongoose";
 import type { CustomPartialBlock } from "@/components/admin/Blocknote";
 import type { CloudinaryResourceType } from "@/lib/types";
 
 export const createPostSchema = z.object({
-  _id: z.custom<Types.ObjectId>(),
+  _id: z.string().nullable(),
   title: z.string().min(1, {
     message: "Title is required",
   }),
@@ -15,7 +14,7 @@ export const createPostSchema = z.object({
   editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
   published: z.boolean(),
   publishedAt: z.string().datetime({ offset: true }).pipe(z.coerce.date()).nullable(),
-  author: z.custom<Types.ObjectId>(),
+  author: z.string().nullable(),
   coverImage: z.custom<CloudinaryResourceType>(),
   categories: z.array(z.string()),
 });

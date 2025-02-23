@@ -56,7 +56,7 @@ export const CreateOrEditCategory = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<CategoryType> = (formData) => {
       // Saves the content to DB.
-      upsertMutation.mutate(formData);
+      upsertMutation.mutate({ ...categoryData, ...formData });
     };
 
     // In edit mode, loads the content from DB.
@@ -76,7 +76,7 @@ export const CreateOrEditCategory = withFallback(
     const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
     // Reset the form states when the previously stored
-    // post data has been loaded sucessfuly from the DB
+    // category data has been loaded sucessfuly from the DB
     useEffect(() => {
       reset({
         name: categoryData.name,

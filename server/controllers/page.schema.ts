@@ -1,8 +1,7 @@
 import { z } from "zod";
-import { Types } from "mongoose";
 
 export const createPageSchema = z.object({
-  _id: z.custom<Types.ObjectId>(),
+  _id: z.string().nullable(),
   title: z.string().min(1, {
     message: "Title is required",
   }),
@@ -12,6 +11,6 @@ export const createPageSchema = z.object({
   fields: z.array(z.record(z.string(), z.string())).optional(),
   published: z.boolean(),
   publishedAt: z.string().datetime({ offset: true }).pipe(z.coerce.date()).nullable(),
-  author: z.custom<Types.ObjectId>(),
+  author: z.string().nullable(),
   coverImageUrl: z.string().optional(),
 });

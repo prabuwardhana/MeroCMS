@@ -109,7 +109,7 @@ export const CreateOrEditPost = withFallback(
       if (routeParams.id && postQuery) {
         const post: PostType = postQuery.data;
         // replace postData with the new one from the DB
-        setPostData({ ...postData, ...post });
+        setPostData(post);
         setSelectedCategories(post.categories);
         setLastSavedAt(post.updatedAt);
 

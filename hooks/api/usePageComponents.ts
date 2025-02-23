@@ -1,7 +1,6 @@
 import API from "@/config/apiClient";
 import type { PageComponentMutationResponseType, PageComponentType } from "@/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { Types } from "mongoose";
 import { toast } from "sonner";
 
 export const usePageComponents = (id?: string) => {
@@ -27,7 +26,7 @@ export const usePageComponents = (id?: string) => {
 
   const upsertMutation = useMutation({
     mutationFn: async (data: PageComponentType) => {
-      return API.post<PageComponentMutationResponseType>("/api/component/upsert", { ...data, _id: id });
+      return API.post<PageComponentMutationResponseType>("/api/component/upsert", { ...data });
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["components"] });
@@ -44,7 +43,7 @@ export const usePageComponents = (id?: string) => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: Types.ObjectId | null) => {
+    mutationFn: async (id: string | null) => {
       return API.delete("/api/component/", { data: { id } });
     },
     onSuccess: async () => {

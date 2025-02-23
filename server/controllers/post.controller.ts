@@ -80,6 +80,7 @@ export const getPostByIdHandler = catchErrors(async (req, res) => {
   appAssert(post, NOT_FOUND, "Post not found");
 
   res.status(OK).json({
+    _id: post._id,
     title: post.title,
     slug: post.slug,
     excerpt: post.excerpt,

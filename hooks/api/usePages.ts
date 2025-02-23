@@ -1,7 +1,6 @@
 import API from "@/config/apiClient";
 import type { PageMutationResponseType, PageType } from "@/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { Types } from "mongoose";
 import { toast } from "sonner";
 import { navigate } from "vike/client/router";
 
@@ -28,7 +27,7 @@ export const usePages = (id?: string) => {
 
   const upsertMutation = useMutation({
     mutationFn: async (data: PageType) => {
-      return API.post<PageMutationResponseType>("/api/page/upsert", { ...data, _id: id });
+      return API.post<PageMutationResponseType>("/api/page/upsert", { ...data });
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["pages"] });
@@ -43,7 +42,7 @@ export const usePages = (id?: string) => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: Types.ObjectId | null) => {
+    mutationFn: async (id: string | null) => {
       return API.delete("/api/page/", { data: { id } });
     },
     onSuccess: async () => {

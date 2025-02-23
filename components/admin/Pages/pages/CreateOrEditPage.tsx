@@ -101,8 +101,8 @@ export const CreateOrEditPage = withFallback(
     useEffect(() => {
       if (routeParams.id && pageQuery) {
         const page: PageType = pageQuery.data;
-        // replace postData with the new one from the DB
-        setPageData({ ...pageData, ...page });
+        // replace pageData with the new one from the DB
+        setPageData(page);
         setCoverImageUrl(page.coverImageUrl);
         setLastSavedAt(page.updatedAt);
 
@@ -121,7 +121,7 @@ export const CreateOrEditPage = withFallback(
     const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
     // Reset the form states when the previously stored
-    // post data has been loaded sucessfuly from the DB
+    // page data has been loaded sucessfuly from the DB
     useEffect(() => {
       reset({
         title: pageData.title,

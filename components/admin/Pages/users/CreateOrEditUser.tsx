@@ -28,7 +28,7 @@ export const CreateOrEditUser = withFallback(
 
     const initialUserData = useMemo(
       () => ({
-        _id: undefined,
+        _id: null,
         profile: {
           name: "",
           username: "",
@@ -70,14 +70,14 @@ export const CreateOrEditUser = withFallback(
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<User> = (formData) => {
       // Saves the content to DB.
-      upsertMutation.mutate(formData);
+      upsertMutation.mutate({ ...userData, ...formData });
     };
 
     // In edit mode, loads the content from DB.
     useEffect(() => {
       if (routeParams.id && userQuery) {
         const user: User = userQuery.data;
-        // replace postData with the new one from the DB
+        // replace userData with the new one from the DB
         setUserData(user);
       }
     }, [routeParams.id]);
@@ -90,7 +90,7 @@ export const CreateOrEditUser = withFallback(
     const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
     // Reset the form states when the previously stored
-    // post data has been loaded sucessfuly from the DB
+    // user data has been loaded sucessfuly from the DB
     useEffect(() => {
       reset({
         profile: {

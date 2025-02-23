@@ -70,7 +70,7 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   const handleSubmit: SubmitHandler<PageComponentType> = (formData) => {
     // Saves the content to DB.
     setIsOpen(false);
-    upsertMutation.mutate(formData);
+    upsertMutation.mutate({ ...componentData, ...formData });
 
     // reset state
     setComponentData(initialComponentData);
@@ -84,7 +84,7 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   useEffect(() => {
     if (componentId && componentQuery) {
       const component: PageComponentType = componentQuery.data;
-      // replace postData with the new one from the DB
+      // replace componentData with the new one from the DB
       setComponentData(component);
     }
   }, [componentId]);
@@ -97,7 +97,7 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
   // Reset the form states when the previously stored
-  // post data has been loaded sucessfuly from the DB
+  // component data has been loaded sucessfuly from the DB
   useEffect(() => {
     reset({
       title: componentData.title,

@@ -48,11 +48,7 @@ export const getCategoryByIdHandler = catchErrors(async (req, res) => {
   const category = await CategoryModel.findOne({ _id: req.params.categoryId });
   appAssert(category, NOT_FOUND, "Category not found");
 
-  res.status(OK).json({
-    name: category.name,
-    slug: category.slug,
-    description: category.description,
-  });
+  res.status(OK).json(category);
 });
 
 export const deleteCategoryById = catchErrors(async (req, res) => {

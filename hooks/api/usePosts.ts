@@ -3,7 +3,6 @@ import { navigate } from "vike/client/router";
 import { toast } from "sonner";
 import type { PostDtoType, PostMutationResponseType, PostType } from "@/lib/types";
 import API from "@/config/apiClient";
-import { Types } from "mongoose";
 
 export const usePosts = (id?: string) => {
   const queryClient = useQueryClient();
@@ -37,7 +36,7 @@ export const usePosts = (id?: string) => {
 
   const upsertMutation = useMutation({
     mutationFn: async (data: PostType) => {
-      return API.post<PostMutationResponseType>("/api/post/upsert", { ...data, _id: id });
+      return API.post<PostMutationResponseType>("/api/post/upsert", { ...data });
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["posts"] });
@@ -52,7 +51,7 @@ export const usePosts = (id?: string) => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: Types.ObjectId | null) => {
+    mutationFn: async (id: string | null) => {
       return API.delete("/api/post/", { data: { id } });
     },
     onSuccess: async () => {

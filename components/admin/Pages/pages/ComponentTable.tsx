@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { Types } from "mongoose";
 import { withFallback } from "vike-react-query";
 
 import type { PageComponentType } from "@/lib/types";
@@ -16,14 +15,14 @@ import { CirclePlus, RotateCcw } from "lucide-react";
 
 export const ComponentTable = withFallback(
   () => {
-    const [componentId, setComponentId] = useState<Types.ObjectId | null>();
+    const [componentId, setComponentId] = useState<string>();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
 
     const { componentsQuery, deleteMutation } = usePageComponents();
 
     const onEdit = (component: PageComponentType) => {
-      setComponentId(component._id);
+      setComponentId(component._id as string);
       setIsEditOpen(true);
     };
 
@@ -36,7 +35,7 @@ export const ComponentTable = withFallback(
     return (
       <>
         <CreateOrEditComponent isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
-        <CreateOrEditComponent componentId={componentId?.toString()} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
+        <CreateOrEditComponent componentId={componentId} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
         <Card className="max-w-screen-md">
           <CardHeader>
             <CardTitle className="flex gap-4">

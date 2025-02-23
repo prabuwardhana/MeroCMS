@@ -47,7 +47,7 @@ const MenuEditor = () => {
   useEffect(() => {
     if (routeParams.id && navMenuQuery) {
       const navMenu: NavMenuType = navMenuQuery.data;
-      // replace postData with the new one from the DB
+      // replace navMenuData with the new one from the DB
       setNavMenuData(navMenu);
       updateItems(navMenu.navMenuContent);
     }
@@ -61,7 +61,7 @@ const MenuEditor = () => {
   const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
   // Reset the form states when the previously stored
-  // post data has been loaded sucessfuly from the DB
+  // navMenu data has been loaded sucessfuly from the DB
   useEffect(() => {
     reset({
       title: navMenuData.title,

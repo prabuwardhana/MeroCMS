@@ -1,7 +1,6 @@
 import API from "@/config/apiClient";
 import type { User, UserMutationResponseType } from "@/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { Types } from "mongoose";
 import { toast } from "sonner";
 import { navigate } from "vike/client/router";
 
@@ -28,7 +27,7 @@ export const useUsers = (id?: string) => {
 
   const upsertMutation = useMutation({
     mutationFn: async (data: User) => {
-      return API.post<UserMutationResponseType>("/api/user", { ...data, _id: id });
+      return API.post<UserMutationResponseType>("/api/user", { ...data });
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["users"] });
@@ -46,7 +45,7 @@ export const useUsers = (id?: string) => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: Types.ObjectId | undefined) => {
+    mutationFn: async (id: string | null) => {
       return API.delete("/api/user/", { data: { id } });
     },
     onSuccess: async () => {

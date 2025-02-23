@@ -1,8 +1,7 @@
-import { Types } from "mongoose";
 import { z } from "zod";
 
 export const createCategorySchema = z.object({
-  _id: z.custom<Types.ObjectId>(),
+  _id: z.string().nullable(),
   name: z.string().min(1, {
     message: "Name is required",
   }),

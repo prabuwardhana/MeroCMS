@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "@/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
@@ -17,12 +16,11 @@ export const upsertUserHandler = catchErrors(async (req, res) => {
     ...req.body,
   });
 
-  const documentId = new Types.ObjectId(_id);
   let user;
 
   if (_id) {
     user = await UserModel.findOneAndUpdate(
-      { _id: documentId },
+      { _id },
       {
         role,
         email,
@@ -86,6 +84,7 @@ export const getUserByIdHandler = catchErrors(async (req, res) => {
   appAssert(user, NOT_FOUND, "User not found");
 
   res.status(OK).json({
+    _id: user._id,
     profile: {
       name: user.profile.name,
       username: user.profile.username,

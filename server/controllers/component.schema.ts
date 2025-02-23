@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import { z } from "zod";
 
 export const createFieldSchema = z.object({
@@ -14,7 +13,7 @@ export const createFieldSchema = z.object({
 });
 
 export const createComponentSchema = z.object({
-  _id: z.custom<Types.ObjectId>(),
+  _id: z.string().nullable(),
   title: z.string().min(1, {
     message: "Title is required",
   }),
