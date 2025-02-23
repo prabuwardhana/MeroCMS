@@ -33,7 +33,7 @@ export const registerHandler = catchErrors(async (req, res) => {
   });
 
   const { user, accessToken, refreshToken } = await createAccount(request);
-  const userToken = user._id;
+  const userToken = user._id.toString();
 
   // set cookies
   return setAuthCookies({ res, accessToken, refreshToken, userToken }).status(CREATED).json(user);
