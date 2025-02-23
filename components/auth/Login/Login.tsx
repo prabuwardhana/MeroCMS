@@ -27,7 +27,7 @@ const formSchema = z.object({
     .regex(/[a-zA-Z0-9]/, { message: "Password must be alphanumeric" }),
 });
 
-const Login = () => {
+export const Login = () => {
   const { pageId, urlOriginal } = usePageContext();
 
   const mutation = useMutation({
@@ -123,5 +123,3 @@ const Login = () => {
     </div>
   );
 };
-
-export { Login };

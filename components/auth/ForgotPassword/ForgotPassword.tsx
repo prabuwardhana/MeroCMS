@@ -20,7 +20,7 @@ const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
 });
 
-const ForgotPassword = () => {
+export const ForgotPassword = () => {
   const mutation = useMutation({
     mutationFn: async (data: { email: string }) => API.post("/api/auth/password/forgot", data),
   });
@@ -101,5 +101,3 @@ const ForgotPassword = () => {
     </div>
   );
 };
-
-export { ForgotPassword };

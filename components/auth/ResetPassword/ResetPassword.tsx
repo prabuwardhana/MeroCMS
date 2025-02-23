@@ -31,7 +31,7 @@ const formSchema = z
     message: "Passwords do not match",
   });
 
-const ResetPassword = () => {
+export const ResetPassword = () => {
   const { urlParsed } = usePageContext();
 
   const code = urlParsed.search.code;
@@ -149,5 +149,3 @@ const ResetPassword = () => {
     </div>
   );
 };
-
-export { ResetPassword };

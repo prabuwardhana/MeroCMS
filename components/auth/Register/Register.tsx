@@ -32,7 +32,7 @@ const formSchema = z
     message: "Passwords do not match",
   });
 
-const Register = () => {
+export const Register = () => {
   const mutation = useMutation({
     mutationFn: async (data: { email: string; password: string }) => API.post("/api/auth/register", data),
     onSuccess: () => {
@@ -144,5 +144,3 @@ const Register = () => {
     </div>
   );
 };
-
-export { Register };
