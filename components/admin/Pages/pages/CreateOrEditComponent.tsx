@@ -69,9 +69,11 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<PageComponentType> = (formData) => {
     // Saves the content to DB.
-    console.log(formData);
     setIsOpen(false);
     upsertMutation.mutate(formData);
+
+    // reset state
+    setComponentData(initialComponentData);
   };
   const handleSubmitError: SubmitErrorHandler<PageComponentType> = (formData) => {
     // if (formData.sections?.root?.message) toast(formData.sections?.root?.message);
