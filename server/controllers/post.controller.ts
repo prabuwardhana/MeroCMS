@@ -135,6 +135,20 @@ export const getPostPreviewHandler = catchErrors(async (req, res) => {
   });
 });
 
+export const publishPostHandler = catchErrors(async (req, res) => {
+  const postId = req.params.postId;
+
+  const post = await PostModel.findById(postId);
+  appAssert(post, NOT_FOUND, "Comment not found");
+
+  post.published = !post.published;
+  post.publishedAt = post.published ? new Date() : null;
+
+  await post.save();
+
+  res.status(OK).json({ post: { published: post.published }, message: "success" });
+});
+
 export const deletePostById = catchErrors(async (req, res) => {
   const { id } = req.body;
   await PostModel.findByIdAndDelete({ _id: id });

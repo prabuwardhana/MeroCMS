@@ -26,7 +26,7 @@ import type { PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, Eye, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
+import { CirclePlus, Eye, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
 
 export const CreateOrEditPost = withFallback(
   () => {
@@ -68,14 +68,16 @@ export const CreateOrEditPost = withFallback(
     // local states
     const [tab, setTab] = useState("gallery");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
-    const [publishedAt, setPublishedAt] = useState("");
+    const [publishedAt, setPublishedAt] = useState<string | null>("");
+    const [isPublishing, setIsPublishing] = useState(false);
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
 
     const { categoriesQuery } = useCategories();
-    const { upsertMutation, postQuery } = usePosts(routeParams.id);
+    const { upsertMutation, publishMutation, postQuery } = usePosts(routeParams.id, setIsPublishing, setIsUpdating);
 
     // 1. Define our form.
     const formMethods = useForm<PostType>({
@@ -116,9 +118,11 @@ export const CreateOrEditPost = withFallback(
         if (post.publishedAt) {
           const date = new Date(post.publishedAt as Date);
           setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+        } else {
+          setPublishedAt(null);
         }
       }
-    }, [routeParams.id]);
+    }, [routeParams.id, postQuery?.data]);
 
     // The following useEffect expects formMethods as dependency
     // when formMethods.reset is called within useEffect.
@@ -139,20 +143,13 @@ export const CreateOrEditPost = withFallback(
     }, [reset, postData]);
 
     useEffect(() => {
-      if (postData.publishedAt) {
-        const date = new Date(postData.publishedAt as Date);
-        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
-      }
-    }, [postData.publishedAt]);
-
-    useEffect(() => {
       countCharacter(postData.excerpt?.length as number);
     }, [postData.excerpt]);
 
     const { dispatchAutoSave, triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data) => {
         if (!data.title || !data.slug) return;
-
+        setIsUpdating(true);
         const currentTime = new Date();
         setLastSavedAt(currentTime);
         upsertMutation.mutate(data as PostType);
@@ -202,14 +199,11 @@ export const CreateOrEditPost = withFallback(
     };
 
     const onPublish = () => {
+      setIsPublishing(true);
       if (postData.published) {
-        setPostData({ ...postData, published: false, publishedAt: null });
-        triggerManualSave({ ...postData, published: false, publishedAt: null });
-        setPublishedAt("");
+        publishMutation.mutate(routeParams.id);
       } else {
-        const publishedAt = new Date();
-        setPostData({ ...postData, published: true, publishedAt: publishedAt.toISOString() });
-        triggerManualSave({ ...postData, published: true, publishedAt: publishedAt.toISOString() });
+        publishMutation.mutate(routeParams.id);
       }
     };
 
@@ -243,7 +237,7 @@ export const CreateOrEditPost = withFallback(
                         isError={isError}
                       />
                       <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
-                        {routeParams.id ? <Save /> : <CirclePlus />}
+                        {routeParams.id ? isUpdating ? <Loader2 className="animate-spin" /> : <Save /> : <CirclePlus />}
                         {routeParams.id ? "Update Post" : "Create Post"}
                       </Button>
                       {routeParams.id && (
@@ -256,7 +250,13 @@ export const CreateOrEditPost = withFallback(
                             !postData.published && "bg-primary hover:bg-primary/90 text-primary-foreground",
                           )}
                         >
-                          {postData.published ? <GlobeLock /> : <Globe />}
+                          {isPublishing ? (
+                            <Loader2 className="animate-spin" />
+                          ) : postData.published ? (
+                            <GlobeLock />
+                          ) : (
+                            <Globe />
+                          )}
                           {postData.published ? "Unpublish" : "Publish"}
                         </Button>
                       )}

@@ -4,7 +4,11 @@ import { toast } from "sonner";
 import type { PostDtoType, PostMutationResponseType, PostType } from "@/lib/types";
 import API from "@/config/apiClient";
 
-export const usePosts = (id?: string) => {
+export const usePosts = (
+  id?: string,
+  setIsPublishing?: (value: boolean) => void,
+  setIsUpdating?: (value: boolean) => void,
+) => {
   const queryClient = useQueryClient();
 
   const { data: postQuery } = useSuspenseQuery({
@@ -42,11 +46,23 @@ export const usePosts = (id?: string) => {
       await queryClient.invalidateQueries({ queryKey: ["posts"] });
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["post", id] });
+        if (setIsUpdating) setIsUpdating(false);
         toast(`Post: "${response.data.post.title}" has been updated succesfully.`);
       } else {
         toast(`Post: "${response.data.post.title}" has been created succesfully.`);
         navigate(`/admin/posts/${response.data.post._id}/edit`);
       }
+    },
+  });
+
+  const publishMutation = useMutation({
+    mutationFn: async (id: string | null) => {
+      return API.patch<PostMutationResponseType>(`/api/post/publish/${id}`);
+    },
+    onSuccess: async (response) => {
+      await queryClient.invalidateQueries({ queryKey: ["post", id] });
+      if (setIsPublishing) setIsPublishing(false);
+      toast(`The post has been ${response.data.post.published ? "published" : "unpublished"} succesfully.`);
     },
   });
 
@@ -59,5 +75,5 @@ export const usePosts = (id?: string) => {
     },
   });
 
-  return { postQuery, postsQuery, postPreviewQuery, upsertMutation, deleteMutation };
+  return { postQuery, postsQuery, postPreviewQuery, upsertMutation, publishMutation, deleteMutation };
 };

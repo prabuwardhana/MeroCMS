@@ -9,7 +9,7 @@ export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId>
   excerpt?: string;
   editorContent?: CustomPartialBlock[] | undefined | "loading";
   published: boolean;
-  publishedAt: Date;
+  publishedAt: Date | null;
   author: mongoose.Types.ObjectId;
   coverImage: CloudinaryResourceType;
   categories: mongoose.Types.ObjectId[];
