@@ -32,6 +32,7 @@ export const SIDENAV_ITEMS = [
     subMenuItems: [
       { title: "All Post", path: "/admin/posts" },
       { title: "Add New Post", path: "/admin/posts/create" },
+      { title: "Comments", path: "/admin/posts/comments" },
     ],
   },
   {

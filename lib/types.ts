@@ -3,7 +3,7 @@ import { z } from "zod";
 import { Types } from "mongoose";
 import Role from "@/constants/role";
 import { Item } from "@/components/admin/NestableList/libs/types";
-import { componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
+import { commentFormSchema, componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
@@ -84,6 +84,18 @@ export type PostDtoType = PostType & {
   author: UserProfile;
 };
 
+export type CommentType = z.infer<typeof commentFormSchema> & {
+  _id: string | null;
+  author: User | null;
+  post: Pick<PostType, "title" | "slug">;
+  parentId: string | null;
+  edited: boolean;
+  approved: boolean;
+  children?: Array<CommentType>;
+  createdAt?: Date | null;
+};
+export type CommentMutationResponseType = { comment: CommentType; message: string };
+
 export type NavMenuType = {
   _id: Types.ObjectId | null;
   title: string | undefined;
@@ -93,6 +105,7 @@ export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
 
 export type TableType =
   | "posts"
+  | "comments"
   | "categories"
   | "pages"
   | "products"

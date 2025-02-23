@@ -14,6 +14,13 @@ export const postFormSchema = z.object({
   editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
 });
 
+// Create or edit comment form schema
+export const commentFormSchema = z.object({
+  content: z.string().min(1, {
+    message: "Please say something!",
+  }),
+});
+
 // Create or edit page form schema
 export const pageFormSchema = z.object({
   title: z.string().min(1, {

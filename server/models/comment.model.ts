@@ -2,21 +2,23 @@ import mongoose from "mongoose";
 
 export interface CommentDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   author: mongoose.Types.ObjectId;
-  postSlug: string;
+  post: mongoose.Types.ObjectId;
   content: string;
   parent: mongoose.Types.ObjectId;
   children: Array<mongoose.Document<unknown> & Omit<CommentDocument, "author">>;
   edited: boolean;
+  approved: boolean;
 }
 
 const commentSchema = new mongoose.Schema<CommentDocument>(
   {
     author: { ref: "User", required: true, type: mongoose.Schema.Types.ObjectId },
-    postSlug: { ref: "Post", required: true, type: String },
+    post: { ref: "Post", required: true, type: mongoose.Schema.Types.ObjectId },
     content: { type: String, required: true },
     parent: { ref: "Comment", type: mongoose.Schema.Types.ObjectId },
     children: [{ type: mongoose.Schema.Types.Mixed }],
-    edited: { type: Boolean },
+    edited: { type: Boolean, default: false },
+    approved: { type: Boolean, default: false },
   },
   {
     timestamps: true,

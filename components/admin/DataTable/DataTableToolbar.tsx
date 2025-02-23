@@ -22,6 +22,7 @@ export function DataTableToolbar<TData>({ table, type, filterOn }: DataTableTool
   const searchableColumn =
     {
       posts: "title",
+      comments: "content",
       categories: "name",
       users: "name",
       pages: "",
