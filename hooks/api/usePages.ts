@@ -4,7 +4,11 @@ import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-q
 import { toast } from "sonner";
 import { navigate } from "vike/client/router";
 
-export const usePages = (id?: string) => {
+export const usePages = (
+  id?: string,
+  setIsPublishing?: (value: boolean) => void,
+  setIsUpdating?: (value: boolean) => void,
+) => {
   const queryClient = useQueryClient();
 
   const { data: pageQuery } = useSuspenseQuery({
@@ -33,11 +37,23 @@ export const usePages = (id?: string) => {
       await queryClient.invalidateQueries({ queryKey: ["pages"] });
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["page", id] });
+        if (setIsUpdating) setIsUpdating(false);
         toast(`Page: "${response.data.page.title}" has been updated succesfully.`);
       } else {
         toast(`Page: "${response.data.page.title}" has been created succesfully.`);
         navigate(`/admin/pages/${response.data.page._id}/edit`);
       }
+    },
+  });
+
+  const publishMutation = useMutation({
+    mutationFn: async (id: string | null) => {
+      return API.patch<PageMutationResponseType>(`/api/page/publish/${id}`);
+    },
+    onSuccess: async (response) => {
+      await queryClient.invalidateQueries({ queryKey: ["page", id] });
+      if (setIsPublishing) setIsPublishing(false);
+      toast(`The page has been ${response.data.page.published ? "published" : "unpublished"} succesfully.`);
     },
   });
 
@@ -50,5 +66,5 @@ export const usePages = (id?: string) => {
     },
   });
 
-  return { pageQuery, pagesQuery, upsertMutation, deleteMutation };
+  return { pageQuery, pagesQuery, upsertMutation, publishMutation, deleteMutation };
 };

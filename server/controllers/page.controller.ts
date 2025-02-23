@@ -60,6 +60,20 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
   res.status(OK).json(page);
 });
 
+export const publishPageHandler = catchErrors(async (req, res) => {
+  const pageId = req.params.pageId;
+
+  const page = await PageModel.findById(pageId);
+  appAssert(page, NOT_FOUND, "Page not found");
+
+  page.published = !page.published;
+  page.publishedAt = page.published ? new Date() : null;
+
+  await page.save();
+
+  res.status(OK).json({ page: { published: page.published }, message: "Succesfully publishing page" });
+});
+
 export const deletePageById = catchErrors(async (req, res) => {
   const { id } = req.body;
   await PageModel.findByIdAndDelete({ _id: id });

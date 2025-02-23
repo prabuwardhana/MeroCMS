@@ -6,7 +6,7 @@ export interface PageDocument extends mongoose.Document<mongoose.Types.ObjectId>
   slug: string;
   fields?: Array<Record<string, string>>;
   published: boolean;
-  publishedAt: Date;
+  publishedAt: Date | null;
   author: mongoose.Types.ObjectId;
   coverImageUrl: string;
   createdAt: Date;

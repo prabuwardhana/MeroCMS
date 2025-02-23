@@ -28,7 +28,7 @@ import { usePageComponents } from "@/hooks/api/usePageComponents";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { usePages } from "@/hooks/api/usePages";
 
-import { CirclePlus, Globe, GlobeLock, RotateCcw, Save } from "lucide-react";
+import { CirclePlus, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
 
 export const CreateOrEditPage = withFallback(
   () => {
@@ -56,14 +56,16 @@ export const CreateOrEditPage = withFallback(
     // local states
     const [tab, setTab] = useState("gallery");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
-    const [publishedAt, setPublishedAt] = useState("");
+    const [publishedAt, setPublishedAt] = useState<string | null>();
+    const [isPublishing, setIsPublishing] = useState(false);
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
     const [pageData, setPageData] = useState<PageType>(initialPageData);
 
     const { componentsQuery } = usePageComponents();
-    const { pageQuery, upsertMutation } = usePages(routeParams.id);
+    const { pageQuery, upsertMutation, publishMutation } = usePages(routeParams.id, setIsPublishing, setIsUpdating);
 
     // 1. Define our form.
     const formMethods = useForm<PageType>({
@@ -109,9 +111,11 @@ export const CreateOrEditPage = withFallback(
         if (page.publishedAt) {
           const date = new Date(page.publishedAt as Date);
           setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+        } else {
+          setPublishedAt(null);
         }
       }
-    }, [routeParams.id]);
+    }, [routeParams.id, pageQuery?.data]);
 
     // The following useEffect expects formMethods as dependency
     // when formMethods.reset is called within useEffect.
@@ -139,17 +143,10 @@ export const CreateOrEditPage = withFallback(
       if (selectedCoverImages.length > 0) formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
     }, [selectedCoverImages]);
 
-    useEffect(() => {
-      if (pageData.publishedAt) {
-        const date = new Date(pageData.publishedAt as Date);
-        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
-      }
-    }, [pageData.publishedAt]);
-
     const { triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data) => {
         if (!data.title || !data.slug) return;
-
+        setIsUpdating(true);
         const currentTime = new Date();
         setLastSavedAt(currentTime);
         upsertMutation.mutate(data as PageType);
@@ -182,15 +179,8 @@ export const CreateOrEditPage = withFallback(
     };
 
     const onPublish = () => {
-      if (pageData.published) {
-        setPageData({ ...pageData, published: false, publishedAt: null });
-        triggerManualSave({ ...pageData, published: false, publishedAt: null });
-        setPublishedAt("");
-      } else {
-        const publishedAt = new Date();
-        setPageData({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
-        triggerManualSave({ ...pageData, published: true, publishedAt: publishedAt.toISOString() });
-      }
+      setIsPublishing(true);
+      publishMutation.mutate(routeParams.id);
     };
 
     const droppable = useDroppable({
@@ -242,7 +232,7 @@ export const CreateOrEditPage = withFallback(
                         isError={isError}
                       />
                       <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground">
-                        {routeParams.id ? <Save /> : <CirclePlus />}
+                        {routeParams.id ? isUpdating ? <Loader2 className="animate-spin" /> : <Save /> : <CirclePlus />}
                         {routeParams.id ? "Update Page" : "Create Page"}
                       </Button>
                       {routeParams.id && (
@@ -255,7 +245,13 @@ export const CreateOrEditPage = withFallback(
                             !pageData.published && "bg-primary hover:bg-primary/90 text-primary-foreground",
                           )}
                         >
-                          {pageData.published ? <GlobeLock /> : <Globe />}
+                          {isPublishing ? (
+                            <Loader2 className="animate-spin" />
+                          ) : pageData.published ? (
+                            <GlobeLock />
+                          ) : (
+                            <Globe />
+                          )}
                           {pageData.published ? "Unpublish" : "Publish"}
                         </Button>
                       )}
