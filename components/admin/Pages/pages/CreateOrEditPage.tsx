@@ -123,10 +123,6 @@ export const CreateOrEditPage = withFallback(
     // Reset the form states when the previously stored
     // post data has been loaded sucessfuly from the DB
     useEffect(() => {
-      if (pageData.publishedAt) {
-        const date = new Date(pageData.publishedAt as Date);
-        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
-      }
       reset({
         title: pageData.title,
         slug: pageData.slug,
@@ -142,6 +138,13 @@ export const CreateOrEditPage = withFallback(
     useEffect(() => {
       if (selectedCoverImages.length > 0) formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
     }, [selectedCoverImages]);
+
+    useEffect(() => {
+      if (pageData.publishedAt) {
+        const date = new Date(pageData.publishedAt as Date);
+        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+      }
+    }, [pageData.publishedAt]);
 
     const { triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data) => {

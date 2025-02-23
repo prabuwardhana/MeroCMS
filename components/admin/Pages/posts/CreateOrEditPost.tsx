@@ -130,11 +130,6 @@ export const CreateOrEditPost = withFallback(
     // Reset the form states when the previously stored
     // post data has been loaded sucessfuly from the DB
     useEffect(() => {
-      if (postData.publishedAt) {
-        const date = new Date(postData.publishedAt as Date);
-        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
-      }
-      countCharacter(postData.excerpt?.length as number);
       reset({
         title: postData.title,
         slug: postData.slug,
@@ -142,6 +137,17 @@ export const CreateOrEditPost = withFallback(
         excerpt: postData.excerpt,
       });
     }, [reset, postData]);
+
+    useEffect(() => {
+      if (postData.publishedAt) {
+        const date = new Date(postData.publishedAt as Date);
+        setPublishedAt(date.toLocaleDateString("en-US", dateStringOptions));
+      }
+    }, [postData.publishedAt]);
+
+    useEffect(() => {
+      countCharacter(postData.excerpt?.length as number);
+    }, [postData.excerpt]);
 
     const { dispatchAutoSave, triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data) => {
