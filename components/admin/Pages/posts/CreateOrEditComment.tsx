@@ -78,6 +78,8 @@ export const CreateOrEditComment = ({
         post,
       });
     else editMutation.mutate(formData);
+
+    setCommentData(initialComponentData);
   };
   const handleSubmitError: SubmitErrorHandler<CommentType> = (formData) => {
     console.log(formData);
