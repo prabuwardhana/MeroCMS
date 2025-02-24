@@ -80,17 +80,8 @@ export const getPostByIdHandler = catchErrors(async (req, res) => {
   appAssert(post, NOT_FOUND, "Post not found");
 
   res.status(OK).json({
-    _id: post._id,
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    editorContent: post.editorContent,
-    published: post.published,
-    publishedAt: post.publishedAt,
-    author: post.author,
-    coverImage: post.coverImage,
+    ...post.toObject(),
     categories: post?.categories.map((item) => item.name),
-    updatedAt: post.updatedAt,
   });
 });
 
@@ -103,15 +94,9 @@ export const getPostBySlugHandler = catchErrors(async (req, res) => {
   appAssert(post.published, NOT_FOUND, "Post not found");
 
   res.status(OK).json({
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    editorContent: post.editorContent,
-    publishedAt: post.publishedAt,
+    ...post.toObject(),
     author: post.author.profile,
-    coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
-    updatedAt: post.updatedAt,
   });
 });
 
@@ -123,15 +108,9 @@ export const getPostPreviewHandler = catchErrors(async (req, res) => {
   appAssert(post, NOT_FOUND, "Post not found");
 
   res.status(OK).json({
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    editorContent: post.editorContent,
-    publishedAt: post.publishedAt,
+    ...post.toObject(),
     author: post.author.profile,
-    coverImage: post.coverImage,
     categories: post?.categories.map((item) => item.name),
-    updatedAt: post.updatedAt,
   });
 });
 
