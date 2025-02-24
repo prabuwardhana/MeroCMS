@@ -1,5 +1,5 @@
 import { BlockNoteSchema, defaultBlockSpecs } from "@blocknote/core";
-import { Alert } from "./custom-blocks/alert";
+import { Alert } from "./custom-blocks/Alert";
 import { CodeBlockEditor } from "./custom-blocks/CodeBlockEditor";
 
 // Disable the Audio and Image blocks from the built-in schema
