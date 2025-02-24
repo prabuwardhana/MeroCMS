@@ -36,6 +36,7 @@ export default tseslint.config(
         1,
         {
           argsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
         },
       ],
       "@typescript-eslint/no-namespace": 0,
