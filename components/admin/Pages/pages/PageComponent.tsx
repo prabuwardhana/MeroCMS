@@ -15,7 +15,7 @@ const PageComponent = ({
   remove: UseFieldArrayRemove;
 }) => {
   const { control } = useFormContext<PageType>();
-  const labels = field.fieldLabels.split("_");
+  const labels = field.fieldLabels.split(",");
   return (
     <div className="border w-full rounded-sm bg-card">
       <div className="flex justify-between bg-background border-b rounded-sm py-2 px-4">

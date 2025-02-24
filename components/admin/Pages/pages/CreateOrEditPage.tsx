@@ -207,7 +207,7 @@ export const CreateOrEditPage = withFallback(
 
           append({
             ...fieldNamesObj,
-            fieldLabels: fieldLabelsArray.join("_"),
+            fieldLabels: fieldLabelsArray.join(","),
             fieldsTitle: selectedComponent.title,
             fieldId: `${selectedComponent.title.replace(/\s/g, "-")}-${fields.length}`,
           });
