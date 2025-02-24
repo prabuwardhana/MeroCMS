@@ -9,10 +9,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
 import PageComponentButton from "@/components/admin/PageComponentButton";
+import { CodeBlock } from "@/components/admin/CodeBlock";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import PageTitle from "@/components/admin/PageTitle";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import Accordion from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,7 +37,7 @@ import { usePageComponents } from "@/hooks/api/usePageComponents";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { usePages } from "@/hooks/api/usePages";
 
-import { CirclePlus, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
+import { CirclePlus, FileJson2, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
 
 export const CreateOrEditPage = withFallback(
   () => {
@@ -305,8 +314,29 @@ export const CreateOrEditPage = withFallback(
                     </FormItem>
                   )}
                 />
-                <div className="space-y-2">
-                  <div className="text-md text-primary">Page Content ({fields.length})</div>
+
+                <div className="space-y-6">
+                  <div className="flex gap-4 items-center">
+                    <div className="text-md text-primary">Page Content ({fields.length})</div>
+                    <Dialog>
+                      <DialogTrigger
+                        type="button"
+                        className="flex gap-1 items-center bg-transparent text-xs text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary p-2"
+                      >
+                        <FileJson2 size={16} />
+                        Preview Page Content in JSON
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px] md:max-w-screen-md">
+                        <DialogHeader>
+                          <DialogTitle>Page Content JSON</DialogTitle>
+                          <DialogDescription>Preview of the page content in JSON data.</DialogDescription>
+                        </DialogHeader>
+                        <div className="rounded-md h-[460px] overflow-y-auto">
+                          <CodeBlock code={pageQuery?.data.pageFieldsJson} language="json" />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                   <div
                     ref={droppable.setNodeRef}
                     className={cn(

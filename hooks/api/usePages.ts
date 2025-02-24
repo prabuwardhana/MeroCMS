@@ -16,7 +16,7 @@ export const usePages = (
     queryFn: async () => {
       // useSuspenseQuery and enabled v5
       // https://github.com/TanStack/query/discussions/6206
-      return id ? await API.get<PageType>(`/api/page/${id}`) : null;
+      return id ? await API.get<PageType & { pageFieldsJson: string }>(`/api/page/${id}`) : null;
     },
     staleTime: 60 * 1000,
   });
@@ -51,6 +51,7 @@ export const usePages = (
       return API.patch<PageMutationResponseType>(`/api/page/publish/${id}`);
     },
     onSuccess: async (response) => {
+      await queryClient.invalidateQueries({ queryKey: ["pages"] });
       await queryClient.invalidateQueries({ queryKey: ["page", id] });
       if (setIsPublishing) setIsPublishing(false);
       toast(`The page has been ${response.data.page.published ? "published" : "unpublished"} succesfully.`);

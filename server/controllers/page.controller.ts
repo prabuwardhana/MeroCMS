@@ -57,7 +57,24 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
   const page = await PageModel.findOne({ _id: req.params.pageId });
   appAssert(page, NOT_FOUND, "Page not found");
 
-  res.status(OK).json(page);
+  const mapKeys = (obj: Record<string, string>, fn: (key: string) => string) =>
+    Object.keys(obj).reduce(
+      (acc, key: string) => {
+        if (!["fieldId", "fieldLabels", "fieldsTitle"].includes(key)) acc[fn(key)] = obj[key];
+        return acc;
+      },
+      <Record<string, string>>{},
+    );
+
+  const pageFieldsJson = page.fields?.reduce(
+    (acc, field) => {
+      acc[field["fieldId"].toLowerCase()] = mapKeys(field, (key) => key.split("_")[0]);
+      return acc;
+    },
+    <Record<string, Record<string, string>>>{},
+  );
+
+  res.status(OK).json({ ...page.toObject(), pageFieldsJson: JSON.stringify(pageFieldsJson, null, 2) });
 });
 
 export const publishPageHandler = catchErrors(async (req, res) => {
