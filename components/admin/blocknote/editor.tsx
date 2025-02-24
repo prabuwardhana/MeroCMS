@@ -16,6 +16,7 @@ import { BlockNoteView } from "@blocknote/shadcn";
 import type { CustomBlockNoteEditor, CustomPartialBlock } from "./types";
 import { useTheme } from "@/hooks/useTheme";
 import API from "@/config/apiClient";
+import { insertCode } from "./custom-blocks/CodeBlockEditor/code-block-editor";
 import { insertAlert } from "./custom-blocks/alert/alert-menu";
 import { CustomAddBlockButton } from "./custom-side-menu";
 import { schema } from "./custom-schemas";
@@ -99,7 +100,10 @@ export const Editor = ({ initialContent, onChange }: EditorProps) => {
           triggerCharacter={"/"}
           getItems={async (query) =>
             // Gets all default slash menu items and `insertAlert` item.
-            filterSuggestionItems([...getDefaultReactSlashMenuItems(editor), insertAlert(editor)], query)
+            filterSuggestionItems(
+              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCode(editor)],
+              query,
+            )
           }
         />
       </BlockNoteView>

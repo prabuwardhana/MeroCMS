@@ -37,6 +37,8 @@
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/uuid": "^10.0.0",
+    "@uiw/codemirror-extensions-langs": "^4.23.8",
+    "@uiw/react-codemirror": "^4.23.8",
     "@universal-middleware/core": "^0.3.3",
     "@universal-middleware/express": "^0.3.3",
     "@vitejs/plugin-react": "^4.3.4",

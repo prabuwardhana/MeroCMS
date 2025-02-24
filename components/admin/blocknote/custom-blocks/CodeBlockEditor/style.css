@@ -1,0 +1,9 @@
+.bn-shadcn button[data-button-type="lang-selector"] {
+  border: none;
+  color: #ffffff;
+}
+
+.bn-shadcn button[data-button-type="code-block"] {
+  color: #ffffff;
+  padding: 0.75rem;
+}
