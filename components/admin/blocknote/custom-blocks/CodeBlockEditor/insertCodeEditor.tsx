@@ -7,7 +7,7 @@ import { CustomBlockNoteEditor } from "../../types";
 import { MdCode } from "react-icons/md";
 
 // Slash menu item to insert an Alert block
-export const insertCode = (editor: CustomBlockNoteEditor) => ({
+export const insertCodeEditor = (editor: CustomBlockNoteEditor) => ({
   title: "Code",
   onItemClick: () => {
     insertOrUpdateBlock(editor, {
