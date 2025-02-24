@@ -22,6 +22,7 @@ import { schema } from "./custom-schemas";
 
 // BlockNote Shadcn styles
 import "@blocknote/shadcn/style.css";
+import "./style.css";
 
 interface EditorProps {
   initialContent: CustomPartialBlock[] | undefined | "loading";
@@ -81,6 +82,7 @@ export const Editor = ({ initialContent, onChange }: EditorProps) => {
           onChange(editor);
         }}
         theme={theme as "light" | "dark"}
+        data-theming-css
       >
         {/* Render our custom side menu */}
         <SideMenuController

@@ -33,3 +33,7 @@ body.page-is-transitioning #page-content {
 .preview .bn-editor {
   padding-inline: 0px;
 }
+
+.preview .bn-default-styles {
+  font-family: Poppins, sans-serif;
+}
