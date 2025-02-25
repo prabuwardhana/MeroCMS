@@ -42,7 +42,7 @@ export const upsertComponentHandler = catchErrors(async (req, res) => {
 });
 
 export const getComponentsHandler = catchErrors(async (_req, res) => {
-  const components = await ComponentModel.find({}).select(["_id", "title", "fields"]);
+  const components = await ComponentModel.find({}).select(["_id", "title", "fields"]).sort({ createdAt: "desc" });
   res.status(OK).json(components);
 });
 
