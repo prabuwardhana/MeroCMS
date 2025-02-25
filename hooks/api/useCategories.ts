@@ -2,7 +2,6 @@ import API from "@/config/apiClient";
 import type { CategoryMutationResponseType, CategoryType } from "@/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { navigate } from "vike/client/router";
 
 export const useCategories = (id?: string) => {
   const queryClient = useQueryClient();
@@ -36,7 +35,6 @@ export const useCategories = (id?: string) => {
         toast(`Category: "${response.data.category.name}" has been updated succesfully.`);
       } else {
         toast(`Category: "${response.data.category.name}" has been created succesfully.`);
-        navigate(`/admin/categories/${response.data.category._id}/edit`);
       }
     },
     onError: (error) => {

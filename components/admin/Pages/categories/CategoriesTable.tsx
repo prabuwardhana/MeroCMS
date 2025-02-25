@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { navigate } from "vike/client/router";
+import React, { useMemo, useState } from "react";
 import { withFallback } from "vike-react-query";
 
 import type { CategoryType } from "@/lib/types";
@@ -11,14 +10,20 @@ import { DataTable } from "@/components/admin/DataTable";
 
 import { getCategoriesColumns } from "./categoriesColumnDef";
 
-import { RotateCcw } from "lucide-react";
+import { CirclePlus, RotateCcw } from "lucide-react";
+import { CreateOrEditCategory } from "./CreateOrEditCategory";
 
 export const CategoriesTable = withFallback(
   () => {
+    const [categoryId, setCategoryId] = useState<string>();
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+
     const { categoriesQuery, deleteMutation } = useCategories();
 
     const onEdit = (category: CategoryType) => {
-      navigate(`/admin/categories/${category._id}/edit`);
+      setCategoryId(category._id as string);
+      setIsEditOpen(true);
     };
 
     const onDelete = (category: CategoryType) => {
@@ -28,14 +33,24 @@ export const CategoriesTable = withFallback(
     const columns = useMemo(() => getCategoriesColumns({ onEdit, onDelete }), []);
 
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Categories</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <DataTable data={categoriesQuery.data} columns={columns} type="categories" />
-        </CardContent>
-      </Card>
+      <>
+        <CreateOrEditCategory isOpen={isCreateOpen} setIsOpen={setIsCreateOpen} />
+        <CreateOrEditCategory categoryId={categoryId} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex gap-4">
+              <div className="flex items-center">Categories</div>
+              <Button variant="ghost" onClick={() => setIsCreateOpen(true)}>
+                <CirclePlus />
+                Create New Category
+              </Button>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DataTable data={categoriesQuery.data} columns={columns} type="categories" />
+          </CardContent>
+        </Card>
+      </>
     );
   },
   () => <div>Loading Categories...</div>,
