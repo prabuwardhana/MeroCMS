@@ -11,6 +11,14 @@ import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
 import PageTitle from "@/components/admin/PageTitle";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Accordion from "@/components/ui/accordion";
@@ -26,7 +34,7 @@ import type { PostType, CloudinaryResourceType } from "@/lib/types";
 import { postFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 
-import { CirclePlus, Eye, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
+import { CirclePlus, Eye, Globe, GlobeLock, Loader2, RotateCcw, Save, SquareArrowOutUpRight } from "lucide-react";
 
 export const CreateOrEditPost = withFallback(
   () => {
@@ -218,15 +226,41 @@ export const CreateOrEditPost = withFallback(
                     <div className="flex justify-start gap-4">
                       <PageTitle>{pageTitle}</PageTitle>
                       {routeParams.id && (
-                        <a
-                          href={`/preview/${routeParams.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
-                        >
-                          <Eye size={16} />
-                          Preview
-                        </a>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="flex justify-start gap-1 items-center text-sm text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary px-2 py-1"
+                            >
+                              <Eye size={16} />
+                              view
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            <DropdownMenuItem>
+                              <a href={`/preview/${routeParams.id}`} target="_blank" rel="noopener noreferrer">
+                                Preview Post
+                              </a>
+                            </DropdownMenuItem>
+                            {postData.published && (
+                              <>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                  <a
+                                    href={`/${postData.slug}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2"
+                                  >
+                                    Visit Blog Post
+                                    <SquareArrowOutUpRight />
+                                  </a>
+                                </DropdownMenuItem>
+                              </>
+                            )}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       )}
                     </div>
                     <div className="flex justify-between gap-x-6">
