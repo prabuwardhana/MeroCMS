@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import AddItemForm from "./AddItemForm";
 import MenuEditor from "./MenuEditor";
 import { RotateCcw } from "lucide-react";
+import { SkeletonMenuEditor } from "@/components/admin/Skeletons";
 
 export const CreateOrEditNavMenu = withFallback(
   () => {
@@ -23,7 +24,7 @@ export const CreateOrEditNavMenu = withFallback(
       </NestableItemsProvider>
     );
   },
-  () => <div>Loading Nav Menus...</div>,
+  () => <SkeletonMenuEditor />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Nav Menus: {error.message}</div>

@@ -7,6 +7,7 @@ import { withFallback } from "vike-react-query";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
 import { type CustomBlockNoteEditor, Editor } from "@/components/admin/Blocknote";
+import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
 import PageTitle from "@/components/admin/PageTitle";
@@ -488,7 +489,7 @@ export const CreateOrEditPost = withFallback(
       </>
     );
   },
-  () => <div>Loading Post...</div>,
+  () => <SkeletonPostEditor />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Post: {error.message}</div>

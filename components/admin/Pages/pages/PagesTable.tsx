@@ -5,9 +5,10 @@ import { withFallback } from "vike-react-query";
 import { usePages } from "@/hooks/api/usePages";
 import type { PageType } from "@/lib/types";
 
+import { DataTable } from "@/components/admin/DataTable";
+import { SkeletonTable } from "@/components/admin/Skeletons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/admin/DataTable";
 
 import { getPagesColumns } from "./pagesColumnDef";
 
@@ -60,7 +61,7 @@ export const PagesTable = withFallback(
       </Card>
     );
   },
-  () => <div>Loading Posts...</div>,
+  () => <SkeletonTable />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Posts: {error.message}</div>

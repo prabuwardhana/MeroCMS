@@ -20,6 +20,7 @@ import type { User } from "@/lib/types";
 import { userFormSchema } from "@/lib/schemas";
 
 import { RotateCcw } from "lucide-react";
+import { SkeletonUserEditor } from "@/components/admin/Skeletons";
 
 export const CreateOrEditUser = withFallback(
   () => {
@@ -244,7 +245,7 @@ export const CreateOrEditUser = withFallback(
       </>
     );
   },
-  () => <div>Loading User...</div>,
+  () => <SkeletonUserEditor />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load User: {error.message}</div>

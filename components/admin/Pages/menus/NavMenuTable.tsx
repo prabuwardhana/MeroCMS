@@ -5,6 +5,7 @@ import { withFallback } from "vike-react-query";
 import type { NavMenuType } from "@/lib/types";
 import { useNavMenus } from "@/hooks/api/useNavMenus";
 
+import { SkeletonTable } from "@/components/admin/Skeletons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/admin/DataTable";
@@ -38,7 +39,7 @@ export const NavMenusTable = withFallback(
       </Card>
     );
   },
-  () => <div>Loading Nav Menus...</div>,
+  () => <SkeletonTable className="max-w-screen-md" />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Nav Menus: {error.message}</div>

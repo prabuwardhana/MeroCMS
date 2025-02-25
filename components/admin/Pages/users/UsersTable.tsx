@@ -5,9 +5,10 @@ import { withFallback } from "vike-react-query";
 import { useUsers } from "@/hooks/api/useUsers";
 import type { User } from "@/lib/types";
 
+import { DataTable } from "@/components/admin/DataTable";
+import { SkeletonTable } from "@/components/admin/Skeletons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/admin/DataTable";
 
 import { getUsersColumns } from "./usersColumnDef";
 
@@ -60,7 +61,7 @@ export const UsersTable = withFallback(
       </Card>
     );
   },
-  () => <div>Loading Users...</div>,
+  () => <SkeletonTable />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Users: {error.message}</div>

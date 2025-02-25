@@ -7,11 +7,12 @@ import { useCategories } from "@/hooks/api/useCategories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/admin/DataTable";
+import { SkeletonTable } from "@/components/admin/Skeletons";
 
 import { getCategoriesColumns } from "./categoriesColumnDef";
 
-import { CirclePlus, RotateCcw } from "lucide-react";
 import { CreateOrEditCategory } from "./CreateOrEditCategory";
+import { CirclePlus, RotateCcw } from "lucide-react";
 
 export const CategoriesTable = withFallback(
   () => {
@@ -53,7 +54,7 @@ export const CategoriesTable = withFallback(
       </>
     );
   },
-  () => <div>Loading Categories...</div>,
+  () => <SkeletonTable />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Categories: {error.message}</div>

@@ -5,6 +5,7 @@ import type { CommentType, PostType } from "@/lib/types";
 import { useComments } from "@/hooks/api/useComments";
 
 import { DataTable } from "@/components/admin/DataTable";
+import { SkeletonTable } from "@/components/admin/Skeletons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -94,7 +95,7 @@ export const CommentsTable = withFallback(
       </>
     );
   },
-  () => <div>Loading Comments...</div>,
+  () => <SkeletonTable />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Comments: {error.message}</div>

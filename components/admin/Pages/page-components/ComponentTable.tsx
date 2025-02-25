@@ -4,8 +4,9 @@ import { withFallback } from "vike-react-query";
 import type { PageComponentType } from "@/lib/types";
 import { usePageComponents } from "@/hooks/api/usePageComponents";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/admin/DataTable";
+import { SkeletonTable } from "@/components/admin/Skeletons";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 import { CreateOrEditComponent } from "./CreateOrEditComponent";
@@ -53,7 +54,7 @@ export const ComponentTable = withFallback(
       </>
     );
   },
-  () => <div>Loading Components...</div>,
+  () => <SkeletonTable className="max-w-screen-md" />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Components: {error.message}</div>

@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
 import PageComponentButton from "@/components/admin/PageComponentButton";
+import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import { CodeBlock } from "@/components/admin/CodeBlock";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
@@ -416,7 +417,7 @@ export const CreateOrEditPage = withFallback(
       </>
     );
   },
-  () => <div>Loading Post...</div>,
+  () => <SkeletonPostEditor />,
   ({ retry, error }) => (
     <div>
       <div>Failed to load Post: {error.message}</div>
