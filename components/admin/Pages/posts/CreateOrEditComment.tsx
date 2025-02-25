@@ -70,7 +70,6 @@ export const CreateOrEditComment = ({
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<CommentType> = (formData) => {
     // Saves the content to DB.
-    setIsOpen(false);
     if (replyTo && post)
       createMutation.mutate({
         ...formData,
@@ -78,8 +77,7 @@ export const CreateOrEditComment = ({
         post,
       });
     else editMutation.mutate(formData);
-
-    setCommentData(initialComponentData);
+    setIsOpen(false);
   };
   const handleSubmitError: SubmitErrorHandler<CommentType> = (formData) => {
     console.log(formData);
@@ -108,6 +106,13 @@ export const CreateOrEditComment = ({
       content: commentData.content,
     });
   }, [reset, commentData]);
+
+  // Reset the form states on successful submition
+  useEffect(() => {
+    if (formMethods.formState.isSubmitSuccessful) {
+      reset({ ...commentData });
+    }
+  }, [formMethods.formState, reset]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

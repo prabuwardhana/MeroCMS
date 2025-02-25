@@ -58,8 +58,8 @@ export const CreateOrEditCategory = ({ isOpen, setIsOpen, categoryId }: CreateOr
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<CategoryType> = (formData) => {
     // Saves the content to DB.
-    setIsOpen(false);
     upsertMutation.mutate({ ...categoryData, ...formData });
+    setIsOpen(false);
   };
   const handleSubmitError: SubmitErrorHandler<CategoryType> = (formData) => {
     // if (formData.sections?.root?.message) toast(formData.sections?.root?.message);
@@ -69,9 +69,9 @@ export const CreateOrEditCategory = ({ isOpen, setIsOpen, categoryId }: CreateOr
   // In edit mode, loads the content from DB.
   useEffect(() => {
     if (categoryId && categoryQuery) {
-      const component: CategoryType = categoryQuery.data;
-      // replace componentData with the new one from the DB
-      setCategoryData(component);
+      const category: CategoryType = categoryQuery.data;
+      // replace categoryData with the new one from the DB
+      setCategoryData(category);
     }
   }, [categoryId]);
 
@@ -91,6 +91,13 @@ export const CreateOrEditCategory = ({ isOpen, setIsOpen, categoryId }: CreateOr
       description: categoryData.description,
     });
   }, [reset, categoryData]);
+
+  // Reset the form states on successful submition
+  useEffect(() => {
+    if (formMethods.formState.isSubmitSuccessful) {
+      reset({ ...categoryData });
+    }
+  }, [formMethods.formState, reset]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

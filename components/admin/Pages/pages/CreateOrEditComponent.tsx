@@ -69,11 +69,8 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<PageComponentType> = (formData) => {
     // Saves the content to DB.
-    setIsOpen(false);
     upsertMutation.mutate({ ...componentData, ...formData });
-
-    // reset state
-    setComponentData(initialComponentData);
+    setIsOpen(false);
   };
   const handleSubmitError: SubmitErrorHandler<PageComponentType> = (formData) => {
     // if (formData.sections?.root?.message) toast(formData.sections?.root?.message);
@@ -104,6 +101,13 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
       fields: componentData.fields,
     });
   }, [reset, componentData]);
+
+  // Reset the form states on successful submition
+  useEffect(() => {
+    if (formMethods.formState.isSubmitSuccessful) {
+      reset({ ...componentData });
+    }
+  }, [formMethods.formState, reset]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
