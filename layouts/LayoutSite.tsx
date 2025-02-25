@@ -16,24 +16,26 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
   const { user } = usePageContext();
 
   return (
-    <div className={"flex max-w-5xl"}>
-      <Sidebar>
-        <Logo />
-        <Link href="/">Welcome</Link>
-        <Link href="/todo">Todo</Link>
-        <Link href="/star-wars">Data Fetching</Link>
-        {user ? (
-          <LogOutButton />
-        ) : (
-          <>
-            <Link href="/auth/login">Log In</Link>
-            <Link href="/auth/register">Register</Link>
-          </>
-        )}
-        {""}
-      </Sidebar>
-      <Content>{children}</Content>
-      <ReactQueryDevtools initialIsOpen={false} />
+    <div className="flex justify-center max-w-screen">
+      <div className={"flex max-w-5xl"}>
+        <Sidebar>
+          <Logo />
+          <Link href="/">Welcome</Link>
+          <Link href="/todo">Todo</Link>
+          <Link href="/star-wars">Data Fetching</Link>
+          {user ? (
+            <LogOutButton />
+          ) : (
+            <>
+              <Link href="/auth/login">Log In</Link>
+              <Link href="/auth/register">Register</Link>
+            </>
+          )}
+          {""}
+        </Sidebar>
+        <Content>{children}</Content>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </div>
     </div>
   );
 }
