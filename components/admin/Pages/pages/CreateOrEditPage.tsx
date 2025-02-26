@@ -27,7 +27,7 @@ import Accordion from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import PageWidget from "./PageComponent";
+import PageWidget from "./PageWidget";
 
 import { usePageWidgetsStore } from "@/store/pageComponentsStore";
 import { dateStringOptions } from "@/constants/dateTimeOptions";

@@ -9,8 +9,8 @@ import { SkeletonTable } from "@/components/admin/Skeletons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-import { CreateOrEditPageWidget } from "./CreateOrEditComponent";
-import { getPageWidgetColumns } from "./componentColumnDef";
+import { CreateOrEditPageWidget } from "./CreateOrEditPageWidget";
+import { getPageWidgetColumns } from "./pageWidgetColumnDef";
 
 import { CirclePlus, RotateCcw } from "lucide-react";
 

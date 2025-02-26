@@ -1,2 +1,2 @@
-export { PageWidgetButton } from "./PageComponentButton";
-export { PageWidgetButtonDragOverlay } from "./PageComponentButton";
+export { PageWidgetButton } from "./PageWidgetButton";
+export { PageWidgetButtonDragOverlay } from "./PageWidgetButton";
