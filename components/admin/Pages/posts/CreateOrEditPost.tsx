@@ -10,7 +10,7 @@ import { type CustomBlockNoteEditor, Editor } from "@/components/admin/Blocknote
 import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
-import PageTitle from "@/components/admin/PageTitle";
+import PageTitle from "@/components/admin/AdminPageTitle";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import {
   DropdownMenu,

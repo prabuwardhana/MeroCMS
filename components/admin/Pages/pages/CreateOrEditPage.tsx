@@ -13,7 +13,7 @@ import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import { CodeBlock } from "@/components/admin/CodeBlock";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
-import PageTitle from "@/components/admin/PageTitle";
+import PageTitle from "@/components/admin/AdminPageTitle";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import {
   Dialog,
