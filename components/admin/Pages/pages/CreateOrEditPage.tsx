@@ -8,7 +8,7 @@ import { useDndMonitor, useDroppable } from "@dnd-kit/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
-import PageComponentButton from "@/components/admin/PageComponentButton";
+import { PageWidgetButton } from "@/components/admin/PageComponentButton";
 import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import { CodeBlock } from "@/components/admin/CodeBlock";
 import ImageSetter from "@/components/admin/ImageSetter";
@@ -27,14 +27,14 @@ import Accordion from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import PageComponent from "./PageComponent";
+import PageWidget from "./PageComponent";
 
-import { usePageComponentsStore } from "@/store/pageComponentsStore";
+import { usePageWidgetsStore } from "@/store/pageComponentsStore";
 import { dateStringOptions } from "@/constants/dateTimeOptions";
-import type { CloudinaryResourceType, PageComponentType, PageType } from "@/lib/types";
+import type { CloudinaryResourceType, PageWidgetType, PageType } from "@/lib/types";
 import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
-import { usePageComponents } from "@/hooks/api/usePageComponents";
+import { usePageWidgets } from "@/hooks/api/usePageComponents";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import { usePages } from "@/hooks/api/usePages";
 
@@ -61,7 +61,7 @@ export const CreateOrEditPage = withFallback(
     );
 
     // global states
-    const { pageComponents, setPageComponents } = usePageComponentsStore();
+    const { pageWidgets, setPageWidgets } = usePageWidgetsStore();
 
     // local states
     const [tab, setTab] = useState("gallery");
@@ -74,7 +74,7 @@ export const CreateOrEditPage = withFallback(
     const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
     const [pageData, setPageData] = useState<PageType>(initialPageData);
 
-    const { componentsQuery } = usePageComponents();
+    const { pageWidgetsQuery } = usePageWidgets();
     const { pageQuery, upsertMutation, publishMutation } = usePages(routeParams.id, setIsPublishing, setIsUpdating);
 
     // 1. Define our form.
@@ -146,8 +146,8 @@ export const CreateOrEditPage = withFallback(
     }, [reset, pageData]);
 
     useEffect(() => {
-      if (componentsQuery.data) setPageComponents(componentsQuery.data);
-    }, [componentsQuery]);
+      if (pageWidgetsQuery.data) setPageWidgets(pageWidgetsQuery.data);
+    }, [pageWidgetsQuery]);
 
     useEffect(() => {
       if (selectedCoverImages.length > 0) formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
@@ -194,9 +194,9 @@ export const CreateOrEditPage = withFallback(
     };
 
     const droppable = useDroppable({
-      id: "page-component-droppable-area",
+      id: "page-widget-droppable-area",
       data: {
-        isComponentDroppableArea: true,
+        isPageWidgetDroppableArea: true,
       },
     });
 
@@ -206,20 +206,20 @@ export const CreateOrEditPage = withFallback(
 
         if (!active || !over) return;
 
-        const isComponentBtn = active?.data?.current?.isComponentBtn;
+        const isPageWidgetBtn = active?.data?.current?.isPageWidgetBtn;
 
-        if (isComponentBtn) {
+        if (isPageWidgetBtn) {
           const type = active?.data?.current?.type;
-          const selectedComponent = pageComponents.find((item) => item.title === type) as PageComponentType;
-          const fieldNamesArray = selectedComponent?.fields.map((field) => `${field.name}_${field.type}`);
-          const fieldLabelsArray = selectedComponent?.fields.map((field) => `${field.label}`);
+          const selectedPageWidget = pageWidgets.find((item) => item.title === type) as PageWidgetType;
+          const fieldNamesArray = selectedPageWidget?.fields.map((field) => `${field.name}_${field.type}`);
+          const fieldLabelsArray = selectedPageWidget?.fields.map((field) => `${field.label}`);
           const fieldNamesObj = fieldNamesArray.reduce((o, key) => ({ ...o, [key]: "" }), {});
 
           append({
             ...fieldNamesObj,
             fieldLabels: fieldLabelsArray.join(","),
-            fieldsTitle: selectedComponent.title,
-            fieldId: `${selectedComponent.title.replace(/\s/g, "-")}-${fields.length}`,
+            fieldsTitle: selectedPageWidget.title,
+            fieldId: `${selectedPageWidget.title.replace(/\s/g, "-")}-${fields.length}`,
           });
         }
       },
@@ -348,13 +348,13 @@ export const CreateOrEditPage = withFallback(
                     )}
                   >
                     {!droppable.isOver && fields.length === 0 && (
-                      <p className="text-xl text-primary/70 flex flex-grow items-center">Drop a page component here.</p>
+                      <p className="text-xl text-primary/70 flex flex-grow items-center">Drop a page widget here.</p>
                     )}
                     {fields.length > 0 &&
                       fields.map((field, index) => (
-                        <PageComponent
+                        <PageWidget
                           key={field._id?.toString() + index.toString()}
-                          componentIndex={index}
+                          pageWidgetIndex={index}
                           field={field}
                           remove={remove}
                         />
@@ -395,9 +395,9 @@ export const CreateOrEditPage = withFallback(
                     }}
                   />
                 </Accordion>
-                <Accordion title="Page Components" open={true} className="border-b space-y-2">
-                  {pageComponents.map((pageComponent) => (
-                    <PageComponentButton key={pageComponent._id?.toString()} pageComponent={pageComponent} />
+                <Accordion title="Page Widgets" open={true} className="border-b space-y-2">
+                  {pageWidgets.map((pageWidget) => (
+                    <PageWidgetButton key={pageWidget._id?.toString()} pageWidget={pageWidget} />
                   ))}
                 </Accordion>
               </aside>

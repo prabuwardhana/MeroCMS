@@ -5,12 +5,12 @@ import Field from "@/components/admin/Field";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
-const PageComponent = ({
-  componentIndex,
+const PageWidget = ({
+  pageWidgetIndex,
   field,
   remove,
 }: {
-  componentIndex: number;
+  pageWidgetIndex: number;
   field: FieldArrayWithId<PageType, "fields", "fieldId">;
   remove: UseFieldArrayRemove;
 }) => {
@@ -21,7 +21,7 @@ const PageComponent = ({
       <div className="flex justify-between bg-background border-b rounded-sm py-2 px-4">
         <div className="flex items-center text-foreground">{field.fieldsTitle}</div>
         <div className="flex items-center">
-          <Button type="button" variant={"destructive"} className="h-8 w-8" onClick={() => remove(componentIndex)}>
+          <Button type="button" variant={"destructive"} className="h-8 w-8" onClick={() => remove(pageWidgetIndex)}>
             <Trash2 />
           </Button>
         </div>
@@ -32,10 +32,10 @@ const PageComponent = ({
           if (["short-text", "long-text", "rich-text", "image-input"].includes(type)) {
             return (
               <Field
-                key={`${key}-${componentIndex}`}
+                key={`${key}-${pageWidgetIndex}`}
                 control={control}
                 type={type as string}
-                name={`fields.${componentIndex}.${key}`}
+                name={`fields.${pageWidgetIndex}.${key}`}
                 label={labels[index]}
               />
             );
@@ -46,4 +46,4 @@ const PageComponent = ({
   );
 };
 
-export default PageComponent;
+export default PageWidget;

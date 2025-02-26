@@ -2,7 +2,7 @@ import React from "react";
 import { z } from "zod";
 import Role from "@/constants/role";
 import { Item } from "@/components/admin/NestableList/libs/types";
-import { commentFormSchema, componentFormSchema, pageFormSchema, postFormSchema } from "./schemas";
+import { commentFormSchema, pageWidgetFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
 
@@ -111,7 +111,7 @@ export type TableType =
   | "portfolios"
   | "users"
   | "navmenu"
-  | "components";
+  | "page widgets";
 
 export type FilterOptions = {
   label: string;
@@ -125,14 +125,14 @@ export type FilterOnType = {
   options: FilterOptions[];
 };
 
-export type PageComponentFieldType = {
+export type PageWidgetFieldType = {
   fieldId: string;
   name: string;
   label: string;
   type: TextInputType;
 };
-export type PageComponentType = z.infer<typeof componentFormSchema> & {
+export type PageWidgetType = z.infer<typeof pageWidgetFormSchema> & {
   _id: string | null;
-  fields: PageComponentFieldType[];
+  fields: PageWidgetFieldType[];
 };
-export type PageComponentMutationResponseType = { component: PageComponentType; message: string };
+export type PageWidgetMutationResponseType = { pageWidget: PageWidgetType; message: string };

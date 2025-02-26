@@ -34,7 +34,7 @@ export const SIDENAV_ITEMS = [
     subMenuItems: [
       { title: "All Pages", path: "/admin/pages" },
       { title: "Add New Page", path: "/admin/pages/create" },
-      { title: "Components", path: "/admin/pages/components" },
+      { title: "Page Widgets", path: "/admin/pages/widgets" },
     ],
   },
   {

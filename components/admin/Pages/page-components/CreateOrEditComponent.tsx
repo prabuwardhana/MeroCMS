@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import { usePageComponents } from "@/hooks/api/usePageComponents";
+import { usePageWidgets } from "@/hooks/api/usePageComponents";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -16,17 +16,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { SubmitErrorHandler, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { componentFormSchema } from "@/lib/schemas";
-import type { PageComponentType, TextInputType } from "@/lib/types";
+import { pageWidgetFormSchema } from "@/lib/schemas";
+import type { PageWidgetType, TextInputType } from "@/lib/types";
 import { CirclePlus, Trash2 } from "lucide-react";
 
-interface CreateOrEditComponentProps {
+interface CreateOrEditPageWidgetProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  componentId?: string;
+  pageWidgetId?: string;
 }
-export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: CreateOrEditComponentProps) => {
-  const initialComponentData = useMemo(
+export const CreateOrEditPageWidget = ({ isOpen, setIsOpen, pageWidgetId }: CreateOrEditPageWidgetProps) => {
+  const initialPageWidgetData = useMemo(
     () => ({
       _id: null,
       title: "",
@@ -43,48 +43,48 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   );
 
   // local states
-  const [componentData, setComponentData] = useState<PageComponentType>(initialComponentData);
+  const [pageWidgetData, setPageWidgetData] = useState<PageWidgetType>(initialPageWidgetData);
 
-  const { componentQuery, upsertMutation } = usePageComponents(componentId);
+  const { pageWidgetQuery, upsertMutation } = usePageWidgets(pageWidgetId);
 
   // 1. Define our form.
-  const formMethods = useForm<PageComponentType>({
+  const formMethods = useForm<PageWidgetType>({
     // Integrate zod as the schema validation library
     resolver: async (data, context, options) => {
-      return zodResolver(componentFormSchema)(data, context, options);
+      return zodResolver(pageWidgetFormSchema)(data, context, options);
     },
     // form states
     defaultValues: {
-      title: componentData.title,
-      fields: componentData.fields,
+      title: pageWidgetData.title,
+      fields: pageWidgetData.fields,
     },
   });
 
-  const { fields, append, remove } = useFieldArray<PageComponentType, "fields", "fieldId">({
+  const { fields, append, remove } = useFieldArray<PageWidgetType, "fields", "fieldId">({
     control: formMethods.control,
     name: "fields",
     keyName: "fieldId",
   });
 
   // 2. Define the form submit handler.
-  const handleSubmit: SubmitHandler<PageComponentType> = (formData) => {
+  const handleSubmit: SubmitHandler<PageWidgetType> = (formData) => {
     // Saves the content to DB.
-    upsertMutation.mutate({ ...componentData, ...formData });
+    upsertMutation.mutate({ ...pageWidgetData, ...formData });
     setIsOpen(false);
   };
-  const handleSubmitError: SubmitErrorHandler<PageComponentType> = (formData) => {
+  const handleSubmitError: SubmitErrorHandler<PageWidgetType> = (formData) => {
     // if (formData.sections?.root?.message) toast(formData.sections?.root?.message);
     console.log(formData);
   };
 
   // In edit mode, loads the content from DB.
   useEffect(() => {
-    if (componentId && componentQuery) {
-      const component: PageComponentType = componentQuery.data;
-      // replace componentData with the new one from the DB
-      setComponentData(component);
+    if (pageWidgetId && pageWidgetQuery) {
+      const pageWidget: PageWidgetType = pageWidgetQuery.data;
+      // replace pageWidgetData with the new one from the DB
+      setPageWidgetData(pageWidget);
     }
-  }, [componentId]);
+  }, [pageWidgetId]);
 
   // The following useEffect expects formMethods as dependency
   // when formMethods.reset is called within useEffect.
@@ -94,18 +94,18 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
   const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
   // Reset the form states when the previously stored
-  // component data has been loaded sucessfuly from the DB
+  // widget data has been loaded sucessfuly from the DB
   useEffect(() => {
     reset({
-      title: componentData.title,
-      fields: componentData.fields,
+      title: pageWidgetData.title,
+      fields: pageWidgetData.fields,
     });
-  }, [reset, componentData]);
+  }, [reset, pageWidgetData]);
 
   // Reset the form states on successful submition
   useEffect(() => {
     if (formMethods.formState.isSubmitSuccessful) {
-      reset({ ...componentData });
+      reset({ ...pageWidgetData });
     }
   }, [formMethods.formState, reset]);
 
@@ -113,8 +113,8 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[425px] md:max-w-screen-md">
         <DialogHeader>
-          <DialogTitle>{componentId ? "Edit " : "Create "}Component</DialogTitle>
-          <DialogDescription>Create a component for your page</DialogDescription>
+          <DialogTitle>{pageWidgetId ? "Edit " : "Create "}Page Widget</DialogTitle>
+          <DialogDescription>Create a page widget for your page</DialogDescription>
         </DialogHeader>
         <Form {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)}>
@@ -123,7 +123,7 @@ export const CreateOrEditComponent = ({ isOpen, setIsOpen, componentId }: Create
               name="title"
               render={({ field }) => (
                 <FormItem className="[&:not(:last-child)]:mb-3">
-                  <FormLabel className="font-normal text-xs text-primary">Component Name</FormLabel>
+                  <FormLabel className="font-normal text-xs text-primary">Page Widget Name</FormLabel>
                   <FormControl>
                     <Input
                       className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"

@@ -1,23 +1,23 @@
-import type { PageComponentType } from "@/lib/types";
+import type { PageWidgetType } from "@/lib/types";
 import { create } from "zustand";
 
-type PageComponentsState = {
-  pageComponents: PageComponentType[];
+type PageWidgetsState = {
+  pageWidgets: PageWidgetType[];
 };
 
-type PageComponentsStateAction = {
-  setPageComponents: (value: PageComponentType[]) => void;
+type PageWidgetsStateAction = {
+  setPageWidgets: (value: PageWidgetType[]) => void;
 };
 
-export type PageComponentsStore = PageComponentsState & PageComponentsStateAction;
+export type PageWidgetsStore = PageWidgetsState & PageWidgetsStateAction;
 
-const defaultInitState: PageComponentsState = {
-  pageComponents: [],
+const defaultInitState: PageWidgetsState = {
+  pageWidgets: [],
 };
 
-export const usePageComponentsStore = create<PageComponentsStore>()((set) => ({
+export const usePageWidgetsStore = create<PageWidgetsStore>()((set) => ({
   ...defaultInitState,
-  setPageComponents: (pageComponent) => {
-    set(() => ({ pageComponents: [...pageComponent] }));
+  setPageWidgets: (pageWidget) => {
+    set(() => ({ pageWidgets: [...pageWidget] }));
   },
 }));

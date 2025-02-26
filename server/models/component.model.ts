@@ -1,34 +1,34 @@
 import mongoose from "mongoose";
 
-export interface ComponentFieldDocument extends mongoose.Document<mongoose.Types.ObjectId> {
+export interface PageWidgetFieldDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   name: string;
   label: string;
   type: string;
 }
 
-export interface ComponentDocument extends mongoose.Document<mongoose.Types.ObjectId> {
+export interface PageWidgetDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   title: string;
-  fields: ComponentFieldDocument;
+  fields: PageWidgetFieldDocument;
   createdAt: Date;
   updatedAt: Date;
 }
 
-const componentFieldSchema = new mongoose.Schema<ComponentFieldDocument>({
+const pageWidgetFieldSchema = new mongoose.Schema<PageWidgetFieldDocument>({
   name: { type: String },
   label: { type: String },
   type: { type: String },
 });
 
-const componentSchema = new mongoose.Schema<ComponentDocument>(
+const pageWidgetSchema = new mongoose.Schema<PageWidgetDocument>(
   {
     title: { type: String, required: true, unique: true },
-    fields: [componentFieldSchema],
+    fields: [pageWidgetFieldSchema],
   },
   {
     timestamps: true,
   },
 );
 
-const ComponentModel = mongoose.model<ComponentDocument>("Component", componentSchema);
+const PageWidgetModel = mongoose.model<PageWidgetDocument>("PageWidget", pageWidgetSchema);
 
-export default ComponentModel;
+export default PageWidgetModel;

@@ -1,15 +1,15 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import type { PageComponentType } from "@/lib/types";
+import type { PageWidgetType } from "@/lib/types";
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/admin/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 
-interface ComponentColumnsProps {
-  onEdit: (category: PageComponentType) => void;
-  onDelete: (category: PageComponentType) => void;
+interface PageWidgetColumnsProps {
+  onEdit: (pageWidget: PageWidgetType) => void;
+  onDelete: (pageWidget: PageWidgetType) => void;
 }
 
-export const getComponentColumns = ({ onEdit, onDelete }: ComponentColumnsProps): ColumnDef<PageComponentType>[] => [
+export const getPageWidgetColumns = ({ onEdit, onDelete }: PageWidgetColumnsProps): ColumnDef<PageWidgetType>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -33,7 +33,7 @@ export const getComponentColumns = ({ onEdit, onDelete }: ComponentColumnsProps)
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Component Name" />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Widget Name" />,
     cell: (info) => info.getValue(),
   },
   {

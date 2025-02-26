@@ -1,2 +1,2 @@
-export { CreateOrEditComponent } from "./CreateOrEditComponent";
-export { ComponentTable } from "./ComponentTable";
+export { CreateOrEditPageWidget } from "./CreateOrEditComponent";
+export { PageWidgetTable } from "./ComponentTable";

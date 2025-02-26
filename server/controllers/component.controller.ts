@@ -1,23 +1,22 @@
 import { NOT_FOUND, OK } from "@/constants/http";
 import catchErrors from "../utils/catchErrors";
 import appAssert from "../utils/appAssert";
-import ComponentModel from "../models/component.model";
-import { createComponentSchema } from "./component.schema";
+import PageWidgetModel from "../models/component.model";
+import { createPageWidgetSchema } from "./component.schema";
 
-export const upsertComponentHandler = catchErrors(async (req, res) => {
-  const { _id, title, fields } = createComponentSchema.parse({
+export const upsertPageWidgetHandler = catchErrors(async (req, res) => {
+  const { _id, title, fields } = createPageWidgetSchema.parse({
     ...req.body,
   });
 
-  console.log(_id);
   // Create new or update existing post.
   // We need to find the entity by the id. The reason is that the id stays the same.
   // If we try to update the entity based on the slug or the name,
   // the user might update the category name, and the corresponding slug will also be updated.
   // Consequently, it will create a new entity in the DB instead of updating the existing one.
-  let component;
+  let pageWidget;
   if (_id) {
-    component = await ComponentModel.findOneAndUpdate(
+    pageWidget = await PageWidgetModel.findOneAndUpdate(
       { _id },
       {
         title,
@@ -29,39 +28,39 @@ export const upsertComponentHandler = catchErrors(async (req, res) => {
       },
     );
   } else {
-    component = await ComponentModel.create({
+    pageWidget = await PageWidgetModel.create({
       title,
       fields,
     });
   }
 
   res.status(OK).json({
-    component: { _id: component._id, title: component.title, fields: component.fields },
-    message: "a component is succesfully created",
+    pageWidget: { _id: pageWidget._id, title: pageWidget.title, fields: pageWidget.fields },
+    message: "A page widget is succesfully created",
   });
 });
 
-export const getComponentsHandler = catchErrors(async (_req, res) => {
-  const components = await ComponentModel.find({}).select(["_id", "title", "fields"]).sort({ createdAt: "desc" });
-  res.status(OK).json(components);
+export const getPageWidgetsHandler = catchErrors(async (_req, res) => {
+  const pageWidgets = await PageWidgetModel.find({}).select(["_id", "title", "fields"]).sort({ createdAt: "desc" });
+  res.status(OK).json(pageWidgets);
 });
 
-export const getComponentByIdHandler = catchErrors(async (req, res) => {
-  const component = await ComponentModel.findOne({ _id: req.params.componentId });
-  appAssert(component, NOT_FOUND, "Component not found");
+export const getPageWidgetByIdHandler = catchErrors(async (req, res) => {
+  const pageWidget = await PageWidgetModel.findOne({ _id: req.params.pageWidgetId });
+  appAssert(pageWidget, NOT_FOUND, "Page Widget not found");
 
   res.status(OK).json({
-    _id: component._id,
-    title: component.title,
-    fields: component.fields,
+    _id: pageWidget._id,
+    title: pageWidget.title,
+    fields: pageWidget.fields,
   });
 });
 
-export const deleteComponentById = catchErrors(async (req, res) => {
+export const deletePageWidgetById = catchErrors(async (req, res) => {
   const { id } = req.body;
-  await ComponentModel.findByIdAndDelete({ _id: id });
+  await PageWidgetModel.findByIdAndDelete({ _id: id });
 
   res.status(OK).json({
-    message: "Component is successfully deleted",
+    message: "Page Widget is successfully deleted",
   });
 });

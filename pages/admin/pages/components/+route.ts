@@ -4,5 +4,5 @@ import { resolveRoute } from "vike/routing";
 import { RouteSync } from "vike/types";
 
 const route: RouteSync = (pageContext): ReturnType<RouteSync> => {
-  return resolveRoute("/admin/pages/components", pageContext.urlPathname);
+  return resolveRoute("/admin/pages/widgets", pageContext.urlPathname);
 };

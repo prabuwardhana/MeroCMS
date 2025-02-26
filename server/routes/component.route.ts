@@ -1,19 +1,19 @@
 import { Router } from "express";
 import Role from "@/constants/role";
 import {
-  deleteComponentById,
-  getComponentsHandler,
-  getComponentByIdHandler,
-  upsertComponentHandler,
+  deletePageWidgetById,
+  getPageWidgetsHandler,
+  getPageWidgetByIdHandler,
+  upsertPageWidgetHandler,
 } from "../controllers/component.controller";
 import authenticate from "../middlewares/authenticate";
 import authorize from "../middlewares/authorize";
 
-const componentRoutes = Router();
+const pageWidgetRoutes = Router();
 
-componentRoutes.get("/", authenticate, authorize([Role.Admin]), getComponentsHandler);
-componentRoutes.delete("/", authenticate, authorize([Role.Admin]), deleteComponentById);
-componentRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertComponentHandler);
-componentRoutes.get("/:componentId", authenticate, authorize([Role.Admin]), getComponentByIdHandler);
+pageWidgetRoutes.get("/", authenticate, authorize([Role.Admin]), getPageWidgetsHandler);
+pageWidgetRoutes.delete("/", authenticate, authorize([Role.Admin]), deletePageWidgetById);
+pageWidgetRoutes.post("/upsert", authenticate, authorize([Role.Admin]), upsertPageWidgetHandler);
+pageWidgetRoutes.get("/:pageWidgetId", authenticate, authorize([Role.Admin]), getPageWidgetByIdHandler);
 
-export default componentRoutes;
+export default pageWidgetRoutes;

@@ -20,7 +20,7 @@ import commentRoutes from "./server/routes/comment.route";
 import mediaRoutes from "./server/routes/media.route";
 import categoryRoutes from "./server/routes/category.route";
 import navMenuRoutes from "./server/routes/navmenu.route";
-import componentRoutes from "./server/routes/component.route";
+import pageWidgetRoutes from "./server/routes/component.route";
 import pageRoutes from "./server/routes/page.route";
 import siteRoutes from "./server/routes/site.route";
 
@@ -79,7 +79,7 @@ async function startServer() {
   app.use("/api/page", pageRoutes);
   app.use("/api/category", categoryRoutes);
   app.use("/api/navmenu", navMenuRoutes);
-  app.use("/api/component", componentRoutes);
+  app.use("/api/page-widget", pageWidgetRoutes);
   app.use("/api/media", mediaRoutes);
   app.use("/api/site", siteRoutes);
 

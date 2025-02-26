@@ -12,7 +12,7 @@ export const createFieldSchema = z.object({
   }),
 });
 
-export const createComponentSchema = z.object({
+export const createPageWidgetSchema = z.object({
   _id: z.string().nullable(),
   title: z.string().min(1, {
     message: "Title is required",

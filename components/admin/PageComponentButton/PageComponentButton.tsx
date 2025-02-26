@@ -1,15 +1,15 @@
 import React from "react";
 import { GripVertical } from "lucide-react";
 import { useDraggable } from "@dnd-kit/core";
-import type { PageComponentType } from "@/lib/types";
+import type { PageWidgetType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-const PageComponentButton = ({ pageComponent }: { pageComponent: PageComponentType }) => {
+export const PageWidgetButton = ({ pageWidget }: { pageWidget: PageWidgetType }) => {
   const draggable = useDraggable({
-    id: `component-btn-[${pageComponent.title}]`,
+    id: `page-widget-btn-[${pageWidget.title}]`,
     data: {
-      type: pageComponent.title,
-      isComponentBtn: true,
+      type: pageWidget.title,
+      isPageWidgetBtn: true,
     },
   });
   return (
@@ -25,20 +25,18 @@ const PageComponentButton = ({ pageComponent }: { pageComponent: PageComponentTy
       <div className="flex items-center bg-slate-300 dark:bg-background rounded-l-sm h-full px-1">
         <GripVertical size={16} />
       </div>
-      <div className="flex flex-row items-center py-2">{pageComponent.title}</div>
+      <div className="flex flex-row items-center py-2">{pageWidget.title}</div>
     </button>
   );
 };
 
-export const PageComponentButtonDragOverlay = ({ pageComponent }: { pageComponent: PageComponentType | undefined }) => {
+export const PageWidgetButtonDragOverlay = ({ pageWidget }: { pageWidget: PageWidgetType | undefined }) => {
   return (
     <button className="flex items-center gap-x-2 w-full h-9 border-2 border-slate-500 rounded-sm bg-accent text-accent-foreground cursor-grab">
       <div className="flex items-center bg-background rounded-l-sm h-full px-1">
         <GripVertical size={16} />
       </div>
-      <div className="flex flex-row items-center py-2">{pageComponent?.title}</div>
+      <div className="flex flex-row items-center py-2">{pageWidget?.title}</div>
     </button>
   );
 };
-
-export default PageComponentButton;

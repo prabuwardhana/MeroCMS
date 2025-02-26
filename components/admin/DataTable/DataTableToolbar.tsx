@@ -29,7 +29,7 @@ export function DataTableToolbar<TData>({ table, type, filterOn }: DataTableTool
       portfolios: "",
       products: "",
       navmenu: "title",
-      components: "title",
+      "page widgets": "title",
     }[type] || "none";
 
   return (

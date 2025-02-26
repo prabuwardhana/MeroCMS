@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Active, DragOverlay, useDndMonitor } from "@dnd-kit/core";
-import { usePageComponentsStore } from "@/store/pageComponentsStore";
-import { PageComponentButtonDragOverlay } from "@/components/admin/PageComponentButton";
+import { usePageWidgetsStore } from "@/store/pageComponentsStore";
+import { PageWidgetButtonDragOverlay } from "@/components/admin/PageComponentButton";
 
 const DragOverlayWrapper = () => {
-  const { pageComponents } = usePageComponentsStore();
+  const { pageWidgets } = usePageWidgetsStore();
   const [draggedItem, setDraggedItem] = useState<Active | null>(null);
 
   useDndMonitor({
@@ -22,11 +22,11 @@ const DragOverlayWrapper = () => {
   if (!draggedItem) return null;
 
   let node = <div>no drag overlay</div>;
-  const isComponentBtn = draggedItem?.data?.current?.isComponentBtn;
+  const isPageWidgetBtn = draggedItem?.data?.current?.isPageWidgetBtn;
   const type = draggedItem?.data?.current?.type;
 
-  if (isComponentBtn) {
-    node = <PageComponentButtonDragOverlay pageComponent={pageComponents.find((item) => item.title === type)} />;
+  if (isPageWidgetBtn) {
+    node = <PageWidgetButtonDragOverlay pageWidget={pageWidgets.find((item) => item.title === type)} />;
   }
 
   return <DragOverlay>{node}</DragOverlay>;
