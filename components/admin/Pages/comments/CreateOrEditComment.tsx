@@ -34,7 +34,7 @@ export const CreateOrEditComment = ({
   replyTo,
   post,
 }: CreateOrEditCommentProps) => {
-  const initialComponentData = useMemo(
+  const initialCommentData = useMemo(
     () => ({
       _id: null,
       author: null,
@@ -51,7 +51,7 @@ export const CreateOrEditComment = ({
   );
 
   // local states
-  const [commentData, setCommentData] = useState<CommentType>(initialComponentData);
+  const [commentData, setCommentData] = useState<CommentType>(initialCommentData);
 
   const { commentQuery, createMutation, editMutation } = useComments(commentId);
 
@@ -86,9 +86,9 @@ export const CreateOrEditComment = ({
   // In edit mode, loads the content from DB.
   useEffect(() => {
     if (commentId && commentQuery) {
-      const component: CommentType = commentQuery.data;
+      const comment: CommentType = commentQuery.data;
       // replace postData with the new one from the DB
-      setCommentData(component);
+      setCommentData(comment);
     }
   }, [commentId]);
 

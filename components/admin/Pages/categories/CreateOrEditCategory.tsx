@@ -83,7 +83,7 @@ export const CreateOrEditCategory = ({ isOpen, setIsOpen, categoryId }: CreateOr
   const reset = useMemo(() => formMethods.reset, [formMethods.reset]);
 
   // Reset the form states when the previously stored
-  // component data has been loaded sucessfuly from the DB
+  // category data has been loaded sucessfuly from the DB
   useEffect(() => {
     reset({
       name: categoryData.name,
