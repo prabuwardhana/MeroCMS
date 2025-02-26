@@ -8,7 +8,7 @@ import { useDndMonitor, useDroppable } from "@dnd-kit/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
-import { PageWidgetButton } from "@/components/admin/PageComponentButton";
+import { PageWidgetButton } from "@/components/admin/PageWidgetButton";
 import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import { CodeBlock } from "@/components/admin/CodeBlock";
 import ImageSetter from "@/components/admin/ImageSetter";
