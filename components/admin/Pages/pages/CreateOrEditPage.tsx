@@ -319,24 +319,26 @@ export const CreateOrEditPage = withFallback(
                 <div className="space-y-6">
                   <div className="flex gap-4 items-center">
                     <div className="text-md text-primary">Page Content ({fields.length})</div>
-                    <Dialog>
-                      <DialogTrigger
-                        type="button"
-                        className="flex gap-1 items-center bg-transparent text-xs text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary p-2"
-                      >
-                        <FileJson2 size={16} />
-                        Preview Page Content in JSON
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px] md:max-w-screen-md">
-                        <DialogHeader>
-                          <DialogTitle>Page Content JSON</DialogTitle>
-                          <DialogDescription>Preview of the page content in JSON data.</DialogDescription>
-                        </DialogHeader>
-                        <div className="rounded-md h-[460px] overflow-y-auto">
-                          <CodeBlock code={pageQuery?.data.pageFieldsJson} language="json" />
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                    {pageQuery?.data.pageFieldsJson && (
+                      <Dialog>
+                        <DialogTrigger
+                          type="button"
+                          className="flex gap-1 items-center bg-transparent text-xs text-foreground hover:text-primary border rounded-md border-foreground hover:border-primary p-2"
+                        >
+                          <FileJson2 size={16} />
+                          Preview Page Content in JSON
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px] md:max-w-screen-md">
+                          <DialogHeader>
+                            <DialogTitle>Page Content JSON</DialogTitle>
+                            <DialogDescription>Preview of the page content in JSON data.</DialogDescription>
+                          </DialogHeader>
+                          <div className="rounded-md h-[460px] overflow-y-auto">
+                            <CodeBlock code={pageQuery?.data.pageFieldsJson} language="json" />
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    )}
                   </div>
                   <div
                     ref={droppable.setNodeRef}
