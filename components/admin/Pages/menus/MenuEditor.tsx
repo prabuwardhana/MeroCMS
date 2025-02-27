@@ -1,13 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePageContext } from "vike-react/usePageContext";
+import { AxiosResponse } from "axios";
+import { produce } from "immer";
 
-import type { NavMenuType } from "@/lib/types";
+import type { CategoryType, NavMenuType, PageType } from "@/lib/types";
 import { navMenuFormSchema } from "@/lib/schemas";
 import { useNavMenus } from "@/hooks/api/useNavMenus";
 
 import { useNestableItemsContext } from "@/components/admin/NestableList/providers/useNestableItemsContext";
+import { Item } from "@/components/admin/NestableList/libs/types";
 import NestableList from "@/components/admin/NestableList";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -20,10 +24,15 @@ import { CirclePlus, Save } from "lucide-react";
 const MenuEditor = () => {
   const { routeParams } = usePageContext();
   const [navMenuData, setNavMenuData] = useState<NavMenuType>({ _id: null, title: "", navItems: [] });
+  const [warningMessage, setWarningMessage] = useState("");
 
   const { items, updateItems } = useNestableItemsContext();
 
   const { navMenuQuery, upsertMutation } = useNavMenus(routeParams.id);
+
+  const queryClient = useQueryClient();
+  const pagesQueryData = queryClient.getQueryData<AxiosResponse>(["pages"])?.data as PageType[];
+  const categoriesQueryData = queryClient.getQueryData<AxiosResponse>(["categories"])?.data as CategoryType[];
 
   // 1. Define our form.
   const formMethods = useForm<{ title: string }>({
@@ -39,17 +48,114 @@ const MenuEditor = () => {
 
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<{ title: string }> = (formData) => {
+    setWarningMessage("");
     // Saves the content to DB.
     upsertMutation.mutate({ ...navMenuData, ...formData, navItems: items });
+  };
+
+  const getItemIndexPathById = useCallback((id: unknown, navItems: Item[]) => {
+    let path: number[] = [];
+
+    navItems.every((item, i) => {
+      if (item["id"] === id) {
+        // When the item id is equal to id
+
+        // fill the path array with the index
+        path.push(i);
+      } else if (item["children"]) {
+        // When not, check if it has children
+
+        // find the id within the children array
+        const childrenPath = getItemIndexPathById(id, item["children"]);
+
+        if (childrenPath.length) {
+          // When it's found in the children array,
+          // fill the array with the index of the parrent and
+          // the index of the children array
+          path = path.concat(i).concat(childrenPath);
+        }
+      }
+
+      return path.length === 0;
+    });
+
+    return path;
+  }, []);
+
+  let ids: string[] = [];
+  const traverseNavItems = useCallback((type: string, items: Item[]) => {
+    items.forEach((item) => {
+      if (item["type"] === type) {
+        ids.push(item["id"]);
+        if (item["children"]) {
+          traverseNavItems(type, item["children"]);
+        }
+      } else {
+        if (item["children"]) {
+          traverseNavItems(type, item["children"]);
+        }
+      }
+    });
+
+    return ids;
+  }, []);
+
+  const removeItem = useCallback((id: string, navItems: Item[]): Item[] => {
+    const path = getItemIndexPathById(id, navItems);
+
+    const newItems = produce(navItems, (draft) => {
+      const lastIndex = path.length - 1;
+      const route: (number | string)[] = [];
+
+      path.forEach((index, i) => {
+        if (i === lastIndex) {
+          if (path.length === 1) {
+            // the path has no children
+            route.push(index);
+            draft.splice(index, 1);
+          } else {
+            route
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              .reduce((accumulator: any, currentValue: any) => {
+                return accumulator[currentValue];
+              }, draft)
+              .splice(index, 1);
+          }
+        } else {
+          route.push(index, "children");
+        }
+      });
+    });
+
+    return newItems;
+  }, []);
+
+  const checkForDeletedItems = (type: string, items: Item[], current: PageType[] | CategoryType[]) => {
+    const foundItems = traverseNavItems(type, items);
+    const existingItemIds = current.map((item) => item._id);
+    const deletedItemIds = foundItems.filter((item) => !existingItemIds.includes(item));
+    if (deletedItemIds.length)
+      setWarningMessage(
+        `One or more ${type.split("-")[0].toUpperCase()} item(s) has/have been removed from the editor because it was deleted from the Database. Please save to reflect your changes!`,
+      );
+    ids = [];
+
+    return deletedItemIds.reduce((accumulator, currentValue) => {
+      return removeItem(currentValue, accumulator);
+    }, items);
   };
 
   // In edit mode, loads the content from DB.
   useEffect(() => {
     if (routeParams.id && navMenuQuery) {
-      const navMenu: NavMenuType = navMenuQuery.data;
+      const navMenuOriginal: NavMenuType = navMenuQuery.data;
+
+      let navMenuClean = checkForDeletedItems("page-item", navMenuOriginal.navItems, pagesQueryData);
+      navMenuClean = checkForDeletedItems("category-item", navMenuClean, categoriesQueryData);
+
       // replace navMenuData with the new one from the DB
-      setNavMenuData(navMenu);
-      updateItems(navMenu.navItems);
+      setNavMenuData({ ...navMenuOriginal, navItems: navMenuClean });
+      updateItems(navMenuClean);
     }
   }, [routeParams.id]);
 
@@ -110,6 +216,12 @@ const MenuEditor = () => {
           />
         </form>
       </Form>
+
+      {warningMessage && (
+        <div className="p-4 pb-0">
+          <div className="bg-destructive text-destructive-foreground text-xs p-2 rounded-sm">{warningMessage}</div>
+        </div>
+      )}
 
       {items.length ? (
         <NestableList
