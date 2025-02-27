@@ -18,7 +18,7 @@ export const usePosts = (
       // https://github.com/TanStack/query/discussions/6206
       return id ? await API.get<PostType>(`/api/post/${id}`) : null;
     },
-    staleTime: 60 * 1000,
+    staleTime: Infinity,
   });
 
   const { data: postsQuery } = useSuspenseQuery({

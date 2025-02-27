@@ -18,7 +18,7 @@ export const usePages = (
       // https://github.com/TanStack/query/discussions/6206
       return id ? await API.get<PageType & { pageFieldsJson: string }>(`/api/page/${id}`) : null;
     },
-    staleTime: 60 * 1000,
+    staleTime: Infinity,
   });
 
   const { data: pagesQuery } = useSuspenseQuery({
