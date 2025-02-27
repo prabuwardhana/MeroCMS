@@ -72,7 +72,8 @@ const PageItems = () => {
             selectedPages.forEach((selectedPage) => {
               addItem({
                 id: selectedPage._id?.toString(),
-                name: `${selectedPage.title}`,
+                type: "page-item",
+                name: selectedPage.title,
                 url: `/${selectedPage.slug}`,
               });
             });

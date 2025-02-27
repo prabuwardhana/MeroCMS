@@ -73,8 +73,10 @@ const CategoryItems = () => {
             selectedCategories.forEach((selectedCategory) => {
               addItem({
                 id: selectedCategory._id?.toString(),
-                name: `${selectedCategory.name}`,
+                type: "category-item",
+                name: selectedCategory.name,
                 url: `/category/${selectedCategory.slug}`,
+                description: selectedCategory.description,
               });
             });
             setSelectedCategories([]);
