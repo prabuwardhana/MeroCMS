@@ -5,7 +5,7 @@ import NavMenuModel from "../models/navmenu.model";
 import { createNavMenuSchema } from "./navmenu.schema";
 
 export const upsertNavMenuHandler = catchErrors(async (req, res) => {
-  const { _id, title, navMenuContent } = createNavMenuSchema.parse({
+  const { _id, title, navItems } = createNavMenuSchema.parse({
     ...req.body,
   });
 
@@ -16,7 +16,7 @@ export const upsertNavMenuHandler = catchErrors(async (req, res) => {
       { _id },
       {
         title,
-        navMenuContent,
+        navItems,
       },
       {
         new: true,
@@ -26,7 +26,7 @@ export const upsertNavMenuHandler = catchErrors(async (req, res) => {
   } else {
     navMenu = await NavMenuModel.create({
       title,
-      navMenuContent,
+      navItems,
     });
   }
 

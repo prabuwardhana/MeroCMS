@@ -6,5 +6,5 @@ export const createNavMenuSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required",
   }),
-  navMenuContent: z.custom<Item[]>().optional(),
+  navItems: z.custom<Item[]>().optional(),
 });

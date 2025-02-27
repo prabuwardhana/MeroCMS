@@ -19,7 +19,7 @@ import { CirclePlus, Save } from "lucide-react";
 
 const MenuEditor = () => {
   const { routeParams } = usePageContext();
-  const [navMenuData, setNavMenuData] = useState<NavMenuType>({ _id: null, title: "", navMenuContent: [] });
+  const [navMenuData, setNavMenuData] = useState<NavMenuType>({ _id: null, title: "", navItems: [] });
 
   const { items, updateItems } = useNestableItemsContext();
 
@@ -40,7 +40,7 @@ const MenuEditor = () => {
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<{ title: string }> = (formData) => {
     // Saves the content to DB.
-    upsertMutation.mutate({ ...navMenuData, ...formData, navMenuContent: items });
+    upsertMutation.mutate({ ...navMenuData, ...formData, navItems: items });
   };
 
   // In edit mode, loads the content from DB.
@@ -49,7 +49,7 @@ const MenuEditor = () => {
       const navMenu: NavMenuType = navMenuQuery.data;
       // replace navMenuData with the new one from the DB
       setNavMenuData(navMenu);
-      updateItems(navMenu.navMenuContent);
+      updateItems(navMenu.navItems);
     }
   }, [routeParams.id]);
 
@@ -119,8 +119,7 @@ const MenuEditor = () => {
             updateItems(nestableItems);
             setNavMenuData({
               ...navMenuData,
-              title: formMethods.formState.defaultValues?.title,
-              navMenuContent: nestableItems,
+              navItems: nestableItems,
             });
           }}
           confirmChange={({ draggedItem }) => {

@@ -98,7 +98,7 @@ export type CommentMutationResponseType = { comment: CommentType; message: strin
 export type NavMenuType = {
   _id: string | null;
   title: string | undefined;
-  navMenuContent: Item[];
+  navItems: Item[];
 };
 export type NavMenuResponseType = { navMenu: NavMenuType; message: string };
 
