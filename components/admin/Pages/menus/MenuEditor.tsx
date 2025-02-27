@@ -134,9 +134,13 @@ const MenuEditor = () => {
     const foundItems = traverseNavItems(type, items);
     const existingItemIds = current.map((item) => item._id);
     const deletedItemIds = foundItems.filter((item) => !existingItemIds.includes(item));
-    if (deletedItemIds.length)
+    if (deletedItemIds.length === 1)
       setWarningMessage(
-        `One or more ${type.split("-")[0].toUpperCase()} item(s) has/have been removed from the editor because it was deleted from the Database. Please save to reflect your changes!`,
+        `A ${type.split("-")[0].toUpperCase()} item has been removed from the editor because it was deleted from the Database. Please save it to make your Database in sync!`,
+      );
+    else if (deletedItemIds.length > 1)
+      setWarningMessage(
+        `Some ${type.split("-")[0].toUpperCase()} items have been removed from the editor because they were deleted from the Database. Please save it to make your Database in sync!`,
       );
     ids = [];
 
