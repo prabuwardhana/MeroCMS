@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import Accordion from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 const CategoryItems = () => {
   const { categoriesQuery } = useCategories();
@@ -54,12 +55,12 @@ const CategoryItems = () => {
                   }}
                   disabled={isAdded}
                 />
-                <label
+                <Label
                   htmlFor={category.name}
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   {category.name}
-                </label>
+                </Label>
               </div>
             );
           })}
