@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { cn } from "@/lib/utils";
 import type { RenderItemOptions } from "@/components/admin/NestableList/libs/types";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +21,7 @@ const ListItemContent = ({ item, isAccordionOpen, isCopy, draggableElAttr, event
         className="flex justify-between py-2 px-4 border-b bg-neutral-200 text-slate-900 cursor-grab"
         {...draggableElAttr}
       >
-        {item.name}
+        {item.name ? item.name : "Empty Item"}
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -56,28 +57,51 @@ const ListItemContent = ({ item, isAccordionOpen, isCopy, draggableElAttr, event
         )}
       >
         <div className="overflow-hidden space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}>Navigation Label</Label>
-            <Input
-              id={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}
-              type="text"
-              value={item.name}
-              className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                eventCallbacks.onInputChange("name", e.target.value, item)
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}>Navigation URL</Label>
-            <Input
-              id={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}
-              type="text"
-              value={item.url}
-              className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => eventCallbacks.onInputChange("url", e.target.value, item)}
-            />
-          </div>
+          {item.name && (
+            <div className="space-y-2">
+              <Label htmlFor={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}>Navigation Label</Label>
+              <Input
+                id={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}
+                type="text"
+                value={item.name}
+                className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  eventCallbacks.onInputChange("name", e.target.value, item)
+                }
+              />
+            </div>
+          )}
+
+          {item.url && (
+            <div className="space-y-2">
+              <Label htmlFor={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}>Navigation URL</Label>
+              <Input
+                id={isCopy ? `urlInputCopy-${copyElId}` : `urlInput-${item.id}`}
+                type="text"
+                value={item.url}
+                className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  eventCallbacks.onInputChange("url", e.target.value, item)
+                }
+              />
+            </div>
+          )}
+
+          {item.description && (
+            <div className="space-y-2">
+              <Label htmlFor={isCopy ? `descriptionInputCopy-${copyElId}` : `descriptionInput-${item.id}`}>
+                Description
+              </Label>
+              <Textarea
+                id={isCopy ? `descriptionInputCopy-${copyElId}` : `descriptionInput-${item.id}`}
+                value={item.description}
+                className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                  eventCallbacks.onInputChange("description", e.target.value, item)
+                }
+              />
+            </div>
+          )}
           <div className="flex flex-col items-end">
             <Button
               variant="link"
