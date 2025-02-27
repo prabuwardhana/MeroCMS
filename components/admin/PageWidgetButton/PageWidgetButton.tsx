@@ -25,7 +25,7 @@ export const PageWidgetButton = ({ pageWidget }: { pageWidget: PageWidgetType })
       <div className="flex items-center bg-slate-300 dark:bg-background rounded-l-sm h-full px-1">
         <GripVertical size={16} />
       </div>
-      <div className="flex flex-row items-center py-2">{pageWidget.title}</div>
+      <div className="flex items-center text-left py-2 text-xs">{pageWidget.title}</div>
     </button>
   );
 };
@@ -36,7 +36,7 @@ export const PageWidgetButtonDragOverlay = ({ pageWidget }: { pageWidget: PageWi
       <div className="flex items-center bg-background rounded-l-sm h-full px-1">
         <GripVertical size={16} />
       </div>
-      <div className="flex flex-row items-center py-2">{pageWidget?.title}</div>
+      <div className="flex items-center text-left py-2 text-xs">{pageWidget?.title}</div>
     </button>
   );
 };
