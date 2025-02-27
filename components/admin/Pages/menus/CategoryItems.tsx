@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from "react";
 
-import { v4 as uuidv4 } from "uuid";
-
 import { useCategories } from "@/hooks/api/useCategories";
 import type { CategoryType } from "@/lib/types";
 
@@ -19,12 +17,12 @@ const CategoryItems = () => {
   const { items, addItem } = useNestableItemsContext();
 
   const findItem = useCallback(
-    (slug: string, items: Item[]): boolean => {
+    (id: string, items: Item[]): boolean => {
       const result = items.some((item) => {
-        if ((item["url"] as string).includes(slug)) {
+        if (item["id"].includes(id)) {
           return true;
         } else if (item["children"]) {
-          return findItem(slug, item["children"]);
+          return findItem(id, item["children"]);
         }
       });
 
@@ -39,7 +37,7 @@ const CategoryItems = () => {
         <CardContent className="p-4">
           {categoriesQuery.data.map((category) => {
             const isChecked = selectedCategories.find((item) => item.name === category.name) ? true : false;
-            const isAdded = findItem(category.slug, items);
+            const isAdded = findItem(category._id as string, items);
             return (
               <div key={category.name} className="flex items-center space-x-2 [&:not(:last-child)]:mb-3">
                 <Checkbox
@@ -73,7 +71,7 @@ const CategoryItems = () => {
           onClick={() => {
             selectedCategories.forEach((selectedCategory) => {
               addItem({
-                id: `${uuidv4()}`,
+                id: selectedCategory._id?.toString(),
                 name: `${selectedCategory.name}`,
                 url: `/category/${selectedCategory.slug}`,
               });

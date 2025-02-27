@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from "react";
 
-import { v4 as uuidv4 } from "uuid";
-
 import { usePages } from "@/hooks/api/usePages";
 import type { PageType } from "@/lib/types";
 
@@ -19,12 +17,12 @@ const PageItems = () => {
   const { items, addItem } = useNestableItemsContext();
 
   const findItem = useCallback(
-    (slug: string, items: Item[]): boolean => {
+    (id: string, items: Item[]): boolean => {
       const result = items.some((item) => {
-        if ((item["url"] as string).includes(slug)) {
+        if (item["id"].includes(id)) {
           return true;
         } else if (item["children"]) {
-          return findItem(slug, item["children"]);
+          return findItem(id, item["children"]);
         }
       });
 
@@ -39,7 +37,7 @@ const PageItems = () => {
         <CardContent className="p-4">
           {pagesQuery.data.map((page) => {
             const isChecked = selectedPages.find((item) => item.title === page.title) ? true : false;
-            const isAdded = findItem(page.slug, items);
+            const isAdded = findItem(page._id as string, items);
             return (
               <div key={page.title} className="flex items-center space-x-2 [&:not(:last-child)]:mb-3">
                 <Checkbox
@@ -71,11 +69,11 @@ const PageItems = () => {
         <Button
           size={"sm"}
           onClick={() => {
-            selectedPages.forEach((selectedCategory) => {
+            selectedPages.forEach((selectedPage) => {
               addItem({
-                id: `${uuidv4()}`,
-                name: `${selectedCategory.title}`,
-                url: `/${selectedCategory.slug}`,
+                id: selectedPage._id?.toString(),
+                name: `${selectedPage.title}`,
+                url: `/${selectedPage.slug}`,
               });
             });
             setSelectedPages([]);
