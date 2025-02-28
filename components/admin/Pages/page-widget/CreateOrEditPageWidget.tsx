@@ -18,6 +18,7 @@ import { SubmitErrorHandler, SubmitHandler, useFieldArray, useForm } from "react
 import { zodResolver } from "@hookform/resolvers/zod";
 import { pageWidgetFormSchema } from "@/lib/schemas";
 import type { PageWidgetType, TextInputType } from "@/lib/types";
+import { slugify } from "@/lib/utils";
 import { CirclePlus, Trash2 } from "lucide-react";
 
 interface CreateOrEditPageWidgetProps {
@@ -111,7 +112,7 @@ export const CreateOrEditPageWidget = ({ isOpen, setIsOpen, pageWidgetId }: Crea
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px] md:max-w-screen-md">
+      <DialogContent className="sm:max-w-[425px] md:max-w-screen-sm">
         <DialogHeader>
           <DialogTitle>{pageWidgetId ? "Edit " : "Create "}Page Widget</DialogTitle>
           <DialogDescription>Create a page widget for your page</DialogDescription>
@@ -137,33 +138,43 @@ export const CreateOrEditPageWidget = ({ isOpen, setIsOpen, pageWidgetId }: Crea
             <div className="space-y-2">
               <span className="text-md text-primary">Input Fields:</span>
               {fields.map((item, index) => (
-                <div key={item.fieldId} className="flex gap-4">
+                <div key={item.fieldId} className="flex justify-between gap-4">
                   <FormField
                     control={formMethods.control}
                     name={`fields.${index}.name`}
                     render={({ field }) => (
-                      <FormItem className="basis-1/3">
-                        <FormLabel className="font-normal text-xs text-primary">Name</FormLabel>
+                      <>
                         <FormControl>
                           <Input
+                            type="hidden"
                             className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                             {...field}
                           />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
+                      </>
                     )}
                   />
                   <FormField
                     control={formMethods.control}
                     name={`fields.${index}.label`}
                     render={({ field }) => (
-                      <FormItem className="basis-1/3">
+                      <FormItem className="basis-1/2">
                         <FormLabel className="font-normal text-xs text-primary">Label</FormLabel>
                         <FormControl>
                           <Input
                             className="box-border rounded-md border bg-background text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
-                            {...field}
+                            onChange={(e) => {
+                              // send back data to hook form (update formState)
+                              field.onChange(e.target.value);
+
+                              // create slug for the title
+                              const slug = slugify(e.target.value);
+
+                              // Set the value for the slug field
+                              formMethods.setValue(`fields.${index}.name`, slug);
+                            }}
+                            value={field.value}
                           />
                         </FormControl>
                         <FormMessage />
@@ -174,7 +185,7 @@ export const CreateOrEditPageWidget = ({ isOpen, setIsOpen, pageWidgetId }: Crea
                     control={formMethods.control}
                     name={`fields.${index}.type`}
                     render={({ field }) => (
-                      <FormItem className="basis-1/3">
+                      <FormItem className="basis-1/2">
                         <FormLabel className="font-normal text-xs text-primary">Type</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>

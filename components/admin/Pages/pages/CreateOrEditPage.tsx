@@ -92,7 +92,7 @@ export const CreateOrEditPage = withFallback(
       },
     });
 
-    const { fields, append, remove } = useFieldArray<PageType, "fields", "fieldId">({
+    const { fields, append, remove, update } = useFieldArray<PageType, "fields", "fieldId">({
       control: formMethods.control,
       name: "fields",
       keyName: "fieldId",
@@ -152,6 +152,39 @@ export const CreateOrEditPage = withFallback(
     useEffect(() => {
       if (selectedCoverImages.length > 0) formMethods.setValue("coverImageUrl", selectedCoverImages[0].secure_url);
     }, [selectedCoverImages]);
+
+    useEffect(() => {
+      fields.forEach((field, index) => {
+        const pageWidget = pageWidgets.find((item) => item._id?.toString() === field.widgetId) as PageWidgetType;
+        const fieldLabelsArray = field.fieldLabels.split(",");
+        const pageWidgetFieldsLabelsArray = pageWidget.fields.map((field) => field.label);
+
+        if (Number(field.fieldsCount) !== pageWidgetFieldsLabelsArray.length) {
+          const fieldDiff = fieldLabelsArray.filter((item) => !pageWidgetFieldsLabelsArray.includes(item));
+
+          if (Number(field.fieldsCount) > pageWidgetFieldsLabelsArray.length) {
+            fieldDiff.forEach((item) => {
+              Object.keys(field).map((key) => {
+                if (key.replace(/-/g, "").includes(item.toLowerCase().replace(/\s+/g, ""))) {
+                  delete field[key];
+                }
+              });
+            });
+          }
+
+          const fieldNamesArray = pageWidget?.fields.map((field) => `${field.name}_${field.type}`);
+          const fieldNamesObj = fieldNamesArray.reduce((o, key) => ({ ...o, [key]: "" }), {});
+
+          update(index, {
+            ...fieldNamesObj,
+            ...field,
+            fieldLabels: pageWidgetFieldsLabelsArray.join(","),
+            fieldsCount: pageWidgetFieldsLabelsArray.length.toString(),
+            fieldId: `${pageWidget.title.replace(/\s/g, "-")}-${fields.length}`,
+          });
+        }
+      });
+    }, [pageWidgets]);
 
     const { triggerManualSave, isPendingSave, isSaving, isError } = useAutoSave({
       onSave: (data) => {
@@ -217,9 +250,11 @@ export const CreateOrEditPage = withFallback(
 
           append({
             ...fieldNamesObj,
+            fieldsCount: fieldLabelsArray.length.toString(),
             fieldLabels: fieldLabelsArray.join(","),
             fieldsTitle: selectedPageWidget.title,
             fieldId: `${selectedPageWidget.title.replace(/\s/g, "-")}-${fields.length}`,
+            widgetId: `${selectedPageWidget._id as string}`,
           });
         }
       },
@@ -319,7 +354,7 @@ export const CreateOrEditPage = withFallback(
                 <div className="space-y-6">
                   <div className="flex gap-4 items-center">
                     <div className="text-md text-primary">Page Content ({fields.length})</div>
-                    {pageQuery?.data.pageFieldsJson && (
+                    {fields.length > 0 && pageQuery?.data.pageFieldsJson && (
                       <Dialog>
                         <DialogTrigger
                           type="button"
@@ -352,12 +387,7 @@ export const CreateOrEditPage = withFallback(
                     )}
                     {fields.length > 0 &&
                       fields.map((field, index) => (
-                        <PageWidget
-                          key={field._id?.toString() + index.toString()}
-                          pageWidgetIndex={index}
-                          field={field}
-                          remove={remove}
-                        />
+                        <PageWidget key={field.fieldId} pageWidgetIndex={index} field={field} remove={remove} />
                       ))}
                     {droppable.isOver && (
                       <div className="w-full">
@@ -384,7 +414,7 @@ export const CreateOrEditPage = withFallback(
                 />
               </main>
               <aside className="sticky top-[84px] flex h-[calc(100vh-160px)] basis-1/4 flex-col overflow-y-hidden">
-                <Accordion className="border-b" title="Hero Image" open={true}>
+                <Accordion className="border-b text-sm" title="Hero Image" open={true}>
                   <ImageSetter
                     type="Hero"
                     imageUrl={coverImageUrl}
@@ -395,7 +425,7 @@ export const CreateOrEditPage = withFallback(
                     }}
                   />
                 </Accordion>
-                <Accordion title="Page Widgets" open={true} className="border-b space-y-2">
+                <Accordion title="Page Widgets" open={true} className="border-b text-sm space-y-2">
                   {pageWidgets.map((pageWidget) => (
                     <PageWidgetButton key={pageWidget._id?.toString()} pageWidget={pageWidget} />
                   ))}

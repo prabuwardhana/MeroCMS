@@ -13,7 +13,6 @@ export const usePageWidgets = (id?: string) => {
       // https://github.com/TanStack/query/discussions/6206
       return id ? await API.get<PageWidgetType>(`/api/page-widget/${id}`) : null;
     },
-    staleTime: Infinity,
   });
 
   const { data: pageWidgetsQuery } = useSuspenseQuery({
@@ -21,7 +20,6 @@ export const usePageWidgets = (id?: string) => {
     queryFn: async () => {
       return await API.get<PageWidgetType[]>(`/api/page-widget/`);
     },
-    staleTime: Infinity,
   });
 
   const upsertMutation = useMutation({

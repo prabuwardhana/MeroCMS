@@ -60,7 +60,8 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
   const mapKeys = (obj: Record<string, string>, fn: (key: string) => string) =>
     Object.keys(obj).reduce(
       (acc, key: string) => {
-        if (!["fieldId", "fieldLabels", "fieldsTitle"].includes(key)) acc[fn(key)] = obj[key];
+        if (!["widgetId", "fieldId", "fieldLabels", "fieldsTitle", "fieldsCount"].includes(key))
+          acc[fn(key)] = obj[key];
         return acc;
       },
       <Record<string, string>>{},
@@ -68,7 +69,7 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
 
   const pageFieldsJson = page.fields?.reduce(
     (acc, field) => {
-      acc[field["fieldId"].toLowerCase()] = mapKeys(field, (key) => key.split("_")[0]);
+      acc[field["fieldId"]] = mapKeys(field, (key) => key.split("_")[0]);
       return acc;
     },
     <Record<string, Record<string, string>>>{},
