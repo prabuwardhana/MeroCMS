@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { PageType, PostType } from "@/lib/types";
 
-const AUTOSAVE_DEBOUNCE_TIME = 30 * 1000;
+const AUTOSAVE_DEBOUNCE_TIME = 5 * 1000;
 
 export const useAutoSave = ({ onSave }: { onSave: (data: PostType | PageType) => void }) => {
   const [autoSaveTimer, setAutoSaveTimer] = useState<ReturnType<typeof setTimeout> | string | number | undefined>(
