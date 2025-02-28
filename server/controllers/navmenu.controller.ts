@@ -45,6 +45,13 @@ export const getNavMenuByIdHandler = catchErrors(async (req, res) => {
   res.status(OK).json(navMenu);
 });
 
+export const getNavMenuByTitleHandler = catchErrors(async (req, res) => {
+  const navMenu = await NavMenuModel.findOne({ title: req.params.title });
+  appAssert(navMenu, NOT_FOUND, "Nav menu not found");
+
+  res.status(OK).json(navMenu);
+});
+
 export const deleteNavMenuById = catchErrors(async (req, res) => {
   const { id } = req.body;
   await NavMenuModel.findByIdAndDelete({ _id: id });
