@@ -6,6 +6,7 @@ import { useComments } from "@/hooks/api/useComments";
 
 import { DataTable } from "@/components/admin/DataTable";
 import { SkeletonTable } from "@/components/admin/Skeletons";
+import { DeleteConfirmationDialog } from "@/components/admin/Dialogs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -21,6 +22,7 @@ export const CommentsTable = withFallback(
     const [post, setPost] = useState<Pick<PostType, "title" | "slug">>();
     const [isEditOpen, setIsEditOpen] = useState(false);
     const [isReplyOpen, setIsReplyOpen] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
     const { commentsQuery, approveMutation, deleteMutation } = useComments();
 
@@ -64,13 +66,22 @@ export const CommentsTable = withFallback(
     };
 
     const onDelete = (comment: CommentType) => {
-      deleteMutation.mutate(comment._id);
+      setCommentId(comment._id);
+      setIsDeleteOpen(true);
     };
 
     const columns = useMemo(() => getCommentsColumns({ onApprove, onReply, onEdit, onDelete }), []);
 
     return (
       <>
+        <DeleteConfirmationDialog
+          title="Delete Comment"
+          description="Are you sure you want to delete this comment?"
+          objectId={commentId as string}
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          mutate={deleteMutation.mutate}
+        />
         <CreateOrEditComment
           replyTo={commentId?.toString()}
           commentAuthor={commentAuthor}

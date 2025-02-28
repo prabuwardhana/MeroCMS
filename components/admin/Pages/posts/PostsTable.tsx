@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
@@ -8,6 +8,7 @@ import type { PostType } from "@/lib/types";
 
 import { DataTable } from "@/components/admin/DataTable";
 import { SkeletonTable } from "@/components/admin/Skeletons";
+import { DeleteConfirmationDialog } from "@/components/admin/Dialogs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -17,6 +18,9 @@ import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 
 export const PostsTable = withFallback(
   () => {
+    const [postId, setPostId] = useState<string | null>();
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
     const { categoriesQuery } = useCategories();
     const { postsQuery, deleteMutation } = usePosts();
 
@@ -52,25 +56,36 @@ export const PostsTable = withFallback(
       [],
     );
 
-    const onEdit = (Post: PostType) => {
-      navigate(`/admin/posts/${Post._id}/edit`);
+    const onEdit = (post: PostType) => {
+      navigate(`/admin/posts/${post._id}/edit`);
     };
 
-    const onDelete = (Post: PostType) => {
-      deleteMutation.mutate(Post._id);
+    const onDelete = (post: PostType) => {
+      setPostId(post._id);
+      setIsDeleteOpen(true);
     };
 
     const columns = useMemo(() => getPostsColumns({ onEdit, onDelete }), []);
 
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Posts</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <DataTable data={postsQuery.data} columns={columns} type="posts" filterOn={filterOn} />
-        </CardContent>
-      </Card>
+      <>
+        <DeleteConfirmationDialog
+          title="Delete Post"
+          description="Are you sure you want to delete this post?"
+          objectId={postId as string}
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          mutate={deleteMutation.mutate}
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Posts</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DataTable data={postsQuery.data} columns={columns} type="posts" filterOn={filterOn} />
+          </CardContent>
+        </Card>
+      </>
     );
   },
   () => <SkeletonTable />,

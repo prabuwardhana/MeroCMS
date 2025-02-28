@@ -6,6 +6,7 @@ import type { CategoryType } from "@/lib/types";
 import { useCategories } from "@/hooks/api/useCategories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { DeleteConfirmationDialog } from "@/components/admin/Dialogs";
 import { DataTable } from "@/components/admin/DataTable";
 import { SkeletonTable } from "@/components/admin/Skeletons";
 
@@ -19,6 +20,7 @@ export const CategoriesTable = withFallback(
     const [categoryId, setCategoryId] = useState<string>();
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
     const { categoriesQuery, deleteMutation } = useCategories();
 
@@ -28,13 +30,22 @@ export const CategoriesTable = withFallback(
     };
 
     const onDelete = (category: CategoryType) => {
-      deleteMutation.mutate(category._id);
+      setCategoryId(category._id as string);
+      setIsDeleteOpen(true);
     };
 
     const columns = useMemo(() => getCategoriesColumns({ onEdit, onDelete }), []);
 
     return (
       <>
+        <DeleteConfirmationDialog
+          title="Delete Category"
+          description="Are you sure you want to delete this category?"
+          objectId={categoryId as string}
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          mutate={deleteMutation.mutate}
+        />
         <CreateOrEditCategory isOpen={isCreateOpen} setIsOpen={setIsCreateOpen} />
         <CreateOrEditCategory categoryId={categoryId} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
         <Card>

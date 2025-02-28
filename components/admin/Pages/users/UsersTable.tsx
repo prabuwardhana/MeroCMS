@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 
@@ -7,6 +7,7 @@ import type { User } from "@/lib/types";
 
 import { DataTable } from "@/components/admin/DataTable";
 import { SkeletonTable } from "@/components/admin/Skeletons";
+import { DeleteConfirmationDialog } from "@/components/admin/Dialogs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -16,6 +17,9 @@ import { RotateCcw, ShieldAlert, ShieldCheck } from "lucide-react";
 
 export const UsersTable = withFallback(
   () => {
+    const [userId, setUserId] = useState<string | null>();
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
     const { usersQuery, deleteMutation } = useUsers();
 
     const filterOn = useMemo(
@@ -45,20 +49,31 @@ export const UsersTable = withFallback(
     };
 
     const onDelete = (user: User) => {
-      deleteMutation.mutate(user._id);
+      setUserId(user._id);
+      setIsDeleteOpen(true);
     };
 
     const columns = useMemo(() => getUsersColumns({ onEdit, onDelete }), []);
 
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Users</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <DataTable data={usersQuery.data} columns={columns} type="users" filterOn={filterOn} />
-        </CardContent>
-      </Card>
+      <>
+        <DeleteConfirmationDialog
+          title="Delete User"
+          description="Are you sure you want to delete this user?"
+          objectId={userId as string}
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+          mutate={deleteMutation.mutate}
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DataTable data={usersQuery.data} columns={columns} type="users" filterOn={filterOn} />
+          </CardContent>
+        </Card>
+      </>
     );
   },
   () => <SkeletonTable />,
