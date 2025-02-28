@@ -382,7 +382,7 @@ export const CreateOrEditPost = withFallback(
                 />
               </main>
               <aside className="sticky top-[84px] flex h-[calc(100vh-160px)] basis-1/4 flex-col overflow-y-hidden">
-                <Accordion className="border-b" title="Cover Image" open={true}>
+                <Accordion className="border-b text-sm" title="Cover Image" open={true}>
                   <ImageSetter
                     type="Cover"
                     imageUrl={postData.coverImage.secure_url}
@@ -399,7 +399,7 @@ export const CreateOrEditPost = withFallback(
                     }}
                   />
                 </Accordion>
-                <Accordion className="border-b" title="Categories">
+                <Accordion className="border-b text-sm" title="Categories">
                   {categoriesQuery.data.map((category) => {
                     const isChecked = selectedCategories.includes(category.name);
                     return (
@@ -434,7 +434,7 @@ export const CreateOrEditPost = withFallback(
                     );
                   })}
                 </Accordion>
-                <Accordion className="border-b" title="Meta Description">
+                <Accordion className="border-b text-sm" title="Meta Description">
                   <FormField
                     control={formMethods.control}
                     name="excerpt"
