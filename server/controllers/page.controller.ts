@@ -6,7 +6,7 @@ import PageModel from "../models/page.model";
 import { createPageSchema } from "./page.schema";
 
 export const upsertPageHandler = catchErrors(async (req, res) => {
-  const { _id, title, slug, fields, published, publishedAt, author, coverImageUrl } = createPageSchema.parse({
+  const { _id, title, slug, excerpt, fields, published, publishedAt, author, coverImageUrl } = createPageSchema.parse({
     ...req.body,
   });
 
@@ -18,6 +18,7 @@ export const upsertPageHandler = catchErrors(async (req, res) => {
       {
         title,
         slug,
+        excerpt,
         fields,
         published,
         publishedAt,
@@ -33,6 +34,7 @@ export const upsertPageHandler = catchErrors(async (req, res) => {
     page = await PageModel.create({
       title,
       slug,
+      excerpt,
       fields,
       published,
       publishedAt,

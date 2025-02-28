@@ -14,7 +14,7 @@ import { CodeBlock } from "@/components/admin/CodeBlock";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
 import PageTitle from "@/components/admin/AdminPageTitle";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +23,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import Accordion from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,8 +36,9 @@ import type { CloudinaryResourceType, PageWidgetType, PageType } from "@/lib/typ
 import { pageFormSchema } from "@/lib/schemas";
 import { cn, slugify } from "@/lib/utils";
 import { usePageWidgets } from "@/hooks/api/usePageComponents";
-import { useAutoSave } from "@/hooks/useAutoSave";
 import { usePages } from "@/hooks/api/usePages";
+import { useCharacterCounter } from "@/hooks/useCharacterCounter";
+import { useAutoSave } from "@/hooks/useAutoSave";
 
 import { CirclePlus, FileJson2, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
 
@@ -50,6 +52,7 @@ export const CreateOrEditPage = withFallback(
         _id: null,
         title: "",
         slug: "",
+        excerpt: "",
         fields: [],
         coverImageUrl: "",
         published: false,
@@ -77,6 +80,8 @@ export const CreateOrEditPage = withFallback(
     const { pageWidgetsQuery } = usePageWidgets();
     const { pageQuery, upsertMutation, publishMutation } = usePages(routeParams.id, setIsPublishing, setIsUpdating);
 
+    const { textLength, maxLength, countCharacter } = useCharacterCounter(160);
+
     // 1. Define our form.
     const formMethods = useForm<PageType>({
       // Integrate zod as the schema validation library
@@ -87,6 +92,7 @@ export const CreateOrEditPage = withFallback(
       defaultValues: {
         title: pageData.title,
         slug: pageData.slug,
+        excerpt: pageData.excerpt,
         fields: pageData.fields,
         coverImageUrl: pageData.coverImageUrl,
       },
@@ -140,10 +146,15 @@ export const CreateOrEditPage = withFallback(
       reset({
         title: pageData.title,
         slug: pageData.slug,
+        excerpt: pageData.excerpt,
         fields: pageData.fields,
         coverImageUrl: pageData.coverImageUrl,
       });
     }, [reset, pageData]);
+
+    useEffect(() => {
+      countCharacter(pageData.excerpt?.length as number);
+    }, [pageData.excerpt]);
 
     useEffect(() => {
       if (pageWidgetsQuery.data) setPageWidgets(pageWidgetsQuery.data);
@@ -413,23 +424,56 @@ export const CreateOrEditPage = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-[84px] flex h-[calc(100vh-160px)] basis-1/4 flex-col overflow-y-hidden">
-                <Accordion className="border-b text-sm" title="Hero Image" open={true}>
-                  <ImageSetter
-                    type="Hero"
-                    imageUrl={coverImageUrl}
-                    onSetImageClick={() => setIsDialogOpen(true)}
-                    onRemoveImageClick={() => {
-                      setCoverImageUrl("");
-                      setSelectedCoverImages([]);
-                    }}
-                  />
-                </Accordion>
-                <Accordion title="Page Widgets" open={true} className="border-b text-sm space-y-2">
-                  {pageWidgets.map((pageWidget) => (
-                    <PageWidgetButton key={pageWidget._id?.toString()} pageWidget={pageWidget} />
-                  ))}
-                </Accordion>
+              <aside className="sticky top-0 h-[calc(100vh-theme(spacing.16))] basis-1/4 flex-col overflow-y-hidden">
+                <div className="">
+                  <Accordion className="border-b text-sm" title="Hero Image" open={true}>
+                    <ImageSetter
+                      type="Hero"
+                      imageUrl={coverImageUrl}
+                      onSetImageClick={() => setIsDialogOpen(true)}
+                      onRemoveImageClick={() => {
+                        setCoverImageUrl("");
+                        setSelectedCoverImages([]);
+                      }}
+                    />
+                  </Accordion>
+                  <Accordion title="Page Widgets" className="border-b text-sm space-y-2">
+                    {pageWidgets.map((pageWidget) => (
+                      <PageWidgetButton key={pageWidget._id?.toString()} pageWidget={pageWidget} />
+                    ))}
+                  </Accordion>
+                  <Accordion className="border-b text-sm" title="Meta Description">
+                    <FormField
+                      control={formMethods.control}
+                      name="excerpt"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormDescription className="text-xs">
+                            Short and relevant summary of what this page is about.
+                          </FormDescription>
+                          <FormControl>
+                            <Textarea
+                              className="box-border min-h-[156px] bg-background"
+                              onChange={(e) => {
+                                // send back data to hook form (update formState)
+                                field.onChange(e.target.value);
+
+                                countCharacter(e.target.value.length as number);
+                              }}
+                              value={field.value}
+                              maxLength={maxLength}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex justify-end text-xs">
+                      <span className={cn("", textLength > maxLength - 10 && "text-destructive")}>{textLength}</span>/
+                      {maxLength}
+                    </div>
+                  </Accordion>
+                </div>
               </aside>
             </div>
           </form>

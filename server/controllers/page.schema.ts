@@ -8,6 +8,7 @@ export const createPageSchema = z.object({
   slug: z.string().min(1, {
     message: "Slug is required",
   }),
+  excerpt: z.string().optional(),
   fields: z.array(z.record(z.string(), z.string())).optional(),
   published: z.boolean(),
   publishedAt: z.string().datetime({ offset: true }).pipe(z.coerce.date()).nullable(),
