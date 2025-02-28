@@ -56,7 +56,7 @@ export const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
             <Separator />
             <DropdownMenuItem className="cursor-pointer">
               <UserPen />
-              <a href="/admin/profile">Edit Profile</a>
+              <a href="/admin/settings/edit-profile">Edit Profile</a>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => logOutMutation.mutate()} className="cursor-pointer">
               <LogOut />
