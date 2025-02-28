@@ -4,10 +4,9 @@ import type { PageContextServer } from "vike/types";
 import { useConfig } from "vike-react/useConfig";
 import { render } from "vike/abort";
 import { ServerBlockNoteEditor } from "@blocknote/server-util";
-import { Block } from "@blocknote/core";
 import { NOT_FOUND } from "@/constants/http";
 import type { PostDtoType, UserProfile } from "@/lib/types";
-import { schema } from "@/components/admin/Blocknote";
+import { CustomPartialBlock, schema } from "@/components/admin/Blocknote";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
@@ -45,7 +44,7 @@ async function createResponse(post: PostDtoType): Promise<{
   const { title, slug, author, categories, coverImage: image, editorContent, updatedAt } = post;
 
   const editor = ServerBlockNoteEditor.create({ schema });
-  const htmlContent = await editor.blocksToFullHTML(editorContent as Block[]);
+  const htmlContent = await editor.blocksToFullHTML(editorContent as CustomPartialBlock[]);
 
   const coverImage = {
     url: image.secure_url,
