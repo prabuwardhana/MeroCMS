@@ -47,7 +47,6 @@ export const usePosts = (
       if (id) {
         await queryClient.invalidateQueries({ queryKey: ["post", id] });
         if (setIsUpdating) setIsUpdating(false);
-        toast(`Post: "${response.data.post.title}" has been updated succesfully.`);
       } else {
         toast(`Post: "${response.data.post.title}" has been created succesfully.`);
         navigate(`/admin/posts/${response.data.post._id}/edit`);
