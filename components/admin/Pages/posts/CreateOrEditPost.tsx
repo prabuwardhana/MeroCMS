@@ -249,7 +249,7 @@ export const CreateOrEditPost = withFallback(
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>
                                   <a
-                                    href={`/${postData.slug}`}
+                                    href={`/blog/${postData.slug}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2"
