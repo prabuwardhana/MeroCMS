@@ -23,6 +23,7 @@ import navMenuRoutes from "./server/routes/navmenu.route";
 import pageWidgetRoutes from "./server/routes/component.route";
 import pageRoutes from "./server/routes/page.route";
 import siteRoutes from "./server/routes/site.route";
+import { createDevMiddleware } from "vike/server";
 
 const isProduction = NODE_ENV === "production";
 
@@ -40,17 +41,11 @@ async function startServer() {
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`));
   } else {
-    // Instantiate Vite's development server and integrate its middleware to our server.
-    // ⚠️ We should instantiate it *only* in development. (It isn't needed in production
-    // and would unnecessarily bloat our server in production.)
-    const vite = await import("vite");
-    const viteDevMiddleware = (
-      await vite.createServer({
-        root,
-        server: { middlewareMode: true, hmr: { port: hmrPort } },
-      })
-    ).middlewares;
-    app.use(viteDevMiddleware);
+    const { devMiddleware } = await createDevMiddleware({
+      root,
+      viteConfig: { server: { middlewareMode: true, hmr: { port: hmrPort } } },
+    });
+    app.use(devMiddleware);
   }
 
   app.use(express.json());
