@@ -2,7 +2,7 @@ import API from "@/config/apiClient";
 import type { NavMenuType } from "@/lib/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-export const useLayoutData = () => {
+export const useSiteLayout = () => {
   const getNavMenuByTitle = (title: string) => {
     const { data: navMenuQuery } = useSuspenseQuery({
       queryKey: ["nav-menu", title],
