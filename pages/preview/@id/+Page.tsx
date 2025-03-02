@@ -12,6 +12,7 @@ import PostPreview from "../PostPreview.jsx";
 import { RotateCcw } from "lucide-react";
 
 import "@blocknote/shadcn/style.css";
+import "@/components/admin/Blocknote/style.css";
 
 const Page = withFallback(
   () => {
@@ -48,7 +49,7 @@ const Page = withFallback(
             by&nbsp;<span className="font-bold">{post.author.name}</span>
           </div>
         </div>
-        <PostPreview initialContent={post.editorDocument} />
+        <PostPreview initialContent={JSON.parse(post.documentJson as string)} />
       </div>
     );
   },
