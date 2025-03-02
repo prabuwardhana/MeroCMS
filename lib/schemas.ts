@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { type CustomPartialBlock } from "@/components/admin/Blocknote";
 import Role from "@/constants/role";
 
 // Create or edit post form schema
@@ -11,7 +10,7 @@ export const postFormSchema = z.object({
     message: "Slug is required",
   }),
   excerpt: z.string().optional(),
-  editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
+  documentJson: z.string().optional(),
 });
 
 // Create or edit comment form schema

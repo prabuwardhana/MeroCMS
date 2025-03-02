@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { usePageContext } from "vike-react/usePageContext";
+import { useCreateBlockNote } from "@blocknote/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 
 import ImageManagerDialog from "@/components/admin/Dialogs/CoverImageDialog";
-import { type CustomBlockNoteEditor, Editor } from "@/components/admin/Blocknote";
+import { type CustomBlockNoteEditor, CustomPartialBlock, Editor, schema } from "@/components/admin/Blocknote";
 import { SkeletonPostEditor } from "@/components/admin/Skeletons";
 import ImageSetter from "@/components/admin/ImageSetter";
 import SaveStatus from "@/components/admin/SaveStatus";
@@ -63,7 +64,9 @@ export const CreateOrEditPost = withFallback(
         title: "",
         slug: "",
         excerpt: "",
-        editorContent: undefined,
+        editorDocument: undefined,
+        documentJson: undefined,
+        documentHtml: undefined,
         coverImage: initialCoverImageData,
         categories: ["Uncategorized"],
         published: false,
@@ -84,6 +87,7 @@ export const CreateOrEditPost = withFallback(
     const [selectedCoverImages, setSelectedCoverImages] = useState<Array<CloudinaryResourceType>>([]);
     const [selectedCategories, setSelectedCategories] = useState<Array<string>>([]);
     const [postData, setPostData] = useState<PostType>(initialPostData);
+    const [html, setHtml] = useState("");
 
     const { categoriesQuery } = useCategories();
     const { upsertMutation, publishMutation, postQuery } = usePosts(routeParams.id, setIsPublishing, setIsUpdating);
@@ -99,20 +103,15 @@ export const CreateOrEditPost = withFallback(
         title: postData.title,
         slug: postData.slug,
         excerpt: postData.excerpt,
-        editorContent: useMemo(() => {
-          if (postData.editorContent === "loading") {
-            return undefined;
-          }
-
-          return postData.editorContent;
-        }, [postData.editorContent]),
+        documentJson: postData.documentJson,
       },
     });
 
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<PostType> = (formData) => {
+      console.log(html);
       // Saves the content to DB.
-      triggerManualSave({ ...postData, ...formData });
+      triggerManualSave({ ...postData, ...formData, documentHtml: html });
     };
 
     // In edit mode, loads the content from DB.
@@ -120,7 +119,7 @@ export const CreateOrEditPost = withFallback(
       if (routeParams.id && postQuery) {
         const post: PostType = postQuery.data;
         // replace postData with the new one from the DB
-        setPostData(post);
+        setPostData({ ...post, editorContent: JSON.parse(post.documentJson as string) });
         setSelectedCategories(post.categories);
         setLastSavedAt(post.updatedAt);
 
@@ -146,7 +145,7 @@ export const CreateOrEditPost = withFallback(
       reset({
         title: postData.title,
         slug: postData.slug,
-        editorContent: postData.editorContent,
+        documentJson: postData.documentJson,
         excerpt: postData.excerpt,
       });
     }, [reset, postData]);
@@ -214,6 +213,28 @@ export const CreateOrEditPost = withFallback(
       } else {
         publishMutation.mutate(routeParams.id);
       }
+    };
+
+    // ⚠️ This is just a workaround. Need to redo this in the future!
+    // Save the HTML version of our block editor content.
+    // We actually don't need to instantiate another editor instance.
+    // But for our case, we need to disable the editable props
+    // because we want to convert the CodeBlock component instead of
+    // the CodeBlockEditor.
+    // Using the actual editor to convert the document to HTML
+    // will convert the CodeBlockEditor instead.
+    // Disable editing for the actual editor?
+    // The actual editor will no longer editable, so we cannot type anything.
+    const editor = useCreateBlockNote({ schema });
+    const onEditorChange = async (document: CustomPartialBlock[]) => {
+      editor.isEditable = false;
+      const html = await editor.blocksToFullHTML(document);
+      setHtml(html);
+      dispatchAutoSave({
+        ...postData,
+        documentJson: JSON.stringify(document),
+        documentHtml: html,
+      });
     };
 
     return (
@@ -358,7 +379,7 @@ export const CreateOrEditPost = withFallback(
 
                 <FormField
                   control={formMethods.control}
-                  name="editorContent"
+                  name="documentJson"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xs font-bold uppercase text-primary">Content</FormLabel>
@@ -367,12 +388,8 @@ export const CreateOrEditPost = withFallback(
                           initialContent={postData.editorContent}
                           onChange={(editor: CustomBlockNoteEditor) => {
                             // send back data to hook form (update formState)
-                            field.onChange(editor.document);
-
-                            dispatchAutoSave({
-                              ...postData,
-                              editorContent: editor.document,
-                            });
+                            field.onChange(JSON.stringify(editor.document));
+                            onEditorChange(editor.document);
                           }}
                         />
                       </FormControl>

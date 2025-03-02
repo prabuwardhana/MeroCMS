@@ -1,6 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import Role from "@/constants/role";
+import { CustomPartialBlock } from "@/components/admin/Blocknote";
 import { Item } from "@/components/admin/NestableList/libs/types";
 import { commentFormSchema, pageWidgetFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
@@ -70,6 +71,8 @@ export type PageMutationResponseType = { page: PageType; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: string | null;
+  editorContent?: CustomPartialBlock[] | undefined | "loading";
+  documentHtml?: string;
   published: boolean;
   publishedAt: Date | string | null;
   coverImage: CloudinaryResourceType;

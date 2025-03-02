@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { CustomPartialBlock } from "@/components/admin/Blocknote";
 import type { CloudinaryResourceType } from "@/lib/types";
 
 export const createPostSchema = z.object({
@@ -11,7 +10,8 @@ export const createPostSchema = z.object({
     message: "Slug is required",
   }),
   excerpt: z.string().optional(),
-  editorContent: z.custom<CustomPartialBlock[] | "loading">().optional(),
+  documentJson: z.string().optional(),
+  documentHtml: z.string().optional(),
   published: z.boolean(),
   publishedAt: z.string().datetime({ offset: true }).pipe(z.coerce.date()).nullable(),
   author: z.string().nullable(),

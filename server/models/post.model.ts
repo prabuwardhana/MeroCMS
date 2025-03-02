@@ -1,13 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 
-import type { CustomPartialBlock } from "@/components/admin/Blocknote";
 import type { CloudinaryResourceType } from "@/lib/types";
 
 export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   title: string;
   slug: string;
   excerpt?: string;
-  editorContent?: CustomPartialBlock[] | undefined | "loading";
+  documentJson: string;
+  documentHtml: string;
   published: boolean;
   publishedAt: Date | null;
   author: mongoose.Types.ObjectId;
@@ -22,7 +22,8 @@ const postSchema = new mongoose.Schema<PostDocument>(
   {
     title: { type: String, required: true, unique: true },
     slug: { type: String, required: true, unique: true },
-    editorContent: { type: Schema.Types.Mixed, required: false, default: undefined },
+    documentJson: { type: String },
+    documentHtml: { type: String },
     excerpt: { type: String },
     published: { type: Boolean, required: true, default: false },
     publishedAt: { type: Date },
