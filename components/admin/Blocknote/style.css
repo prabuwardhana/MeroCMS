@@ -1,3 +1,6 @@
+@import url("./custom-blocks/CodeBlockEditor/style.css");
+@import url("./custom-blocks/Alert/style.css");
+
 .bn-container[data-theming-css] .bn-default-styles {
   font-family: Poppins, sans-serif;
 }

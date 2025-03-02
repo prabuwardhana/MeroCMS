@@ -1,9 +1,11 @@
 import React from "react";
 import { useData } from "vike-react/useData";
 import type { Data } from "./+data.js";
-import "@blocknote/shadcn/style.css";
 import { Badge } from "@/components/ui/badge.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
+
+import "@blocknote/shadcn/style.css";
+import "@/components/admin/Blocknote/style.css";
 
 export default function Page() {
   const post = useData<Data>();
@@ -37,7 +39,7 @@ export default function Page() {
           by&nbsp;<span className="font-bold">{post.author.name}</span>
         </div>
       </div>
-      <div className="" dangerouslySetInnerHTML={{ __html: post.htmlContent }}></div>
+      <div className="bn-container" dangerouslySetInnerHTML={{ __html: post.documentHtml as string }}></div>
     </div>
   );
 }

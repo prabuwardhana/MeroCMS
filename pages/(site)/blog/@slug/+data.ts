@@ -3,10 +3,8 @@
 import type { PageContextServer } from "vike/types";
 import { useConfig } from "vike-react/useConfig";
 import { render } from "vike/abort";
-import { ServerBlockNoteEditor } from "@blocknote/server-util";
 import { NOT_FOUND } from "@/constants/http";
-import type { PostDtoType, UserProfile } from "@/lib/types";
-import { CustomPartialBlock, schema } from "@/components/admin/Blocknote";
+import type { PostDtoType } from "@/lib/types";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
@@ -17,34 +15,16 @@ export const data = async (pageContext: PageContextServer) => {
   const response = await fetch(`http://localhost:3000/api/site/blog/${pageContext.routeParams.slug}`);
   const post = (await response.json()) as PostDtoType;
 
-  if (!post.title) throw render(NOT_FOUND, "Post Not Found");
+  const { title, excerpt, slug, author, categories, coverImage: image, documentHtml, updatedAt } = post;
+
+  if (!title) throw render(NOT_FOUND, "Post Not Found");
 
   config({
     // Set <title>
-    title: post.title,
-    description: post.excerpt,
+    title: title,
+    description: excerpt,
+    image: image.secure_url,
   });
-
-  return await createResponse(post);
-};
-
-async function createResponse(post: PostDtoType): Promise<{
-  title: string;
-  slug: string;
-  author: UserProfile;
-  categories: string[];
-  coverImage: {
-    url: string;
-    width: number;
-    height: number;
-  };
-  htmlContent: string;
-  updatedAt: Date | null;
-}> {
-  const { title, slug, author, categories, coverImage: image, editorContent, updatedAt } = post;
-
-  const editor = ServerBlockNoteEditor.create({ schema });
-  const htmlContent = await editor.blocksToFullHTML(editorContent as CustomPartialBlock[]);
 
   const coverImage = {
     url: image.secure_url,
@@ -52,5 +32,5 @@ async function createResponse(post: PostDtoType): Promise<{
     height: image.height,
   };
 
-  return Promise.resolve({ title, slug, author, categories, coverImage, htmlContent, updatedAt });
-}
+  return { title, slug, author, categories, coverImage, documentHtml, updatedAt };
+};
