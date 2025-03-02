@@ -68,7 +68,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ) : (
-                <li className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
+                <li key={menu.id} className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
                   <NavigationMenuLink asChild>
                     <a href={menu.url}>
                       <div className="text-sm font-medium leading-none">{menu.name}</div>
@@ -145,7 +145,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
           <ul className="flex gap-32">
             {footerMenu.navItems.map((menu) => {
               return menu.children.length ? (
-                <li className="cursor-pointer space-y-4">
+                <li key={menu.id} className="cursor-pointer space-y-4">
                   <div className="text-xs font-medium leading-none text-primary">{menu.name}</div>
                   <ul className="space-y-3">
                     {(menu.children as Item[]).map((item) => {
@@ -160,7 +160,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
                   </ul>
                 </li>
               ) : (
-                <li className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
+                <li key={menu.id} className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
                   <a href={menu.url}>
                     <div className="text-sm font-medium leading-none">{menu.name}</div>
                   </a>
