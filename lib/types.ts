@@ -71,7 +71,7 @@ export type PageMutationResponseType = { page: PageType; message: string };
 
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: string | null;
-  editorContent?: CustomPartialBlock[] | undefined | "loading";
+  editorDocument?: CustomPartialBlock[] | undefined | "loading";
   documentHtml?: string;
   published: boolean;
   publishedAt: Date | string | null;

@@ -119,7 +119,7 @@ export const CreateOrEditPost = withFallback(
       if (routeParams.id && postQuery) {
         const post: PostType = postQuery.data;
         // replace postData with the new one from the DB
-        setPostData({ ...post, editorContent: JSON.parse(post.documentJson as string) });
+        setPostData({ ...post, editorDocument: JSON.parse(post.documentJson as string) });
         setSelectedCategories(post.categories);
         setLastSavedAt(post.updatedAt);
 
@@ -385,7 +385,7 @@ export const CreateOrEditPost = withFallback(
                       <FormLabel className="text-xs font-bold uppercase text-primary">Content</FormLabel>
                       <FormControl>
                         <Editor
-                          initialContent={postData.editorContent}
+                          initialContent={postData.editorDocument}
                           onChange={(editor: CustomBlockNoteEditor) => {
                             // send back data to hook form (update formState)
                             field.onChange(JSON.stringify(editor.document));

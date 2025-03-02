@@ -48,7 +48,7 @@ const Page = withFallback(
             by&nbsp;<span className="font-bold">{post.author.name}</span>
           </div>
         </div>
-        <PostPreview initialContent={post.editorContent} />
+        <PostPreview initialContent={post.editorDocument} />
       </div>
     );
   },
