@@ -21,4 +21,4 @@ export const langTypes = [
     name: "tsx",
     icon: SiReact,
   },
-] as const;
+];

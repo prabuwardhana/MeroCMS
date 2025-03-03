@@ -1,5 +1,6 @@
 import React from "react";
 import { z } from "zod";
+import { IconType } from "react-icons";
 import Role from "@/constants/role";
 import { CustomPartialBlock } from "@/components/admin/Blocknote";
 import { Item } from "@/components/admin/NestableList/libs/types";
@@ -140,7 +141,7 @@ export type PageWidgetType = z.infer<typeof pageWidgetFormSchema> & {
 };
 export type PageWidgetMutationResponseType = { pageWidget: PageWidgetType; message: string };
 
-export type SocialLinkType = {
-  id: string;
+export type IconListType = {
   name: string;
+  icon: IconType;
 };

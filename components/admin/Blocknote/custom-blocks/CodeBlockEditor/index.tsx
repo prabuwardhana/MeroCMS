@@ -6,19 +6,15 @@ import { createReactBlockSpec } from "@blocknote/react";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { langs } from "@uiw/codemirror-extensions-langs";
 
-// Shadcn components import
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-
-import { cn } from "@/lib/utils";
 import { langTypes } from "./constants";
-
-import { Check, ChevronsUpDown } from "lucide-react";
 
 // Code block style
 import "./style.css";
 import { CodeBlock } from "@/components/admin/CodeBlock";
+import { DropdownSelectWithIcon } from "@/components/admin/Dropdowns";
+import { IconListType } from "@/lib/types";
+
+type langNameList = "css" | "javascript" | "jsx" | "typescript" | "tsx" | undefined;
 
 export const CodeBlockEditor = createReactBlockSpec(
   {
@@ -40,7 +36,7 @@ export const CodeBlockEditor = createReactBlockSpec(
       const { code, langName } = block.props;
 
       const [open, setOpen] = useState(false);
-      const [value, setValue] = useState("");
+      const [value, setValue] = useState("typescript");
 
       const onChange = useCallback(
         (val: string) =>
@@ -50,59 +46,24 @@ export const CodeBlockEditor = createReactBlockSpec(
         [],
       );
 
-      const langType = langTypes.find((a) => a.name === block.props.langName)!;
-      const Icon = langType.icon;
+      const handleSelect = (currentValue: string, type?: IconListType) => {
+        setValue(currentValue === value ? "" : currentValue);
+        setOpen(false);
+        editor.updateBlock(block, {
+          type: "procode",
+          props: { langName: type?.name as langNameList },
+        });
+      };
 
       return editor.isEditable ? (
         <div className="w-full">
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                data-button-type="lang-selector"
-                className="justify-between hover:bg-transparent text-white"
-              >
-                <div className="flex items-center gap-3">
-                  <Icon size={16} />
-                  <div className="text-sm">{langName}</div>
-                </div>
-                <ChevronsUpDown className="opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
-              <Command>
-                <CommandInput placeholder="Search languages..." />
-                <CommandList>
-                  <CommandEmpty>No languages found.</CommandEmpty>
-                  <CommandGroup>
-                    {langTypes.map((type) => {
-                      const ItemIcon = type.icon;
-                      return (
-                        <CommandItem
-                          key={type.name}
-                          value={type.name}
-                          onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
-                            setOpen(false);
-                            editor.updateBlock(block, {
-                              type: "procode",
-                              props: { langName: type.name },
-                            });
-                          }}
-                        >
-                          <ItemIcon />
-                          {type.name}
-                          <Check className={cn("ml-auto", value === type.name ? "opacity-100" : "opacity-0")} />
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+          <DropdownSelectWithIcon
+            icons={langTypes}
+            value={langName}
+            open={open}
+            setOpen={setOpen}
+            onSelect={handleSelect}
+          />
           <ReactCodeMirror
             id={block?.id}
             autoFocus
