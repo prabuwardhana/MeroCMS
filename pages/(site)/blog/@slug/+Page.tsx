@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
 
 import "@blocknote/shadcn/style.css";
 import "@/components/admin/Blocknote/style.css";
+import BlogPost from "@/components/site/BlogPost/BlogPost.jsx";
 
 export default function Page() {
   const post = useData<Data>();
@@ -39,7 +40,7 @@ export default function Page() {
           by&nbsp;<span className="font-bold">{post.author.name}</span>
         </div>
       </div>
-      <div className="bn-container" dangerouslySetInnerHTML={{ __html: post.documentHtml as string }}></div>
+      <BlogPost documentHtml={post.documentHtml as string} />
     </div>
   );
 }
