@@ -33,7 +33,7 @@ const CategoryItems = () => {
   );
 
   return (
-    <Accordion title="Categories">
+    <Accordion className="border-b text-sm" title="Categories">
       <Card className="mb-4 border">
         <CardContent className="p-4">
           {categoriesQuery.data.map((category) => {

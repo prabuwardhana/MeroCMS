@@ -32,7 +32,7 @@ const PageItems = () => {
   );
 
   return (
-    <Accordion className="border-b" title="Pages" open={true}>
+    <Accordion className="border-b text-sm" title="Pages" open={true}>
       <Card className="mb-4 border">
         <CardContent className="p-4">
           {pagesQuery.data.map((page) => {
