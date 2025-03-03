@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 import { useSiteLayout } from "@/hooks/api/useSiteLayout";
 import { Item } from "@/components/admin/NestableList/libs/types";
+import SocialIcon from "@/components/admin/SocialIcon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -42,6 +43,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
   const { getNavMenuByTitle } = useSiteLayout();
   const headerMenu = getNavMenuByTitle("Header Menu");
   const footerMenu = getNavMenuByTitle("Footer Menu");
+  const socialLinks = getNavMenuByTitle("Social Links");
 
   return (
     <>
@@ -139,36 +141,47 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
           <ReactQueryDevtools initialIsOpen={false} />
         </div>
       </div>
-      <Footer className="flex py-20 px-24 bg-muted">
-        <Logo />
-        <nav>
-          <ul className="flex gap-32">
-            {footerMenu.navItems.map((menu) => {
-              return menu.children.length ? (
-                <li key={menu.id} className="cursor-pointer space-y-4">
-                  <div className="text-xs font-medium leading-none text-primary">{menu.name}</div>
-                  <ul className="space-y-3">
-                    {(menu.children as Item[]).map((item) => {
-                      return (
-                        <li key={item.id} className="cursor-pointer hover:text-slate-500">
-                          <a href={item.url}>
-                            <div className="text-sm font-medium leading-none">{item.name}</div>
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </li>
-              ) : (
-                <li key={menu.id} className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
-                  <a href={menu.url}>
-                    <div className="text-sm font-medium leading-none">{menu.name}</div>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+      <Footer className="flex flex-col pt-20 px-24 bg-muted">
+        <div className="flex w-full pb-6 border-b">
+          <Logo />
+          <nav>
+            <ul className="flex gap-32">
+              {footerMenu.navItems.map((menu) => {
+                return menu.children.length ? (
+                  <li key={menu.id} className="cursor-pointer space-y-4">
+                    <div className="text-xs font-medium leading-none text-primary">{menu.name}</div>
+                    <ul className="space-y-3">
+                      {(menu.children as Item[]).map((item) => {
+                        return (
+                          <li key={item.id} className="cursor-pointer hover:text-slate-500">
+                            <a href={item.url}>
+                              <div className="text-sm font-medium leading-none">{item.name}</div>
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                ) : (
+                  <li key={menu.id} className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
+                    <a href={menu.url}>
+                      <div className="text-sm font-medium leading-none">{menu.name}</div>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+        <div className="flex justify-end gap-4 py-4">
+          {socialLinks.navItems.map((item) => {
+            return (
+              <a key={item.id} href={item.url}>
+                <SocialIcon name={item.name} size="18" />
+              </a>
+            );
+          })}
+        </div>
       </Footer>
     </>
   );
