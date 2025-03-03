@@ -6,3 +6,9 @@ export const createCommentSchema = z.object({
   }),
   parentId: z.string().nullable(),
 });
+
+export const updateCommentSchema = z.object({
+  content: z.string().min(1, {
+    message: "Content is required",
+  }),
+});

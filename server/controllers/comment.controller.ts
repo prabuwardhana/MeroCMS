@@ -6,7 +6,7 @@ import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import PostModel from "../models/post.model";
 import CommentModel from "../models/comment.model";
-import { createCommentSchema } from "./comment.schema";
+import { createCommentSchema, updateCommentSchema } from "./comment.schema";
 
 const debounce = new Set();
 
@@ -49,7 +49,7 @@ export const updateCommentHandler = catchErrors(async (req, res) => {
   const userId = req.userId;
   const userRole = req.userRole;
 
-  const { content } = createCommentSchema.parse({ ...req.body });
+  const { content } = updateCommentSchema.parse({ ...req.body });
 
   const comment = await CommentModel.findById(commentId);
   appAssert(comment, NOT_FOUND, "Comment not found");

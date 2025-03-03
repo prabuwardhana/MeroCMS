@@ -76,7 +76,7 @@ export const CreateOrEditComment = ({
         parentId: replyTo,
         post,
       });
-    else editMutation.mutate(formData);
+    else editMutation.mutate({ ...formData, _id: commentId! });
     setIsOpen(false);
   };
   const handleSubmitError: SubmitErrorHandler<CommentType> = (formData) => {
