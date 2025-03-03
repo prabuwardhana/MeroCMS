@@ -32,7 +32,6 @@ export function DeleteConfirmationDialog({
   // 1. Define our form.
   const formMethods = useForm<z.infer<typeof formSchema>>({
     resolver: async (data, context, options) => {
-      console.log(data);
       return zodResolver(formSchema)(data, context, options);
     },
     defaultValues: {
@@ -44,7 +43,6 @@ export function DeleteConfirmationDialog({
 
   // 2. Define the form submit handler.
   const handleSubmit: SubmitHandler<z.infer<typeof formSchema>> = ({ objectId }) => {
-    console.log("handle submit", objectId);
     try {
       mutate(objectId);
       setIsOpen(false);

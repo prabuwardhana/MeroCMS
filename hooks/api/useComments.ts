@@ -27,7 +27,6 @@ export const useComments = (id?: string) => {
 
   const createMutation = useMutation({
     mutationFn: async (data: CommentType) => {
-      console.log(data);
       return API.post<CommentMutationResponseType>(`/api/comment/post/${data.post.slug}`, { ...data });
     },
     onSuccess: async () => {
