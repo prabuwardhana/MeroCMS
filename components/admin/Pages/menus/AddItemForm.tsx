@@ -3,6 +3,7 @@ import React from "react";
 import PageItems from "./PageItems";
 import CategoryItems from "./CategoryItems";
 import CustomLinkItem from "./CustomLinkItem";
+import SocialLinkItems from "./SocialLinkItems";
 
 const AddItemForm = () => {
   return (
@@ -10,6 +11,7 @@ const AddItemForm = () => {
       <PageItems />
       <CustomLinkItem />
       <CategoryItems />
+      <SocialLinkItems />
     </div>
   );
 };

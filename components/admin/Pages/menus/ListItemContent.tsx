@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
+import SocialIcon from "../../SocialIcon";
 
 // render function to render the list items' content
 const ListItemContent = ({ item, isAccordionOpen, isCopy, draggableElAttr, eventCallbacks }: RenderItemOptions) => {
@@ -57,7 +58,7 @@ const ListItemContent = ({ item, isAccordionOpen, isCopy, draggableElAttr, event
         )}
       >
         <div className="overflow-hidden space-y-6">
-          {item.name && (
+          {item.type !== "social-link-item" && item.name && (
             <div className="space-y-2">
               <Label htmlFor={isCopy ? `nameInputCopy-${copyElId}` : `nameInput-${item.id}`}>Navigation Label</Label>
               <Input
@@ -69,6 +70,13 @@ const ListItemContent = ({ item, isAccordionOpen, isCopy, draggableElAttr, event
                   eventCallbacks.onInputChange("name", e.target.value, item)
                 }
               />
+            </div>
+          )}
+
+          {item.type === "social-link-item" && item.name && (
+            <div className="flex gap-4 items-center">
+              <span>Icon </span>
+              <SocialIcon name={item.name} size="24" />
             </div>
           )}
 

@@ -139,3 +139,8 @@ export type PageWidgetType = z.infer<typeof pageWidgetFormSchema> & {
   fields: PageWidgetFieldType[];
 };
 export type PageWidgetMutationResponseType = { pageWidget: PageWidgetType; message: string };
+
+export type SocialLinkType = {
+  id: string;
+  name: string;
+};
