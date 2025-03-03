@@ -109,7 +109,6 @@ export const CreateOrEditPost = withFallback(
 
     // 2. Define the form submit handler.
     const handleSubmit: SubmitHandler<PostType> = (formData) => {
-      console.log(html);
       // Saves the content to DB.
       triggerManualSave({ ...postData, ...formData, documentHtml: html });
     };
