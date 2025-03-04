@@ -49,7 +49,7 @@ export const getCommentsColumns = ({
   {
     accessorKey: "content",
     header: "Comment",
-    cell: (info) => info.getValue(),
+    cell: (info) => <div dangerouslySetInnerHTML={{ __html: info.getValue() as string }}></div>,
   },
   {
     accessorKey: "post.title",
