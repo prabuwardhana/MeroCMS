@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
@@ -8,12 +8,14 @@ import ToolBar from "./ToolBar";
 
 const RichTextEditor = ({
   content,
+  cleared,
   onChange,
   className,
 }: {
   content: string | undefined;
   onChange: (richText: string) => void;
   className?: string;
+  cleared?: boolean;
 }) => {
   const editor = useEditor({
     extensions: [
@@ -44,6 +46,10 @@ const RichTextEditor = ({
       onChange(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (cleared) editor?.commands.clearContent();
+  }, [cleared]);
 
   return (
     <div>

@@ -6,9 +6,10 @@ import RichTextEditor from "@/components/admin/RichTextEditor";
 interface RichTextProps<T extends FieldValues> extends UseControllerProps<T> {
   label: string;
   disabled?: boolean;
+  cleared?: boolean;
 }
 
-export const RichText = <T extends FieldValues>({ name, control, label }: RichTextProps<T>) => {
+export const RichText = <T extends FieldValues>({ name, control, label, cleared }: RichTextProps<T>) => {
   return (
     <FormField
       control={control}
@@ -20,6 +21,7 @@ export const RichText = <T extends FieldValues>({ name, control, label }: RichTe
             <FormControl>
               <RichTextEditor
                 content={field.value}
+                cleared={cleared}
                 onChange={(value) => field.onChange(value)}
                 className="bg-background"
               />
