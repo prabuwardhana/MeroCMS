@@ -94,7 +94,7 @@ export const deleteCommentHandler = catchErrors(async (req, res) => {
   return res.status(OK).json({ message: "Comment is successfully deleted" });
 });
 
-export const getCommentsOnPostHandler = catchErrors(async (req, res) => {
+export const getPostCommentsHandler = catchErrors(async (req, res) => {
   const postSlug = req.params.slug;
 
   const post = await PostModel.findOne({ slug: postSlug });

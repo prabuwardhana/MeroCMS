@@ -6,7 +6,7 @@ import {
   deleteCommentHandler,
   getCommentHandler,
   getCommentsHandler,
-  getCommentsOnPostHandler,
+  getPostCommentsHandler,
   updateCommentHandler,
 } from "../controllers/comment.controller";
 import verifyAuthCookies from "../middlewares/session";
@@ -21,6 +21,6 @@ commentRoutes.patch("/approve/:commentId", authenticate, authorize([Role.Admin])
 commentRoutes.patch("/:commentId", verifyAuthCookies, updateCommentHandler);
 commentRoutes.delete("/:commentId", verifyAuthCookies, deleteCommentHandler);
 commentRoutes.post("/post/:slug", verifyAuthCookies, createCommentHandler);
-commentRoutes.get("/post/:slug", verifyAuthCookies, getCommentsOnPostHandler);
+commentRoutes.get("/post/:slug", getPostCommentsHandler);
 
 export default commentRoutes;
