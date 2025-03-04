@@ -91,7 +91,7 @@ export type CommentType = z.infer<typeof commentFormSchema> & {
   _id: string | null;
   author: User | null;
   post: Pick<PostType, "title" | "slug">;
-  parentId: string | null;
+  parent: string | null;
   edited: boolean;
   approved: boolean;
   children?: Array<CommentType>;

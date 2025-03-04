@@ -13,7 +13,7 @@ const debounce = new Set();
 export const createCommentHandler = catchErrors(async (req, res) => {
   const userId = req.userId;
   const userRole = req.userRole;
-  const { content, parentId } = createCommentSchema.parse({ ...req.body });
+  const { content, parent } = createCommentSchema.parse({ ...req.body });
 
   const post = await PostModel.findOne({ slug: req.params.slug });
   appAssert(post, NOT_FOUND, "Post not found");
@@ -31,7 +31,7 @@ export const createCommentHandler = catchErrors(async (req, res) => {
     content,
     author: userId,
     post: post._id,
-    parent: new Types.ObjectId(parentId as string),
+    parent: parent ? new Types.ObjectId(parent as string) : null,
     approved,
   });
 

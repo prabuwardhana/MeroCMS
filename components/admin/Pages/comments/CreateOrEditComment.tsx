@@ -39,7 +39,7 @@ export const CreateOrEditComment = ({
       _id: null,
       author: null,
       content: "",
-      parentId: null,
+      parent: null,
       post: {
         title: "",
         slug: "",
@@ -73,7 +73,7 @@ export const CreateOrEditComment = ({
     if (replyTo && post)
       createMutation.mutate({
         ...formData,
-        parentId: replyTo,
+        parent: replyTo,
         post,
       });
     else editMutation.mutate({ ...formData, _id: commentId! });
