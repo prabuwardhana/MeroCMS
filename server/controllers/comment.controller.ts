@@ -87,7 +87,7 @@ export const deleteCommentHandler = catchErrors(async (req, res) => {
   const post = await PostModel.findById(comment.post);
   appAssert(post, NOT_FOUND, "Post not found");
 
-  post.commentCount = (await CommentModel.find({ postSlug: post.slug })).length;
+  post.commentCount = (await CommentModel.find({ post: post._id })).length;
 
   await post.save();
 
