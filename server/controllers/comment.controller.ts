@@ -91,7 +91,7 @@ export const deleteCommentHandler = catchErrors(async (req, res) => {
 
   await post.save();
 
-  return res.status(OK).json({ message: "Comment is successfully deleted" });
+  return res.status(OK).json({ commentCount: post.commentCount, message: "Comment is successfully deleted" });
 });
 
 export const getPostCommentsHandler = catchErrors(async (req, res) => {
