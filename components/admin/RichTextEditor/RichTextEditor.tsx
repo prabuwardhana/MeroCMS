@@ -37,6 +37,7 @@ const RichTextEditor = ({
       Highlight,
     ],
     content: content,
+    immediatelyRender: false,
     editorProps: {
       attributes: {
         class: "min-h-[96px] border rounded-b-md py-2 px-3 text-sm",
