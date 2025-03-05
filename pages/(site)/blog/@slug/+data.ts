@@ -15,7 +15,7 @@ export const data = async (pageContext: PageContextServer) => {
   const response = await fetch(`http://localhost:3000/api/site/blog/${pageContext.routeParams.slug}`);
   const post = (await response.json()) as PostDtoType;
 
-  const { title, excerpt, slug, author, categories, coverImage: image, documentHtml, updatedAt } = post;
+  const { title, excerpt, slug, author, categories, coverImage: image, documentHtml, commentCount, updatedAt } = post;
 
   if (!title) throw render(NOT_FOUND, "Post Not Found");
 
@@ -32,5 +32,5 @@ export const data = async (pageContext: PageContextServer) => {
     height: image.height,
   };
 
-  return { title, slug, author, categories, coverImage, documentHtml, updatedAt };
+  return { title, slug, author, categories, coverImage, documentHtml, commentCount, updatedAt };
 };

@@ -79,6 +79,7 @@ export type PostType = z.infer<typeof postFormSchema> & {
   coverImage: CloudinaryResourceType;
   categories: string[];
   author: string | null;
+  commentCount: number;
   updatedAt: Date | null;
 };
 export type PostMutationResponseType = { post: PostType; message: string };
