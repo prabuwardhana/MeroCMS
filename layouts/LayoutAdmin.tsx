@@ -1,6 +1,6 @@
 import "./tailwind.admin.css";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -41,23 +41,28 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
 
   const containerControls = useAnimationControls();
 
+  const start = useMemo(() => containerControls.start, [containerControls.start]);
+
   useEffect(() => {
     setCollapsed(!isDesktopDevice);
   }, [isDesktopDevice]);
 
   useEffect(() => {
     if (isDesktopDevice && !collapsed) {
-      containerControls.start("open");
+      start("open");
     } else {
-      containerControls.start("close");
+      start("close");
     }
   }, [isDesktopDevice, collapsed, containerControls]);
 
-  useClickOutside([sidebarRef], () => {
-    if (!isDesktopDevice && !collapsed) {
-      setCollapsed(true);
-    }
-  });
+  useClickOutside(
+    [sidebarRef],
+    useCallback(() => {
+      if (!isDesktopDevice && !collapsed) {
+        setCollapsed(true);
+      }
+    }, []),
+  );
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
