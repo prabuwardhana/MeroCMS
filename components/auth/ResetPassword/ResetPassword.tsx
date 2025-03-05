@@ -14,7 +14,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 
-import API from "@/config/apiClient";
+import API from "@/src/config/apiClient";
 // import ResetPasswordForm from "./ResetPasswordForm";
 
 // Schema for password validation

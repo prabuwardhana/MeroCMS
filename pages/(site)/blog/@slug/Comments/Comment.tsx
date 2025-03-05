@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePageContext } from "vike-react/usePageContext";
 import { navigate } from "vike/client/router";
 import { formatDistance } from "date-fns";
-import type { CommentDeleteMutationResponseType, CommentType } from "@/lib/types";
-import Role from "@/constants/role";
+import type { CommentDeleteMutationResponseType, CommentType } from "@/src/lib/types";
+import Role from "@/src/constants/role";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CommentEditor } from "./CommentEditor";

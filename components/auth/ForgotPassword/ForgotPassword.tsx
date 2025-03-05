@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AlertCircle } from "lucide-react";
 
-import API from "@/config/apiClient";
+import API from "@/src/config/apiClient";
 
 // Schema for email validation
 const formSchema = z.object({

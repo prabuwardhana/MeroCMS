@@ -1,5 +1,5 @@
-import API from "@/config/apiClient";
-import type { PageMutationResponseType, PageType } from "@/lib/types";
+import API from "@/src/config/apiClient";
+import type { PageMutationResponseType, PageType } from "@/src/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { navigate } from "vike/client/router";

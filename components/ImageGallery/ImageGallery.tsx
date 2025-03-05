@@ -3,10 +3,10 @@ import { withFallback } from "vike-react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, RotateCcw, Trash2 } from "lucide-react";
 
-import { cn, convertByteToKiloMegabyte } from "@/lib/utils";
-import type { CloudinaryResourceType } from "@/lib/types";
-import { opacityVariants } from "@/constants/framerMotion";
-import { useImages } from "@/hooks/api/useImages";
+import { cn, convertByteToKiloMegabyte } from "@/src/lib/utils";
+import type { CloudinaryResourceType } from "@/src/lib/types";
+import { opacityVariants } from "@/src/constants/framerMotion";
+import { useImages } from "@/src/hooks/api/useImages";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";

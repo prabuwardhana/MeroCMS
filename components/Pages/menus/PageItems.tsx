@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 
-import { usePages } from "@/hooks/api/usePages";
-import type { PageType } from "@/lib/types";
+import { usePages } from "@/src/hooks/api/usePages";
+import type { PageType } from "@/src/lib/types";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 import { Item } from "@/components/NestableList/libs/types";

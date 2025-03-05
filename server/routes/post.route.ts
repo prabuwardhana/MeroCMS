@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Role from "@/constants/role";
+import Role from "@/src/constants/role";
 import {
   upsertPostHandler,
   getPostByIdHandler,

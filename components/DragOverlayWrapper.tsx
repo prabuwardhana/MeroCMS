@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Active, DragOverlay, useDndMonitor } from "@dnd-kit/core";
-import { usePageWidgetsStore } from "@/store/pageComponentsStore";
+import { usePageWidgetsStore } from "@/src/store/pageComponentsStore";
 import { PageWidgetButtonDragOverlay } from "@/components/PageWidgetButton";
 
 const DragOverlayWrapper = () => {

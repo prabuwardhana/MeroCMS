@@ -1,7 +1,7 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { BookPlus, PencilLine } from "lucide-react";
-import type { PageType } from "@/lib/types";
+import type { PageType } from "@/src/lib/types";
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";

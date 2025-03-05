@@ -1,5 +1,5 @@
-import API from "@/config/apiClient";
-import type { CommentMutationResponseType, CommentType } from "@/lib/types";
+import API from "@/src/config/apiClient";
+import type { CommentMutationResponseType, CommentType } from "@/src/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 

@@ -1,4 +1,4 @@
-import type { ExtendedFile } from "@/lib/types";
+import type { ExtendedFile } from "@/src/lib/types";
 import { create } from "zustand";
 
 type FileState = {

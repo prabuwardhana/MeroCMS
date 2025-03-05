@@ -1,5 +1,5 @@
-import type { CategoryType, User } from "@/lib/types";
-import { NOT_FOUND, OK } from "@/constants/http";
+import type { CategoryType, User } from "@/src/lib/types";
+import { NOT_FOUND, OK } from "@/src/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import CategoryModel from "../models/category.model";

@@ -3,8 +3,8 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 
-import { usePages } from "@/hooks/api/usePages";
-import type { PageType } from "@/lib/types";
+import { usePages } from "@/src/hooks/api/usePages";
+import type { PageType } from "@/src/lib/types";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";

@@ -12,7 +12,7 @@ import { langTypes } from "./constants";
 import "./style.css";
 import { CodeBlock } from "@/components/CodeBlock";
 import { DropdownSelectWithIcon } from "@/components/Dropdowns";
-import { IconListType } from "@/lib/types";
+import { IconListType } from "@/src/lib/types";
 
 type langNameList = "css" | "javascript" | "jsx" | "typescript" | "tsx" | undefined;
 

@@ -5,10 +5,10 @@ import { usePageContext } from "vike-react/usePageContext";
 import { withFallback } from "vike-react-query";
 import { RotateCcw, Trash2 } from "lucide-react";
 
-import { useUserProfileStore } from "@/store/userProfileStore";
-import { useProfiles } from "@/hooks/api/useProfiles";
-import type { CloudinaryResourceType, UserProfile } from "@/lib/types";
-import { profileFormSchema } from "@/lib/schemas";
+import { useUserProfileStore } from "@/src/store/userProfileStore";
+import { useProfiles } from "@/src/hooks/api/useProfiles";
+import type { CloudinaryResourceType, UserProfile } from "@/src/lib/types";
+import { profileFormSchema } from "@/src/lib/schemas";
 
 import ImageManagerDialog from "@/components/Dialogs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";

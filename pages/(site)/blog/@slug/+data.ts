@@ -3,8 +3,8 @@
 import type { PageContextServer } from "vike/types";
 import { useConfig } from "vike-react/useConfig";
 import { render } from "vike/abort";
-import { NOT_FOUND } from "@/constants/http";
-import type { PostDtoType } from "@/lib/types";
+import { NOT_FOUND } from "@/src/constants/http";
+import type { PostDtoType } from "@/src/lib/types";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

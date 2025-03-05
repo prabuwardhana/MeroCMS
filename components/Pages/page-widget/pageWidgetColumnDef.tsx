@@ -1,6 +1,6 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import type { PageWidgetType } from "@/lib/types";
+import type { PageWidgetType } from "@/src/lib/types";
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 

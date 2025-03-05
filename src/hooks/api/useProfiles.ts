@@ -1,5 +1,5 @@
-import API from "@/config/apiClient";
-import type { UserMutationResponseType, UserProfile } from "@/lib/types";
+import API from "@/src/config/apiClient";
+import type { UserMutationResponseType, UserProfile } from "@/src/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 

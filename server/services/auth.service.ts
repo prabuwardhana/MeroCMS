@@ -1,5 +1,5 @@
-import { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, TOO_MANY_REQUESTS, UNAUTHORIZED } from "@/constants/http";
-import Role from "@/constants/role";
+import { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, TOO_MANY_REQUESTS, UNAUTHORIZED } from "@/src/constants/http";
+import Role from "@/src/constants/role";
 import VerificationCodeType from "../constants/verificationCodeType";
 import { APP_BASE_URL, PORT } from "../constants/env";
 import { fiveMinutesAgo, ONE_DAY_MS, oneHourFromNow, oneYearFromNow, thirtyDaysFromNow } from "../utils/date";

@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-import { IconListType } from "@/lib/types";
+import { cn } from "@/src/lib/utils";
+import { IconListType } from "@/src/lib/types";
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";

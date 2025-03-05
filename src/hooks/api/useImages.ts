@@ -1,6 +1,6 @@
-import API, { CloudinaryClient } from "@/config/apiClient";
-import type { CloudinaryResponseType, ExtendedFile } from "@/lib/types";
-import { useFileUploadStore } from "@/store/fileUploadStore";
+import API, { CloudinaryClient } from "@/src/config/apiClient";
+import type { CloudinaryResponseType, ExtendedFile } from "@/src/lib/types";
+import { useFileUploadStore } from "@/src/store/fileUploadStore";
 import { useMutation, useQueryClient, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 export const useImages = (

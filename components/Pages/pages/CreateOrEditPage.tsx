@@ -8,15 +8,15 @@ import { withFallback } from "vike-react-query";
 import { toast } from "sonner";
 import { CirclePlus, FileJson2, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
 
-import { usePageWidgetsStore } from "@/store/pageComponentsStore";
-import { dateStringOptions } from "@/constants/dateTimeOptions";
-import type { CloudinaryResourceType, PageWidgetType, PageType } from "@/lib/types";
-import { pageFormSchema } from "@/lib/schemas";
-import { cn, slugify } from "@/lib/utils";
-import { useCharacterCounter } from "@/hooks/useCharacterCounter";
-import { usePageWidgets } from "@/hooks/api/usePageComponents";
-import { useAutoSave } from "@/hooks/useAutoSave";
-import { usePages } from "@/hooks/api/usePages";
+import { usePageWidgetsStore } from "@/src/store/pageComponentsStore";
+import { dateStringOptions } from "@/src/constants/dateTimeOptions";
+import type { CloudinaryResourceType, PageWidgetType, PageType } from "@/src/lib/types";
+import { pageFormSchema } from "@/src/lib/schemas";
+import { cn, slugify } from "@/src/lib/utils";
+import { useCharacterCounter } from "@/src/hooks/useCharacterCounter";
+import { usePageWidgets } from "@/src/hooks/api/usePageComponents";
+import { useAutoSave } from "@/src/hooks/useAutoSave";
+import { usePages } from "@/src/hooks/api/usePages";
 
 import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";
 import { PageWidgetButton } from "@/components/PageWidgetButton";

@@ -1,5 +1,5 @@
-import API from "@/config/apiClient";
-import type { NavMenuType } from "@/lib/types";
+import API from "@/src/config/apiClient";
+import type { NavMenuType } from "@/src/lib/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useSiteLayout = () => {

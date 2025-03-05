@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { PageType, PostType } from "@/lib/types";
+import type { PageType, PostType } from "@/src/lib/types";
 
 const AUTOSAVE_DEBOUNCE_TIME = 5 * 1000;
 

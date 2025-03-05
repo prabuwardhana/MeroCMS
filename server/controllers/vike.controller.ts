@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { renderPage } from "vike/server";
-import type { User } from "@/lib/types";
+import type { User } from "@/src/lib/types";
 import UserModel from "../models/user.model";
 
 export const vikeHandler: RequestHandler = async (req, res) => {

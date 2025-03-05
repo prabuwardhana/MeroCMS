@@ -1,4 +1,4 @@
-import API from "@/config/apiClient";
+import API from "@/src/config/apiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { navigate } from "vike/client/router";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { GripVertical } from "lucide-react";
 import { useDraggable } from "@dnd-kit/core";
-import type { PageWidgetType } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import type { PageWidgetType } from "@/src/lib/types";
+import { cn } from "@/src/lib/utils";
 
 export const PageWidgetButton = ({ pageWidget }: { pageWidget: PageWidgetType }) => {
   const draggable = useDraggable({

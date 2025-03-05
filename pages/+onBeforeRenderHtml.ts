@@ -1,4 +1,4 @@
-import { createCounterStore } from "@/store/counterStore";
+import { createCounterStore } from "@/src/store/counterStore";
 import { PageContext } from "vike/types";
 
 export function onBeforeRenderHtml(pageContext: PageContext) {

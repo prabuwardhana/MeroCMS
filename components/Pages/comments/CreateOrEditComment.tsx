@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import type { CommentType, PostType } from "@/lib/types";
-import { useComments } from "@/hooks/api/useComments";
-import { commentFormSchema } from "@/lib/schemas";
+import type { CommentType, PostType } from "@/src/lib/types";
+import { useComments } from "@/src/hooks/api/useComments";
+import { commentFormSchema } from "@/src/lib/schemas";
 
 import { LongText } from "@/components/Field/TextInputs";
 import {

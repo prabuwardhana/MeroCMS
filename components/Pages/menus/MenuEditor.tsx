@@ -7,9 +7,9 @@ import { AxiosResponse } from "axios";
 import { produce } from "immer";
 import { CirclePlus, Save } from "lucide-react";
 
-import type { CategoryType, NavMenuType, PageType } from "@/lib/types";
-import { navMenuFormSchema } from "@/lib/schemas";
-import { useNavMenus } from "@/hooks/api/useNavMenus";
+import type { CategoryType, NavMenuType, PageType } from "@/src/lib/types";
+import { navMenuFormSchema } from "@/src/lib/schemas";
+import { useNavMenus } from "@/src/hooks/api/useNavMenus";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 import { Item } from "@/components/NestableList/libs/types";

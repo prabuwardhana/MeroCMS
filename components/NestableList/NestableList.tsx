@@ -1,7 +1,7 @@
 import React, { type CSSProperties, useEffect, useRef, useCallback } from "react";
 import { produce } from "immer";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 
 import { closest, getOffsetRect, getTotalScroll, getTransformProps, listWithChildren } from "./libs/utils";
 import type { NestableProps, NestableItemOptions, Item } from "./libs/types";

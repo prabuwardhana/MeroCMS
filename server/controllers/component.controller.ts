@@ -1,4 +1,4 @@
-import { NOT_FOUND, OK } from "@/constants/http";
+import { NOT_FOUND, OK } from "@/src/constants/http";
 import catchErrors from "../utils/catchErrors";
 import appAssert from "../utils/appAssert";
 import PageWidgetModel from "../models/component.model";

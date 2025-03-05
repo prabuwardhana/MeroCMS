@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { CloudinaryResourceType } from "@/lib/types";
+import type { CloudinaryResourceType } from "@/src/lib/types";
 
 export const createPostSchema = z.object({
   _id: z.string().nullable(),

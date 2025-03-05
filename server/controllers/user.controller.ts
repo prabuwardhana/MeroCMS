@@ -1,4 +1,4 @@
-import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "@/constants/http";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "@/src/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import UserModel from "../models/user.model";

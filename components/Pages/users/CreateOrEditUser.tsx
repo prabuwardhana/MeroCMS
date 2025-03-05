@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 import { RotateCcw } from "lucide-react";
 
-import Role from "@/constants/role";
-import { useUsers } from "@/hooks/api/useUsers";
-import type { User } from "@/lib/types";
-import { userFormSchema } from "@/lib/schemas";
+import Role from "@/src/constants/role";
+import { useUsers } from "@/src/hooks/api/useUsers";
+import type { User } from "@/src/lib/types";
+import { userFormSchema } from "@/src/lib/schemas";
 
 import { SkeletonUserEditor } from "@/components/Skeletons";
 import PageTitle from "@/components/AdminPageTitle";

@@ -1,4 +1,4 @@
-import { CREATED, OK, UNAUTHORIZED } from "@/constants/http";
+import { CREATED, OK, UNAUTHORIZED } from "@/src/constants/http";
 import AppErrorCode from "../constants/appErrorCode";
 import SessionModel from "../models/session.model";
 import {

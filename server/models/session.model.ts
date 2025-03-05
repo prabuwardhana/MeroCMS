@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Role from "@/constants/role";
+import Role from "@/src/constants/role";
 import { thirtyDaysFromNow } from "../utils/date";
 
 export interface SessionDocument extends mongoose.Document<mongoose.Types.ObjectId> {

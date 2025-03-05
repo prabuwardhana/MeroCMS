@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { IconType } from "react-icons";
-import Role from "@/constants/role";
+import Role from "@/src/constants/role";
 import { CustomPartialBlock } from "@/components/Blocknote";
 import { Item } from "@/components/NestableList/libs/types";
 import { commentFormSchema, pageWidgetFormSchema, pageFormSchema, postFormSchema } from "./schemas";

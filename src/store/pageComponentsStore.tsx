@@ -1,4 +1,4 @@
-import type { PageWidgetType } from "@/lib/types";
+import type { PageWidgetType } from "@/src/lib/types";
 import { create } from "zustand";
 
 type PageWidgetsState = {

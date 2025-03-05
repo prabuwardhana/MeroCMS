@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { Bell, ChevronsLeft, LogOut, UserPen } from "lucide-react";
 
-import { useAuth } from "@/hooks/api/useAuth";
-import { cn } from "@/lib/utils";
+import { useAuth } from "@/src/hooks/api/useAuth";
+import { cn } from "@/src/lib/utils";
 
 import { ModeToggle } from "@/components/ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

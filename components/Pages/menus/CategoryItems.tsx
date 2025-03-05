@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 
-import { useCategories } from "@/hooks/api/useCategories";
-import type { CategoryType } from "@/lib/types";
+import { useCategories } from "@/src/hooks/api/useCategories";
+import type { CategoryType } from "@/src/lib/types";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 import type { Item } from "@/components/NestableList/libs/types";

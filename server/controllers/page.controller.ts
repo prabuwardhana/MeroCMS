@@ -1,5 +1,5 @@
-import type { User } from "@/lib/types";
-import { NOT_FOUND, OK } from "@/constants/http";
+import type { User } from "@/src/lib/types";
+import { NOT_FOUND, OK } from "@/src/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import PageModel from "../models/page.model";

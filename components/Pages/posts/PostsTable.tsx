@@ -3,9 +3,9 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 import { BookPlus, PencilLine, RotateCcw } from "lucide-react";
 
-import { useCategories } from "@/hooks/api/useCategories";
-import { usePosts } from "@/hooks/api/usePosts";
-import type { PostType } from "@/lib/types";
+import { useCategories } from "@/src/hooks/api/useCategories";
+import { usePosts } from "@/src/hooks/api/usePosts";
+import type { PostType } from "@/src/lib/types";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";

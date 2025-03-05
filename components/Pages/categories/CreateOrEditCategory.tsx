@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useCategories } from "@/hooks/api/useCategories";
-import type { CategoryType } from "@/lib/types";
-import { categoryFormSchema } from "@/lib/schemas";
-import { slugify } from "@/lib/utils";
+import { useCategories } from "@/src/hooks/api/useCategories";
+import type { CategoryType } from "@/src/lib/types";
+import { categoryFormSchema } from "@/src/lib/schemas";
+import { slugify } from "@/src/lib/utils";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import {

@@ -4,10 +4,10 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { motion, useAnimationControls } from "framer-motion";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useClickOutside } from "@/hooks/useClickOutside";
-import { ThemeProvider } from "@/theme/themeProvider";
-import { cn } from "@/lib/utils";
+import { useMediaQuery } from "@/src/hooks/useMediaQuery";
+import { useClickOutside } from "@/src/hooks/useClickOutside";
+import { ThemeProvider } from "@/src/theme/themeProvider";
+import { cn } from "@/src/lib/utils";
 
 import { Toaster } from "@/components/ui/sonner";
 import { Sidebar, Header } from "@/components/Layout";

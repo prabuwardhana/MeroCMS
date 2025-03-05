@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-import type { CloudinaryResourceType } from "@/lib/types";
+import type { CloudinaryResourceType } from "@/src/lib/types";
 
 export interface PostDocument extends mongoose.Document<mongoose.Types.ObjectId> {
   title: string;

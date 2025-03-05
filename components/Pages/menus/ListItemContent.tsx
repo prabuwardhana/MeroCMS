@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { Trash2 } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 
 import type { RenderItemOptions } from "@/components/NestableList/libs/types";
 import SocialIcon from "@/components/SocialIcon";

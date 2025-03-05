@@ -6,10 +6,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { usePageContext } from "vike-react/usePageContext";
 import { UserPen } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 
 import { Item } from "@/components/NestableList/libs/types";
-import { useSiteLayout } from "@/hooks/api/useSiteLayout";
+import { useSiteLayout } from "@/src/hooks/api/useSiteLayout";
 import SocialIcon from "@/components/SocialIcon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";

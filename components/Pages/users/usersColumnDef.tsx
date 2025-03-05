@@ -1,7 +1,7 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { ShieldAlert, ShieldCheck } from "lucide-react";
-import type { User } from "@/lib/types";
+import type { User } from "@/src/lib/types";
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/DataTable";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";

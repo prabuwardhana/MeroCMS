@@ -7,7 +7,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import { APP_BASE_URL, NODE_ENV } from "./server/constants/env";
-import { OK } from "./constants/http";
+import { OK } from "./src/constants/http";
 import connectToDatabase from "./server/config/db";
 import verifyAuthCookies from "./server/middlewares/session";
 import errorHandler from "./server/middlewares/error";

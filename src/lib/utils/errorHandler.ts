@@ -1,7 +1,7 @@
 import { render } from "vike/abort";
 import { Mutation, Query, QueryKey } from "@tanstack/react-query";
-import API from "@/config/apiClient";
-import { UNAUTHORIZED } from "@/constants/http";
+import API from "@/src/config/apiClient";
+import { UNAUTHORIZED } from "@/src/constants/http";
 import AppError from "@/server/utils/AppError";
 import { AxiosError } from "axios";
 import queryClientConfig from "@/pages/admin/+queryClientConfig";
