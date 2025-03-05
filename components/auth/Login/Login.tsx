@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { AlertCircle } from "lucide-react";
 
 import API from "@/config/apiClient";
+import { PageContextClient } from "vike/types";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
@@ -28,12 +29,14 @@ const formSchema = z.object({
 });
 
 export const Login = () => {
-  const { pageId, urlOriginal } = usePageContext();
+  const { pageId, urlOriginal, previousPageContext } = usePageContext() as PageContextClient;
 
   const mutation = useMutation({
     mutationFn: async (data: { email: string; password: string }) => API.post("/api/auth/login", data),
     onSuccess: () => {
-      if (pageId?.includes(urlOriginal)) {
+      if (previousPageContext?.urlOriginal) {
+        navigate(previousPageContext?.urlOriginal);
+      } else if (pageId?.includes(urlOriginal)) {
         navigate("/", { overwriteLastHistoryEntry: true });
       } else {
         reload();
