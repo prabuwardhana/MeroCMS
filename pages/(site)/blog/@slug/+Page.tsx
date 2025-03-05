@@ -11,7 +11,7 @@ import BlogPost from "@/components/site/BlogPost/BlogPost.jsx";
 export default function Page() {
   const post = useData<Data>();
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-w-screen-md py-12">
       {post.coverImage.url && (
         <img
           width={post.coverImage.width}

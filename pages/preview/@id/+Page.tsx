@@ -20,7 +20,7 @@ const Page = withFallback(
     const { postPreviewQuery } = usePosts(routeParams.id);
     const post = postPreviewQuery?.data as PostDtoType;
     return (
-      <div className="space-y-4">
+      <div className="space-y-4 max-w-screen-md py-12">
         {post.coverImage.secure_url && (
           <img
             width={post.coverImage.width}

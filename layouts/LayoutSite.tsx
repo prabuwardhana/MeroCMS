@@ -120,8 +120,8 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
           </div>
         )}
       </Header>
-      <div className="flex justify-center max-w-screen py-12">
-        <div className={"flex max-w-screen-md"}>
+      <div className="flex justify-center">
+        <div className="flex">
           {/* <Sidebar>
             <Logo />
             <Link href="/">Welcome</Link>
@@ -141,7 +141,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
           <ReactQueryDevtools initialIsOpen={false} />
         </div>
       </div>
-      <Footer className="flex flex-col pt-20 px-24 bg-muted">
+      <Footer className="flex flex-col pt-20 px-24">
         <div className="flex w-full pb-6 border-b">
           <Logo />
           <nav>
@@ -229,9 +229,7 @@ ListItem.displayName = "ListItem";
 function Content({ children }: { children: React.ReactNode }) {
   return (
     <div id="page-container">
-      <div id="page-content" className={"p-5 pb-12 min-h-screen"}>
-        {children}
-      </div>
+      <div id="page-content">{children}</div>
     </div>
   );
 }
