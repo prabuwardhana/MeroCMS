@@ -99,6 +99,7 @@ export type CommentType = z.infer<typeof commentFormSchema> & {
   createdAt?: Date | null;
 };
 export type CommentMutationResponseType = { comment: CommentType; message: string };
+export type CommentDeleteMutationResponseType = { commentCount: number; message: string };
 
 export type NavMenuType = {
   _id: string | null;
