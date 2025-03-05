@@ -80,6 +80,36 @@ export const getPageByIdHandler = catchErrors(async (req, res) => {
   res.status(OK).json({ ...page.toObject(), pageFieldsJson: JSON.stringify(pageFieldsJson, null, 2) });
 });
 
+export const getPageBySlugHandler = catchErrors(async (req, res) => {
+  const page = await PageModel.findOne({ slug: req.params.slug });
+  appAssert(page, NOT_FOUND, "Page not found");
+
+  const mapKeys = (obj: Record<string, string>, fn: (key: string) => string) =>
+    Object.keys(obj).reduce(
+      (acc, key: string) => {
+        if (!["widgetId", "fieldId", "fieldLabels", "fieldsTitle", "fieldsCount"].includes(key))
+          acc[fn(key)] = obj[key];
+        return acc;
+      },
+      <Record<string, string>>{},
+    );
+
+  const pageFieldsJson = page.fields?.reduce(
+    (acc, field) => {
+      acc[field["fieldId"]] = mapKeys(field, (key) => key.split("_")[0]);
+      return acc;
+    },
+    <Record<string, Record<string, string>>>{},
+  );
+
+  res.status(OK).json({
+    title: page.title,
+    excerpt: page.excerpt,
+    coverImageUrl: page.coverImageUrl,
+    content: JSON.stringify(pageFieldsJson),
+  });
+});
+
 export const publishPageHandler = catchErrors(async (req, res) => {
   const pageId = req.params.pageId;
 
