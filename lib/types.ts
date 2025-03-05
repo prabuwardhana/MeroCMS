@@ -70,6 +70,13 @@ export type PageType = z.infer<typeof pageFormSchema> & {
 };
 export type PageMutationResponseType = { page: PageType; message: string };
 
+export type PageDtoType = {
+  title: string;
+  excerpt: string;
+  coverImageUrl: string;
+  content: string;
+};
+
 export type PostType = z.infer<typeof postFormSchema> & {
   _id: string | null;
   editorDocument?: CustomPartialBlock[] | undefined | "loading";
