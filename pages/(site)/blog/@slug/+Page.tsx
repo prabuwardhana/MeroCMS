@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx"
 
 import "@blocknote/shadcn/style.css";
 import "@/components/admin/Blocknote/style.css";
-import BlogPost from "@/components/site/BlogPost/BlogPost.jsx";
+import BlogPost from "./BlogPost/BlogPost.jsx";
 import Comments from "./Comments/Comments.jsx";
 
 export default function Page() {
