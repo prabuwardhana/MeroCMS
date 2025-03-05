@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { CommentMutationResponseType, CommentType } from "@/lib/types";
 import { commentFormSchema } from "@/lib/schemas";
 
-import { RichText } from "@/components/admin/Field/TextInputs";
+import { RichText } from "@/components/Field/TextInputs";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";

@@ -1,6 +1,6 @@
 export default Page;
 import React from "react";
-import { CreateOrEditNavMenu } from "@/components/admin/Pages";
+import { CreateOrEditNavMenu } from "@/components/Pages";
 
 function Page() {
   return <CreateOrEditNavMenu />;

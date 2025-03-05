@@ -4,12 +4,13 @@ import React from "react";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { usePageContext } from "vike-react/usePageContext";
+import { UserPen } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+import { Item } from "@/components/NestableList/libs/types";
 import { useSiteLayout } from "@/hooks/api/useSiteLayout";
-import { Item } from "@/components/admin/NestableList/libs/types";
-import SocialIcon from "@/components/admin/SocialIcon";
+import SocialIcon from "@/components/SocialIcon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -29,10 +30,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { UserPen } from "lucide-react";
 
-import LogOutButton from "@/components/common/LogOutButton";
-import { Link } from "@/components/common/Link";
+import LogOutButton from "@/components/LogOutButton";
+import { Link } from "@/components/Link";
 import logoUrl from "@/assets/logo.svg";
 
 import "@fontsource/poppins";

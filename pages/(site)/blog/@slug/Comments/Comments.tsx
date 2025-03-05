@@ -3,7 +3,7 @@ import { usePageContext } from "vike-react/usePageContext";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { withFallback } from "vike-react-query";
 import { CommentType } from "@/lib/types";
-import Preloader from "@/components/common/Preloader";
+import Preloader from "@/components/Preloader";
 import { Button } from "@/components/ui/button";
 import { CommentEditor } from "./CommentEditor";
 import { Comment } from "./Comment";

@@ -1,6 +1,6 @@
 export default Page;
 import React from "react";
-import { UsersTable } from "@/components/admin/Pages";
+import { UsersTable } from "@/components/Pages";
 
 function Page() {
   return <UsersTable />;

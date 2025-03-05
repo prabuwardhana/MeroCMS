@@ -3,7 +3,7 @@ import { withFallback } from "vike-react-query";
 import { usePageContext } from "vike-react/usePageContext";
 import { usePosts } from "@/hooks/api/usePosts.js";
 import type { PostDtoType } from "@/lib/types.js";
-import Preloader from "@/components/common/Preloader";
+import Preloader from "@/components/Preloader/index.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Badge } from "@/components/ui/badge.jsx";

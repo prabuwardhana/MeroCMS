@@ -2,8 +2,8 @@ import React from "react";
 import { z } from "zod";
 import { IconType } from "react-icons";
 import Role from "@/constants/role";
-import { CustomPartialBlock } from "@/components/admin/Blocknote";
-import { Item } from "@/components/admin/NestableList/libs/types";
+import { CustomPartialBlock } from "@/components/Blocknote";
+import { Item } from "@/components/NestableList/libs/types";
 import { commentFormSchema, pageWidgetFormSchema, pageFormSchema, postFormSchema } from "./schemas";
 
 type UploadStatus = "idle" | "uploading" | "success" | "error";
