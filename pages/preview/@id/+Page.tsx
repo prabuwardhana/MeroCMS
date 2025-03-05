@@ -12,7 +12,7 @@ import PostPreview from "../PostPreview.jsx";
 import { RotateCcw } from "lucide-react";
 
 import "@blocknote/shadcn/style.css";
-import "@/components/admin/Blocknote/style.css";
+import "@/components/Blocknote/style.css";
 
 const Page = withFallback(
   () => {

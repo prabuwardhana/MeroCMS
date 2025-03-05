@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 
 import "@blocknote/shadcn/style.css";
-import "@/components/admin/Blocknote/style.css";
+import "@/components/Blocknote/style.css";
 import BlogPost from "./BlogPost/BlogPost.jsx";
 import Comments from "./Comments/Comments.jsx";
 
