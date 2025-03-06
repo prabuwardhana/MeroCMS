@@ -192,7 +192,7 @@ const MenuEditor = () => {
                     <div className="flex items-center col-span-1">
                       <FormLabel className="text-sm">Title</FormLabel>
                     </div>
-                    <div className="flex items-center col-span-7">
+                    <div className="flex items-center col-span-6">
                       <FormControl>
                         <Input
                           className="box-border h-[40px] rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -206,7 +206,7 @@ const MenuEditor = () => {
                         />
                       </FormControl>
                     </div>
-                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground col-span-2">
+                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground col-span-3">
                       {routeParams.id ? <Save /> : <CirclePlus />}
                       {routeParams.id ? "Save" : "Create"}
                     </Button>
