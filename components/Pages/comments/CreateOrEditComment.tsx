@@ -6,7 +6,7 @@ import type { CommentType, PostType } from "@/src/lib/types";
 import { useComments } from "@/src/hooks/api/useComments";
 import { commentFormSchema } from "@/src/lib/schemas";
 
-import { LongText } from "@/components/Field/TextInputs";
+import { RichText } from "@/components/Field/TextInputs";
 import {
   Dialog,
   DialogContent,
@@ -125,7 +125,7 @@ export const CreateOrEditComment = ({
         </DialogHeader>
         <Form {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)}>
-            <LongText control={formMethods.control} name="content" label="comment" />
+            <RichText control={formMethods.control} name="content" label="comment" />
             <DialogFooter className="md:justify-end mt-4">
               <Button type="submit" size={"sm"}>
                 {replyTo ? "Post " : "Edit "}Comment
