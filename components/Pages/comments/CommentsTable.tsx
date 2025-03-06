@@ -94,7 +94,7 @@ export const CommentsTable = withFallback(
           isOpen={isEditOpen}
           setIsOpen={setIsEditOpen}
         />
-        <Card>
+        <Card className="flex-grow">
           <CardHeader>
             <CardTitle>Comments</CardTitle>
           </CardHeader>

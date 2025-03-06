@@ -20,10 +20,7 @@ const Accordion = ({ open = false, title, className, children }: AccordionProps)
     <div>
       <button
         onClick={handleOnCLick}
-        className={cn(
-          "flex justify-between items-center w-full px-4 py-2 bg-slate-200 dark:bg-background font-semibold",
-          className,
-        )}
+        className={cn("flex justify-between items-center w-full px-4 py-2 bg-background font-semibold", className)}
       >
         <span>{title}</span>
         <svg
@@ -51,7 +48,7 @@ const Accordion = ({ open = false, title, className, children }: AccordionProps)
         </svg>
       </button>
       <div
-        className={`grid overflow-hidden transition-all duration-300 ease-in-out bg-slate-100 dark:bg-card text-card-foreground text-sm ${
+        className={`grid overflow-hidden transition-all duration-300 ease-in-out bg-card text-card-foreground text-sm ${
           accordionOpen ? "grid-rows-[1fr] opacity-100 p-4" : "grid-rows-[0fr] opacity-0"
         }`}
       >

@@ -66,7 +66,7 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="min-h-screen bg-muted">
+      <div className="min-h-screen bg-accent">
         {/* The sidebar's opaque background in mobile view */}
         <div
           className={cn(
@@ -75,9 +75,9 @@ export default function LayoutAdmin({ children }: { children: React.ReactNode })
           )}
         />
         <Sidebar ref={sidebarRef} collapsed={collapsed} isDesktopDevice={isDesktopDevice} />
-        <motion.div variants={containerVariants} animate={containerControls} initial="close">
+        <motion.div variants={containerVariants} animate={containerControls} initial="close" className="min-h-screen">
           <Header collapsed={collapsed} setCollapsed={setCollapsed} />
-          <div className="px-6 pt-6 bg-accent">{children}</div>
+          <div className="px-6 pt-6 flex justify-center">{children}</div>
         </motion.div>
         <Toaster />
         <ReactQueryDevtools initialIsOpen={false} />

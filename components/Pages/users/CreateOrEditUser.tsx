@@ -103,7 +103,7 @@ export const CreateOrEditUser = withFallback(
     }, [reset, userData]);
 
     return (
-      <>
+      <div className="flex-grow">
         <div className="mb-6">
           <PageTitle>{pageTitle}</PageTitle>
         </div>
@@ -240,7 +240,7 @@ export const CreateOrEditUser = withFallback(
             </Form>
           </main>
         </div>
-      </>
+      </div>
     );
   },
   () => <SkeletonUserEditor />,

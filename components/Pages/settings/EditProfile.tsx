@@ -117,7 +117,7 @@ export const EditProfile = withFallback(
     return (
       <>
         <div className="flex flex-col gap-y-6 md:flex-row md:gap-x-6">
-          <main className="basis-1/2">
+          <main>
             <Form {...formMethods}>
               <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)}>
                 <Card>

@@ -237,7 +237,7 @@ export const CreateOrEditPost = withFallback(
     return (
       <>
         <Form {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
+          <form onSubmit={formMethods.handleSubmit(handleSubmit)} className="flex-grow">
             <div className="flex flex-col gap-y-6 xl:flex-row xl:gap-x-6">
               <main className="basis-3/4 space-y-8">
                 <div>
@@ -395,7 +395,7 @@ export const CreateOrEditPost = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-[84px] flex h-screen basis-1/4 flex-col overflow-y-hidden">
+              <aside className="sticky top-[84px] flex h-[calc(100vh-84px)] basis-1/4 flex-col overflow-y-hidden">
                 <Accordion className="border-b text-sm" title="Cover Image" open={true}>
                   <ImageSetter
                     type="Cover"
@@ -414,39 +414,38 @@ export const CreateOrEditPost = withFallback(
                   />
                 </Accordion>
                 <Accordion className="border-b text-sm" title="Categories">
-                  {categoriesQuery.data.map((category) => {
-                    const isChecked = selectedCategories.includes(category.name);
-                    return (
-                      <div key={category.name} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={category.name}
-                          checked={isChecked}
-                          onCheckedChange={(checked: boolean) => {
-                            const newSelectedCategories = checked
-                              ? Array.from(new Set([...(postData.categories || []), category.name]))
-                              : postData.categories.filter((name) => name !== category.name);
-
-                            setSelectedCategories(newSelectedCategories);
-
-                            const newPostData: PostType = {
-                              ...postData,
-                              categories: newSelectedCategories,
-                            };
-
-                            dispatchAutoSave(newPostData);
-                            setPostData(newPostData);
-                          }}
-                          className="text-card-foreground"
-                        />
-                        <label
-                          htmlFor={category.name}
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          {category.name}
-                        </label>
-                      </div>
-                    );
-                  })}
+                  <div className="space-y-4">
+                    {categoriesQuery.data.map((category) => {
+                      const isChecked = selectedCategories.includes(category.name);
+                      return (
+                        <div key={category.name} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={category.name}
+                            checked={isChecked}
+                            onCheckedChange={(checked: boolean) => {
+                              const newSelectedCategories = checked
+                                ? Array.from(new Set([...(postData.categories || []), category.name]))
+                                : postData.categories.filter((name) => name !== category.name);
+                              setSelectedCategories(newSelectedCategories);
+                              const newPostData: PostType = {
+                                ...postData,
+                                categories: newSelectedCategories,
+                              };
+                              dispatchAutoSave(newPostData);
+                              setPostData(newPostData);
+                            }}
+                            className="text-card-foreground"
+                          />
+                          <label
+                            htmlFor={category.name}
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            {category.name}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </Accordion>
                 <Accordion className="border-b text-sm" title="Meta Description">
                   <FormField

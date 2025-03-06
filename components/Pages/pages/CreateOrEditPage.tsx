@@ -273,7 +273,7 @@ export const CreateOrEditPage = withFallback(
     return (
       <>
         <Form {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)}>
+          <form onSubmit={formMethods.handleSubmit(handleSubmit, handleSubmitError)} className="flex-grow">
             <div className="flex flex-col gap-y-6 xl:flex-row xl:gap-x-6">
               <main className="basis-3/4 space-y-6">
                 <div className="space-y-2">
@@ -423,7 +423,7 @@ export const CreateOrEditPage = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-0 h-[calc(100vh-theme(spacing.16))] basis-1/4 flex-col overflow-y-hidden">
+              <aside className="sticky top-[84px] flex h-[calc(100vh-84px)] basis-1/4 flex-col overflow-y-hidden">
                 <div className="">
                   <Accordion className="border-b text-sm" title="Hero Image" open={true}>
                     <ImageSetter

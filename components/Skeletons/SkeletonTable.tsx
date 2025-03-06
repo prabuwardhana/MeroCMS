@@ -9,7 +9,7 @@ interface SkeletonTableProps {
 
 export const SkeletonTable = ({ className }: SkeletonTableProps) => {
   return (
-    <Card className={cn("bg-card/60", className)}>
+    <Card className={cn("flex-grow bg-card/60", className)}>
       <CardHeader>
         <CardTitle className="flex gap-4">
           <Skeleton className="h-[36px] w-1/6 rounded-xl" />

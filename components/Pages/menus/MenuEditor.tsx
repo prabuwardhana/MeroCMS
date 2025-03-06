@@ -187,12 +187,12 @@ const MenuEditor = () => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <div className="bg-slate-200 dark:bg-background border-b p-4">
+                <div className="bg-slate-200 dark:bg-background border-b px-4 py-2">
                   <div className="grid grid-cols-10 gap-3 font-semibold">
-                    <div className="flex items-center col-span-2">
+                    <div className="flex items-center col-span-1">
                       <FormLabel className="text-sm">Title</FormLabel>
                     </div>
-                    <div className="flex items-center col-span-5">
+                    <div className="flex items-center col-span-7">
                       <FormControl>
                         <Input
                           className="box-border h-[40px] rounded-md border bg-background py-4 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -206,7 +206,7 @@ const MenuEditor = () => {
                         />
                       </FormControl>
                     </div>
-                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground col-span-3">
+                    <Button type="submit" size={"sm"} className="bg-primary text-primary-foreground col-span-2">
                       {routeParams.id ? <Save /> : <CirclePlus />}
                       {routeParams.id ? "Save" : "Create"}
                     </Button>
@@ -244,7 +244,7 @@ const MenuEditor = () => {
           className="p-4"
         />
       ) : (
-        <div className="text-center h-full py-2 px-4">
+        <div className="flex flex-col items-center justify-center-center h-full py-2 px-4">
           <p>Selected menu items will appear here.</p>
         </div>
       )}

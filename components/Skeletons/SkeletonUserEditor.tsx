@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 
 export const SkeletonUserEditor = () => {
   return (
-    <>
+    <div className="flex-grow">
       <div className="mb-6">
         <Skeleton className="h-[36px] w-[200px] rounded-xl bg-card/60" />
       </div>
@@ -38,6 +38,6 @@ export const SkeletonUserEditor = () => {
           </Card>
         </main>
       </div>
-    </>
+    </div>
   );
 };

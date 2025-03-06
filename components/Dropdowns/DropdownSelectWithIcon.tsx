@@ -29,7 +29,7 @@ export const DropdownSelectWithIcon = ({ icons, value, open, setOpen, onSelect, 
           role="combobox"
           aria-expanded={open}
           data-button-type="lang-selector"
-          className={cn("justify-between hover:bg-transparent text-white", className)}
+          className={cn("justify-between text-accent-foreground hover:bg-transparent", className)}
         >
           <div className="flex items-center gap-3">
             <Icon size={16} />

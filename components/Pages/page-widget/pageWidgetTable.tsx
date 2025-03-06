@@ -47,7 +47,7 @@ export const PageWidgetTable = withFallback(
         />
         <CreateOrEditPageWidget isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
         <CreateOrEditPageWidget pageWidgetId={pageWidgetId as string} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
-        <Card className="max-w-screen-md">
+        <Card className="flex-grow max-w-screen-md">
           <CardHeader>
             <CardTitle className="flex gap-4">
               <div className="flex items-center">Page Widgets</div>

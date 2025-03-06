@@ -47,7 +47,7 @@ export const CategoriesTable = withFallback(
         />
         <CreateOrEditCategory isOpen={isCreateOpen} setIsOpen={setIsCreateOpen} />
         <CreateOrEditCategory categoryId={categoryId} isOpen={isEditOpen} setIsOpen={setIsEditOpen} />
-        <Card>
+        <Card className="flex-grow">
           <CardHeader>
             <CardTitle className="flex gap-4">
               <div className="flex items-center">Categories</div>

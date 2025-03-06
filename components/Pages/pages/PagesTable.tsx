@@ -64,7 +64,7 @@ export const PagesTable = withFallback(
           setIsOpen={setIsDeleteOpen}
           mutate={deleteMutation.mutate}
         />
-        <Card>
+        <Card className="flex-grow">
           <CardHeader>
             <CardTitle>Pages</CardTitle>
           </CardHeader>

@@ -42,7 +42,7 @@ export const NavMenusTable = withFallback(
           setIsOpen={setIsDeleteOpen}
           mutate={deleteMutation.mutate}
         />
-        <Card className="max-w-screen-md">
+        <Card className="flex-grow max-w-screen-md">
           <CardHeader>
             <CardTitle>Navigation Menu</CardTitle>
           </CardHeader>

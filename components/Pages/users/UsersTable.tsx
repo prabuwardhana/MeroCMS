@@ -64,7 +64,7 @@ export const UsersTable = withFallback(
           setIsOpen={setIsDeleteOpen}
           mutate={deleteMutation.mutate}
         />
-        <Card>
+        <Card className="flex-grow">
           <CardHeader>
             <CardTitle>Users</CardTitle>
           </CardHeader>
