@@ -33,7 +33,7 @@ import { Button } from "@/components/ui/button";
 
 import LogOutButton from "@/components/LogOutButton";
 import { Link } from "@/components/Link";
-import logoUrl from "@/assets/logo.svg";
+import { Logo } from "@/components/Logo";
 
 import "@fontsource/poppins";
 import "./style.css";
@@ -230,17 +230,6 @@ function Content({ children }: { children: React.ReactNode }) {
   return (
     <div id="page-container">
       <div id="page-content">{children}</div>
-    </div>
-  );
-}
-
-function Logo({ className }: { className?: string }) {
-  return (
-    <div className={cn("flex-1", className)}>
-      <a href="/" className="flex gap-2">
-        <img src={logoUrl} height={32} width={32} alt="logo" />
-        <span className="font-bold text-lg">Rocket CMS</span>
-      </a>
     </div>
   );
 }

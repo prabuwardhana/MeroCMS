@@ -1,12 +1,12 @@
 import React, { forwardRef, useEffect } from "react";
 import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
-import { Rocket } from "lucide-react";
 
 import { containerVariants, opacityVariants } from "@/src/constants/framerMotion";
 import { SIDENAV_ITEMS } from "@/src/constants/navLink";
 import { cn } from "@/src/lib/utils";
 
 import NavItem from "./NavItem";
+import { LogoSvg } from "../Logo";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -38,11 +38,11 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(({ collapsed, isDes
       )}
     >
       <div className="flex h-[60px] w-full items-center gap-x-3 overflow-x-hidden pl-3 text-2xl font-medium text-primary">
-        <Rocket size={30} className="flex-shrink-0" />
+        <LogoSvg size={30} className="flex-shrink-0" />
         <AnimatePresence>
           {!collapsed && (
             <motion.div key={`${collapsed}`} variants={opacityVariants} initial="initial" animate="animate" exit="exit">
-              <span className="whitespace-nowrap">RocketCMS</span>
+              <span className="whitespace-nowrap font-bold">meroCMS</span>
             </motion.div>
           )}
         </AnimatePresence>
