@@ -37,7 +37,6 @@ export const useComments = (id?: string) => {
 
   const editMutation = useMutation({
     mutationFn: async (data: CommentType) => {
-      console.log(data._id);
       return API.patch<CommentMutationResponseType>(`/api/comment/${data._id}`, { ...data });
     },
     onSuccess: async () => {

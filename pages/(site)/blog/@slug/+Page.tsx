@@ -15,7 +15,6 @@ export default function Page() {
   const [commentCount, setCommentCount] = useState(post.commentCount);
 
   const handleCommentCountChange = (count: number) => {
-    console.log(count);
     setCommentCount(count);
   };
 

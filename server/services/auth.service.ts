@@ -171,8 +171,6 @@ export const refreshUserAccessToken = async (refreshToken: string) => {
     userRole: session.userRole,
   });
 
-  console.log("access token refreshed");
-
   return {
     accessToken,
     newRefreshToken,

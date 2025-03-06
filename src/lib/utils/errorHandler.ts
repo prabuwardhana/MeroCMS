@@ -16,7 +16,6 @@ let failedQueue: {
 
 const processFailedQueue = () => {
   failedQueue.forEach(({ query, mutation, variables }) => {
-    console.log(query);
     if (query) {
       query.fetch();
     }
@@ -56,7 +55,6 @@ const errorHandler = (
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { status, errorCode } = error as AxiosError<any> & AppError;
-  console.log(error);
 
   if (status === UNAUTHORIZED && errorCode === "InvalidAccessToken") {
     if (query) refreshTokenAndRetry(query);
