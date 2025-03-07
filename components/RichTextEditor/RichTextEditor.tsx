@@ -39,9 +39,6 @@ const RichTextEditor = ({
         types: ["heading", "paragraph"],
       }),
       Highlight,
-      Link.extend({
-        inclusive: false,
-      }),
       Link.configure({
         openOnClick: false,
         autolink: true,
