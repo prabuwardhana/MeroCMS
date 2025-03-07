@@ -43,14 +43,14 @@ export const Header = ({ collapsed, setCollapsed }: HeaderProps) => {
           <DropdownMenuTrigger asChild>
             <button className="size-10 overflow-hidden rounded-full">
               <Avatar>
-                <AvatarImage src={user.profile.avatarUrl} className="object-cover" />
+                {user.profile && <AvatarImage src={user.profile.avatarUrl} className="object-cover" />}
                 <AvatarFallback className="text-black">BT</AvatarFallback>
               </Avatar>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>
-              <span>&#x1F44B; Hello, {user.profile.username}!</span>
+              <span>&#x1F44B; Hello, {user.profile && user.profile.username}!</span>
             </DropdownMenuLabel>
             <Separator />
             <DropdownMenuItem className="cursor-pointer">

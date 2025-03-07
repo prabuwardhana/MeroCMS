@@ -54,7 +54,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
         <NavigationMenu className="basis-1/2">
           <NavigationMenuList>
             {headerMenu.navItems.map((menu) => {
-              return menu.children.length ? (
+              return menu.children && menu.children.length ? (
                 <NavigationMenuItem key={menu.id}>
                   <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -147,7 +147,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
           <nav>
             <ul className="flex gap-32">
               {footerMenu.navItems.map((menu) => {
-                return menu.children.length ? (
+                return menu.children && menu.children.length ? (
                   <li key={menu.id} className="cursor-pointer space-y-4">
                     <div className="text-xs font-medium leading-none text-primary">{menu.name}</div>
                     <ul className="space-y-3">

@@ -59,7 +59,7 @@ export const EditProfile = withFallback(
 
     // Get the user from the page context provided by Vike.
     useEffect(() => {
-      if (user) {
+      if (user && user.profile) {
         const profile: UserProfile = user.profile;
         // replace postData with the new one from the DB
         setUserProfile(profile);
