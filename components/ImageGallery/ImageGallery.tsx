@@ -3,7 +3,8 @@ import { withFallback } from "vike-react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, RotateCcw, Trash2 } from "lucide-react";
 
-import { cn, convertByteToKiloMegabyte } from "@/core/lib/utils";
+import { convertByteToKiloMegabyte } from "@/core/utils";
+import { cn } from "@/core/lib/utils";
 import type { CloudinaryResourceType } from "@/core/lib/types";
 import { opacityVariants } from "@/core/constants/framerMotion";
 import { useImages } from "@/core/hooks/api/useImages";

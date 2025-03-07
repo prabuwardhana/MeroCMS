@@ -1,4 +1,4 @@
-import { mutationErrorHandler, queryErrorHandler } from "@/core/lib/utils/errorHandler";
+import { mutationErrorHandler, queryErrorHandler } from "@/core/utils";
 import { MutationCache, QueryCache } from "@tanstack/react-query";
 
 const queryClientConfig = () => ({

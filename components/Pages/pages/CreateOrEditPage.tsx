@@ -8,11 +8,12 @@ import { withFallback } from "vike-react-query";
 import { toast } from "sonner";
 import { CirclePlus, FileJson2, Globe, GlobeLock, Loader2, RotateCcw, Save } from "lucide-react";
 
+import { slugify } from "@/core/utils";
 import { usePageWidgetsStore } from "@/core/store/pageComponentsStore";
 import { dateStringOptions } from "@/core/constants/dateTimeOptions";
 import type { CloudinaryResourceType, PageWidgetType, PageType } from "@/core/lib/types";
 import { pageFormSchema } from "@/core/lib/schemas";
-import { cn, slugify } from "@/core/lib/utils";
+import { cn } from "@/core/lib/utils";
 import { useCharacterCounter } from "@/core/hooks/useCharacterCounter";
 import { usePageWidgets } from "@/core/hooks/api/usePageComponents";
 import { useAutoSave } from "@/core/hooks/useAutoSave";

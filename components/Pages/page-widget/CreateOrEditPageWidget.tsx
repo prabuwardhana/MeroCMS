@@ -3,10 +3,10 @@ import { SubmitErrorHandler, SubmitHandler, useFieldArray, useForm } from "react
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CirclePlus, Trash2 } from "lucide-react";
 
+import { slugify } from "@/core/utils";
 import type { PageWidgetType, TextInputType } from "@/core/lib/types";
 import { usePageWidgets } from "@/core/hooks/api/usePageComponents";
 import { pageWidgetFormSchema } from "@/core/lib/schemas";
-import { slugify } from "@/core/lib/utils";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import {

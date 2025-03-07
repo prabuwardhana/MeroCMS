@@ -2,7 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { opacityVariants } from "@/core/constants/framerMotion";
-import { convertByteToKiloMegabyte } from "@/core/lib/utils";
+import { convertByteToKiloMegabyte } from "@/core/utils";
 import type { ExtendedFile } from "@/core/lib/types";
 
 import { Progress } from "@/components/ui/progress";
