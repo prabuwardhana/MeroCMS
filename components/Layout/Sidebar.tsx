@@ -42,7 +42,7 @@ export const Sidebar = forwardRef<HTMLElement, SidebarProps>(({ collapsed, isDes
         <AnimatePresence>
           {!collapsed && (
             <motion.div key={`${collapsed}`} variants={opacityVariants} initial="initial" animate="animate" exit="exit">
-              <span className="whitespace-nowrap font-bold">meroCMS</span>
+              <span className="whitespace-nowrap font-bold">MeroCMS</span>
             </motion.div>
           )}
         </AnimatePresence>

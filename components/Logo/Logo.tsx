@@ -7,7 +7,7 @@ export const Logo = ({ className }: { className?: string }) => {
     <div className={cn("flex-1", className)}>
       <a href="/" className="flex gap-2">
         <img src={logoUrl} height={32} width={32} alt="logo" />
-        <span className="font-bold text-lg">meroCMS</span>
+        <span className="font-bold text-lg text-violet-900">MeroCMS</span>
       </a>
     </div>
   );
