@@ -84,10 +84,6 @@
       "calt" 1;
   }
 
-  a {
-    @apply underline text-violet-600 hover:text-violet-800;
-  }
-
   ::-webkit-scrollbar {
     height: 4px;
     width: 4px;

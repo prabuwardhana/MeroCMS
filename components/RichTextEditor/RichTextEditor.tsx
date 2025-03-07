@@ -106,7 +106,8 @@ const RichTextEditor = ({
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "min-h-[96px] border rounded-b-md py-2 px-3 text-sm",
+        class:
+          "prose-lg prose-a:text-violet-600 hover:prose-a:text-violet-800 min-h-[96px] border rounded-b-md py-2 px-3 text-sm",
       },
     },
     onUpdate: ({ editor }) => {
@@ -121,7 +122,7 @@ const RichTextEditor = ({
   return (
     <div className="w-full">
       <ToolBar editor={editor} />
-      <EditorContent editor={editor} className={cn("prose-lg", className)} />
+      <EditorContent editor={editor} className={cn(className)} />
     </div>
   );
 };
