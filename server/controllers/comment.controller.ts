@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
-import type { PostType, User } from "@/src/lib/types";
-import Role from "@/src/constants/role";
-import { NOT_FOUND, OK, TOO_MANY_REQUESTS, UNAUTHORIZED } from "@/src/constants/http";
+import type { PostType, User } from "@/core/lib/types";
+import Role from "@/core/constants/role";
+import { NOT_FOUND, OK, TOO_MANY_REQUESTS, UNAUTHORIZED } from "@/core/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import PostModel from "../models/post.model";

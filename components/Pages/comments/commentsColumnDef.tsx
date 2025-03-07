@@ -2,10 +2,10 @@ import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { ShieldAlert, ShieldCheck } from "lucide-react";
 
-import type { CommentType } from "@/src/lib/types";
+import type { CommentType } from "@/core/lib/types";
 
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/DataTable";
-import { dateStringOptions } from "@/src/constants/dateTimeOptions";
+import { dateStringOptions } from "@/core/constants/dateTimeOptions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 

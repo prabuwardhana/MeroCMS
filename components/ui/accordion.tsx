@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/core/lib/utils";
 
 interface AccordionProps {
   open?: boolean;

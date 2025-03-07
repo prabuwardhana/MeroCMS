@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useStore } from "zustand";
 
-import { CounterStore, createCounterStore } from "@/src/store/counterStore";
+import { CounterStore, createCounterStore } from "@/core/store/counterStore";
 
 export type CounterStoreApi = ReturnType<typeof createCounterStore>;
 

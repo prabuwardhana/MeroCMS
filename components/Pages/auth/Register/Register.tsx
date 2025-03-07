@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AlertCircle } from "lucide-react";
 
-import API from "@/src/config/apiClient";
+import API from "@/core/config/apiClient";
 
 // Define validation schema using Zod
 const formSchema = z

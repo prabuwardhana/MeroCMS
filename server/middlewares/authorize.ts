@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { FORBIDDEN, UNAUTHORIZED } from "@/src/constants/http";
-import Role from "@/src/constants/role";
+import { FORBIDDEN, UNAUTHORIZED } from "@/core/constants/http";
+import Role from "@/core/constants/role";
 import appAssert from "../utils/appAssert";
 import UserModel from "../models/user.model";
 

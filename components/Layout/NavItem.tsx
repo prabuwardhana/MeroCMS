@@ -3,8 +3,8 @@ import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { usePageContext } from "vike-react/usePageContext";
 import { ChevronDown } from "lucide-react";
 
-import type { SideNavItem } from "@/src/constants/navLink";
-import { cn } from "@/src/lib/utils";
+import type { SideNavItem } from "@/core/constants/navLink";
+import { cn } from "@/core/lib/utils";
 
 interface NavItemProps {
   item: SideNavItem;

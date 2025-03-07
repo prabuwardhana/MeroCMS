@@ -3,7 +3,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import StarterKit from "@tiptap/starter-kit";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/core/lib/utils";
 import ToolBar from "./ToolBar";
 
 const RichTextEditor = ({

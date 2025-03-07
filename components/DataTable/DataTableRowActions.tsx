@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "@tanstack/react-table";
 import { MessageCirclePlus, MessageCircleX, MoreHorizontal, Pencil, Reply, Trash2 } from "lucide-react";
-import type { CommentType } from "@/src/lib/types";
+import type { CommentType } from "@/core/lib/types";
 import {
   DropdownMenu,
   DropdownMenuContent,

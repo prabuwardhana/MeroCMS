@@ -1,5 +1,5 @@
 import jwt, { VerifyOptions, SignOptions } from "jsonwebtoken";
-import Role from "@/src/constants/role.js";
+import Role from "@/core/constants/role.js";
 import { JWT_REFRESH_SECRET, JWT_SECRET } from "../constants/env";
 import { UserDocument } from "../models/user.model";
 import { SessionDocument } from "../models/session.model";

@@ -13,8 +13,8 @@ import {
 import { BlockNoteView } from "@blocknote/shadcn";
 
 // local import
-import { useTheme } from "@/src/hooks/useTheme";
-import API from "@/src/config/apiClient";
+import { useTheme } from "@/core/hooks/useTheme";
+import API from "@/core/config/apiClient";
 import { insertCodeEditor } from "./custom-blocks/CodeBlockEditor/insertCodeEditor";
 import type { CustomBlockNoteEditor, CustomPartialBlock } from "./types";
 import { insertAlert } from "./custom-blocks/Alert/insertAlert";

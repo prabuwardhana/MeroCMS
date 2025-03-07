@@ -2,8 +2,8 @@ import * as React from "react";
 import { Column } from "@tanstack/react-table";
 import { Check, PlusCircle } from "lucide-react";
 
-import type { FilterOptions } from "@/src/lib/types";
-import { cn } from "@/src/lib/utils";
+import type { FilterOptions } from "@/core/lib/types";
+import { cn } from "@/core/lib/utils";
 
 import {
   Command,

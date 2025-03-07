@@ -1,5 +1,5 @@
 import { z } from "zod";
-import Role from "@/src/constants/role";
+import Role from "@/core/constants/role";
 
 // Create or edit post form schema
 export const postFormSchema = z.object({

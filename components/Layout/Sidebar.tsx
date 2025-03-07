@@ -1,9 +1,9 @@
 import React, { forwardRef, useEffect } from "react";
 import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 
-import { containerVariants, opacityVariants } from "@/src/constants/framerMotion";
-import { SIDENAV_ITEMS } from "@/src/constants/navLink";
-import { cn } from "@/src/lib/utils";
+import { containerVariants, opacityVariants } from "@/core/constants/framerMotion";
+import { SIDENAV_ITEMS } from "@/core/constants/navLink";
+import { cn } from "@/core/lib/utils";
 
 import NavItem from "./NavItem";
 import { LogoSvg } from "../Logo";

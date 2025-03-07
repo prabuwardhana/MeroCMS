@@ -1,8 +1,8 @@
 import React from "react";
 import { withFallback } from "vike-react-query";
 import { usePageContext } from "vike-react/usePageContext";
-import { usePosts } from "@/src/hooks/api/usePosts.js";
-import type { PostDtoType } from "@/src/lib/types.js";
+import { usePosts } from "@/core/hooks/api/usePosts.js";
+import type { PostDtoType } from "@/core/lib/types.js";
 import Preloader from "@/components/Preloader/index.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import { Button } from "@/components/ui/button.jsx";

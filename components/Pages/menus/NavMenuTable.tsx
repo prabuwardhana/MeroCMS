@@ -3,8 +3,8 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 import { RotateCcw } from "lucide-react";
 
-import type { NavMenuType } from "@/src/lib/types";
-import { useNavMenus } from "@/src/hooks/api/useNavMenus";
+import type { NavMenuType } from "@/core/lib/types";
+import { useNavMenus } from "@/core/hooks/api/useNavMenus";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Role from "@/src/constants/role";
+import Role from "@/core/constants/role";
 import {
   deleteCategoryById,
   getCategoriesHandler,

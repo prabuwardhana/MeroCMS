@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import { withFallback } from "vike-react-query";
 import { CirclePlus, RotateCcw } from "lucide-react";
 
-import type { CategoryType } from "@/src/lib/types";
-import { useCategories } from "@/src/hooks/api/useCategories";
+import type { CategoryType } from "@/core/lib/types";
+import { useCategories } from "@/core/hooks/api/useCategories";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";

@@ -1,5 +1,5 @@
-import API from "@/src/config/apiClient";
-import type { NavMenuResponseType, NavMenuType } from "@/src/lib/types";
+import API from "@/core/config/apiClient";
+import type { NavMenuResponseType, NavMenuType } from "@/core/lib/types";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { navigate } from "vike/client/router";

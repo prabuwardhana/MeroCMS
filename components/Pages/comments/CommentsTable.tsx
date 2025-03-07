@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import { withFallback } from "vike-react-query";
 import { RotateCcw, ShieldAlert, ShieldCheck } from "lucide-react";
 
-import type { CommentType, PostType } from "@/src/lib/types";
-import { useComments } from "@/src/hooks/api/useComments";
+import type { CommentType, PostType } from "@/core/lib/types";
+import { useComments } from "@/core/hooks/api/useComments";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";

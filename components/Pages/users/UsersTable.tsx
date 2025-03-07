@@ -3,8 +3,8 @@ import { navigate } from "vike/client/router";
 import { withFallback } from "vike-react-query";
 import { RotateCcw, ShieldAlert, ShieldCheck } from "lucide-react";
 
-import { useUsers } from "@/src/hooks/api/useUsers";
-import type { User } from "@/src/lib/types";
+import { useUsers } from "@/core/hooks/api/useUsers";
+import type { User } from "@/core/lib/types";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";

@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CloudUpload } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
-import { cn } from "@/src/lib/utils";
-import { useFileUploadStore } from "@/src/store/fileUploadStore";
-import { opacityVariants } from "@/src/constants/framerMotion";
-import { useImages } from "@/src/hooks/api/useImages";
+import { cn } from "@/core/lib/utils";
+import { useFileUploadStore } from "@/core/store/fileUploadStore";
+import { opacityVariants } from "@/core/constants/framerMotion";
+import { useImages } from "@/core/hooks/api/useImages";
 
 import UploadProgressCard from "@/components/UploadProgressCard";
 import Container from "@/components/Container";

@@ -1,6 +1,6 @@
-import { createCounterStore } from "@/src/store/counterStore";
+import { createCounterStore } from "@/core/store/counterStore";
 import { PageContext } from "vike/types";
-import API from "@/src/config/apiClient";
+import API from "@/core/config/apiClient";
 
 export async function onBeforeRenderClient(pageContext: PageContext) {
   const { user, isValidToken } = pageContext;

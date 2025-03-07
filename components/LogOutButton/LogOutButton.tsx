@@ -1,7 +1,7 @@
 import React from "react";
 import { LogOut } from "lucide-react";
 
-import { useAuth } from "@/src/hooks/api/useAuth";
+import { useAuth } from "@/core/hooks/api/useAuth";
 
 import { Button } from "@/components/ui/button";
 

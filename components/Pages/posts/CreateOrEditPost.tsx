@@ -6,14 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { withFallback } from "vike-react-query";
 import { CirclePlus, Eye, Globe, GlobeLock, Loader2, RotateCcw, Save, SquareArrowOutUpRight } from "lucide-react";
 
-import type { PostType, CloudinaryResourceType } from "@/src/lib/types";
-import { useCharacterCounter } from "@/src/hooks/useCharacterCounter";
-import { dateStringOptions } from "@/src/constants/dateTimeOptions";
-import { useCategories } from "@/src/hooks/api/useCategories";
-import { useAutoSave } from "@/src/hooks/useAutoSave";
-import { usePosts } from "@/src/hooks/api/usePosts";
-import { postFormSchema } from "@/src/lib/schemas";
-import { cn, slugify } from "@/src/lib/utils";
+import type { PostType, CloudinaryResourceType } from "@/core/lib/types";
+import { useCharacterCounter } from "@/core/hooks/useCharacterCounter";
+import { dateStringOptions } from "@/core/constants/dateTimeOptions";
+import { useCategories } from "@/core/hooks/api/useCategories";
+import { useAutoSave } from "@/core/hooks/useAutoSave";
+import { usePosts } from "@/core/hooks/api/usePosts";
+import { postFormSchema } from "@/core/lib/schemas";
+import { cn, slugify } from "@/core/lib/utils";
 
 import { type CustomBlockNoteEditor, CustomPartialBlock, Editor, schema } from "@/components/Blocknote";
 import ImageManagerDialog from "@/components/Dialogs/CoverImageDialog";

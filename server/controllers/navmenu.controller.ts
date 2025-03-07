@@ -1,4 +1,4 @@
-import { NOT_FOUND, OK } from "@/src/constants/http";
+import { NOT_FOUND, OK } from "@/core/constants/http";
 import appAssert from "../utils/appAssert";
 import catchErrors from "../utils/catchErrors";
 import NavMenuModel from "../models/navmenu.model";

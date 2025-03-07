@@ -4,7 +4,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { CircleCheck, Copy } from "lucide-react";
 import { toast } from "sonner";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/core/lib/utils";
 
 interface CodeBlockProps {
   code?: string;

@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/core/lib/utils";
 import type { NestableItemProps, Item } from "./libs/types";
 
 const NestableListItem = ({ item, isCopy, options, index, depth }: NestableItemProps) => {

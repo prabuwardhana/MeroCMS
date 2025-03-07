@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/core/lib/utils";
 import logoUrl from "@/assets/logo.svg";
 
 export const Logo = ({ className }: { className?: string }) => {

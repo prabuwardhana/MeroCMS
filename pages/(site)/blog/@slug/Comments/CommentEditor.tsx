@@ -2,8 +2,8 @@ import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { CommentMutationResponseType, CommentType } from "@/src/lib/types";
-import { commentFormSchema } from "@/src/lib/schemas";
+import type { CommentMutationResponseType, CommentType } from "@/core/lib/types";
+import { commentFormSchema } from "@/core/lib/schemas";
 
 import { RichText } from "@/components/Field/TextInputs";
 import { Button } from "@/components/ui/button";

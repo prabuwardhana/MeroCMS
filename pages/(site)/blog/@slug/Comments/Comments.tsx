@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { withFallback } from "vike-react-query";
-import { CommentType } from "@/src/lib/types";
+import { CommentType } from "@/core/lib/types";
 import Preloader from "@/components/Preloader";
 import { Button } from "@/components/ui/button";
 import { CommentEditor } from "./CommentEditor";

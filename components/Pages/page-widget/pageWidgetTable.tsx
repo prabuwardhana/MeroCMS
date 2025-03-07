@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import { withFallback } from "vike-react-query";
 import { CirclePlus, RotateCcw } from "lucide-react";
 
-import { usePageWidgets } from "@/src/hooks/api/usePageComponents";
-import type { PageWidgetType } from "@/src/lib/types";
+import { usePageWidgets } from "@/core/hooks/api/usePageComponents";
+import type { PageWidgetType } from "@/core/lib/types";
 
 import { DeleteConfirmationDialog } from "@/components/Dialogs";
 import { SkeletonTable } from "@/components/Skeletons";
