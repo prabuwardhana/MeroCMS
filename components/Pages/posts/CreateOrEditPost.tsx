@@ -395,7 +395,7 @@ export const CreateOrEditPost = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-[84px] flex h-[calc(100vh-84px)] basis-1/4 flex-col overflow-y-hidden">
+              <aside className="sticky top-[84px] flex h-[calc(100vh-84px)] basis-1/4 flex-col overflow-y-auto">
                 <Accordion className="border-b text-sm" title="Cover Image" open={true}>
                   <ImageSetter
                     type="Cover"

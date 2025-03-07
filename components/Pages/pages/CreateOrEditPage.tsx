@@ -423,56 +423,54 @@ export const CreateOrEditPage = withFallback(
                   )}
                 />
               </main>
-              <aside className="sticky top-[84px] flex h-[calc(100vh-84px)] basis-1/4 flex-col overflow-y-hidden">
-                <div className="">
-                  <Accordion className="border-b text-sm" title="Hero Image" open={true}>
-                    <ImageSetter
-                      type="Hero"
-                      imageUrl={coverImageUrl}
-                      onSetImageClick={() => setIsDialogOpen(true)}
-                      onRemoveImageClick={() => {
-                        setCoverImageUrl("");
-                        setSelectedCoverImages([]);
-                      }}
-                    />
-                  </Accordion>
-                  <Accordion title="Page Widgets" className="border-b text-sm space-y-2">
-                    {pageWidgets.map((pageWidget) => (
-                      <PageWidgetButton key={pageWidget._id?.toString()} pageWidget={pageWidget} />
-                    ))}
-                  </Accordion>
-                  <Accordion className="border-b text-sm" title="Meta Description">
-                    <FormField
-                      control={formMethods.control}
-                      name="excerpt"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormDescription className="text-xs">
-                            Short and relevant summary of what this page is about.
-                          </FormDescription>
-                          <FormControl>
-                            <Textarea
-                              className="box-border min-h-[156px] bg-background"
-                              onChange={(e) => {
-                                // send back data to hook form (update formState)
-                                field.onChange(e.target.value);
+              <aside className="sticky top-[84px] flex h-[calc(100vh-84px)] basis-1/4 flex-col overflow-y-auto">
+                <Accordion className="border-b text-sm" title="Hero Image" open={true}>
+                  <ImageSetter
+                    type="Hero"
+                    imageUrl={coverImageUrl}
+                    onSetImageClick={() => setIsDialogOpen(true)}
+                    onRemoveImageClick={() => {
+                      setCoverImageUrl("");
+                      setSelectedCoverImages([]);
+                    }}
+                  />
+                </Accordion>
+                <Accordion title="Page Widgets" className="border-b text-sm space-y-2">
+                  {pageWidgets.map((pageWidget) => (
+                    <PageWidgetButton key={pageWidget._id?.toString()} pageWidget={pageWidget} />
+                  ))}
+                </Accordion>
+                <Accordion className="border-b text-sm" title="Meta Description">
+                  <FormField
+                    control={formMethods.control}
+                    name="excerpt"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormDescription className="text-xs">
+                          Short and relevant summary of what this page is about.
+                        </FormDescription>
+                        <FormControl>
+                          <Textarea
+                            className="box-border min-h-[156px] bg-background"
+                            onChange={(e) => {
+                              // send back data to hook form (update formState)
+                              field.onChange(e.target.value);
 
-                                countCharacter(e.target.value.length as number);
-                              }}
-                              value={field.value}
-                              maxLength={maxLength}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <div className="flex justify-end text-xs">
-                      <span className={cn("", textLength > maxLength - 10 && "text-destructive")}>{textLength}</span>/
-                      {maxLength}
-                    </div>
-                  </Accordion>
-                </div>
+                              countCharacter(e.target.value.length as number);
+                            }}
+                            value={field.value}
+                            maxLength={maxLength}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex justify-end text-xs">
+                    <span className={cn("", textLength > maxLength - 10 && "text-destructive")}>{textLength}</span>/
+                    {maxLength}
+                  </div>
+                </Accordion>
               </aside>
             </div>
           </form>
