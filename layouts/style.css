@@ -1,3 +1,6 @@
+@import "./tailwind.css";
+@plugin "@tailwindcss/typography";
+
 /* Links */
 a {
   text-decoration: none;
