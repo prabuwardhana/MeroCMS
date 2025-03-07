@@ -47,7 +47,7 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
 
   return (
     <>
-      <Header className="flex justify-between items-center transition-color z-10 bg-background px-24 py-4 shadow-md">
+      <Header className="flex justify-between items-center transition-color z-50 bg-background px-24 py-4 shadow-md">
         <div className="basis-1/4">
           <Logo />
         </div>
