@@ -43,7 +43,7 @@ export const DataTableRowActions = <TData,>({
             <DropdownMenuSeparator />
           </>
         )}
-        {onReply && (
+        {onReply && (row.original as CommentType).approved && (
           <>
             <DropdownMenuItem onClick={() => onReply(row.original)} className="cursor-pointer">
               <Reply />
