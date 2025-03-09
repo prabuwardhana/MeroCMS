@@ -14,7 +14,7 @@ import { BlockNoteView } from "@blocknote/shadcn";
 
 // local import
 import { useTheme } from "@/core/hooks/useTheme";
-import API from "@/core/config/apiClient";
+import { CloudinaryClient } from "@/core/config/apiClient";
 import { insertCodeEditor } from "./custom-blocks/CodeBlockEditor/insertCodeEditor";
 import type { CustomBlockNoteEditor, CustomPartialBlock } from "./types";
 import { insertAlert } from "./custom-blocks/Alert/insertAlert";
@@ -36,7 +36,7 @@ async function uploadFile(file: File) {
   formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
   formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
-  const res = await API.post(
+  const res = await CloudinaryClient.post(
     `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
     formData,
     {
