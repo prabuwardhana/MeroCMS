@@ -59,9 +59,12 @@ export const usePosts = (
       return API.patch<PostMutationResponseType>(`/api/post/publish/${id}`);
     },
     onSuccess: async (response) => {
-      await queryClient.invalidateQueries({ queryKey: ["post", id] });
-      if (setIsPublishing) setIsPublishing(false);
-      toast(`The post has been ${response.data.post.published ? "published" : "unpublished"} succesfully.`);
+      await queryClient.invalidateQueries({ queryKey: ["posts"] });
+      if (id) {
+        await queryClient.invalidateQueries({ queryKey: ["post", id] });
+        if (setIsPublishing) setIsPublishing(false);
+        toast(`The post has been ${response.data.post.published ? "published" : "unpublished"} succesfully.`);
+      }
     },
   });
 

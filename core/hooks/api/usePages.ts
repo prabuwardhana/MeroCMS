@@ -52,9 +52,12 @@ export const usePages = (
     },
     onSuccess: async (response) => {
       await queryClient.invalidateQueries({ queryKey: ["pages"] });
-      await queryClient.invalidateQueries({ queryKey: ["page", id] });
       if (setIsPublishing) setIsPublishing(false);
-      toast(`The page has been ${response.data.page.published ? "published" : "unpublished"} succesfully.`);
+      if (id) {
+        await queryClient.invalidateQueries({ queryKey: ["page", id] });
+        if (setIsPublishing) setIsPublishing(false);
+        toast(`The page has been ${response.data.page.published ? "published" : "unpublished"} succesfully.`);
+      }
     },
   });
 
