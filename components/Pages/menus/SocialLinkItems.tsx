@@ -1,6 +1,14 @@
 import React, { type ChangeEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { FaXTwitter, FaSquareFacebook, FaSquareInstagram, FaTiktok, FaLinkedin } from "react-icons/fa6";
+import {
+  FaXTwitter,
+  FaSquareFacebook,
+  FaSquareInstagram,
+  FaTiktok,
+  FaLinkedin,
+  FaGithub,
+  FaDiscord,
+} from "react-icons/fa6";
 
 import { useNestableItemsContext } from "@/components/NestableList/providers/useNestableItemsContext";
 import { DropdownSelectWithIcon } from "@/components/Dropdowns";
@@ -29,6 +37,14 @@ export const socialIcons = [
   {
     name: "linkedin",
     icon: FaLinkedin,
+  },
+  {
+    name: "github",
+    icon: FaGithub,
+  },
+  {
+    name: "discord",
+    icon: FaDiscord,
   },
 ];
 

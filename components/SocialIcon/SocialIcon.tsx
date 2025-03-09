@@ -1,7 +1,15 @@
 import React from "react";
 import { type IconType } from "react-icons";
 
-import { FaXTwitter, FaSquareFacebook, FaSquareInstagram, FaTiktok, FaLinkedin } from "react-icons/fa6";
+import {
+  FaXTwitter,
+  FaSquareFacebook,
+  FaSquareInstagram,
+  FaTiktok,
+  FaLinkedin,
+  FaDiscord,
+  FaGithub,
+} from "react-icons/fa6";
 
 const socialIcons: Record<string, IconType> = {
   twitter: FaXTwitter,
@@ -9,6 +17,8 @@ const socialIcons: Record<string, IconType> = {
   instagram: FaSquareInstagram,
   tiktok: FaTiktok,
   linkedin: FaLinkedin,
+  github: FaGithub,
+  discord: FaDiscord,
 };
 
 interface SocialIconProps {
