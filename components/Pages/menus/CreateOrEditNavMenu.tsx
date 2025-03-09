@@ -13,7 +13,7 @@ export const CreateOrEditNavMenu = withFallback(
   () => {
     return (
       <NestableItemsProvider>
-        <div className="flex flex-col flex-grow md:flex-row max-w-screen-md gap-x-6">
+        <div className="flex flex-col flex-grow md:flex-row max-w-screen-md gap-x-6 pb-10">
           <div className="basis-1/2">
             <h2 className="mb-2">Add Menu Item</h2>
             <AddItemForm />
