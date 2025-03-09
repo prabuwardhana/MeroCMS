@@ -47,14 +47,15 @@
   align-items: center;
   margin-left: 12px;
   margin-right: 12px;
-  height: 18px;
-  width: 18px;
+  height: 24px;
+  width: 24px;
   user-select: none;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .alert-icon[data-alert-icon-type="warning"] {
-  color: #e69819;
+  color: #ff9d00;
 }
 
 .alert-icon[data-alert-icon-type="error"] {
