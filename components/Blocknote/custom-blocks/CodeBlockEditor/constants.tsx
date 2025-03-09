@@ -1,4 +1,4 @@
-import { SiCss3, SiJavascript, SiReact, SiTypescript } from "react-icons/si";
+import { SiCss3, SiHtml5, SiJavascript, SiJson, SiReact, SiTypescript } from "react-icons/si";
 
 export const langTypes = [
   {
@@ -20,5 +20,13 @@ export const langTypes = [
   {
     name: "tsx",
     icon: SiReact,
+  },
+  {
+    name: "html",
+    icon: SiHtml5,
+  },
+  {
+    name: "json",
+    icon: SiJson,
   },
 ];
