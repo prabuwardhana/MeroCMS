@@ -1,4 +1,3 @@
-import API from "@/core/config/apiClient";
 import type { NavMenuType } from "@/core/lib/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
@@ -7,12 +6,15 @@ export const useSiteLayout = () => {
     const { data: navMenuQuery } = useSuspenseQuery({
       queryKey: ["nav-menu", title],
       queryFn: async () => {
-        return await API.get<NavMenuType>(`/api/site/nav/${title}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/site/nav/${title}`,
+        );
+        return (await response.json()) as NavMenuType;
       },
       staleTime: Infinity,
     });
 
-    return navMenuQuery?.data;
+    return navMenuQuery;
   };
 
   return { getNavMenuByTitle };
