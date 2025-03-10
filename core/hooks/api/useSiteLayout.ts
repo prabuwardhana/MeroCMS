@@ -6,9 +6,7 @@ export const useSiteLayout = () => {
     const { data: navMenuQuery } = useSuspenseQuery({
       queryKey: ["nav-menu", title],
       queryFn: async () => {
-        const response = await fetch(
-          `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/site/nav/${title}`,
-        );
+        const response = await fetch(`${import.meta.env.BASE_URL}:${import.meta.env.PORT}/api/site/nav/${title}`);
         return (await response.json()) as NavMenuType;
       },
       staleTime: Infinity,

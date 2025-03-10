@@ -25,7 +25,7 @@ const Comments = withFallback(
       queryKey: ["comments", routeParams.slug],
       queryFn: async () => {
         const response = await fetch(
-          `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/comment/post/${routeParams.slug}`,
+          `${import.meta.env.BASE_URL}:${import.meta.env.PORT}/api/comment/post/${routeParams.slug}`,
         );
         return (await response.json()) as CommentType[];
       },

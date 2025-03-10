@@ -13,7 +13,7 @@ export const data = async (pageContext: PageContextServer) => {
   const config = useConfig();
 
   const response = await fetch(
-    `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/site/blog/${pageContext.routeParams.slug}`,
+    `${import.meta.env.BASE_URL}:${import.meta.env.PORT}/api/site/blog/${pageContext.routeParams.slug}`,
   );
   const post = (await response.json()) as PostDtoType;
 
