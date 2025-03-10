@@ -20,6 +20,16 @@ body.page-is-transitioning #page-content {
   height: 1em;
 }
 
+.bn-block-content a {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #7c3aed;
+}
+
+.bn-block-content a:hover {
+  color: #5b21b6;
+}
+
 /* BlockNote editor preview */
 .preview .bn-editor {
   padding-inline: 0px;
@@ -27,4 +37,10 @@ body.page-is-transitioning #page-content {
 
 .preview .bn-default-styles {
   font-family: Poppins, sans-serif;
+}
+
+/* offset for anchor link */
+h2.anchor {
+  padding-top: 140px;
+  margin-top: -140px;
 }
