@@ -9,6 +9,11 @@ import { CommentEditor } from "./CommentEditor";
 import { Comment } from "./Comment";
 import { RotateCcw } from "lucide-react";
 
+const baseURL =
+  import.meta.env.MODE === "development"
+    ? `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}`
+    : `${import.meta.env.VITE_APP_BASE_URL}`;
+
 interface CommentsProp {
   commentCount: number;
   onCommentCountChange: (count: number) => void;
@@ -24,9 +29,7 @@ const Comments = withFallback(
     const { data: commentsData } = useSuspenseQuery({
       queryKey: ["comments", routeParams.slug],
       queryFn: async () => {
-        const response = await fetch(
-          `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/comment/post/${routeParams.slug}`,
-        );
+        const response = await fetch(`${baseURL}/api/comment/post/${routeParams.slug}`);
         return (await response.json()) as CommentType[];
       },
     });
