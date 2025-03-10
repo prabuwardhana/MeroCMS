@@ -12,7 +12,9 @@ export const data = async (pageContext: PageContextServer) => {
   // https://vike.dev/useConfig
   const config = useConfig();
 
-  const response = await fetch(`http://localhost:3000/api/site/blog/${pageContext.routeParams.slug}`);
+  const response = await fetch(
+    `${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/site/blog/${pageContext.routeParams.slug}`,
+  );
   const post = (await response.json()) as PostDtoType;
 
   const { title, excerpt, slug, author, categories, coverImage: image, documentHtml, commentCount, updatedAt } = post;

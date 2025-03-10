@@ -12,7 +12,7 @@ export const data = async (_pageContext: PageContextServer) => {
   // https://vike.dev/useConfig
   const config = useConfig();
 
-  const response = await fetch("http://localhost:3000/api/site/page/about");
+  const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}:${import.meta.env.VITE_PORT}/api/site/page/about`);
   const page = (await response.json()) as PageDtoType;
 
   const { title, excerpt, coverImageUrl, content } = page;
