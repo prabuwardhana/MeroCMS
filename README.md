@@ -1,81 +1,76 @@
-Generated with [Bati](https://batijs.dev) ([version 325](https://www.npmjs.com/package/create-bati/v/0.0.325)) using this command:
+# **Mero – Open-Source CMS for React Developers**
 
-```sh
-npm create bati --- --react --tailwindcss --shadcn-ui --express --eslint --prettier
+🚀 **Flexible, developer-friendly CMS with SSR support, an SPA admin dashboard, for easy deployment.**  
+
+![Mero Logo](https://res.cloudinary.com/dbiz9gtrh/image/upload/v1741272023/rwy9vah2ilip3sg6bstm.svg)  
+
+---
+
+## ✨ What is Mero?
+
+Mero is an **open-source CMS** designed for **freelance React developers** and small agencies who want a **fast, flexible, and easy-to-deploy** content management solution.  
+
+✅ **Server-Side Rendering (SSR) for SEO-friendly frontends**  
+✅ **Single Page Application (SPA) admin dashboard for smooth user experience**  
+✅ **Customizable content structures—define your own JSON models**  
+✅ **Single-server deployment—backend and frontend in one place**  
+✅ **Built-in authentication and user management**  
+
+---
+
+## 🎯 Who is Mero for?
+
+- **Freelance React developers** delivering projects to small businesses  
+- **Agencies** needing a lightweight, customizable CMS  
+- **Developers** looking for a simple yet powerful content management system  
+
+---
+
+## 📦 Features
+
+- 🛠 **Easy content management** – Define custom content structures using JSON  
+- 🌐 **SEO-friendly** – Optimized for **Server-Side Rendering (SSR)**  
+- ⚡ **Smooth admin experience** – Built as a **Single Page Application (SPA)**  
+- 🎯 **Single-server deployment** – No need for separate backend and frontend servers  
+- 🔑 **User authentication & management** – Built-in access control  
+
+---
+
+## 🚀 Getting Started  
+
+### 1️⃣ Installation  
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/prabuwardhana/MeroCMS.git  
+cd mero  
+npm install  
 ```
 
-## Contents
+### 2️⃣ Running the Project  
 
-* [React](#react)
+Start the development server:
 
-  * [`/pages/+config.ts`](#pagesconfigts)
-  * [Routing](#routing)
-  * [`/pages/_error/+Page.jsx`](#pages_errorpagejsx)
-  * [`/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`](#pagesonpagetransitionstartts-and-pagesonpagetransitionendts)
-  * [SSR](#ssr)
-  * [HTML Streaming](#html-streaming)
+```bash
+npm run dev
+```
 
-* [shadcn/ui](#shadcnui)
+---
 
-  * [Configuration](#configuration)
-  * [Add Components to Your Project](#add-components-to-your-project)
+## 🛠 Contributing
 
-## React
+Mero is an open-source project and is looking for early contributors! You can help by:
 
-This app is ready to start. It's powered by [Vike](https://vike.dev) and [React](https://react.dev/learn).
+- 🐛 Reporting bugs and requesting features
+- 📖 Improving documentation
+- 💻 Contributing to the codebase
 
-### `/pages/+config.ts`
+Want to get involved? Fork the repo, submit a PR, and help shape Mero! 🚀
 
-Such `+` files are [the interface](https://vike.dev/config) between Vike and your code. It defines:
+---
 
-* A default [`<Layout>` component](https://vike.dev/Layout) (that wraps your [`<Page>` components](https://vike.dev/Page)).
-* A default [`title`](https://vike.dev/title).
-* Global [`<head>` tags](https://vike.dev/head-tags).
+## 📬 Stay Updated
 
-### Routing
-
-[Vike's built-in router](https://vike.dev/routing) lets you choose between:
-
-* [Filesystem Routing](https://vike.dev/filesystem-routing) (the URL of a page is determined based on where its `+Page.jsx` file is located on the filesystem)
-* [Route Strings](https://vike.dev/route-string)
-* [Route Functions](https://vike.dev/route-function)
-
-### `/pages/_error/+Page.jsx`
-
-The [error page](https://vike.dev/error-page) which is rendered when errors occur.
-
-### `/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`
-
-The [`onPageTransitionStart()` hook](https://vike.dev/onPageTransitionStart), together with [`onPageTransitionEnd()`](https://vike.dev/onPageTransitionEnd), enables you to implement page transition animations.
-
-### SSR
-
-SSR is enabled by default. You can [disable it](https://vike.dev/ssr) for all your pages or only for some pages.
-
-### HTML Streaming
-
-You can enable/disable [HTML streaming](https://vike.dev/stream) for all your pages, or only for some pages while still using it for others.
-
-## shadcn/ui
-
-Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.
-
-### Configuration
-
-see [shadcn/ui theming](https://ui.shadcn.com/docs/theming)
-
-Base Configuration can be found in `components.json` file.
-
-> \[!NOTE]
-> changes to the `components.json` file **will not** be reflected in existing components. Only new components will be affected.
-
-### Add Components to Your Project
-
-**Example:** add a component to your project.
-`pnpm shadcn add button`
-
-use the `<Button />` component in your project:
-`import { Button } from "@/components/ui/button";`
-
-more [shadcn/ui components](https://ui.shadcn.com/docs/components/accordion)
-
+🌍 [Website](https://merocms-uavk.onrender.com/)
+📖 [Documentation](https://merocms-uavk.onrender.com/guides/introduction)
