@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "tsx ./express-entry.ts",
     "build": "vite build",
+    "prod": "npm install && npm run build",
     "preview": "cross-env NODE_ENV=production tsx ./express-entry.ts",
     "lint": "eslint .",
     "shadcn": "npx shadcn@latest"
