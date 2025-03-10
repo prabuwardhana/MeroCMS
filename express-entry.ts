@@ -6,7 +6,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import { APP_BASE_URL, NODE_ENV } from "./server/constants/env";
+import { BASE_URL, NODE_ENV } from "./server/constants/env";
 import { OK } from "./core/constants/http";
 import connectToDatabase from "./server/config/db";
 import verifyAuthCookies from "./server/middlewares/session";
@@ -52,7 +52,7 @@ async function startServer() {
   app.use(express.urlencoded({ extended: true }));
   app.use(
     cors({
-      origin: APP_BASE_URL,
+      origin: BASE_URL,
       credentials: true,
     }),
   );
@@ -88,7 +88,7 @@ async function startServer() {
   app.use(errorHandler);
 
   app.listen(port, () => {
-    console.log(`Server running at ${APP_BASE_URL}:${port} in ${NODE_ENV} environment`);
+    console.log(`Server running at ${BASE_URL}:${port} in ${NODE_ENV} environment`);
     connectToDatabase();
   });
 

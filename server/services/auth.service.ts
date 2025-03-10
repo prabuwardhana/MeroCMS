@@ -1,7 +1,7 @@
 import { CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, TOO_MANY_REQUESTS, UNAUTHORIZED } from "@/core/constants/http";
 import Role from "@/core/constants/role";
 import VerificationCodeType from "../constants/verificationCodeType";
-import { APP_BASE_URL, PORT } from "../constants/env";
+import { BASE_URL, PORT } from "../constants/env";
 import { fiveMinutesAgo, ONE_DAY_MS, oneHourFromNow, oneYearFromNow, thirtyDaysFromNow } from "../utils/date";
 import { getPasswordResetTemplate, getVerifyEmailTemplate } from "../utils/emailTemplates";
 import { hashValue } from "../utils/bcrypt";
@@ -47,7 +47,7 @@ export const createAccount = async (data: CreateAccountParams) => {
     expiresAt: oneYearFromNow(),
   });
 
-  const url = `${APP_BASE_URL}:${PORT}/api/auth/email/verify/${verificationCode._id}`;
+  const url = `${BASE_URL}:${PORT}/api/auth/email/verify/${verificationCode._id}`;
 
   // send verification email
   const { error } = await sendMail({
@@ -224,7 +224,7 @@ export const sendPasswordResetEmail = async (email: string) => {
       expiresAt,
     });
 
-    const url = `${APP_BASE_URL}:${PORT}/auth/reset-password?code=${verificationCode._id}&exp=${expiresAt.getTime()}`;
+    const url = `${BASE_URL}:${PORT}/auth/reset-password?code=${verificationCode._id}&exp=${expiresAt.getTime()}`;
 
     const { data, error } = await sendMail({
       to: email,
