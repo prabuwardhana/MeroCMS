@@ -72,5 +72,5 @@ Want to get involved? Fork the repo, submit a PR, and help shape Mero! 🚀
 
 ## 📬 Stay Updated
 
-🌍 [Website](https://merocms-uavk.onrender.com/)
-📖 [Documentation](https://merocms-uavk.onrender.com/guides/introduction)
+🌍 [Website](https://merocms.dev/)
+📖 [Documentation](https://merocms.dev/guides/introduction)
