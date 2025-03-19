@@ -9,7 +9,7 @@ export default function Page() {
       <section className="grid grid-flow-row auto-rows-max text-center bg-slate-50">
         <div className="bg-gradient-to-b from-violet-200 to-slate-50 flex justify-center px-6 lg:px-0">
           <div className="prose lg:prose-lg prose-headings:my-0 prose-a:no-underline prose-a:text-violet-100 space-y-6">
-            <div className="justify-center pt-20 lg:pb-20">
+            <div className="justify-center pt-10 lg:pt-20 lg:pb-20">
               <h1 className="text-violet-800 font-bold leading-tight">
                 {content["Long-Text-With-Link-0"]["headline"]}
               </h1>
