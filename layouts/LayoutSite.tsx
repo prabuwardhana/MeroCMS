@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { cn } from "@/core/lib/utils";
 
@@ -22,63 +22,86 @@ import "@fontsource/poppins";
 import "./style.css";
 
 export default function LayoutSite({ children }: { children: React.ReactNode }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const { getNavMenuByTitle } = useSiteLayout();
   const headerMenu = getNavMenuByTitle("Header Menu");
   const footerMenu = getNavMenuByTitle("Footer Menu");
   const socialLinks = getNavMenuByTitle("Social Links");
   const communityLinks = getNavMenuByTitle("Community Link");
 
+  const headerMenuItems = (className?: string) =>
+    headerMenu.navItems.map((menu) => {
+      return menu.children && menu.children.length ? (
+        <NavigationMenuItem key={menu.id}>
+          <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {(menu.children as Item[]).map((item) => {
+                return (
+                  <ListItem key={item.id} title={item.name} href={item.url}>
+                    {item.description}
+                  </ListItem>
+                );
+              })}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      ) : (
+        <li key={menu.id} className={cn("cursor-pointer", navigationMenuTriggerStyle(), className)}>
+          <Link href={menu.url} className="text-violet-800">
+            <div className="font-medium leading-none">{menu.name}</div>
+          </Link>
+        </li>
+      );
+    });
+
   return (
     <>
-      <header className="sticky top-0 w-full flex justify-between items-center transition-color z-50 bg-background px-24 py-4 shadow-md">
-        <div className="basis-1/4">
-          <Logo />
-        </div>
-        <NavigationMenu className="basis-1/2 text-slate-600">
-          <NavigationMenuList>
-            {headerMenu.navItems.map((menu) => {
-              return menu.children && menu.children.length ? (
-                <NavigationMenuItem key={menu.id}>
-                  <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                      {(menu.children as Item[]).map((item) => {
-                        return (
-                          <ListItem key={item.id} title={item.name} href={item.url}>
-                            {item.description}
-                          </ListItem>
-                        );
-                      })}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              ) : (
-                <li key={menu.id} className={cn("cursor-pointer", navigationMenuTriggerStyle())}>
-                  <Link href={menu.url} className="text-violet-800">
-                    <div className="text-sm font-medium leading-none">{menu.name}</div>
-                  </Link>
-                </li>
+      <header className="sticky top-0 h-[72px] w-full transition-color z-50 bg-background px-4 xl:px-24 py-4 shadow-md">
+        <section className="flex justify-between items-center">
+          <div className="basis-1/4">
+            <Logo />
+          </div>
+          <NavigationMenu className="basis-1/2 text-slate-600 hidden md:flex">
+            <NavigationMenuList>{headerMenuItems()}</NavigationMenuList>
+          </NavigationMenu>
+          <div className="hidden md:flex justify-end items-center gap-4 text-slate-600 basis-1/4">
+            {communityLinks.navItems.map((item) => {
+              return (
+                <a key={item.id} href={item.url}>
+                  <SocialIcon name={item.name} size="36" />
+                </a>
               );
             })}
-          </NavigationMenuList>
-        </NavigationMenu>
-        <div className="flex justify-end items-center gap-4 text-slate-600 basis-1/4">
-          {communityLinks.navItems.map((item) => {
-            return (
-              <a key={item.id} href={item.url}>
-                <SocialIcon name={item.name} size="36" />
-              </a>
-            );
-          })}
-        </div>
+          </div>
+          <button
+            className={cn("text-3xl md:hidden cursor-pointer relative w-8 h-8", isMenuOpen && "toggle-btn")}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <div className="absolute top-4 -mt-0.5 h-1 w-8 rounded bg-slate-600 transition-all duration-500 before:absolute before:h-1 before:w-8 before:-translate-x-4 before:-translate-y-3 before:rounded before:bg-slate-600 before:transition-all before:duration-500 before:content-[''] after:absolute after:h-1 after:w-8 after:-translate-x-4 after:translate-y-3 after:rounded after:bg-slate-600 after:transition-all after:duration-500 after:content-['']"></div>
+          </button>
+        </section>
+        <section
+          className={cn(
+            "top-[72px] left-0 justify-center absolute w-full flex-col bg-white",
+            isMenuOpen && "flex",
+            !isMenuOpen && "hidden",
+          )}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
+          <nav className="min-h-screen items-center py-8 origin-top animate-open-menu" aria-label="mobile">
+            <ul className="flex flex-col justify-center items-center space-y-4">{headerMenuItems("text-3xl")}</ul>
+          </nav>
+        </section>
       </header>
       <div
         id="sticky-banner"
         tabIndex={-1}
-        className="sticky top-[72px] start-0 z-40 py-4 h-[58px] flex justify-between w-full bg-rose-500 "
+        className="sticky top-[72px] start-0 z-40 p-4 h-[78px] md:h-[58px] flex justify-between w-full bg-rose-500"
       >
         <div className="flex items-center mx-auto">
-          <p className="flex items-center text-sm font-normal text-destructive-foreground">
+          <p className="flex items-center text-xs font-normal text-destructive-foreground">
             <span className="inline-flex p-1 me-3 bg-gray-200 rounded-full dark:bg-gray-600 w-6 h-6 items-center justify-center shrink-0">
               <svg
                 className="w-3 h-3 text-gray-500 dark:text-gray-400"
@@ -104,14 +127,14 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
       <div id="page-container" className="w-full">
         <Content>{children}</Content>
       </div>
-      <footer className="w-full flex flex-col pt-20 px-24 bg-slate-50 text-slate-600">
-        <div className="flex justify-between w-full pb-6 border-b">
+      <footer className="w-full flex flex-col pt-20 px-4 xl:px-24 bg-slate-50 text-slate-600">
+        <div className="flex flex-col gap-8 justify-between w-full pb-6 border-b">
           <div className="space-y-4">
             <Logo />
             <div className="text-xs text-slate-500">{"Build Faster. Deploy Smarter. Stay in Control."}</div>
           </div>
           <nav>
-            <ul className="flex gap-20">
+            <ul className="flex flex-col gap-8 xl:gap-20">
               {footerMenu.navItems.map((menu) => {
                 return menu.children && menu.children.length ? (
                   <li key={menu.id} className="cursor-pointer space-y-4">
