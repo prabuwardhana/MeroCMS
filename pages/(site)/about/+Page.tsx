@@ -39,7 +39,7 @@ export default function Page() {
 
   return (
     <>
-      <section className="flex justify-center py-24 prose-neutral">
+      <section className="flex justify-center py-10 px-10 md:py-24 md:px-0 prose-neutral">
         <div
           dangerouslySetInnerHTML={{ __html: content as string }}
           className="prose prose-p:prose-strong:text-slate-600 prose-p:text-slate-600 lg:prose-base prose-headings:text-slate-600 prose-headings:my-0 prose-a:text-violet-800 hover:prose-a:text-violet-500"
