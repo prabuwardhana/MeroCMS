@@ -4,6 +4,7 @@ import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
 import { visit } from "unist-util-visit";
+import { Element } from "hast";
 import type { Data } from "./+data.js";
 import { slugify } from "@/core/utils/slugify.js";
 
@@ -16,7 +17,7 @@ export default function Page() {
     })
     .use(() => {
       return (tree) => {
-        visit(tree, "element", function (node) {
+        visit(tree, "element", function (node: Element) {
           if (node.tagName === "h2") {
             node.children.forEach((children) => {
               // Workaround to make TypeScript happy.
