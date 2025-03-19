@@ -128,13 +128,13 @@ export default function LayoutSite({ children }: { children: React.ReactNode }) 
         <Content>{children}</Content>
       </div>
       <footer className="w-full flex flex-col pt-20 px-4 xl:px-24 bg-slate-50 text-slate-600">
-        <div className="flex flex-col gap-8 justify-between w-full pb-6 border-b">
+        <div className="flex flex-col md:flex-row gap-8 justify-between w-full pb-6 border-b">
           <div className="space-y-4">
             <Logo />
             <div className="text-xs text-slate-500">{"Build Faster. Deploy Smarter. Stay in Control."}</div>
           </div>
           <nav>
-            <ul className="flex flex-col gap-8 xl:gap-20">
+            <ul className="flex flex-col md:flex-row gap-8 xl:gap-20">
               {footerMenu.navItems.map((menu) => {
                 return menu.children && menu.children.length ? (
                   <li key={menu.id} className="cursor-pointer space-y-4">
